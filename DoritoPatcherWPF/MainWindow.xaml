@@ -58,7 +58,7 @@
             <Label x:Name="lblStatus" Content="Determining Status..." Foreground="Yellow" VerticalContentAlignment="Center" Padding="25,5,5,5" Background="{x:Null}" />
         </Border>
         <Border  HorizontalAlignment="Left" Margin="17.465,460.938,0,0" VerticalAlignment="Top" Width="159.766" Height="51" BorderBrush="White" BorderThickness="1"></Border>
-        <Button x:Name="btnAction" Content="Verifying Game..." HorizontalAlignment="Left" Margin="18.465,460.938,0,0" VerticalAlignment="Top" Width="158.766" Height="51" IsEnabled="False" Click="btnAction_Click" FontWeight="Bold" FontSize="18"/>
+        <Button x:Name="btnAction" Content="Verifying Game..." HorizontalAlignment="Left" Margin="18.465,460.938,0,0" VerticalAlignment="Top" Width="158.766" Height="51" IsEnabled="False" Click="btnAction_Click" FontWeight="Bold"/>
         <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Left" Margin="182.231,477.938,0,0" VerticalAlignment="Top" Width="154.468" Height="34" Click="btnIRC_Click"/>
         <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Left" Margin="346.997,477.938,0,0" VerticalAlignment="Top" Width="154.468" Height="34" Click="btnBug_Click"/>
         <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="6,-3.397,0,547.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" Grid.Column="1" FontSize="15" Width="49" Height="32" />
@@ -199,5 +199,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
     </Window.Resources>
 </Window>

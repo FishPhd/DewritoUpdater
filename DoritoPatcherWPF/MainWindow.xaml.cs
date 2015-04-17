@@ -58,6 +58,8 @@ namespace DoritoPatcherWPF
 
         private bool silentStart = false;
 
+        
+
         //Titlebar control
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -193,7 +195,10 @@ namespace DoritoPatcherWPF
                         }));
             if (silentStart)
             {
-                MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
+                //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
+                MsgBox MainWindow = new MsgBox("Sorry, you need to update before the game can be started silently.");
+                MainWindow.Show();
+
             }
         }
 
@@ -442,7 +447,9 @@ namespace DoritoPatcherWPF
                 }
                 catch
                 {
-                    MessageBox.Show("Game executable not found.");
+                    //MessageBox.Show("Game executable not found.");
+                    MsgBox MainWindow = new MsgBox("Game executable not found.");
+                    MainWindow.Show();
                 }
             }
             else if (button.Content == "Update Game")
@@ -470,13 +477,15 @@ namespace DoritoPatcherWPF
 
                 if (filesToDownload.Contains("DewritoUpdater.exe"))
                 {
-                    MessageBox.Show("Update complete! Please restart the launcher.", "ElDewrito Launcher");
-                    Application.Current.Shutdown();
+                    //MessageBox.Show("Update complete! Please restart the launcher.", "ElDewrito Launcher");
+                    //Application.Current.Shutdown();
+                    MsgBox MainWindow = new MsgBox("Update complete! Please restart the launcher.");
+                    MainWindow.Show();
+                    
                 }
 
                 button.Content = "Play Game";
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
-                MessageBox.Show("Update complete! Enjoy the game!", "ElDewrito Launcher");
             }
         }
 
