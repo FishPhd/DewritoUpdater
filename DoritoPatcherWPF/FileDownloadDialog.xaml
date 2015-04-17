@@ -1,0 +1,12 @@
+﻿<Window x:Class="DoritoPatcherWPF.FileDownloadDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Updating..." Height="100" Width="300" WindowStyle="None" BorderBrush="Black" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Background="White">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png"/>
+        </Grid.Background>
+        <ProgressBar x:Name="DownloadProgress" Margin="10,32,10,45" Foreground="#FF1E58AC"/>
+        <Label x:Name="lblStatus" Content="Waiting..." HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="30" Width="280" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
+    </Grid>
+</Window>
