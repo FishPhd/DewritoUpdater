@@ -196,7 +196,7 @@ namespace DoritoPatcherWPF
             if (silentStart)
             {
                 //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
-                MsgBox MainWindow = new MsgBox("Sorry, you need to update before the game can be started silently.");
+                MsgBox2 MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
                 MainWindow.Show();
 
             }
@@ -439,16 +439,15 @@ namespace DoritoPatcherWPF
             {
                 ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
-
                 try
                 {
                     Process.Start(sInfo);
-                    
+                    Close();
                 }
                 catch
                 {
                     //MessageBox.Show("Game executable not found.");
-                    MsgBox MainWindow = new MsgBox("Game executable not found.");
+                    MsgBox2 MainWindow = new MsgBox2("Game executable not found.");
                     MainWindow.Show();
                 }
             }

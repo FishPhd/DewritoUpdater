@@ -8,7 +8,7 @@
             <ImageBrush ImageSource="Resources/halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png"/>
         </Grid.Background>
         <Label x:Name="Msg" Content="Text" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="30" Width="280" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
-        <Button x:Name="btnOK" Content="Ok" HorizontalAlignment="Center" Click="Ok_Click" FontWeight="Bold" Margin="89,98,89,20" Width="122"/>
+        <Button x:Name="btnRestart" Content="Restart" HorizontalAlignment="Center" Click="Restart_Click" FontWeight="Bold" Margin="89,98,89,20" Width="122"/>
         <Border  HorizontalAlignment="Center"  BorderBrush="White" BorderThickness="1" Margin="89,98,89,20" Width="122"></Border>
         <Button x:Name="btnClose" Content="x" Click="CloseButton_Click" FontSize="15" Width="49" Height="32" Margin="251,0,0,118" />
     </Grid>

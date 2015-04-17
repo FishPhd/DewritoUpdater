@@ -54,3 +54,5 @@ C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\Do
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\DoritoPatcherWPF.csproj.GenerateResource.Cache
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox.baml
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox.g.cs
+C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox2.baml
+C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox2.g.cs

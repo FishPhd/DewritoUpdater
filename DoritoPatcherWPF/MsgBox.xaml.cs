@@ -25,10 +25,11 @@ namespace DoritoPatcherWPF
             Msg.Content = text;
         }
 
-        //Ok button (Shutdown)
-        private void Ok_Click(object sender, RoutedEventArgs e)
+        //Restart button
+        private void Restart_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
 
         //Titlebar control
