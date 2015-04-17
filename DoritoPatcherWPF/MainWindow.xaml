@@ -61,8 +61,8 @@
         <Button x:Name="btnAction" Content="Verifying Game..." HorizontalAlignment="Left" Margin="18.465,460.938,0,0" VerticalAlignment="Top" Width="154.468" Height="51" IsEnabled="False" Click="btnAction_Click" FontWeight="Bold" FontSize="18" Foreground="White"/>
         <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Left" Margin="182.231,477.938,0,0" VerticalAlignment="Top" Width="154.468" Height="34" Click="btnIRC_Click"/>
         <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Left" Margin="346.997,477.938,0,0" VerticalAlignment="Top" Width="154.468" Height="34" Click="btnBug_Click"/>
-        <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="11.517,-0.5,5.667,554.647" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" Grid.Column="1" FontSize="10" />
-        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="942.517,-3.375,43.483,554.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="20" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" />
+        <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="6,-3.397,0,547.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" Grid.Column="1" FontSize="15" Width="49" Height="32" />
+        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="926.351,-8.375,49,547.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="30" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" />
         <Rectangle x:Name="btnDrag" MouseDown="Drag_MouseDown" Margin="0,0.02,26.483,554.647" RenderTransformOrigin="0.509,0.473" Fill="Black" Opacity="0"/>
     </Grid>
 
