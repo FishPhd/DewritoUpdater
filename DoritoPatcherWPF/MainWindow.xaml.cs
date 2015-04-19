@@ -28,9 +28,12 @@ namespace DoritoPatcherWPF
     using System.Windows.Documents;
     using System.Windows.Media;
     using System.Xml.Serialization;
+    using System.Windows.Media.Animation;
 
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -63,7 +66,7 @@ namespace DoritoPatcherWPF
         //Titlebar control
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +79,6 @@ namespace DoritoPatcherWPF
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
-        //
 
         public MainWindow()
         {
@@ -94,8 +96,9 @@ namespace DoritoPatcherWPF
                     }
                 }
             }
-
             InitializeComponent();
+            Storyboard fade = (Storyboard)TryFindResource("fade");
+            fade.Begin();	// Start animation
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -138,12 +141,16 @@ namespace DoritoPatcherWPF
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
+                    btnAction.Content = "Error";
+                    btnAction.Foreground = Brushes.Red;
                     return;
                 }
             }
             catch
             {
                 SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
+                btnAction.Content = "Error";
+                btnAction.Foreground = Brushes.Red;
                 return;
             }
 
@@ -164,18 +171,23 @@ namespace DoritoPatcherWPF
             if (!ProcessUpdateData())
             {
                 SetStatus("Failed to retrieve update information.", Color.FromRgb(255, 0, 0));
+                btnAction.Content = "Error";
+                btnAction.Foreground = Brushes.Red;
                 return;
             }
 
             if (filesToDownload.Count <= 0)
             {
                 SetStatus("You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
+                
                 btnAction.Dispatcher.Invoke(
                     new Action(
                         () =>
                         {
                             btnAction.Content = "Play Game";
                             btnAction.IsEnabled = true;
+                            Storyboard fade = (Storyboard)TryFindResource("fade");
+                            fade.Stop();	// Start animation
                         }));
 
                 if (silentStart)
@@ -185,12 +197,15 @@ namespace DoritoPatcherWPF
                 return;
             }
 
-            SetStatus("An update is available. (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
+            SetStatus("An update is available. (" + latestUpdateVersion + ")", Color.FromRgb(255, 255, 0));
+            
             btnAction.Dispatcher.Invoke(
                 new Action(
                     () =>
                         {
                             btnAction.Content = "Update Game";
+                            Storyboard fade = (Storyboard)TryFindResource("fade");
+                            fade.Stop();	// Start animation
                             btnAction.IsEnabled = true;
                         }));
             if (silentStart)
@@ -198,6 +213,7 @@ namespace DoritoPatcherWPF
                 //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
                 MsgBox2 MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
                 MainWindow.Show();
+                MainWindow.Focus();
 
             }
         }
@@ -339,6 +355,7 @@ namespace DoritoPatcherWPF
 
                     SetStatus("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
                     SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                    btnAction.Content = "Error";
                     return false;
                 }
 
@@ -449,13 +466,14 @@ namespace DoritoPatcherWPF
                     //MessageBox.Show("Game executable not found.");
                     MsgBox2 MainWindow = new MsgBox2("Game executable not found.");
                     MainWindow.Show();
+                    MainWindow.Focus();
                 }
             }
             else if (button.Content == "Update Game")
             {
                 foreach (var file in filesToDownload)
                 {
-                    SetStatus("Downloading file \"" + file + "\"...", Color.FromRgb(255,255,255));
+                    SetStatus("Downloading file \"" + file + "\"...", Color.FromRgb(255,255,0));
                     var url = latestUpdate["baseUrl"].ToString().Replace("\"", "") + file;
                     var destPath = Path.Combine(BasePath, file);
                     FileDownloadDialog dialog = new FileDownloadDialog(this, url, destPath);
@@ -480,6 +498,7 @@ namespace DoritoPatcherWPF
                     //Application.Current.Shutdown();
                     MsgBox MainWindow = new MsgBox("Update complete! Please restart the launcher.");
                     MainWindow.Show();
+                    MainWindow.Focus();
                     
                 }
 
