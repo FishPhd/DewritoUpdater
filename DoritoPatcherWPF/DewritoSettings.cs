@@ -7,6 +7,6 @@ namespace DoritoPatcherWPF
 {
     public class DewritoSettings
     {
-        public string Playername { get; set; }
+        public string config { get; set; }
     }
 }

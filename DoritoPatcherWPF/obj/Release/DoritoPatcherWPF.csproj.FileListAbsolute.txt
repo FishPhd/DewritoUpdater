@@ -42,7 +42,6 @@ C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\IC
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\Newtonsoft.Json.dll
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\Newtonsoft.Json.pdb
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\Newtonsoft.Json.xml
-C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\DoritoPatcherWPF.csprojResolveAssemblyReference.cache
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\FileDownloadDialog.baml
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MainWindow.baml
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\FileDownloadDialog.g.cs
@@ -56,3 +55,5 @@ C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\Ms
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox.g.cs
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox2.baml
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox2.g.cs
+C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\DoritoPatcherWPF.exe.config
+C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\DoritoPatcherWPF.csprojResolveAssemblyReference.cache

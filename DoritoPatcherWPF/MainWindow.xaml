@@ -1,67 +1,72 @@
 ﻿<Window x:Class="DoritoPatcherWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ElDewrito Launcher" Height="576" Width="1024" ResizeMode="CanMinimize" Loaded="Window_Loaded" Icon="Resources/launcher.ico" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" AllowsTransparency="True" Background="Lime">
+        Title="ElDewrito Launcher" Height="800" Width="1200" ResizeMode="CanMinimize" Loaded="Window_Loaded" Icon="Resources/launcher.ico" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="False">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="969*"/>
-            <ColumnDefinition Width="55*"/>
-        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png"/>
         </Grid.Background>
-        
-        <TabControl HorizontalAlignment="Left" Height="518" Margin="506.465,50.311,0,0" VerticalAlignment="Top" Width="499" Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2">
-            <TabItem Header="News">
+
+        <TabControl SelectionChanged="TabControl_SelectionChanged" HorizontalAlignment="Left" Height="737" Margin="442,51,0,0" VerticalAlignment="Top" Width="748" Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True">
+            <TabItem Header="Server Browser" Name="Server">
                 <Grid>
-                    <Grid Background="Black" Opacity="0.7" />
-                    <TextBox x:Name="NewsContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="477" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Text="Error: Could not load News."/>
+                    <Grid Background="Black" Opacity="0.7"/>
+                    <WebBrowser Name="WebBrowserServer" LoadCompleted="server_LoadCompleted" Visibility="Hidden"/>
+                    <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Stats" Name="Stats">
+                <Grid>
+                    <Grid Name="gridStats" Background="Black" Opacity="0.7" Grid.ColumnSpan="3"/>
+                    <WebBrowser Name="WebBrowserStats" LoadCompleted="stat_LoadCompleted" Visibility="Hidden"/>
+                    <Label x:Name="lblVerify2" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Changelog">
                 <Grid>
-                    <Grid Background="Black" Opacity="0.7" />
-                    <TextBox x:Name="ChangelogContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="477" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Text="Error: Could not load Changelog."/>
+                    <Grid Background="Black" Opacity="0.7" Grid.ColumnSpan="2" />
+                    <TextBox x:Name="ChangelogContent" HorizontalAlignment="Left" Height="699" VerticalAlignment="Top" Width="746" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  AcceptsReturn="True" Text="Error: Could not load Changelog." Margin="0,0,0,-2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Settings">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7" />
                     <Label Content="Player Name:" HorizontalAlignment="Left" Margin="10,22.04,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <TextBox x:Name="txtPlayername" HorizontalAlignment="Left" Height="23" Margin="94.573,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185.427" LostFocus="txtPlayername_LostFocus" MaxLength="32" Background="Transparent" Foreground="White"/>
+                    <TextBox x:Name="txtPlayername" HorizontalAlignment="Left" Height="23" Margin="94.573,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185.427" LostFocus="txtPlayername_LostFocus" MaxLength="32" Background="Transparent" Foreground="White" BorderBrush="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Update Status">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7" />
-                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10.04,0,0" VerticalAlignment="Top" Width="477" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="515" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                         <FlowDocument/>
                     </RichTextBox>
                 </Grid>
             </TabItem>
+
         </TabControl>
         <!--<Canvas HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="484">
             <Canvas.Background>
                 <ImageBrush ImageSource="Resources/logo.png" Stretch="Uniform"/>
             </Canvas.Background>
         </Canvas>-->
-        <Canvas x:Name="logo"  HorizontalAlignment="Left" Height="300" Margin="17.465,50.311,0,0" VerticalAlignment="Top" Width="484">
+        <Canvas x:Name="logo"  HorizontalAlignment="Left" Height="398" Margin="-93,152,0,0" VerticalAlignment="Top" Width="641">
             <Canvas.Background>
                 <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
             </Canvas.Background>
         </Canvas>
-        <Border Background="Black" Opacity="0.7" HorizontalAlignment="Left" Margin="17.465,516.938,0,0" VerticalAlignment="Top" Width="474" Height="51.373" BorderBrush="White" BorderThickness="1">
+        <Border Background="Black" Opacity="0.7" HorizontalAlignment="Left" Margin="9,723,0,0" VerticalAlignment="Top" Width="422" Height="65" BorderBrush="White" BorderThickness="1">
             <Label x:Name="lblStatus" Content="Determining Status..." Foreground="Yellow" VerticalContentAlignment="Center" Padding="25,5,5,5" Background="{x:Null}" Margin="0,0,9,0" />
         </Border>
-        <Border  HorizontalAlignment="Left" Margin="17.465,460.938,0,0" VerticalAlignment="Top" Width="159.766" Height="51" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7"/>
-        <Button  x:Name="btnAction" Content="Verifying Game" HorizontalAlignment="Left" Margin="18.465,460.938,0,0" VerticalAlignment="Top" Width="158.766" Height="51" IsEnabled="False" Click="btnAction_Click" FontWeight="Bold"/>
-        <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Left" Margin="189.231,477.938,0,0" VerticalAlignment="Top" Width="145.801" Height="34" Click="btnIRC_Click"/>
-        <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Left" Margin="346.997,477.938,0,0" VerticalAlignment="Top" Width="144.468" Height="34" Click="btnBug_Click"/>
-        <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="6,-3.397,0,547.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" Grid.Column="1" FontSize="15" Width="49" Height="32" />
-        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="926.351,-8.375,49,547.397" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="30" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" />
-        <Rectangle x:Name="btnDrag" MouseDown="Drag_MouseDown" Margin="0,0.02,26.483,530.689" RenderTransformOrigin="0.509,0.473" Fill="Black" Opacity="0"/>
+        <Border  HorizontalAlignment="Left" Margin="10,653,0,0" VerticalAlignment="Top" Width="205" Height="65" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7"/>
+        <Button  x:Name="btnAction" Content="Verifying Game" HorizontalAlignment="Left" Margin="11,653,0,0" VerticalAlignment="Top" Width="204" Height="65" IsEnabled="False" Click="btnAction_Click" FontWeight="Bold"/>
+        <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Left" Margin="220,653,0,0" VerticalAlignment="Top" Width="211" Height="29" Click="btnIRC_Click"/>
+        <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Left" Margin="220,687,0,0" VerticalAlignment="Top" Width="211" Height="31" Click="btnBug_Click"/>
+        <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="1143,0,0,763" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="15" Width="57" Height="37" />
+        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="1086,-4,57,763" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="30" HorizontalContentAlignment="Center" Width="57" />
+        <Rectangle x:Name="btnDrag" MouseDown="Drag_MouseDown" Margin="-5,0,114,754" RenderTransformOrigin="0.509,0.473" Fill="Black" Opacity="0"/>
     </Grid>
 
     <Window.Resources>
@@ -199,6 +204,16 @@
         </Style>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction" 
+                Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
+                Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
+        </Storyboard>
+        <Storyboard x:Key="fadeServer" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="lblVerify" 
+                Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
+                Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
+        </Storyboard>
+        <Storyboard x:Key="fadeStat" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="lblVerify2" 
                 Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
                 Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
         </Storyboard>
