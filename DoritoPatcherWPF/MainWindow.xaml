@@ -357,7 +357,7 @@
                                     <Border 
                                     x:Name="DropDownBorder"
                                     Background="Black"
-                                    Opacity="0.7"
+                                    Opacity="0.85"
                                     BorderThickness="1"
                                     BorderBrush="White"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
@@ -443,8 +443,8 @@
                     <Grid Background="Black" Opacity="0.7" />
                     <Label Content="Player Name:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Foreground="White"/>
                     <Label Content="Armor Customization" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    
-                    <ComboBox Margin="95,103,465,571" Height="23" Foreground="White">
+
+                    <ComboBox Margin="95,140,465,534" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
                         <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -476,14 +476,14 @@
                     <Border  HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Height="23" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7" Margin="95,41,0,0"/>
                     <TextBox x:Name="txtPlayername" HorizontalAlignment="Left" Height="23" Margin="95,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" LostFocus="txtPlayername_LostFocus" MaxLength="32" Foreground="White" Background="Transparent" BorderBrush="Transparent"/>
                     <Label Content="Player Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-                    <Label Content="Helmet:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Chest:" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Shoulders:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Arms:" HorizontalAlignment="Left" Margin="10,208,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Legs:" HorizontalAlignment="Left" Margin="12,244,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Helmet:" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Chest:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Shoulders:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Arms:" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Legs:" HorizontalAlignment="Left" Margin="12,281,0,0" VerticalAlignment="Top" Foreground="White"/>
 
 
-                    <ComboBox Margin="95,139,465,535" Height="23" Foreground="White">
+                    <ComboBox Margin="95,176,465,498" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
                         <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -512,7 +512,7 @@
                         <ComboBoxItem Foreground="White" Content="Silverback"/>
                         <ComboBoxItem Foreground="White" Content="Widow Maker"/>
                     </ComboBox>
-                    <ComboBox Margin="95,175,465,499" Height="23" Foreground="White">
+                    <ComboBox Margin="95,212,465,462" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
                         <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -541,7 +541,7 @@
                         <ComboBoxItem Foreground="White" Content="Silverback"/>
                         <ComboBoxItem Foreground="White" Content="Widow Maker"/>
                     </ComboBox>
-                    <ComboBox Margin="95,211,465,463" Height="23" Foreground="White">
+                    <ComboBox Margin="95,248,465,426" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
                         <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -571,7 +571,7 @@
                         <ComboBoxItem Foreground="White" Content="Cyclops"/>
                         <ComboBoxItem Foreground="White" Content="Halberd"/>
                     </ComboBox>
-                    <ComboBox Margin="95,247,465,427" Height="23" Foreground="White">
+                    <ComboBox Margin="95,284,465,390" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
                         <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -600,6 +600,10 @@
                         <ComboBoxItem Foreground="White" Content="Silverback"/>
                         <ComboBoxItem Foreground="White" Content="Cyclops"/>
                         <ComboBoxItem Foreground="White" Content="Halberd"/>
+                    </ComboBox>
+                    <Label Content="Color:" HorizontalAlignment="Left" Margin="12,100,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <ComboBox Margin="95,103,465,571" Height="23" Foreground="White">
+                        <ComboBoxItem Foreground="White" Content="Fill Me!"/>
                     </ComboBox>
                 </Grid>
             </TabItem>
@@ -618,7 +622,7 @@
                 <ImageBrush ImageSource="Resources/logo.png" Stretch="Uniform"/>
             </Canvas.Background>
         </Canvas>-->
-        <Canvas x:Name="logo"  HorizontalAlignment="Left" Height="398" Margin="-93,152,0,0" VerticalAlignment="Top" Width="641">
+        <Canvas x:Name="logo"  HorizontalAlignment="Left" Height="398" Margin="-102,140,0,0" VerticalAlignment="Top" Width="642">
             <Canvas.Background>
                 <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
             </Canvas.Background>
