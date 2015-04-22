@@ -392,8 +392,10 @@
             <Style.Triggers>
             </Style.Triggers>
         </Style>
-
-
+        <Style x:Key="MyBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
 
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction" 
@@ -605,6 +607,16 @@
                     <ComboBox Margin="95,103,465,571" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Fill Me!"/>
                     </ComboBox>
+                    <Label Content="Game Settings" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Label Content="Fov:" HorizontalAlignment="Left" Margin="354,38,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Slider Name="FovValue" Margin="447,41,113,633" Height="23" Foreground="White" Maximum="130" Minimum="60" TickPlacement="BottomRight" TickFrequency="5" BorderBrush="White" IsSnapToTickEnabled="True" Value="90"/>
+                    <Border Style="{StaticResource MyBorderStyle}" Margin="638,41,48,633" Background="Black" Opacity="0.7" VerticalAlignment="Center" HorizontalAlignment="Center" Height="23" Width="60" />
+                    <Label Content="{Binding Value, ElementName=FovValue, UpdateSourceTrigger=PropertyChanged}" Margin="657,38,49,630" Foreground="White" BorderBrush="White" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="29" Width="40"/>
+                    <Label Content="Host Settings" HorizontalAlignment="Left" Margin="354,69,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+                    <Slider x:Name="TimerValue" Margin="447,103,113,571" Height="23" Foreground="White" Maximum="20" TickPlacement="BottomRight" BorderBrush="White" IsSnapToTickEnabled="True" Value="5"/>
+                    <Border Style="{StaticResource MyBorderStyle}" Margin="638,99,48,575" Background="Black" Opacity="0.7" VerticalAlignment="Center" HorizontalAlignment="Center" Height="23" Width="60" />
+                    <Label Content="{Binding Value, ElementName=TimerValue, UpdateSourceTrigger=PropertyChanged}" Margin="660,97,43,571" Foreground="White" BorderBrush="White" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="29" Width="43"/>
+                    <Label Content="Start Timer:" HorizontalAlignment="Left" Margin="354,100,0,0" VerticalAlignment="Top" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Update Status">
