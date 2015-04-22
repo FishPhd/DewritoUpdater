@@ -287,11 +287,11 @@
                     <Setter TargetName="Arrow" Property="Fill" Value="Black" />
                 </Trigger>
                 <Trigger Property="ToggleButton.IsChecked" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                    <Setter TargetName="Border" Property="Background" Value="Black" />
                     <Setter TargetName="Arrow" Property="Fill" Value="White" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                    <Setter TargetName="Border" Property="Background" Value="Black" />
                     <Setter TargetName="Border" Property="BorderBrush" Value="White" />
                     <Setter Property="Foreground" Value="White"/>
                     <Setter TargetName="Arrow" Property="Fill" Value="White" />
@@ -481,10 +481,8 @@
                     <Label Content="Shoulders:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Foreground="White"/>
                     <Label Content="Arms:" HorizontalAlignment="Left" Margin="10,208,0,0" VerticalAlignment="Top" Foreground="White"/>
                     <Label Content="Legs:" HorizontalAlignment="Left" Margin="12,244,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Accessory:" HorizontalAlignment="Left" Margin="12,280,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    <Label Content="Pelvis:" HorizontalAlignment="Left" Margin="12,316,0,0" VerticalAlignment="Top" Foreground="White"/>
-                    
-                    
+
+
                     <ComboBox Margin="95,139,465,535" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
                         <ComboBoxItem Foreground="White" Content="Stealth"/>
@@ -513,7 +511,6 @@
                         <ComboBoxItem Foreground="White" Content="Oracle"/>
                         <ComboBoxItem Foreground="White" Content="Silverback"/>
                         <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                        <ComboBoxItem Foreground="White" Content="Tankmode"/>
                     </ComboBox>
                     <ComboBox Margin="95,175,465,499" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
@@ -543,7 +540,6 @@
                         <ComboBoxItem Foreground="White" Content="Oracle"/>
                         <ComboBoxItem Foreground="White" Content="Silverback"/>
                         <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                        <ComboBoxItem Foreground="White" Content="Tankmode"/>
                     </ComboBox>
                     <ComboBox Margin="95,211,465,463" Height="23" Foreground="White">
                         <ComboBoxItem Foreground="White" Content="Base"/>
@@ -605,12 +601,6 @@
                         <ComboBoxItem Foreground="White" Content="Cyclops"/>
                         <ComboBoxItem Foreground="White" Content="Halberd"/>
                     </ComboBox>
-                    <ComboBox Margin="95,283,465,391" Height="23" Foreground="White">
-                    </ComboBox>
-                    <ComboBox Margin="95,319,465,355" Height="23" Foreground="White">
-                        <ComboBoxItem Foreground="White" Content="Base"/>
-                        <ComboBoxItem Foreground="White" Content="Tankmode"/>
-                    </ComboBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Update Status">
@@ -641,7 +631,7 @@
         <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Left" Margin="220,653,0,0" VerticalAlignment="Top" Width="211" Height="29" Click="btnIRC_Click"/>
         <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Left" Margin="220,687,0,0" VerticalAlignment="Top" Width="211" Height="31" Click="btnBug_Click"/>
         <Button x:Name="btnClose" Content="x" Click="CloseButton_Click"  Margin="1143,0,0,763" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="16" Width="57" />
-        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="1086,-2,57,763" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="29" HorizontalContentAlignment="Center" Width="57" />
+        <Button x:Name="btnMin" Content="-" Click="MinButton_Click" Margin="1086,-1,57,763" BorderBrush="#FF707070" BorderThickness="1" RenderTransformOrigin="0.509,0.473" FontSize="29" HorizontalContentAlignment="Center" Width="57" />
         <Rectangle x:Name="btnDrag" MouseDown="Drag_MouseDown" Margin="-5,0,114,754" RenderTransformOrigin="0.509,0.473" Fill="Black" Opacity="0"/>
     </Grid>
 
