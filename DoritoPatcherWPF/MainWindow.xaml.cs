@@ -84,12 +84,6 @@ namespace DoritoPatcherWPF
             WindowState = WindowState.Minimized;
         }
 
-        private void Drag_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-
         public MainWindow()
         {
             var e = Environment.GetCommandLineArgs();
@@ -199,14 +193,18 @@ namespace DoritoPatcherWPF
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Stats.IsSelected == true || Server.IsSelected == true)
-            {
-                WebBrowserStats.Navigate("https://hos.llf.to/");
-                HideScriptErrors(WebBrowserStats, true);
-                WebBrowserServer.Navigate("https://hos.llf.to/");
+	        if (Stats != null && Stats.IsSelected)
+	        {
+		        WebBrowserStats.Navigate("https://hos.llf.to/");
+		        HideScriptErrors(WebBrowserStats, true);
+	        }
+			else if (Server != null && Server.IsSelected)
+			{
+				WebBrowserServer.Navigate("https://hos.llf.to/");
                 HideScriptErrors(WebBrowserServer, true);
             }
         }
+
         private void BackgroundThread()
         {
             if (!CompareHashesWithJson())
@@ -506,7 +504,7 @@ namespace DoritoPatcherWPF
                 if (updateLabel)
                 {
                     lblStatus.Foreground = new SolidColorBrush(color);
-                    lblStatus.Content = status;
+                    lblStatus.Text = status;
                 }
 
                 UpdateContent.Document.Blocks.Add(new Paragraph(new Run(status){Foreground = new SolidColorBrush(color)}));
@@ -606,7 +604,7 @@ namespace DoritoPatcherWPF
 
         private void SaveSettings(bool overwrite = false)
         {
-            if (overwrite)
+            if (overwrite || PlayerSettings == null || HelmetSettings == null)
             {
                 PlayerSettings = new DewritoSettings();
                 PlayerSettings.config = "";
@@ -650,11 +648,6 @@ namespace DoritoPatcherWPF
             //}
 
             //txtPlayername.Text = PlayerSettings.Playername;
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
