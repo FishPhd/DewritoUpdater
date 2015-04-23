@@ -23,8 +23,10 @@ namespace DoritoPatcherWPF
     using System.Net.Mime;
     using System.Reflection;
     using System.Security.Cryptography;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
+    using System.Diagnostics;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Media;
@@ -34,7 +36,6 @@ namespace DoritoPatcherWPF
 
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -53,6 +54,7 @@ namespace DoritoPatcherWPF
         JToken latestUpdate;
 
         DewritoSettings PlayerSettings;
+        DewritoSettings HelmetSettings;
 
         List<string> filesToDownload;
 
@@ -194,7 +196,6 @@ namespace DoritoPatcherWPF
         void stat_LoadCompleted(object sender, NavigationEventArgs e)
         {
         }
-
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -527,7 +528,15 @@ namespace DoritoPatcherWPF
                 try
                 {
                     Process.Start(sInfo);
-                    Close();
+                    if (Process.GetProcessesByName("eldorado").Length > 0)
+                    {
+                        Thread.Sleep(2000);
+                        BasicInject.Inject();
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
                 }
                 catch
                 {
@@ -600,13 +609,16 @@ namespace DoritoPatcherWPF
             if (overwrite)
             {
                 PlayerSettings = new DewritoSettings();
-
                 PlayerSettings.config = "";
+
+                HelmetSettings = new DewritoSettings();
+                HelmetSettings.config = "";
             }
 
             using (var writer = new StreamWriter(BasePath + @"\playername.txt", append: false))
             {
                 writer.Write(PlayerSettings.config);
+                writer.Write(HelmetSettings.config);
             }
 
             //if (overwrite)

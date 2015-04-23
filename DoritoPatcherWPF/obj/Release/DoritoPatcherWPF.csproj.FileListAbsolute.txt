@@ -57,3 +57,4 @@ C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\Ms
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\MsgBox2.g.cs
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\DoritoPatcherWPF.exe.config
 C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\obj\Release\DoritoPatcherWPF.csprojResolveAssemblyReference.cache
+C:\Users\Samuel\Documents\GitHub\DewritoLauncher\DoritoPatcherWPF\bin\Release\Xceed.Wpf.Toolkit.dll
