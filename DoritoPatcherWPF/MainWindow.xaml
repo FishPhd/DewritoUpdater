@@ -57,7 +57,7 @@
                 </Canvas.Background>
             </Canvas>
             <Border Height="65" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
-                <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Margin="0,-1,0,1"/>
+                <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Click="btnAction_Click" Margin="0,-1"/>
             </Border>
             <StackPanel Orientation="Vertical">
                 <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="32" Click="btnIRC_Click" Margin="3,0,0,0"/>

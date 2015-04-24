@@ -513,24 +513,13 @@ namespace DoritoPatcherWPF
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
-
-            if (button.Content == "Play Game")
+            if (btnAction.Content == "Play Game")
             {
                 ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
                 try
                 {
                     Process.Start(sInfo);
-                    if (Process.GetProcessesByName("eldorado").Length > 0)
-                    {
-                        Thread.Sleep(3000);
-                        BasicInject.Inject();
-                    }
-                    else
-                    {
-                        Thread.Sleep(100);
-                    }
                 }
                 catch
                 {
@@ -540,7 +529,7 @@ namespace DoritoPatcherWPF
                     MainWindow.Focus();
                 }
             }
-            else if (button.Content == "Update Game")
+            else if (btnAction.Content == "Update Game")
             {
                 foreach (var file in filesToDownload)
                 {
@@ -573,7 +562,7 @@ namespace DoritoPatcherWPF
                     
                 }
 
-                button.Content = "Play Game";
+                btnAction.Content = "Play Game";
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
             }
         }
