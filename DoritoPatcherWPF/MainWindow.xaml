@@ -95,6 +95,7 @@
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="CaretBrush" Value="White"/>
                     </Style>
                     <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                         <Setter Property="Height" Value="23"/>
@@ -102,6 +103,7 @@
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="Foreground" Value="White"/>
                     </Style>
                     <Style TargetType="{x:Type Slider}">
                         <Setter Property="Height" Value="23"/>
@@ -204,7 +206,7 @@
                         </ComboBox>
 
                         <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox>
+                        <ComboBox SelectedIndex="0">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -235,7 +237,7 @@
                         </ComboBox>
 
                         <TextBlock>Arms:</TextBlock>
-                        <ComboBox>
+                        <ComboBox SelectedIndex="0">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -267,7 +269,7 @@
                         </ComboBox>
 
                         <TextBlock>Legs:</TextBlock>
-                        <ComboBox>
+                        <ComboBox SelectedIndex="0">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -310,7 +312,7 @@
                         <TextBlock>Holo:</TextBlock>
                         <xctk:ColorPicker />
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="25,5,5,5">
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
                         <TextBlock Style="{StaticResource Header}">Graphics Settings</TextBlock>
                         <TextBlock>Field of View:</TextBlock>
                         <DockPanel>
