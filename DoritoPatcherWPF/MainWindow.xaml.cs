@@ -187,18 +187,14 @@ namespace DoritoPatcherWPF
         {
         }
 
-        void stat_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-        }
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-	        if (Stats != null && Stats.IsSelected)
+            if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
 		        WebBrowserStats.Navigate("https://hos.llf.to/");
 		        HideScriptErrors(WebBrowserStats, true);
 	        }
-			else if (Server != null && Server.IsSelected)
+            else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
 				WebBrowserServer.Navigate("https://hos.llf.to/");
                 HideScriptErrors(WebBrowserServer, true);
@@ -528,7 +524,7 @@ namespace DoritoPatcherWPF
                     Process.Start(sInfo);
                     if (Process.GetProcessesByName("eldorado").Length > 0)
                     {
-                        Thread.Sleep(2000);
+                        Thread.Sleep(3000);
                         BasicInject.Inject();
                     }
                     else
