@@ -90,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileDownloadDialog.xaml.cs">
+      <DependentUpon>FileDownloadDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\WindowMovement.cs" />
     <Page Include="FileDownloadDialog.xaml">
       <SubType>Designer</SubType>
@@ -105,9 +109,6 @@
     </Compile>
     <Compile Include="BinaryPatchUtility.cs" />
     <Compile Include="DewritoSettings.cs" />
-    <Compile Include="FileDownloadDialog.xaml.cs">
-      <DependentUpon>FileDownloadDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

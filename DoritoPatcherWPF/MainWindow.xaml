@@ -63,9 +63,8 @@
                 <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="3,0,0,0"/>
                 <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="3,0,0,0"/>
             </StackPanel>
-            <Border Background="Black" Opacity="0.7" BorderBrush="White" BorderThickness="1" Grid.ColumnSpan="2">
-                <TextBlock x:Name="lblStatus" Text="Determining Status..." Foreground="Yellow" VerticalAlignment="Center" Padding="25,5,5,5" Background="{x:Null}" Margin="0,0,0,0" />
-            </Border>
+            <StackPanel Orientation="Vertical" Height="24" Grid.ColumnSpan="2">
+            </StackPanel>
         </st:AutoGrid>
 
         <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged">
@@ -89,7 +88,7 @@
                     <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Game Settings">
+            <TabItem Header="Armor">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="White"/>
@@ -157,9 +156,6 @@
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Player Settings</TextBlock>
-                        <TextBlock>Display Name:</TextBlock>
-                        <TextBox x:Name="txtPlayername" MaxLength="15" LostFocus="txtPlayername_LostFocus"/>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
                         <TextBlock>Helmet:</TextBlock>
@@ -332,7 +328,86 @@
                         <xctk:ColorPicker />
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Graphics Settings</TextBlock>
+                        <DockPanel/>
+                        <DockPanel/>
+                    </st:AutoGrid>
+                </st:AutoGrid>
+            </TabItem>
+            <TabItem Header="Game Settings">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style x:Key="Header" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="Grid.ColumnSpan" Value="2"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <SolidColorBrush Color="White" Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="CaretBrush" Value="White"/>
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                    <Style TargetType="{x:Type Slider}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="TickPlacement" Value="BottomRight"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    </Style>
+                    <Style TargetType="{x:Type xctk:ColorPicker}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="ColorMode" Value="ColorCanvas"/>
+                        <Setter Property="UsingAlphaChannel" Value="False"/>
+                        <Setter Property="DisplayColorAndName" Value="True"/>
+                        <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <SolidColorBrush Color="White" Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabItem.Resources>
+                <st:AutoGrid Columns="*,*">
+                    <st:AutoGrid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.7"/>
+                    </st:AutoGrid.Background>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Player Settings</TextBlock>
+                        <TextBlock>Player Name:</TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200"/>
+                        </DockPanel>
+
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" >Graphics Settings</TextBlock>
                         <TextBlock>Field of View:</TextBlock>
                         <DockPanel>
                             <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=FovValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center"/>
@@ -348,10 +423,10 @@
                     </st:AutoGrid>
                 </st:AutoGrid>
             </TabItem>
-            <TabItem Header="Update Status">
+            <TabItem Header="Update Status" x:Name="Update">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7" />
-                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="515" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                         <FlowDocument/>
                     </RichTextBox>
                 </Grid>

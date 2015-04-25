@@ -23,13 +23,14 @@ namespace DoritoPatcherWPF
     /// <summary>
     /// Interaction logic for FileDownloadDialog.xaml
     /// </summary>
+
     public partial class FileDownloadDialog : Window
     {
         WebClient wc = new WebClient();
         public Exception Error;
         public MainWindow Window;
 
-        public FileDownloadDialog(MainWindow window, string url, string destPath)
+         public FileDownloadDialog(MainWindow window, string url, string destPath)
         {
             InitializeComponent();
             this.Window = window;

@@ -26,13 +26,15 @@ namespace DoritoPatcherWPF
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
-    using System.Diagnostics;
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Media;
     using System.Xml.Serialization;
     using System.Windows.Media.Animation;
     using System.Windows.Navigation;
+    using System.Windows.Threading;
+
+    using DoritoPatcher;
 
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -497,11 +499,6 @@ namespace DoritoPatcherWPF
         {
             if (UpdateContent.Dispatcher.CheckAccess())
             {
-                if (updateLabel)
-                {
-                    lblStatus.Foreground = new SolidColorBrush(color);
-                    lblStatus.Text = status;
-                }
 
                 UpdateContent.Document.Blocks.Add(new Paragraph(new Run(status){Foreground = new SolidColorBrush(color)}));
             }
@@ -536,7 +533,7 @@ namespace DoritoPatcherWPF
                     SetStatus("Downloading file \"" + file + "\"...", Color.FromRgb(255,255,0));
                     var url = latestUpdate["baseUrl"].ToString().Replace("\"", "") + file;
                     var destPath = Path.Combine(BasePath, file);
-                    FileDownloadDialog dialog = new FileDownloadDialog(this, url, destPath);
+                    var dialog = new FileDownloadDialog(this, url, destPath);
                     var result = dialog.ShowDialog();
                     if (result.HasValue && result.Value)
                     {
