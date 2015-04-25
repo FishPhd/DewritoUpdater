@@ -56,12 +56,12 @@
                     <ImageBrush ImageSource="Resources/logo.png"/>
                 </Canvas.Background>
             </Canvas>
-            <Border Height="65" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
+            <Border Height="58" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
                 <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Click="btnAction_Click" Margin="0,-1"/>
             </Border>
-            <StackPanel Orientation="Vertical">
-                <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="32" Click="btnIRC_Click" Margin="3,0,0,0"/>
-                <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="32" Click="btnBug_Click" Margin="3,0,0,0"/>
+            <StackPanel Orientation="Vertical" Height="58">
+                <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="3,0,0,0"/>
+                <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="3,0,0,0"/>
             </StackPanel>
             <Border Background="Black" Opacity="0.7" BorderBrush="White" BorderThickness="1" Grid.ColumnSpan="2">
                 <TextBlock x:Name="lblStatus" Text="Determining Status..." Foreground="Yellow" VerticalAlignment="Center" Padding="25,5,5,5" Background="{x:Null}" Margin="0,0,0,0" />
