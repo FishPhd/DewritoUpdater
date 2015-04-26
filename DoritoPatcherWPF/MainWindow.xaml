@@ -63,8 +63,6 @@
                 <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="3,0,0,0"/>
                 <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="3,0,0,0"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Height="24" Grid.ColumnSpan="2">
-            </StackPanel>
         </st:AutoGrid>
 
         <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
@@ -311,6 +309,9 @@
                             <ComboBoxItem Foreground="White" Content="Halberd"/>
                         </ComboBox>
 
+                        
+                    </st:AutoGrid>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Colors</TextBlock>
                         <TextBlock>Primary:</TextBlock>
                         <xctk:ColorPicker x:Name="Primary">
@@ -318,7 +319,7 @@
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        
+
                         <TextBlock>Secondary:</TextBlock>
                         <xctk:ColorPicker Name="Secondary">
                             <xctk:ColorPicker.Background>
@@ -333,20 +334,16 @@
                         </xctk:ColorPicker>
                         <TextBlock>Lights:</TextBlock>
                         <xctk:ColorPicker Name="Lights">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
-                                </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-                        <TextBlock>Holo:</TextBlock>
-                        <xctk:ColorPicker Name="Holo" >
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                    </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
-                        <DockPanel/>
-                        <DockPanel/>
+                        <TextBlock>Holo:</TextBlock>
+                        <xctk:ColorPicker Name="Holo">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
                     </st:AutoGrid>
                 </st:AutoGrid>
             </TabItem>
@@ -448,7 +445,7 @@
                     </st:AutoGrid>
                 </st:AutoGrid>
             </TabItem>
-            <TabItem Header="Update Status" x:Name="Update">
+            <TabItem Header="Debug" x:Name="Update" Visibility="Hidden">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7" />
                     <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
