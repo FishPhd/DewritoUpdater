@@ -46,9 +46,9 @@ namespace DoritoPatcherWPF
     {
         SHA1 hasher = SHA1.Create();
         Dictionary<string, string> fileHashes;
-        string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi" };
+        string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink" };
         string[] skipFileExtensions = { ".bik" };
-        string[] skipFiles = { "eldorado.exe", "tags.dat", "game.cfg", "font_package.bin" };
+        string[] skipFiles = { "eldorado.exe", "tags.dat", "game.cfg", "font_package.bin", "binkw32.dll", "crash_reporter.exe", "game_local.cfg" };
 
         JObject settingsJson;
         JObject updateJson;
