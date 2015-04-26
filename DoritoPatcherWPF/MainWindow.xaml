@@ -86,7 +86,7 @@
                     <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Armor">
+            <TabItem Header="Player Customization">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="White"/>
@@ -150,6 +150,15 @@
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Player Settings</TextBlock>
+                        <TextBlock>Player Name:</TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </TextBox.Background>
+                            </TextBox>
+                        </DockPanel>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
                         <TextBlock>Helmet:</TextBlock>
@@ -411,16 +420,6 @@
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Player Settings</TextBlock>
-                        <TextBlock>Player Name:</TextBlock>
-                        <DockPanel>
-                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200">
-                                <TextBox.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
-                                </TextBox.Background>
-                            </TextBox>
-                        </DockPanel>
-
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" >Graphics Settings</TextBlock>
                         <TextBlock>Field of View:</TextBlock>
                         <DockPanel>
@@ -430,15 +429,16 @@
                                 </TextBox.Background>
                             </TextBox>
                             <Slider DockPanel.Dock="Left" x:Name="FovValue" Minimum="60" Maximum="130" TickFrequency="5" IsSnapToTickEnabled="True" Value="90"/>
-                        </DockPanel>
-
+                        </DockPanel>  
+                    </st:AutoGrid>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Host Settings</TextBlock>
                         <TextBlock>Start Timer:</TextBlock>
                         <DockPanel>
                             <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=StartTimerValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center">
-                            <TextBox.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </TextBox.Background>
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </TextBox.Background>
                             </TextBox>
                             <Slider DockPanel.Dock="Left" x:Name="StartTimerValue" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="5" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
