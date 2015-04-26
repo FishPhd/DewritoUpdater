@@ -67,7 +67,7 @@
             </StackPanel>
         </st:AutoGrid>
 
-        <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
             <TabItem Header="Server Browser" x:Name="Server">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7"/>
@@ -97,18 +97,14 @@
                     </Style>
                     <Style x:Key="Header" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
                         <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Top"/>
                         <Setter Property="Grid.ColumnSpan" Value="2"/>
                     </Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="Height" Value="23"/>
                         <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush">
-                            <Setter.Value>
-                                <SolidColorBrush Color="White" Opacity="0.7"/>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="BorderBrush" Value="White" />
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -135,12 +131,12 @@
                     </Style>
                     <Style TargetType="{x:Type xctk:ColorPicker}">
                         <Setter Property="Height" Value="23"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Background" Value="Black"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="ColorMode" Value="ColorCanvas"/>
                         <Setter Property="UsingAlphaChannel" Value="False"/>
+                        <Setter Property="ShowDropDownButton" Value="False"/>
                         <Setter Property="DisplayColorAndName" Value="True"/>
                         <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -159,7 +155,7 @@
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
                         <TextBlock>Helmet:</TextBlock>
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Name="cmbHelmet" DropDownClosed="cmbHelmetClosed" DropDownOpened="cmbHelmetOpen">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -190,7 +186,7 @@
                         </ComboBox>
 
                         <TextBlock>Chest:</TextBlock>
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Name="cmbChest" DropDownClosed="cmbChestClosed" DropDownOpened="cmbChestOpen">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -221,7 +217,7 @@
                         </ComboBox>
 
                         <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Name="cmbShoulder" DropDownClosed="cmbShoulderClosed" DropDownOpened="cmbShoulderOpen">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Air Assault"/>
@@ -252,7 +248,7 @@
                         </ComboBox>
 
                         <TextBlock>Arms:</TextBlock>
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Name="cmbArm" DropDownClosed="cmbArmClosed" DropDownOpened="cmbArmOpen">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -284,7 +280,7 @@
                         </ComboBox>
 
                         <TextBlock>Legs:</TextBlock>
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Name="cmbLegs" DropDownClosed="cmbLegsClosed" DropDownOpened="cmbLegsOpen">
                             <ComboBoxItem Foreground="White" Content="Base"/>
                             <ComboBoxItem Foreground="White" Content="Stealth"/>
                             <ComboBoxItem Foreground="White" Content="Renegade"/>
@@ -317,15 +313,36 @@
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Colors</TextBlock>
                         <TextBlock>Primary:</TextBlock>
-                        <xctk:ColorPicker />
+                        <xctk:ColorPicker x:Name="Primary">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+                        
                         <TextBlock>Secondary:</TextBlock>
-                        <xctk:ColorPicker />
+                        <xctk:ColorPicker Name="Secondary">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
                         <TextBlock>Visor:</TextBlock>
-                        <xctk:ColorPicker />
+                        <xctk:ColorPicker Name="Visor">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
                         <TextBlock>Lights:</TextBlock>
-                        <xctk:ColorPicker />
+                        <xctk:ColorPicker Name="Lights">
+                                <xctk:ColorPicker.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
                         <TextBlock>Holo:</TextBlock>
-                        <xctk:ColorPicker />
+                        <xctk:ColorPicker Name="Holo" >
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
                         <DockPanel/>
@@ -348,12 +365,7 @@
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="Height" Value="23"/>
                         <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush">
-                            <Setter.Value>
-                                <SolidColorBrush Color="White" Opacity="0.7"/>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="BorderBrush" Value="White" />
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -386,6 +398,7 @@
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="ColorMode" Value="ColorCanvas"/>
                         <Setter Property="UsingAlphaChannel" Value="False"/>
+                        <Setter Property="ShowDropDownButton" Value="False"/>
                         <Setter Property="DisplayColorAndName" Value="True"/>
                         <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -404,21 +417,33 @@
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Player Settings</TextBlock>
                         <TextBlock>Player Name:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200"/>
+                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </TextBox.Background>
+                            </TextBox>
                         </DockPanel>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" >Graphics Settings</TextBlock>
                         <TextBlock>Field of View:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=FovValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center"/>
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=FovValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </TextBox.Background>
+                            </TextBox>
                             <Slider DockPanel.Dock="Left" x:Name="FovValue" Minimum="60" Maximum="130" TickFrequency="5" IsSnapToTickEnabled="True" Value="90"/>
                         </DockPanel>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Host Settings</TextBlock>
                         <TextBlock>Start Timer:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=StartTimerValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center" />
-                            <Slider DockPanel.Dock="Left" x:Name="StartTimerValue" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="5"/>
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=StartTimerValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center">
+                            <TextBox.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </TextBox.Background>
+                            </TextBox>
+                            <Slider DockPanel.Dock="Left" x:Name="StartTimerValue" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="5" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
                     </st:AutoGrid>
                 </st:AutoGrid>

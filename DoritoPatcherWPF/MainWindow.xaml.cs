@@ -189,7 +189,7 @@ namespace DoritoPatcherWPF
         {
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TabControl_SelectionChanged(object sender, EventArgs e)
         {
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
@@ -201,6 +201,116 @@ namespace DoritoPatcherWPF
 				WebBrowserServer.Navigate("https://hos.llf.to/");
                 HideScriptErrors(WebBrowserServer, true);
             }
+        }
+
+        private void cmbHelmetOpen(object sender, EventArgs e)
+        {
+            cmbChest.Visibility = System.Windows.Visibility.Hidden;
+            cmbShoulder.Visibility = System.Windows.Visibility.Hidden;
+            cmbArm.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            Primary.Visibility = System.Windows.Visibility.Hidden;
+            Secondary.Visibility = System.Windows.Visibility.Hidden;
+            Visor.Visibility = System.Windows.Visibility.Hidden;
+            Lights.Visibility = System.Windows.Visibility.Hidden;
+            Holo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbHelmetClosed(object sender, EventArgs e)
+        {
+            cmbChest.Visibility = System.Windows.Visibility.Visible;
+            cmbShoulder.Visibility = System.Windows.Visibility.Visible;
+            cmbArm.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            Primary.Visibility = System.Windows.Visibility.Visible;
+            Secondary.Visibility = System.Windows.Visibility.Visible;
+            Visor.Visibility = System.Windows.Visibility.Visible;
+            Lights.Visibility = System.Windows.Visibility.Visible;
+            Holo.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void cmbChestOpen(object sender, EventArgs e)
+        {
+            cmbShoulder.Visibility = System.Windows.Visibility.Hidden;
+            cmbArm.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            Primary.Visibility = System.Windows.Visibility.Hidden;
+            Secondary.Visibility = System.Windows.Visibility.Hidden;
+            Visor.Visibility = System.Windows.Visibility.Hidden;
+            Lights.Visibility = System.Windows.Visibility.Hidden;
+            Holo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbChestClosed(object sender, EventArgs e)
+        {
+            cmbShoulder.Visibility = System.Windows.Visibility.Visible;
+            cmbArm.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            Primary.Visibility = System.Windows.Visibility.Visible;
+            Secondary.Visibility = System.Windows.Visibility.Visible;
+            Visor.Visibility = System.Windows.Visibility.Visible;
+            Lights.Visibility = System.Windows.Visibility.Visible;
+            Holo.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void cmbShoulderOpen(object sender, EventArgs e)
+        {
+            cmbArm.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            Primary.Visibility = System.Windows.Visibility.Hidden;
+            Secondary.Visibility = System.Windows.Visibility.Hidden;
+            Visor.Visibility = System.Windows.Visibility.Hidden;
+            Lights.Visibility = System.Windows.Visibility.Hidden;
+            Holo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbShoulderClosed(object sender, EventArgs e)
+        {
+            cmbArm.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            Primary.Visibility = System.Windows.Visibility.Visible;
+            Secondary.Visibility = System.Windows.Visibility.Visible;
+            Visor.Visibility = System.Windows.Visibility.Visible;
+            Lights.Visibility = System.Windows.Visibility.Visible;
+            Holo.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void cmbArmOpen(object sender, EventArgs e)
+        {
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            Primary.Visibility = System.Windows.Visibility.Hidden;
+            Secondary.Visibility = System.Windows.Visibility.Hidden;
+            Visor.Visibility = System.Windows.Visibility.Hidden;
+            Lights.Visibility = System.Windows.Visibility.Hidden;
+            Holo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbArmClosed(object sender, EventArgs e)
+        {
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            Primary.Visibility = System.Windows.Visibility.Visible;
+            Secondary.Visibility = System.Windows.Visibility.Visible;
+            Visor.Visibility = System.Windows.Visibility.Visible;
+            Lights.Visibility = System.Windows.Visibility.Visible;
+            Holo.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void cmbLegsOpen(object sender, EventArgs e)
+        {
+            Primary.Visibility = System.Windows.Visibility.Hidden;
+            Secondary.Visibility = System.Windows.Visibility.Hidden;
+            Visor.Visibility = System.Windows.Visibility.Hidden;
+            Lights.Visibility = System.Windows.Visibility.Hidden;
+            Holo.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void cmbLegsClosed(object sender, EventArgs e)
+        {
+            Primary.Visibility = System.Windows.Visibility.Visible;
+            Secondary.Visibility = System.Windows.Visibility.Visible;
+            Visor.Visibility = System.Windows.Visibility.Visible;
+            Lights.Visibility = System.Windows.Visibility.Visible;
+            Holo.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void BackgroundThread()

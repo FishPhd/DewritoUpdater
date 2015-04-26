@@ -142,7 +142,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="{x:Type Button}">
+    <Style x:Name="DropButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -282,10 +282,12 @@
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter TargetName="Border" Property="Background" Value="White" />
                 <Setter TargetName="Arrow" Property="Fill" Value="Black" />
+                <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
                 <Setter TargetName="Border" Property="Background" Value="Black" />
                 <Setter TargetName="Arrow" Property="Fill" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="Border" Property="Background" Value="Black" />
@@ -352,6 +354,7 @@
         							MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
         								Background="Black"
+                                        Opacity="0.7"
         								BorderThickness="1"
                                         BorderBrush="#B5B5B5"/>
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
@@ -391,7 +394,11 @@
 
     <ControlTemplate x:Key="ColorPickerControlTemplate" TargetType="{x:Type xctk:ColorPicker}">
         <Grid UseLayoutRounding="True">
-            <ToggleButton x:Name="PART_ColorPickerToggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinHeight="22" Padding="{TemplateBinding Padding}" Style="{TemplateBinding ButtonStyle}" UseLayoutRounding="True" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+
+            <ToggleButton x:Name="PART_ColorPickerToggleButton" BorderBrush="White" BorderThickness="1" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinHeight="22" Padding="{TemplateBinding Padding}" UseLayoutRounding="True" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                <ToggleButton.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                </ToggleButton.Background>
                 <ToggleButton.IsHitTestVisible>
                     <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
                         <Binding.Converter>
@@ -446,7 +453,7 @@
                             </Style>
                         </ContentControl.Style>
                     </ContentControl>
-                    <Border x:Name="ColorAndName" Background="Transparent" UseLayoutRounding="True" Visibility="Hidden">
+                    <Border x:Name="ColorAndName" UseLayoutRounding="True" Visibility="Hidden">
                         <StackPanel Orientation="Horizontal" UseLayoutRounding="True">
                             <ContentControl BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Margin="2,1,4,1" UseLayoutRounding="True" Width="20">
                                 <ContentControl.Style>
@@ -499,7 +506,7 @@
                 </Grid>
             </ToggleButton>
             <Popup x:Name="PART_ColorPickerPalettePopup" AllowsTransparency="True" Focusable="False" HorizontalOffset="1" IsOpen="{Binding IsChecked, ElementName=PART_ColorPickerToggleButton}" PopupAnimation="Slide" StaysOpen="False" VerticalOffset="1" VerticalAlignment="Bottom">
-                <Border BorderBrush="White" Background="Black" BorderThickness="1" Padding="3" UseLayoutRounding="True">
+                <Border BorderBrush="White" BorderThickness="1" Padding="3" UseLayoutRounding="True">
                     <Grid UseLayoutRounding="True" Height="237">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -523,11 +530,13 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Background="Transparent" Foreground="White" Margin="0,0,0,1" Padding="2" Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True"/>
+                                    <!--
+                                    <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2" Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True"/>
+                                    
                                     <ListBox x:Name="PART_AvailableColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White" BorderBrush="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
-                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Setter Property="BorderThickness" Value="0"/>
                                                 <Setter Property="ItemsPanel">
                                                     <Setter.Value>
@@ -545,14 +554,16 @@
                                                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                                         <Grid ToolTip="{Binding Name}" UseLayoutRounding="True">
                                                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center"/>
-                                                                            <Border x:Name="_outerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
-                                                                                <Border x:Name="_innerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
+                                                                            <Border x:Name="_outerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
+                                                                                <Border x:Name="_innerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
                                                                             </Border>
                                                                         </Grid>
                                                                         <ControlTemplate.Triggers>
                                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
                                                                                 <Setter Property="BorderBrush" TargetName="_innerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ButtonMouseOverBackgroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                                                                                <Setter Property="Background" Value="White" />
+                                                                                <Setter Property="Foreground" Value="Black" />
                                                                             </Trigger>
                                                                             <Trigger Property="IsSelected" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
@@ -614,7 +625,7 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox>
+                                    </ListBox>-->
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="2" UseLayoutRounding="True">
@@ -627,11 +638,13 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Background="Transparent" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True"/>
-                                    <ListBox x:Name="PART_StandardColors" Grid.Row="1" UseLayoutRounding="True" Foreground="#FFFFFCFC">
+                                    <!--
+                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True"/>
+                                    
+                                    <ListBox x:Name="PART_StandardColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
-                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Background" Value="White"/>
                                                 <Setter Property="BorderThickness" Value="0"/>
                                                 <Setter Property="ItemsPanel">
                                                     <Setter.Value>
@@ -649,14 +662,16 @@
                                                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                                         <Grid ToolTip="{Binding Name}" UseLayoutRounding="True">
                                                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center"/>
-                                                                            <Border x:Name="_outerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
-                                                                                <Border x:Name="_innerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
+                                                                            <Border x:Name="_outerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
+                                                                                <Border x:Name="_innerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
                                                                             </Border>
                                                                         </Grid>
                                                                         <ControlTemplate.Triggers>
                                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
                                                                                 <Setter Property="BorderBrush" TargetName="_innerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ButtonMouseOverBackgroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                                                                                <Setter Property="Background" Value="White" />
+                                                                                <Setter Property="Foreground" Value="Black" />
                                                                             </Trigger>
                                                                             <Trigger Property="IsSelected" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
@@ -718,7 +733,7 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox>
+                                    </ListBox> -->
                                 </Grid>
                             </Grid>
                             <Grid Margin="0,1" Grid.Row="3" UseLayoutRounding="True">
@@ -731,11 +746,12 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Background="AliceBlue" Margin="0,1" Padding="2" Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True" Foreground="White"/>
+                                    <!--
+                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True"/>
                                     <ListBox x:Name="PART_RecentColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
-                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Foreground" Value="White"/>
                                                 <Setter Property="BorderThickness" Value="0"/>
                                                 <Setter Property="ItemsPanel">
                                                     <Setter.Value>
@@ -753,14 +769,16 @@
                                                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                                         <Grid ToolTip="{Binding Name}" UseLayoutRounding="True">
                                                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center"/>
-                                                                            <Border x:Name="_outerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
-                                                                                <Border x:Name="_innerBorder" BorderBrush="Transparent" BorderThickness="1" Background="Transparent" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
+                                                                            <Border x:Name="_outerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch">
+                                                                                <Border x:Name="_innerBorder" BorderBrush="White" BorderThickness="1" Background="White" HorizontalAlignment="Stretch" UseLayoutRounding="True" VerticalAlignment="Stretch"/>
                                                                             </Border>
                                                                         </Grid>
                                                                         <ControlTemplate.Triggers>
                                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
                                                                                 <Setter Property="BorderBrush" TargetName="_innerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ButtonMouseOverBackgroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+                                                                                <Setter Property="Background" Value="White" />
+                                                                                <Setter Property="Foreground" Value="Black" />
                                                                             </Trigger>
                                                                             <Trigger Property="IsSelected" Value="True">
                                                                                 <Setter Property="BorderBrush" TargetName="_outerBorder" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
@@ -822,12 +840,19 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox>
+                                    </ListBox> -->
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid x:Name="_colorCanvasHost" UseLayoutRounding="True" Visibility="Collapsed">
-                            <xctk:ColorCanvas BorderThickness="0" Foreground="White" Background="Transparent" SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}" UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True"/>
+                            <xctk:ColorCanvas BorderThickness="0" SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}" UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
+                                <xctk:ColorCanvas.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </xctk:ColorCanvas.Background>
+                                <xctk:ColorCanvas.Foreground>
+                                    <SolidColorBrush Color="White"/>
+                                </xctk:ColorCanvas.Foreground>
+                            </xctk:ColorCanvas>
                         </Grid>
                         <Button x:Name="PART_ColorModeButton" Margin="5" Grid.Row="2" UseLayoutRounding="True" Visibility="Hidden">
                         </Button>
@@ -836,6 +861,12 @@
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
+                <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
+                <Setter Property="Opacity" TargetName="PART_ColorPickerToggleButton" Value="0.85"/>
+
+            </Trigger>
             <Trigger Property="DisplayColorAndName" Value="True">
                 <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed"/>
                 <Setter Property="Visibility" TargetName="ColorAndName" Value="Visible"/>
