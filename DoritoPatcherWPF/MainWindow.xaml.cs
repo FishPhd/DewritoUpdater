@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace DoritoPatcherWPF
 {
@@ -55,9 +59,6 @@ namespace DoritoPatcherWPF
         string latestUpdateVersion;
         JToken latestUpdate;
 
-        DewritoSettings PlayerSettings;
-        DewritoSettings HelmetSettings;
-
         List<string> filesToDownload;
 
         Thread validateThread;
@@ -65,6 +66,10 @@ namespace DoritoPatcherWPF
         public string BasePath = Directory.GetCurrentDirectory();
 
         private bool silentStart = false;
+
+	    private const string SettingsFileName = "dewrito_prefs.yaml";
+	    private DewritoSettings settings;
+	    private SettingsViewModel settingsViewModel;
 
         public void HideScriptErrors(WebBrowser wb, bool Hide)
         {
@@ -137,17 +142,6 @@ namespace DoritoPatcherWPF
 
             }
 
-            if (!File.Exists(BasePath + @"\playername.txt"))
-            {
-                this.SaveSettings(true);
-            }
-
-            /*if (!File.Exists(BasePath + @"\playername.txt"))
-            {
-                this.SaveSettings(true);
-            }
-             */
-
             this.LoadSettings();
 
             try
@@ -201,66 +195,6 @@ namespace DoritoPatcherWPF
 				WebBrowserServer.Navigate("https://hos.llf.to/");
                 HideScriptErrors(WebBrowserServer, true);
             }
-        }
-
-        private void cmbHelmetOpen(object sender, EventArgs e)
-        {
-            cmbChest.Visibility = System.Windows.Visibility.Hidden;
-            cmbShoulder.Visibility = System.Windows.Visibility.Hidden;
-            cmbArm.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void cmbHelmetClosed(object sender, EventArgs e)
-        {
-            cmbChest.Visibility = System.Windows.Visibility.Visible;
-            cmbShoulder.Visibility = System.Windows.Visibility.Visible;
-            cmbArm.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void cmbChestOpen(object sender, EventArgs e)
-        {
-            cmbShoulder.Visibility = System.Windows.Visibility.Hidden;
-            cmbArm.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void cmbChestClosed(object sender, EventArgs e)
-        {
-            cmbShoulder.Visibility = System.Windows.Visibility.Visible;
-            cmbArm.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void cmbShoulderOpen(object sender, EventArgs e)
-        {
-            cmbArm.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void cmbShoulderClosed(object sender, EventArgs e)
-        {
-            cmbArm.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void cmbArmOpen(object sender, EventArgs e)
-        {
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void cmbArmClosed(object sender, EventArgs e)
-        {
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void cmbLegsOpen(object sender, EventArgs e)
-        {
-        }
-
-        private void cmbLegsClosed(object sender, EventArgs e)
-        {
         }
 
         private void BackgroundThread()
@@ -636,60 +570,55 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }
 
-        private void txtPlayername_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textbox = (TextBox)sender;
+	    private void LoadSettings()
+	    {
+			// Load settings from the YAML file
+			settings = null;
+		    try
+		    {
+			    using (var stream = File.OpenText(SettingsFileName))
+			    {
+				    var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+				    settings = deserializer.Deserialize<DewritoSettings>(stream);
+			    }
+		    }
+		    catch (IOException) { }
+			catch (YamlException) { }
+			if (settings == null)
+				settings = new DewritoSettings(); // Use defaults if an error occurred
 
-            PlayerSettings.config = textbox.Text;
-            this.SaveSettings();
-        }
+			// Create the view model and listen for changes
+			settingsViewModel = new SettingsViewModel(settings);
+			settingsViewModel.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Player.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Player.Armor.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Player.Colors.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Video.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Host.PropertyChanged += SettingsChanged;
 
-        private void SaveSettings(bool overwrite = false)
-        {
-            if (overwrite || PlayerSettings == null || HelmetSettings == null)
-            {
-                PlayerSettings = new DewritoSettings();
-                PlayerSettings.config = "";
+			// Set the data context for the settings tabs
+			tabCustomization.DataContext = settingsViewModel;
+			tabGameSettings.DataContext = settingsViewModel;
+	    }
 
-                HelmetSettings = new DewritoSettings();
-                HelmetSettings.config = "";
-            }
+	    private void SaveSettings()
+	    {
+			settingsViewModel.Save(settings);
+		    try
+		    {
+			    using (var writer = new StreamWriter(File.Open(SettingsFileName, FileMode.Create, FileAccess.Write)))
+			    {
+				    var serializer = new Serializer(SerializationOptions.EmitDefaults, new CamelCaseNamingConvention());
+				    serializer.Serialize(writer, settings);
+			    }
+		    }
+		    catch (IOException) { }
+			catch (YamlException) { }
+	    }
 
-            using (var writer = new StreamWriter(BasePath + @"\playername.txt", append: false))
-            {
-                writer.Write(PlayerSettings.config);
-                writer.Write(HelmetSettings.config);
-            }
-
-            //if (overwrite)
-            //{
-            //    PlayerSettings = new DewritoSettings();
-
-            //    PlayerSettings.Playername = "Spartan";
-            //}
-
-            //using (var writer = new StreamWriter(BasePath + @"\dewrito.cfg", append: false))
-            //{
-            //    JsonConvert.SerializeObject(PlayerSettings);
-            //}
-        }
-
-        private void LoadSettings()
-        {
-            using (var reader = new StreamReader(BasePath + @"\playername.txt"))
-            {
-                PlayerSettings = new DewritoSettings();
-                PlayerSettings.config = reader.ReadLine();
-            }
-
-            txtPlayername.Text = PlayerSettings.config;
-
-            //using (var reader = new StreamReader(BasePath + @"\dewrito.cfg"))
-            //{
-            //    PlayerSettings = serializer.Deserialize(reader) as DewritoSettings;
-            //}
-
-            //txtPlayername.Text = PlayerSettings.Playername;
-        }
+		void SettingsChanged(object sender, PropertyChangedEventArgs e)
+		{
+			SaveSettings();
+		}
     }
 }

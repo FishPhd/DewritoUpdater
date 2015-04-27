@@ -50,18 +50,18 @@
                 <TextBlock Text="x" Height="24" Margin="0, 0,0,0" />
             </Button>
         </StackPanel>
-        <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,64,64" Columns="*,*" Margin="5,0,5,5">
+        <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,58" Columns="*,*" Margin="5,0,5,5">
             <Canvas Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="711" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 <Canvas.Background>
                     <ImageBrush ImageSource="Resources/logo.png"/>
                 </Canvas.Background>
             </Canvas>
-            <Border Height="58" BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
+            <Border BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
                 <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Click="btnAction_Click" Margin="0,-1"/>
             </Border>
-            <StackPanel Orientation="Vertical" Height="58">
-                <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="3,0,0,0"/>
-                <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="3,0,0,0"/>
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="5,0,0,0"/>
+                <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="5,0,0,0"/>
             </StackPanel>
         </st:AutoGrid>
 
@@ -86,7 +86,7 @@
                     <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Player Customization">
+            <TabItem x:Name="tabCustomization" Header="Player Customization">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="White"/>
@@ -150,205 +150,57 @@
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Player Settings</TextBlock>
+                        <TextBlock Style="{StaticResource Header}">Player Settings</TextBlock>
                         <TextBlock>Player Name:</TextBlock>
-                        <DockPanel>
-                            <TextBox DockPanel.Dock="Right" LostFocus="txtPlayername_LostFocus" x:Name="txtPlayername" Width="200">
-                                <TextBox.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
-                                </TextBox.Background>
-                            </TextBox>
-                        </DockPanel>
+                        <TextBox Width="200" Text="{Binding Player.Name}">
+                            <TextBox.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7"/>
+                            </TextBox.Background>
+                        </TextBox>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
                         <TextBlock>Helmet:</TextBlock>
-                        <ComboBox SelectedIndex="0" Name="cmbHelmet" DropDownClosed="cmbHelmetClosed" DropDownOpened="cmbHelmetOpen">
-                            <ComboBoxItem Foreground="White" Content="Base"/>
-                            <ComboBoxItem Foreground="White" Content="Stealth"/>
-                            <ComboBoxItem Foreground="White" Content="Air Assault"/>
-                            <ComboBoxItem Foreground="White" Content="Renegade"/>
-                            <ComboBoxItem Foreground="White" Content="Nihard"/>
-                            <ComboBoxItem Foreground="White" Content="Gladiator"/>
-                            <ComboBoxItem Foreground="White" Content="Mac"/>
-                            <ComboBoxItem Foreground="White" Content="Shark"/>
-                            <ComboBoxItem Foreground="White" Content="Juggernaut"/>
-                            <ComboBoxItem Foreground="White" Content="Dutch"/>
-                            <ComboBoxItem Foreground="White" Content="Chameleon"/>
-                            <ComboBoxItem Foreground="White" Content="Halberd"/>
-                            <ComboBoxItem Foreground="White" Content="Cyclops"/>
-                            <ComboBoxItem Foreground="White" Content="Scanner"/>
-                            <ComboBoxItem Foreground="White" Content="Mercenary"/>
-                            <ComboBoxItem Foreground="White" Content="Hoplite"/>
-                            <ComboBoxItem Foreground="White" Content="Ballista"/>
-                            <ComboBoxItem Foreground="White" Content="Strider"/>
-                            <ComboBoxItem Foreground="White" Content="Demo"/>
-                            <ComboBoxItem Foreground="White" Content="Orbital"/>
-                            <ComboBoxItem Foreground="White" Content="Spectrum"/>
-                            <ComboBoxItem Foreground="White" Content="Gungnir"/>
-                            <ComboBoxItem Foreground="White" Content="Hammerhead"/>
-                            <ComboBoxItem Foreground="White" Content="Omni"/>
-                            <ComboBoxItem Foreground="White" Content="Oracle"/>
-                            <ComboBoxItem Foreground="White" Content="Silverback"/>
-                            <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                        </ComboBox>
-
+                        <ComboBox ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName"/>
                         <TextBlock>Chest:</TextBlock>
-                        <ComboBox SelectedIndex="0" Name="cmbChest" DropDownClosed="cmbChestClosed" DropDownOpened="cmbChestOpen">
-                            <ComboBoxItem Foreground="White" Content="Base"/>
-                            <ComboBoxItem Foreground="White" Content="Stealth"/>
-                            <ComboBoxItem Foreground="White" Content="Air Assault"/>
-                            <ComboBoxItem Foreground="White" Content="Renegade"/>
-                            <ComboBoxItem Foreground="White" Content="Nihard"/>
-                            <ComboBoxItem Foreground="White" Content="Gladiator"/>
-                            <ComboBoxItem Foreground="White" Content="Mac"/>
-                            <ComboBoxItem Foreground="White" Content="Shark"/>
-                            <ComboBoxItem Foreground="White" Content="Juggernaut"/>
-                            <ComboBoxItem Foreground="White" Content="Dutch"/>
-                            <ComboBoxItem Foreground="White" Content="Chameleon"/>
-                            <ComboBoxItem Foreground="White" Content="Halberd"/>
-                            <ComboBoxItem Foreground="White" Content="Cyclops"/>
-                            <ComboBoxItem Foreground="White" Content="Scanner"/>
-                            <ComboBoxItem Foreground="White" Content="Mercenary"/>
-                            <ComboBoxItem Foreground="White" Content="Hoplite"/>
-                            <ComboBoxItem Foreground="White" Content="Ballista"/>
-                            <ComboBoxItem Foreground="White" Content="Strider"/>
-                            <ComboBoxItem Foreground="White" Content="Demo"/>
-                            <ComboBoxItem Foreground="White" Content="Orbital"/>
-                            <ComboBoxItem Foreground="White" Content="Spectrum"/>
-                            <ComboBoxItem Foreground="White" Content="Gungnir"/>
-                            <ComboBoxItem Foreground="White" Content="Hammerhead"/>
-                            <ComboBoxItem Foreground="White" Content="Omni"/>
-                            <ComboBoxItem Foreground="White" Content="Oracle"/>
-                            <ComboBoxItem Foreground="White" Content="Silverback"/>
-                            <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                        </ComboBox>
-
+                        <ComboBox ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
                         <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox SelectedIndex="0" Name="cmbShoulder" DropDownClosed="cmbShoulderClosed" DropDownOpened="cmbShoulderOpen">
-                            <ComboBoxItem Foreground="White" Content="Base"/>
-                            <ComboBoxItem Foreground="White" Content="Stealth"/>
-                            <ComboBoxItem Foreground="White" Content="Air Assault"/>
-                            <ComboBoxItem Foreground="White" Content="Renegade"/>
-                            <ComboBoxItem Foreground="White" Content="Nihard"/>
-                            <ComboBoxItem Foreground="White" Content="Gladiator"/>
-                            <ComboBoxItem Foreground="White" Content="Mac"/>
-                            <ComboBoxItem Foreground="White" Content="Shark"/>
-                            <ComboBoxItem Foreground="White" Content="Juggernaut"/>
-                            <ComboBoxItem Foreground="White" Content="Dutch"/>
-                            <ComboBoxItem Foreground="White" Content="Chameleon"/>
-                            <ComboBoxItem Foreground="White" Content="Halberd"/>
-                            <ComboBoxItem Foreground="White" Content="Cyclops"/>
-                            <ComboBoxItem Foreground="White" Content="Scanner"/>
-                            <ComboBoxItem Foreground="White" Content="Mercenary"/>
-                            <ComboBoxItem Foreground="White" Content="Hoplite"/>
-                            <ComboBoxItem Foreground="White" Content="Ballista"/>
-                            <ComboBoxItem Foreground="White" Content="Strider"/>
-                            <ComboBoxItem Foreground="White" Content="Demo"/>
-                            <ComboBoxItem Foreground="White" Content="Orbital"/>
-                            <ComboBoxItem Foreground="White" Content="Spectrum"/>
-                            <ComboBoxItem Foreground="White" Content="Gungnir"/>
-                            <ComboBoxItem Foreground="White" Content="Hammerhead"/>
-                            <ComboBoxItem Foreground="White" Content="Omni"/>
-                            <ComboBoxItem Foreground="White" Content="Oracle"/>
-                            <ComboBoxItem Foreground="White" Content="Silverback"/>
-                            <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                        </ComboBox>
-
+                        <ComboBox ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName"/>
                         <TextBlock>Arms:</TextBlock>
-                        <ComboBox SelectedIndex="0" Name="cmbArm" DropDownClosed="cmbArmClosed" DropDownOpened="cmbArmOpen">
-                            <ComboBoxItem Foreground="White" Content="Base"/>
-                            <ComboBoxItem Foreground="White" Content="Stealth"/>
-                            <ComboBoxItem Foreground="White" Content="Renegade"/>
-                            <ComboBoxItem Foreground="White" Content="Nihard"/>
-                            <ComboBoxItem Foreground="White" Content="Gladiator"/>
-                            <ComboBoxItem Foreground="White" Content="Mac"/>
-                            <ComboBoxItem Foreground="White" Content="Shark"/>
-                            <ComboBoxItem Foreground="White" Content="Juggernaut"/>
-                            <ComboBoxItem Foreground="White" Content="Dutch"/>
-                            <ComboBoxItem Foreground="White" Content="Chameleon"/>
-                            <ComboBoxItem Foreground="White" Content="Scanner"/>
-                            <ComboBoxItem Foreground="White" Content="Mercenary"/>
-                            <ComboBoxItem Foreground="White" Content="Hoplite"/>
-                            <ComboBoxItem Foreground="White" Content="Ballista"/>
-                            <ComboBoxItem Foreground="White" Content="Strider"/>
-                            <ComboBoxItem Foreground="White" Content="Demo"/>
-                            <ComboBoxItem Foreground="White" Content="Spectrum"/>
-                            <ComboBoxItem Foreground="White" Content="Gungnir"/>
-                            <ComboBoxItem Foreground="White" Content="Orbital"/>
-                            <ComboBoxItem Foreground="White" Content="Oracle"/>
-                            <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                            <ComboBoxItem Foreground="White" Content="Tankmode"/>
-                            <ComboBoxItem Foreground="White" Content="Air Assault"/>
-                            <ComboBoxItem Foreground="White" Content="Hammerhead"/>
-                            <ComboBoxItem Foreground="White" Content="Omni"/>
-                            <ComboBoxItem Foreground="White" Content="Silverback"/>
-                            <ComboBoxItem Foreground="White" Content="Cyclops"/>
-                            <ComboBoxItem Foreground="White" Content="Halberd"/>
-                        </ComboBox>
-
+                        <ComboBox ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName"/>
                         <TextBlock>Legs:</TextBlock>
-                        <ComboBox SelectedIndex="0" Name="cmbLegs" DropDownClosed="cmbLegsClosed" DropDownOpened="cmbLegsOpen">
-                            <ComboBoxItem Foreground="White" Content="Base"/>
-                            <ComboBoxItem Foreground="White" Content="Stealth"/>
-                            <ComboBoxItem Foreground="White" Content="Renegade"/>
-                            <ComboBoxItem Foreground="White" Content="Nihard"/>
-                            <ComboBoxItem Foreground="White" Content="Gladiator"/>
-                            <ComboBoxItem Foreground="White" Content="Mac"/>
-                            <ComboBoxItem Foreground="White" Content="Shark"/>
-                            <ComboBoxItem Foreground="White" Content="Juggernaut"/>
-                            <ComboBoxItem Foreground="White" Content="Dutch"/>
-                            <ComboBoxItem Foreground="White" Content="Chameleon"/>
-                            <ComboBoxItem Foreground="White" Content="Scanner"/>
-                            <ComboBoxItem Foreground="White" Content="Mercenary"/>
-                            <ComboBoxItem Foreground="White" Content="Hoplite"/>
-                            <ComboBoxItem Foreground="White" Content="Ballista"/>
-                            <ComboBoxItem Foreground="White" Content="Strider"/>
-                            <ComboBoxItem Foreground="White" Content="Demo"/>
-                            <ComboBoxItem Foreground="White" Content="Spectrum"/>
-                            <ComboBoxItem Foreground="White" Content="Gungnir"/>
-                            <ComboBoxItem Foreground="White" Content="Orbital"/>
-                            <ComboBoxItem Foreground="White" Content="Oracle"/>
-                            <ComboBoxItem Foreground="White" Content="Widow Maker"/>
-                            <ComboBoxItem Foreground="White" Content="Tankmode"/>
-                            <ComboBoxItem Foreground="White" Content="Air Assault"/>
-                            <ComboBoxItem Foreground="White" Content="Hammerhead"/>
-                            <ComboBoxItem Foreground="White" Content="Omni"/>
-                            <ComboBoxItem Foreground="White" Content="Silverback"/>
-                            <ComboBoxItem Foreground="White" Content="Cyclops"/>
-                            <ComboBoxItem Foreground="White" Content="Halberd"/>
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName"/>
 
                         
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Colors</TextBlock>
+                        <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
                         <TextBlock>Primary:</TextBlock>
-                        <xctk:ColorPicker x:Name="Primary">
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Primary}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
 
                         <TextBlock>Secondary:</TextBlock>
-                        <xctk:ColorPicker Name="Secondary">
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
                         <TextBlock>Visor:</TextBlock>
-                        <xctk:ColorPicker Name="Visor">
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
                         <TextBlock>Lights:</TextBlock>
-                        <xctk:ColorPicker Name="Lights">
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
                         <TextBlock>Holo:</TextBlock>
-                        <xctk:ColorPicker Name="Holo">
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
@@ -356,7 +208,7 @@
                     </st:AutoGrid>
                 </st:AutoGrid>
             </TabItem>
-            <TabItem Header="Game Settings">
+            <TabItem x:Name="tabGameSettings" Header="Game Settings">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="White"/>
@@ -420,27 +272,27 @@
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" >Graphics Settings</TextBlock>
+                        <TextBlock Style="{StaticResource Header}">Graphics Settings</TextBlock>
                         <TextBlock>Field of View:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=FovValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider DockPanel.Dock="Left" x:Name="FovValue" Minimum="60" Maximum="130" TickFrequency="5" IsSnapToTickEnabled="True" Value="90"/>
+                            <Slider DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>  
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Host Settings</TextBlock>
+                        <TextBlock Style="{StaticResource Header}">Host Settings</TextBlock>
                         <TextBlock>Start Timer:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Value, ElementName=StartTimerValue, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="60" TextAlignment="Center">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider DockPanel.Dock="Left" x:Name="StartTimerValue" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="5" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
                     </st:AutoGrid>
                 </st:AutoGrid>

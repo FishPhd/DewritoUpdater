@@ -84,17 +84,23 @@
     <Reference Include="Xceed.Wpf.Toolkit">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.4\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>..\packages\YamlDotNet.3.5.1\lib\net35\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DewritoSettings.cs" />
     <Compile Include="FileDownloadDialog.xaml.cs">
       <DependentUpon>FileDownloadDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SettingsViewModel.cs" />
     <Compile Include="Utils\WindowMovement.cs" />
+    <Compile Include="ViewModel.cs" />
     <Page Include="FileDownloadDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,7 +114,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BinaryPatchUtility.cs" />
-    <Compile Include="DewritoSettings.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
