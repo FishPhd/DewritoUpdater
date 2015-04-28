@@ -286,12 +286,12 @@
                 <Setter TargetName="Arrow" Property="Fill" Value="Black" />
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="Black" />
+                <Setter TargetName="Border" Property="Background" Value="White" />
                 <Setter TargetName="Border" Property="Opacity" Value="0.7" />
-                <Setter TargetName="Arrow" Property="Fill" Value="White" />
+                <Setter TargetName="Arrow" Property="Fill" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="Black" />
+                <Setter TargetName="Border" Property="Background" Value="White" />
                 <Setter TargetName="Border" Property="BorderBrush" Value="White" />
                 <Setter TargetName="Arrow" Property="Fill" Value="White" />
             </Trigger>
@@ -302,19 +302,20 @@
         <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
     </ControlTemplate>
 
-    <Style TargetType="{x:Type ComboBoxItem}">
+    <Style x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Foreground" Value="White" />
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="Foreground" Value="White"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
         <Setter Property="MinWidth" Value="120"/>
         <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -325,7 +326,8 @@
         						Grid.Column="2" 
         						Focusable="false"
         						IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-        						ClickMode="Press"/>
+        						ClickMode="Press"
+                                />
                         <ContentPresenter
         						x:Name="ContentSite"
         						IsHitTestVisible="False" 
@@ -378,12 +380,6 @@
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="true">
-                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>

@@ -607,6 +607,8 @@ namespace DoritoPatcherWPF
                 }
 
                 btnAction.Content = "Play Game";
+                WebBrowserServer.Visibility = System.Windows.Visibility.Visible;
+                WebBrowserStats.Visibility = System.Windows.Visibility.Visible;
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
             }
         }
