@@ -292,6 +292,8 @@
                             </TextBox>
                             <Slider DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
+
+                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}">Center the Crosshair on the Screen</CheckBox>
                         
                         <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5">Input Settings</TextBlock>
                         <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}">Use Raw Mouse Input</CheckBox>

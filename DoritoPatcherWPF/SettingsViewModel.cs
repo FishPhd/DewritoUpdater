@@ -427,6 +427,7 @@ namespace DoritoPatcherWPF
 	public class VideoSettingsViewModel : ViewModel
 	{
 		private float _fov;
+		private bool _crosshairCentered;
 
 		public VideoSettingsViewModel(DewritoVideoSettings settings)
 		{
@@ -439,14 +440,22 @@ namespace DoritoPatcherWPF
 			set { SetField(ref _fov, value, () => FieldOfView); }
 		}
 
+		public bool CrosshairCentered
+		{
+			get { return _crosshairCentered; }
+			set { SetField(ref _crosshairCentered, value, () => CrosshairCentered); }
+		}
+
 		private void Load(DewritoVideoSettings settings)
 		{
 			_fov = settings.Fov;
+			_crosshairCentered = settings.CrosshairCentered;
 		}
 
 		public void Save(DewritoVideoSettings settings)
 		{
 			settings.Fov = _fov;
+			settings.CrosshairCentered = _crosshairCentered;
 		}
 	}
 
