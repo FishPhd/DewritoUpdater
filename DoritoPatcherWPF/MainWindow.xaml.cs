@@ -194,7 +194,8 @@ namespace DoritoPatcherWPF
 
             }
 
-            this.LoadSettings();
+            LoadSettings();
+			SaveSettings();
 
             try
             {
@@ -647,6 +648,7 @@ namespace DoritoPatcherWPF
 		    settingsViewModel.Player.Colors.PropertyChanged += SettingsChanged;
 		    settingsViewModel.Video.PropertyChanged += SettingsChanged;
 		    settingsViewModel.Host.PropertyChanged += SettingsChanged;
+		    settingsViewModel.Input.PropertyChanged += SettingsChanged;
 
 			// Set the data context for the settings tabs
 			tabCustomization.DataContext = settingsViewModel;

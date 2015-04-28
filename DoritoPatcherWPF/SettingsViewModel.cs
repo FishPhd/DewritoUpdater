@@ -13,6 +13,7 @@ namespace DoritoPatcherWPF
 		private PlayerSettingsViewModel _player;
 		private VideoSettingsViewModel _video;
 		private HostSettingsViewModel _host;
+		private InputSettingsViewModel _input;
 
 		public SettingsViewModel(DewritoSettings settings)
 		{
@@ -37,11 +38,18 @@ namespace DoritoPatcherWPF
 			set { SetField(ref _host, value, () => Host); }
 		}
 
+		public InputSettingsViewModel Input
+		{
+			get { return _input; }
+			set { SetField(ref _input, value, () => Input); }
+		}
+
 		private void Load(DewritoSettings settings)
 		{
 			_player = new PlayerSettingsViewModel(settings.Player ?? new DewritoPlayerSettings());
 			_video = new VideoSettingsViewModel(settings.Video ?? new DewritoVideoSettings());
 			_host = new HostSettingsViewModel(settings.Host ?? new DewritoHostSettings());
+			_input = new InputSettingsViewModel(settings.Input ?? new DewritoInputSettings());
 		}
 
 		public void Save(DewritoSettings settings)
@@ -52,9 +60,12 @@ namespace DoritoPatcherWPF
 				settings.Video = new DewritoVideoSettings();
 			if (settings.Host == null)
 				settings.Host = new DewritoHostSettings();
+			if (settings.Input == null)
+				settings.Input = new DewritoInputSettings();
 			_player.Save(settings.Player);
 			_video.Save(settings.Video);
 			_host.Save(settings.Host);
+			_input.Save(settings.Input);
 		}
 	}
 
@@ -462,6 +473,32 @@ namespace DoritoPatcherWPF
 		public void Save(DewritoHostSettings settings)
 		{
 			settings.Countdown = _countdown;
+		}
+	}
+
+	public class InputSettingsViewModel : ViewModel
+	{
+		private bool _rawMouse;
+
+		public InputSettingsViewModel(DewritoInputSettings settings)
+		{
+			Load(settings);
+		}
+
+		public bool RawMouse
+		{
+			get { return _rawMouse; }
+			set { SetField(ref _rawMouse, value, () => RawMouse); }
+		}
+
+		private void Load(DewritoInputSettings settings)
+		{
+			_rawMouse = settings.RawMouse;
+		}
+
+		public void Save(DewritoInputSettings settings)
+		{
+			settings.RawMouse = _rawMouse;
 		}
 	}
 }

@@ -13,6 +13,7 @@ namespace DoritoPatcherWPF
 			Player = new DewritoPlayerSettings();
 			Video = new DewritoVideoSettings();
 			Host = new DewritoHostSettings();
+			Input = new DewritoInputSettings();
 		}
 
 		public DewritoPlayerSettings Player { get; set; }
@@ -20,6 +21,8 @@ namespace DoritoPatcherWPF
 		public DewritoVideoSettings Video { get; set; }
 
 		public DewritoHostSettings Host { get; set; }
+
+		public DewritoInputSettings Input { get; set; }
 	}
 
 	public class DewritoPlayerSettings
@@ -136,5 +139,15 @@ namespace DoritoPatcherWPF
 		}
 
 		public int Countdown { get; set; }
+	}
+
+	public class DewritoInputSettings
+	{
+		public DewritoInputSettings()
+		{
+			RawMouse = true;
+		}
+
+		public bool RawMouse { get; set; }
 	}
 }
