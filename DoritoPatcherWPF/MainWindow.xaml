@@ -140,7 +140,7 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="BorderBrush">
                             <Setter.Value>
-                                <SolidColorBrush Color="White" Opacity="0.7"/>
+                                <SolidColorBrush Color="White"/>
                             </Setter.Value>
                         </Setter>
                     </Style>
@@ -160,15 +160,16 @@
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
                         <TextBlock>Helmet:</TextBlock>
-                        <ComboBox ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName"/>
+                        <ComboBox Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393" />
+                        
                         <TextBlock>Chest:</TextBlock>
-                        <ComboBox ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
+                        <ComboBox  Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
                         <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName"/>
+                        <ComboBox Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325"/>
                         <TextBlock>Arms:</TextBlock>
-                        <ComboBox ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName"/>
+                        <ComboBox Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293"/>
                         <TextBlock>Legs:</TextBlock>
-                        <ComboBox ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName"/>
+                        <ComboBox Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260"/>
 
                         
                     </st:AutoGrid>

@@ -250,7 +250,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -260,10 +260,12 @@
             <Border
         			x:Name="Border" 
         			Grid.ColumnSpan="2"
-        			Background="Black"
-        			Opacity="0.7"
         			BorderBrush="White"
-        			BorderThickness="1" />
+        			BorderThickness="1" >
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                </Border.Background>
+            </Border>
             <Border 
         			Grid.Column="0"
         			Margin="1" 
@@ -282,17 +284,15 @@
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter TargetName="Border" Property="Background" Value="White" />
                 <Setter TargetName="Arrow" Property="Fill" Value="Black" />
-                <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
                 <Setter TargetName="Border" Property="Background" Value="Black" />
+                <Setter TargetName="Border" Property="Opacity" Value="0.7" />
                 <Setter TargetName="Arrow" Property="Fill" Value="White" />
-                <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="Border" Property="Background" Value="Black" />
                 <Setter TargetName="Border" Property="BorderBrush" Value="White" />
-                <Setter Property="Foreground" Value="White"/>
                 <Setter TargetName="Arrow" Property="Fill" Value="White" />
             </Trigger>
         </ControlTemplate.Triggers>
@@ -302,9 +302,14 @@
         <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
     </ControlTemplate>
 
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -338,6 +343,7 @@
         						Margin="3,3,23,3"
         						Focusable="True" 
         						Background="Transparent"
+                                Foreground="White"
         						Visibility="Hidden"
         						IsReadOnly="{TemplateBinding IsReadOnly}"/>
                         <Popup 
@@ -364,11 +370,20 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
                         <Trigger Property="HasItems" Value="false">
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
@@ -862,9 +877,9 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
+                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="White"/>
                 <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
-                <Setter Property="Opacity" TargetName="PART_ColorPickerToggleButton" Value="0.85"/>
+                <Setter Property="Opacity" TargetName="PART_ColorPickerToggleButton" Value="1"/>
             </Trigger>
             <Trigger Property="DisplayColorAndName" Value="True">
                 <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed"/>

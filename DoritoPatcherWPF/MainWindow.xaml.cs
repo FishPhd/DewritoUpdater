@@ -86,6 +86,58 @@ namespace DoritoPatcherWPF
             Application.Current.Shutdown();
         }
 
+        private void helmetOpen(object sender, EventArgs e)
+        {
+            cmbChest.Visibility = System.Windows.Visibility.Hidden;
+            cmbShoulders.Visibility = System.Windows.Visibility.Hidden;
+            cmbArms.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void helmetClose(object sender, EventArgs e)
+        {
+            cmbChest.Visibility = System.Windows.Visibility.Visible;
+            cmbShoulders.Visibility = System.Windows.Visibility.Visible;
+            cmbArms.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void chestOpen(object sender, EventArgs e)
+        {
+            cmbShoulders.Visibility = System.Windows.Visibility.Hidden;
+            cmbArms.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void chestClose(object sender, EventArgs e)
+        {
+            cmbShoulders.Visibility = System.Windows.Visibility.Visible;
+            cmbArms.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void shouldersOpen(object sender, EventArgs e)
+        {
+            cmbArms.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void shouldersClose(object sender, EventArgs e)
+        {
+            cmbArms.Visibility = System.Windows.Visibility.Visible;
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void armsOpen(object sender, EventArgs e)
+        {
+            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void armsClose(object sender, EventArgs e)
+        {
+            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+        }
+
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
