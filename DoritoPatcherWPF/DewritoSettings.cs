@@ -138,8 +138,10 @@ namespace DoritoPatcherWPF
 		public DewritoHostSettings()
 		{
 			Countdown = 5;
+            MaxPlayer = 16;
 		}
 
+        public int MaxPlayer { get; set; }
 		public int Countdown { get; set; }
 	}
 

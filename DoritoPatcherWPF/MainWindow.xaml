@@ -269,6 +269,7 @@
                         <Setter Property="Height" Value="23"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="White"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -291,10 +292,14 @@
                             <Slider DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
-                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}">Center the Crosshair on the Screen</CheckBox>
+                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" >
+                            Centered Crosshair
+                        </CheckBox>
                         
                         <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5">Input Settings</TextBlock>
-                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}">Use Raw Mouse Input</CheckBox>
+                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}">
+                            Use Raw Mouse Input
+                        </CheckBox>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
                         <TextBlock Style="{StaticResource Header}">Host Settings</TextBlock>
@@ -306,6 +311,15 @@
                                 </TextBox.Background>
                             </TextBox>
                             <Slider DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                        </DockPanel>
+                        <TextBlock>Maximum Players:</TextBlock>
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </TextBox.Background>
+                            </TextBox>
+                            <Slider DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
                     </st:AutoGrid>
                 </st:AutoGrid>

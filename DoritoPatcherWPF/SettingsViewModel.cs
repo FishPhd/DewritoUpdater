@@ -462,6 +462,7 @@ namespace DoritoPatcherWPF
 	public class HostSettingsViewModel : ViewModel
 	{
 		private int _countdown;
+        private int _maxplayer;
 
 		public HostSettingsViewModel(DewritoHostSettings settings)
 		{
@@ -474,14 +475,22 @@ namespace DoritoPatcherWPF
 			set { SetField(ref _countdown, value, () => Countdown); }
 		}
 
+        public int MaxPlayer
+        {
+            get { return _maxplayer; }
+            set { SetField(ref _maxplayer, value, () => MaxPlayer); }
+        }
+
 		private void Load(DewritoHostSettings settings)
 		{
 			_countdown = settings.Countdown;
+            _maxplayer = settings.MaxPlayer;
 		}
 
 		public void Save(DewritoHostSettings settings)
 		{
 			settings.Countdown = _countdown;
+            settings.MaxPlayer = _maxplayer;
 		}
 	}
 
