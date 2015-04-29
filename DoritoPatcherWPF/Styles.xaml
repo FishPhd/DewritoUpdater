@@ -408,7 +408,7 @@
 
             <ToggleButton x:Name="PART_ColorPickerToggleButton" BorderBrush="White" BorderThickness="1" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinHeight="22" UseLayoutRounding="True" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                 <ToggleButton.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </ToggleButton.Background>
                 <ToggleButton.IsHitTestVisible>
                     <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
@@ -541,9 +541,9 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <!--
-                                    <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2" Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True"/>
                                     
+                                    <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2" Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True"/>
+                                    <!--
                                     <ListBox x:Name="PART_AvailableColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White" BorderBrush="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -649,9 +649,9 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <!--
-                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True"/>
                                     
+                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True"/>
+                                    <!--
                                     <ListBox x:Name="PART_StandardColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -757,8 +757,9 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <!--
+                                    
                                     <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True"/>
+                                    <!--
                                     <ListBox x:Name="PART_RecentColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -858,7 +859,7 @@
                         <Grid x:Name="_colorCanvasHost" UseLayoutRounding="True" Visibility="Collapsed">
                             <xctk:ColorCanvas BorderThickness="0" SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}" UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
                                 <xctk:ColorCanvas.Background>
-                                    <SolidColorBrush Color="Black"/>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </xctk:ColorCanvas.Background>
                                 <xctk:ColorCanvas.Foreground>
                                     <SolidColorBrush Color="White"/>
@@ -875,7 +876,6 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="White"/>
                 <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
-                <Setter Property="Opacity" TargetName="PART_ColorPickerToggleButton" Value="1"/>
             </Trigger>
             <Trigger Property="DisplayColorAndName" Value="True">
                 <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed"/>

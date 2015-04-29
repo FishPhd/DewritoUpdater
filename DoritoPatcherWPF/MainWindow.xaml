@@ -195,7 +195,7 @@
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
                         <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
                         <TextBlock>Primary:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Primary}">
+                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                             </xctk:ColorPicker.Background>
