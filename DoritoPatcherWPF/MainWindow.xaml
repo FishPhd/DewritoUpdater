@@ -68,15 +68,36 @@
         <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
             <TabItem Header="Server Browser" x:Name="Server">
                 <Grid>
-                    <Grid Background="Black" Opacity="0.7"/>
                     <WebBrowser x:Name="WebBrowserServer" Visibility="Hidden" LoadCompleted="server_LoadCompleted"/>
+                    <Grid Background="Black" Opacity="0.7"/>
                     <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Border BorderBrush="White" Margin="200,50,12,-29" />
+                    <!--
+                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,0,-1,423">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Border.Background>
+                        <Label Content="Server Browser" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,214,-1,209" HorizontalAlignment="Left" Width="655" Height="108">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Border.Background>
+                        <Button Content="File Share" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,107,-1,316" Width="655" Height="108">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Border.Background>
+                        <Button Content="Stats/Ranks" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    -->
                 </Grid>
             </TabItem>
             <TabItem Header="Stats" x:Name="Stats">
                 <Grid>
-                    <Grid x:Name="gridStats" Background="Black" Opacity="0.7" Grid.ColumnSpan="3"/>
                     <WebBrowser x:Name="WebBrowserStats" Visibility="Hidden" />
+                    <Grid x:Name="gridStats" Background="Black" Opacity="0.7" Grid.ColumnSpan="3"/>
                     <Label x:Name="lblVerify2" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
@@ -169,7 +190,7 @@
                         <TextBlock>Legs:</TextBlock>
                         <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260"/>
 
-                        
+
                     </st:AutoGrid>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
                         <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
@@ -292,10 +313,10 @@
                             <Slider DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
-                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" >
+                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}">
                             Centered Crosshair
                         </CheckBox>
-                        
+
                         <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5">Input Settings</TextBlock>
                         <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}">
                             Use Raw Mouse Input
