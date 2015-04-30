@@ -657,6 +657,14 @@ namespace DoritoPatcherWPF
 			tabGameSettings.DataContext = settingsViewModel;
 	    }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            sldFov.Value = 90;
+            chkCenter.IsChecked = false;
+            chkRaw.IsChecked = true;
+            sldTimer.Value = 5;
+            sldMax.Value = 16;
+        }
 	    private void SaveSettings()
 	    {
 			settingsViewModel.Save(settings);

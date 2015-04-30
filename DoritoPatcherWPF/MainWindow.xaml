@@ -56,7 +56,10 @@
                     <ImageBrush ImageSource="Resources/logo.png"/>
                 </Canvas.Background>
             </Canvas>
-            <Border BorderBrush="White" BorderThickness="1" Background="Black" Opacity="0.7">
+            <Border BorderBrush="White" BorderThickness="1">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.7" />
+                </Border.Background>
                 <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Click="btnAction_Click" Margin="0,-1"/>
             </Border>
             <StackPanel Orientation="Vertical">
@@ -310,15 +313,15 @@
                                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
-                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}">
+                        <CheckBox Name="chkCenter" Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}">
                             Centered Crosshair
                         </CheckBox>
 
                         <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5">Input Settings</TextBlock>
-                        <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}">
+                        <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}">
                             Use Raw Mouse Input
                         </CheckBox>
                     </st:AutoGrid>
@@ -331,7 +334,7 @@
                                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
                         <TextBlock>Maximum Players:</TextBlock>
                         <DockPanel>
@@ -340,9 +343,19 @@
                                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
+
                     </st:AutoGrid>
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,300,-300,0">
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.7" />
+                            </Border.Background>
+                            <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click"/>
+                        </Border>
+                    </st:AutoGrid>
+
                 </st:AutoGrid>
             </TabItem>
             <TabItem Header="Debug" x:Name="Update" Visibility="Hidden">
