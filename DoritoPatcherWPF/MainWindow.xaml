@@ -75,7 +75,7 @@
                     <Grid.Background>
                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                     </Grid.Background>
-                    <osm:WebControl x:Name="WebBrowserServer" Source="https://hos.llf.to/servers"  Visibility="Hidden"/>
+                    <osm:WebControl x:Name="WebBrowserServer" Visibility="Hidden"/>
                     <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <Border BorderBrush="White"/>
                     <!--

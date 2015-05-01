@@ -72,15 +72,6 @@ namespace DoritoPatcherWPF
 	    private DewritoSettings settings;
 	    private SettingsViewModel settingsViewModel;
 
-        public void HideScriptErrors(WebBrowser wb, bool Hide)
-        {
-            FieldInfo fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (fiComWebBrowser == null) return;
-            object objComWebBrowser = fiComWebBrowser.GetValue(wb);
-            if (objComWebBrowser == null) return;
-            objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { Hide });
-        }
-
         //Titlebar control
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -168,11 +159,6 @@ namespace DoritoPatcherWPF
             fadeServer.Begin();	// Start animation
             Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
             fadeStat.Begin();	// Start animation
-
-            Microsoft.Win32.RegistryKey key;
-            key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION");
-            key.SetValue("DoritoPatcherWPF.exe", 0x00002af9, RegistryValueKind.DWord);
-            key.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -237,13 +223,13 @@ namespace DoritoPatcherWPF
         {
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
-		        //WebBrowserStats.Navigate("https://hos.llf.to/");
-                //WebBrowserServer.Navigate("about:blank");
+		        WebBrowserStats.Source = new Uri("https://hos.llf.to/");
+                WebBrowserServer.Source = new Uri("about:blank");
 	        }
             else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
-                //WebBrowserServer.Source = new Uri("");
-                //WebBrowserStats.Navigate("about:blank");
+                WebBrowserServer.Source = new Uri("https://hos.llf.to/servers");
+                WebBrowserStats.Source = new Uri("about:blank");
             }
         }
 
