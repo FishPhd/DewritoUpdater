@@ -45,11 +45,11 @@ namespace DoritoPatcherWPF
 	{
 		public DewritoArmorSettings()
 		{
-			Helmet = "base";
-			Chest = "base";
-			Shoulders = "base";
-			Arms = "base";
-			Legs = "base";
+			Helmet = "air_assault";
+            Chest = "air_assault";
+            Shoulders = "air_assault";
+            Arms = "air_assault";
+            Legs = "air_assault";
 			Accessory = "base";
 			Pelvis = "base";
 		}

@@ -241,11 +241,13 @@ namespace DoritoPatcherWPF
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
 		        WebBrowserStats.Navigate("https://hos.llf.to/");
+                WebBrowserServer.Navigate("about:blank");
 		        HideScriptErrors(WebBrowserStats, true);
 	        }
             else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
-				WebBrowserServer.Navigate("https://hos.llf.to/");
+                WebBrowserServer.Navigate("https://stats.halo.click/servers");
+                WebBrowserStats.Navigate("about:blank");
                 HideScriptErrors(WebBrowserServer, true);
             }
         }

@@ -172,9 +172,8 @@ namespace DoritoPatcherWPF
 		{
 			HelmetChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
-				new ArmorPieceViewModel("base", "Base"),
-				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("air_assault", "Air Assault"),
+				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("renegade", "Renegade"),
 				new ArmorPieceViewModel("nihard", "Nihard"),
 				new ArmorPieceViewModel("gladiator", "Gladiator"),
@@ -202,9 +201,8 @@ namespace DoritoPatcherWPF
 			}.OrderBy(a => a.DisplayName));
 			ChestChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
-				new ArmorPieceViewModel("base", "Base"),
+                new ArmorPieceViewModel("air_assault", "Air Assault"),
 				new ArmorPieceViewModel("stealth", "Stealth"),
-				new ArmorPieceViewModel("air_assault", "Air Assault"),
 				new ArmorPieceViewModel("renegade", "Renegade"),
 				new ArmorPieceViewModel("nihard", "Nihard"),
 				new ArmorPieceViewModel("gladiator", "Gladiator"),
@@ -233,9 +231,8 @@ namespace DoritoPatcherWPF
 			}.OrderBy(a => a.DisplayName));
 			ShoulderChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
-				new ArmorPieceViewModel("base", "Base"),
-				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("air_assault", "Air Assault"),
+				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("renegade", "Renegade"),
 				new ArmorPieceViewModel("nihard", "Nihard"),
 				new ArmorPieceViewModel("gladiator", "Gladiator"),
@@ -264,9 +261,8 @@ namespace DoritoPatcherWPF
 			}.OrderBy(a => a.DisplayName));
 			ArmChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
-				new ArmorPieceViewModel("base", "Base"),
-				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("air_assault", "Air Assault"),
+				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("renegade", "Renegade"),
 				new ArmorPieceViewModel("nihard", "Nihard"),
 				new ArmorPieceViewModel("gladiator", "Gladiator"),
@@ -295,9 +291,8 @@ namespace DoritoPatcherWPF
 			}.OrderBy(a => a.DisplayName));
 			LegChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
-				new ArmorPieceViewModel("base", "Base"),
-				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("air_assault", "Air Assault"),
+				new ArmorPieceViewModel("stealth", "Stealth"),
 				new ArmorPieceViewModel("renegade", "Renegade"),
 				new ArmorPieceViewModel("nihard", "Nihard"),
 				new ArmorPieceViewModel("gladiator", "Gladiator"),
@@ -337,9 +332,9 @@ namespace DoritoPatcherWPF
 
 		private static ArmorPieceViewModel FindArmor(ObservableCollection<ArmorPieceViewModel> armor, string internalName)
 		{
-			// First try to find the armor, and if it's not found, then fall back on base, and if that's not found, then use the first piece
+			// First try to find the armor, and if it's not found, then fall back on air assault(base), and if that's not found, then use the first piece
 			return armor.FirstOrDefault(a => a.InternalName == internalName) ??
-				   (armor.FirstOrDefault(a => a.InternalName == "base") ??
+				   (armor.FirstOrDefault(a => a.InternalName == "air_assault") ??
 				   (armor.FirstOrDefault()));
 		}
 

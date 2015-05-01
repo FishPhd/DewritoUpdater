@@ -74,7 +74,7 @@
                     <WebBrowser x:Name="WebBrowserServer" Visibility="Hidden" LoadCompleted="server_LoadCompleted"/>
                     <Grid Background="Black" Opacity="0.7"/>
                     <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <Border BorderBrush="White" Margin="200,50,12,-29" />
+                    <Border BorderBrush="White"/>
                     <!--
                     <Border BorderThickness="1" BorderBrush="White" Margin="-1,0,-1,423">
                         <Border.Background>
