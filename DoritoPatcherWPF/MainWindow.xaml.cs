@@ -151,6 +151,12 @@ namespace DoritoPatcherWPF
                     }
                 }
             }
+
+            AppDomain.CurrentDomain.AssemblyResolve +=
+            new ResolveEventHandler(ResolveAssembly);
+
+            // proceed starting app...
+
             InitializeComponent();
 
             Storyboard fade = (Storyboard)TryFindResource("fade");
@@ -217,6 +223,22 @@ namespace DoritoPatcherWPF
             validateThread = new Thread(new ThreadStart(BackgroundThread));
             validateThread.Start();
             
+        }
+
+        static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+        {
+            Assembly parentAssembly = Assembly.GetExecutingAssembly();
+
+            var name = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
+            var resourceName = parentAssembly.GetManifestResourceNames()
+                .First(s => s.EndsWith(name));
+
+            using (Stream stream = parentAssembly.GetManifestResourceStream(resourceName))
+            {
+                byte[] block = new byte[stream.Length];
+                stream.Read(block, 0, block.Length);
+                return Assembly.Load(block);
+            }
         }
 
         private void TabControl_SelectionChanged(object sender, EventArgs e)
