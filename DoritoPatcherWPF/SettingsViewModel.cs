@@ -226,8 +226,7 @@ namespace DoritoPatcherWPF
 				new ArmorPieceViewModel("omni", "Omni"),
 				new ArmorPieceViewModel("oracle", "Oracle"),
 				new ArmorPieceViewModel("silverback", "Silverback"),
-				new ArmorPieceViewModel("widow_maker", "Widow Maker"),
-				new ArmorPieceViewModel("tankmode_human", "Tankmode")
+				new ArmorPieceViewModel("widow_maker", "Widow Maker")
 			}.OrderBy(a => a.DisplayName));
 			ShoulderChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
@@ -256,8 +255,7 @@ namespace DoritoPatcherWPF
 				new ArmorPieceViewModel("omni", "Omni"),
 				new ArmorPieceViewModel("oracle", "Oracle"),
 				new ArmorPieceViewModel("silverback", "Silverback"),
-				new ArmorPieceViewModel("widow_maker", "Widow Maker"),
-				new ArmorPieceViewModel("tankmode_human", "Tankmode")
+				new ArmorPieceViewModel("widow_maker", "Widow Maker")
 			}.OrderBy(a => a.DisplayName));
 			ArmChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
@@ -286,8 +284,7 @@ namespace DoritoPatcherWPF
 				new ArmorPieceViewModel("omni", "Omni"),
 				new ArmorPieceViewModel("oracle", "Oracle"),
 				new ArmorPieceViewModel("silverback", "Silverback"),
-				new ArmorPieceViewModel("widow_maker", "Widow Maker"),
-				new ArmorPieceViewModel("tankmode_human", "Tankmode")
+				new ArmorPieceViewModel("widow_maker", "Widow Maker")
 			}.OrderBy(a => a.DisplayName));
 			LegChoices = new ObservableCollection<ArmorPieceViewModel>(new List<ArmorPieceViewModel>
 			{
@@ -316,8 +313,7 @@ namespace DoritoPatcherWPF
 				new ArmorPieceViewModel("omni", "Omni"),
 				new ArmorPieceViewModel("oracle", "Oracle"),
 				new ArmorPieceViewModel("silverback", "Silverback"),
-				new ArmorPieceViewModel("widow_maker", "Widow Maker"),
-				new ArmorPieceViewModel("tankmode_human", "Tankmode")
+				new ArmorPieceViewModel("widow_maker", "Widow Maker")
 			}.OrderBy(a => a.DisplayName));
 		}
 
