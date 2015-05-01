@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Awesomium;
 
 namespace DoritoPatcherWPF
 {
@@ -232,23 +233,17 @@ namespace DoritoPatcherWPF
             
         }
 
-        void server_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-        }
-
         private void TabControl_SelectionChanged(object sender, EventArgs e)
         {
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
-		        WebBrowserStats.Navigate("https://hos.llf.to/");
-                WebBrowserServer.Navigate("about:blank");
-		        HideScriptErrors(WebBrowserStats, true);
+		        //WebBrowserStats.Navigate("https://hos.llf.to/");
+                //WebBrowserServer.Navigate("about:blank");
 	        }
             else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
-                WebBrowserServer.Navigate("https://stats.halo.click/servers");
-                WebBrowserStats.Navigate("about:blank");
-                HideScriptErrors(WebBrowserServer, true);
+                //WebBrowserServer.Source = new Uri("");
+                //WebBrowserStats.Navigate("about:blank");
             }
         }
 
@@ -285,6 +280,8 @@ namespace DoritoPatcherWPF
                         {
                             btnAction.Content = "Play Game";
 
+                            lblVerify.Visibility = System.Windows.Visibility.Hidden;
+                            lblVerify2.Visibility = System.Windows.Visibility.Hidden;
                             WebBrowserServer.Visibility = System.Windows.Visibility.Visible;
                             WebBrowserStats.Visibility = System.Windows.Visibility.Visible;
 
@@ -611,6 +608,8 @@ namespace DoritoPatcherWPF
                 btnAction.Content = "Play Game";
                 WebBrowserServer.Visibility = System.Windows.Visibility.Visible;
                 WebBrowserStats.Visibility = System.Windows.Visibility.Visible;
+                lblVerify.Visibility = System.Windows.Visibility.Hidden;
+                lblVerify2.Visibility = System.Windows.Visibility.Hidden;
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
             }
         }
