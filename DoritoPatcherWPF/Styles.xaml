@@ -142,6 +142,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Name="DropButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Template">

@@ -77,7 +77,6 @@
                     </Grid.Background>
                     <osm:WebControl x:Name="WebBrowserServer" Visibility="Hidden"/>
                     <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <Border BorderBrush="White"/>
                     <!--
                     <Border BorderThickness="1" BorderBrush="White" Margin="-1,0,-1,423">
                         <Border.Background>

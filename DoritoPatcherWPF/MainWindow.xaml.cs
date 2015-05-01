@@ -229,6 +229,7 @@ namespace DoritoPatcherWPF
             else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
                 WebBrowserServer.Source = new Uri("https://hos.llf.to/servers");
+                //WebBrowserServer.Source = new Uri("https://haloshare.net/forge");
                 WebBrowserStats.Source = new Uri("about:blank");
             }
         }
