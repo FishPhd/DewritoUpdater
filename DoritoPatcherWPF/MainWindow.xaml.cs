@@ -245,12 +245,12 @@ namespace DoritoPatcherWPF
         {
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 	        {
-		        WebBrowserStats.Source = new Uri("https://hos.llf.to/");
+                WebBrowserStats.Source = new Uri("https://stats.halo.click/");
                 WebBrowserServer.Source = new Uri("about:blank");
 	        }
             else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
 			{
-                WebBrowserServer.Source = new Uri("https://hos.llf.to/servers");
+                WebBrowserServer.Source = new Uri("https://stats.halo.click/servers");
                 //WebBrowserServer.Source = new Uri("https://haloshare.net/forge");
                 WebBrowserStats.Source = new Uri("about:blank");
             }
