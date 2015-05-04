@@ -775,13 +775,13 @@ namespace DoritoPatcherWPF
         {
             if (embedded == true)
             {
-                embeddedBrowser.Source = new Uri("https://haloshare.net/forge/");
+                embeddedBrowser.Source = new Uri("https://haloshare.net/");
                 Browser.Visibility = System.Windows.Visibility.Visible;
                 mainButtons.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/forge/");
+                ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/");
                 Process.Start(sInfo);
             }
         }

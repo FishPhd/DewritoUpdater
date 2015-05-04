@@ -54,8 +54,13 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="left" Margin="10,0,0,0" Width="16">
-            <Button Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+        <Grid Grid.Row="0" HorizontalAlignment="left" Width="1000" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <SolidColorBrush Color="White" Opacity="0.15"/>
+            </Grid.Background>
+            <Label Content="ELDEWRITO" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="14" />
+            <Label Content="- Halo Online"  Margin="78,0,0,0" Foreground="White" FontFamily="Segoe UI Light" FontSize="14" />
+            <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
                 <Button.Resources>
                     <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                         <Border Name="border" Background="{TemplateBinding Background}">
@@ -67,7 +72,7 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Resources>
-                <Image Stretch="None">
+                <Image Stretch="None" Visibility="Hidden">
                     <Image.Style>
                         <Style TargetType="{x:Type Image}">
                             <Setter Property="Source" Value="Resources/debug.png" />
@@ -431,7 +436,7 @@
         </TabControl>
         -->
         <Grid Grid.Column="1" Grid.Row="1" x:Name="mainButtons" Visibility="Visible">
-            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="5,5,10,7">
+            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="5,10,10,7">
                 <Grid Grid.Row="1" Margin="0,0,0,5">
                     <Grid.Style>
                         <Style TargetType="{x:Type Grid}">
@@ -645,8 +650,8 @@
             </Grid>
         </Grid>
         -->
-        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
-            <Grid>
+        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden" >
+            <Grid >
                 <Grid.Background>
                     <SolidColorBrush Color="White" Opacity="0.15"/>
                 </Grid.Background>
@@ -686,17 +691,17 @@
                         </Button>
                         <Border BorderThickness="1" BorderBrush="White" Margin="40,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3">
                             <Grid>
-                                <Button x:Name="browserServer" Click="browserServer_Click" Content="Server Browser" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" VerticalAlignment="Center"/>
+                                <Button x:Name="browserServer" Click="browserServer_Click" Content="Server Browser" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
                         </Border>
                         <Border BorderThickness="1" BorderBrush="White" Margin="130,5,0,5" Width="80" HorizontalAlignment="left" Grid.ColumnSpan="2" CornerRadius="3">
                             <Grid>
-                                <Button x:Name="browserStats" Click="browserStat_Click" Content="Stats" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" VerticalAlignment="Center"/>
+                                <Button x:Name="browserStats" Click="browserStat_Click" Content="Stats" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
                         </Border>
                         <Border BorderThickness="1" BorderBrush="White" Margin="29.333,5,0,5" Width="80" HorizontalAlignment="left" Grid.Column="1" CornerRadius="3">
                             <Grid>
-                                <Button x:Name="browserFile" Click="browserFile_Click" Content="File Share" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" VerticalAlignment="Center"/>
+                                <Button x:Name="browserFile" Click="browserFile_Click" Content="File Share" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
                         </Border>
                     </Grid>
