@@ -262,8 +262,7 @@ namespace DoritoPatcherWPF
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
-                    //btnAction.Content = "Error";
-                    btnAction.Foreground = Brushes.Red;
+                    SetStatusLabels("Error", true);
                     
                     return;
                 }
@@ -271,8 +270,7 @@ namespace DoritoPatcherWPF
             catch
             {
                 SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
-                btnAction.Content = "Error";
-                //btnAction.Foreground = Brushes.Red;
+                SetStatusLabels("Error", true);
                 return;
             }
 
@@ -327,8 +325,7 @@ namespace DoritoPatcherWPF
             if (!ProcessUpdateData())
             {
                 SetStatus("Failed to retrieve update information.", Color.FromRgb(255, 0, 0));
-                btnAction.Content = "Error";
-                //btnAction.Foreground = Brushes.Red;
+                SetStatusLabels("Error", true);
                 return;
             }
 
@@ -529,19 +526,18 @@ namespace DoritoPatcherWPF
 
                 if (!fileHashes.ContainsKey(keyName))
                 {
-
                     if (skipFileExtensions.Contains(Path.GetExtension(keyName)))
                         continue;
 
-                    
-                    Storyboard fade = (Storyboard)TryFindResource("fade");
-                    fade.Stop();	// Stop animation
-                    btnAction.Content = "Error";
-
-
                     SetStatus("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
                     SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
-                    //btnAction.Foreground = Brushes.Red;
+                    SetStatusLabels("Error", true);
+
+                    Storyboard fade = (Storyboard)TryFindResource("fade");
+                    fade.Stop(); // Stop animation
+                    SetStatusLabels("Error", true);
+
+                    return false;
                 }
 
                 if (fileHashes[keyName] != x.Value.ToString().Replace("\"", ""))
@@ -552,7 +548,7 @@ namespace DoritoPatcherWPF
                     SetStatus("Game file \"" + keyName + "\" data is invalid.", Color.FromRgb(255, 0, 0));
                     SetStatus("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0), false);
                     SetStatus("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0), false);
-                    SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255,0,0), false);
+                    SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
                     return false;
                 }
             }
@@ -625,6 +621,32 @@ namespace DoritoPatcherWPF
             else
             {
                 UpdateContent.Dispatcher.Invoke(new Action(() => SetStatus(status, color, updateLabel)));
+            }
+        }
+
+        private void SetStatusLabels(string status, bool error, bool updateLabel = true)
+        {
+            if (btnAction.Dispatcher.CheckAccess())
+            {
+                btnAction.Content = status;
+
+                if (error)
+                {
+                    //What to do with stuff if error is true (make text red or whatever)
+
+                    btnAction.Foreground = Brushes.Red;
+
+                    /*Uri resourceUri = new Uri("Resources/BUTTON_PlayGame_Error.png", UriKind.Relative);
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnAction.Background = brush;*/
+                }
+            }
+            else
+            {
+                btnAction.Dispatcher.Invoke(new Action(() => SetStatusLabels(status, true, updateLabel)));
             }
         }
 
