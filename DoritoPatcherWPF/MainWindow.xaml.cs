@@ -682,6 +682,7 @@ namespace DoritoPatcherWPF
                 }
 
                 btnAction.Content = "Play Game";
+                isPlayEnabled = true;
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
             }
