@@ -69,6 +69,7 @@ namespace DoritoPatcherWPF
         private bool silentStart = false;
 
         private bool isPlayEnabled = false;
+        private bool embedded = true;
 
 	    private const string SettingsFileName = "dewrito_prefs.yaml";
 	    private DewritoSettings settings;
@@ -87,6 +88,7 @@ namespace DoritoPatcherWPF
             Customization.Visibility = System.Windows.Visibility.Hidden;
             mainButtons.Visibility = System.Windows.Visibility.Hidden;
             Debug.Visibility = System.Windows.Visibility.Hidden;
+            Browser.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnDebug_Click(object sender, EventArgs e)
@@ -96,6 +98,7 @@ namespace DoritoPatcherWPF
             Settings.Visibility = System.Windows.Visibility.Hidden;
             Customization.Visibility = System.Windows.Visibility.Hidden;
             mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            Browser.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnOkDebug_Click(object sender, EventArgs e)
@@ -117,6 +120,7 @@ namespace DoritoPatcherWPF
             Customization.Visibility = System.Windows.Visibility.Hidden;
             mainButtons.Visibility = System.Windows.Visibility.Hidden;
             Debug.Visibility = System.Windows.Visibility.Hidden;
+            Browser.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnApply2_Click(object sender, EventArgs e)
@@ -132,6 +136,7 @@ namespace DoritoPatcherWPF
             ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
             mainButtons.Visibility = System.Windows.Visibility.Hidden;
             Debug.Visibility = System.Windows.Visibility.Hidden;
+            Browser.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -716,22 +721,69 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }
 
+        private void browserServer_Click(object sender, RoutedEventArgs e)
+        {
+            embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+        }
+        private void browserStat_Click(object sender, RoutedEventArgs e)
+        {
+            embeddedBrowser.Source = new Uri("https://stats.halo.click/");
+        }
+        private void browserFile_Click(object sender, RoutedEventArgs e)
+        {
+            embeddedBrowser.Source = new Uri("https://haloshare.net/forge/");
+        }
+        private void browserHome_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Visible;
+        }
+
+
         private void btnServer_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-            Process.Start(sInfo);
+            if (embedded == true)
+            {
+                embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+                Browser.Visibility = System.Windows.Visibility.Visible;
+                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+                Process.Start(sInfo);
+            }
         }
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/");
-            Process.Start(sInfo);
+            if (embedded == true)
+            {
+                embeddedBrowser.Source = new Uri("https://stats.halo.click");
+                Browser.Visibility = System.Windows.Visibility.Visible;
+                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/");
+                Process.Start(sInfo);
+            }
+            
         }
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/forge/");
-            Process.Start(sInfo);
+            if (embedded == true)
+            {
+                embeddedBrowser.Source = new Uri("https://haloshare.net/forge/");
+                Browser.Visibility = System.Windows.Visibility.Visible;
+                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/forge/");
+                Process.Start(sInfo);
+            }
         }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)

@@ -18,10 +18,10 @@
     <Window.Resources>
         <awe:WebSessionProvider x:Key="session">
             <core:WebPreferences 
-                RemoteFonts="False"
                 SmoothScrolling="True"
                 EnableGPUAcceleration="True"
                 WebGL="True"
+                CustomCSS = "body { background: transparent !important; padding: 0 !important; } .navbar { display: none !important; } .main { padding: 10px !important; } .map-container { height : 350px !important; } ::-webkit-scrollbar { width: 18px; background-clip: padding-box; } ::-webkit-scrollbar-track { cursor: pointer; } ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.55); border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box;} ::-webkit-scrollbar-thumb:hover { background: grey; border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box; } ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement { height: 10px; width: 20px; } ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment { height: 20px; width: 20px; }"
                 />
         </awe:WebSessionProvider>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
@@ -605,27 +605,27 @@
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderBrush="White" BorderThickness="1">
+                    <Border BorderThickness="1">
                         <Grid>
-                        <Button x:Name="btnCustom" Click="btnCustomization_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
-                            </Button.Background>
-                            <Button.Resources>
-                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Resources>
-                        </Button>
+                            <Button x:Name="btnCustom" Click="btnCustomization_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
+                                </Button.Background>
+                                <Button.Resources>
+                                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Resources>
+                            </Button>
                         </Grid>
                     </Border>
-                    
+
                     <Label Content="Customization" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
                         <Label.Background>
                             <SolidColorBrush Color="Black" Opacity="0.7"/>
@@ -645,6 +645,61 @@
             </Grid>
         </Grid>
         -->
+        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+            <Grid>
+                <Grid.Background>
+                    <SolidColorBrush Color="White" Opacity="0.15"/>
+                </Grid.Background>
+                <Border Margin="0,0,0,523" Width="583" BorderBrush="White" BorderThickness="0,0,0,1">
+                    <Border.Background>
+                        <SolidColorBrush Color="White" Opacity="0.07"/>
+                    </Border.Background>
+                    <Grid>
+                        <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="left" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Resources>
+                        <Image Height="16" Margin="10,0,0,0" HorizontalAlignment="left"> 
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="Resources/home.png" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="Resources/darkhome.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        </Button>
+                        <Border BorderThickness="1" BorderBrush="White" Margin="40,5,0,5" Width="80" HorizontalAlignment="left">
+                            <Grid>
+                                <Button x:Name="browserServer" Click="browserServer_Click" Content="Server Browser" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light"/>
+                            </Grid>
+                        </Border>
+                        <Border BorderThickness="1" BorderBrush="White" Margin="130,5,0,5" Width="80" HorizontalAlignment="left">
+                            <Grid>
+                                <Button x:Name="browserStats" Click="browserStat_Click" Content="Stats" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light"/>
+                            </Grid>
+                        </Border>
+                        <Border BorderThickness="1" BorderBrush="White" Margin="220,5,0,5" Width="80" HorizontalAlignment="left">
+                            <Grid>
+                                <Button x:Name="browserFile" Click="browserFile_Click" Content="File Share" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+                <awe:WebControl x:Name="embeddedBrowser" Margin="0,33,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
+            </Grid>
+        </Border>
         <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
             <Grid>
                 <Grid.Background>
