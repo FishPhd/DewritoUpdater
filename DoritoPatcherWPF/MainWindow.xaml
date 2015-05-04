@@ -605,7 +605,8 @@
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderThickness="1">
+                    <Border BorderBrush="White" BorderThickness="1">
+                        <Grid>
                         <Button x:Name="btnCustom" Click="btnCustomization_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
@@ -622,7 +623,9 @@
                                 </ControlTemplate>
                             </Button.Resources>
                         </Button>
+                        </Grid>
                     </Border>
+                    
                     <Label Content="Customization" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
                         <Label.Background>
                             <SolidColorBrush Color="Black" Opacity="0.7"/>
