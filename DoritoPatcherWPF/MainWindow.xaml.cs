@@ -53,7 +53,7 @@ namespace DoritoPatcherWPF
         Dictionary<string, string> fileHashes;
         string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink" };
         string[] skipFileExtensions = { ".bik" };
-        string[] skipFiles = { "eldorado.exe", "tags.dat", "game.cfg", "font_package.bin", "binkw32.dll", "crash_reporter.exe", "game_local.cfg" };
+        string[] skipFiles = { "eldorado.exe", "game.cfg", "tags.dat", "font_package.bin", "binkw32.dll", "crash_reporter.exe", "game_local.cfg" };
 
         JObject settingsJson;
         JObject updateJson;
@@ -68,6 +68,8 @@ namespace DoritoPatcherWPF
 
         private bool silentStart = false;
 
+        private bool isPlayEnabled = false;
+
 	    private const string SettingsFileName = "dewrito_prefs.yaml";
 	    private DewritoSettings settings;
 	    private SettingsViewModel settingsViewModel;
@@ -76,6 +78,67 @@ namespace DoritoPatcherWPF
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnChangelog_Click(object sender, EventArgs e)
+        {
+            ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
+            Settings.Visibility = System.Windows.Visibility.Hidden;
+            Customization.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            Debug.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            Debug.Visibility = System.Windows.Visibility.Visible;
+            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
+            Settings.Visibility = System.Windows.Visibility.Hidden;
+            Customization.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnOkDebug_Click(object sender, EventArgs e)
+        {
+            Debug.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            Settings.Visibility = System.Windows.Visibility.Visible;
+            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
+            Customization.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            Debug.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnApply2_Click(object sender, EventArgs e)
+        {
+            Settings.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnCustomization_Click(object sender, EventArgs e)
+        {
+            Customization.Visibility = System.Windows.Visibility.Visible;
+            Settings.Visibility = System.Windows.Visibility.Hidden;
+            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Hidden;
+            Debug.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            Customization.Visibility = System.Windows.Visibility.Hidden;
+            mainButtons.Visibility = System.Windows.Visibility.Visible;
+
         }
 
         private void helmetOpen(object sender, EventArgs e)
@@ -159,12 +222,15 @@ namespace DoritoPatcherWPF
 
             InitializeComponent();
 
+           
             Storyboard fade = (Storyboard)TryFindResource("fade");
             fade.Begin();	// Start animation
+            /*
             Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
             fadeServer.Begin();	// Start animation
             Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
             fadeStat.Begin();	// Start animation
+             */
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -173,7 +239,6 @@ namespace DoritoPatcherWPF
             {
                 this.WindowState = WindowState.Minimized;
             }
-
             using (var wc = new WebClient())
             {
                 try
@@ -197,12 +262,8 @@ namespace DoritoPatcherWPF
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
-                    btnAction.Content = "Error";
+                    //btnAction.Content = "Error";
                     btnAction.Foreground = Brushes.Red;
-                    lblVerify.Content = "Error";
-                    lblVerify.Foreground = Brushes.Red;
-                    lblVerify2.Content = "Error";
-                    lblVerify2.Foreground = Brushes.Red;
                     
                     return;
                 }
@@ -211,11 +272,7 @@ namespace DoritoPatcherWPF
             {
                 SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
                 btnAction.Content = "Error";
-                btnAction.Foreground = Brushes.Red;
-                lblVerify.Content = "Error";
-                lblVerify.Foreground = Brushes.Red;
-                lblVerify2.Content = "Error";
-                lblVerify2.Foreground = Brushes.Red;
+                //btnAction.Foreground = Brushes.Red;
                 return;
             }
 
@@ -241,6 +298,7 @@ namespace DoritoPatcherWPF
             }
         }
 
+        /*
         private void TabControl_SelectionChanged(object sender, EventArgs e)
         {
             if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
@@ -255,6 +313,7 @@ namespace DoritoPatcherWPF
                 WebBrowserStats.Source = new Uri("about:blank");
             }
         }
+         */
 
         private void BackgroundThread()
         {
@@ -268,12 +327,8 @@ namespace DoritoPatcherWPF
             if (!ProcessUpdateData())
             {
                 SetStatus("Failed to retrieve update information.", Color.FromRgb(255, 0, 0));
-                lblVerify.Content = "Error";
-                lblVerify.Foreground = Brushes.Red;
                 btnAction.Content = "Error";
-                btnAction.Foreground = Brushes.Red;
-                lblVerify2.Content = "Error";
-                lblVerify2.Foreground = Brushes.Red;
+                //btnAction.Foreground = Brushes.Red;
                 return;
             }
 
@@ -288,11 +343,18 @@ namespace DoritoPatcherWPF
                         () =>
                         {
                             btnAction.Content = "Play Game";
+                            //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
 
-                            lblVerify.Visibility = System.Windows.Visibility.Hidden;
-                            lblVerify2.Visibility = System.Windows.Visibility.Hidden;
-                            WebBrowserServer.Visibility = System.Windows.Visibility.Visible;
-                            WebBrowserStats.Visibility = System.Windows.Visibility.Visible;
+                            /*
+                            BitmapImage bi3 = new BitmapImage();
+                            bi3.BeginInit();
+                            bi3.UriSource = new Uri("Resources/playEnabled.png", UriKind.Relative);
+                            bi3.EndInit();
+                            imgAction.Stretch = Stretch.Uniform;
+                            imgAction.Source = bi3;
+                            */
+
+                            isPlayEnabled = true;
 
                             Storyboard fade = (Storyboard)TryFindResource("fade");
                             fade.Stop();	// Start animation
@@ -312,21 +374,23 @@ namespace DoritoPatcherWPF
                 new Action(
                     () =>
                         {
-                            lblVerify.Content = "Update Game";
-                            lblVerify2.Content = "Update Game";
                             btnAction.Content = "Update Game";
+
+                            Storyboard fade = (Storyboard)TryFindResource("fade");
+                            fade.Stop();	// Stop
+                            /*
+                            Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
+                            fadeStat.Stop();	// Start
                             Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
                             fadeServer.Stop();	// Start 
-                            Storyboard fade = (Storyboard)TryFindResource("fade");
-                            fade.Stop();	// Start 
-                            Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
-                            fadeStat.Stop();	// Start 
+                             */
                             btnAction.IsEnabled = true;
                         }));
             if (silentStart)
             {
                 //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
                 MsgBox2 MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
+
                 MainWindow.Show();
                 MainWindow.Focus();
 
@@ -465,18 +529,19 @@ namespace DoritoPatcherWPF
 
                 if (!fileHashes.ContainsKey(keyName))
                 {
+
                     if (skipFileExtensions.Contains(Path.GetExtension(keyName)))
                         continue;
 
+                    
+                    Storyboard fade = (Storyboard)TryFindResource("fade");
+                    fade.Stop();	// Stop animation
+                    btnAction.Content = "Error";
+
+
                     SetStatus("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
                     SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
-                    lblVerify.Content = "Error";
-                    lblVerify.Foreground = Brushes.Red;
-                    btnAction.Content = "Error";
-                    btnAction.Foreground = Brushes.Red;
-                    lblVerify2.Content = "Error";
-                    lblVerify2.Foreground = Brushes.Red;
-                    return false;
+                    //btnAction.Foreground = Brushes.Red;
                 }
 
                 if (fileHashes[keyName] != x.Value.ToString().Replace("\"", ""))
@@ -565,7 +630,7 @@ namespace DoritoPatcherWPF
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            if (btnAction.Content == "Play Game")
+            if (isPlayEnabled == true)
             {
                 ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
@@ -577,6 +642,7 @@ namespace DoritoPatcherWPF
                 {
                     //MessageBox.Show("Game executable not found.");
                     MsgBox2 MainWindow = new MsgBox2("Game executable not found.");
+
                     MainWindow.Show();
                     MainWindow.Focus();
                 }
@@ -609,16 +675,14 @@ namespace DoritoPatcherWPF
                     //MessageBox.Show("Update complete! Please restart the launcher.", "ElDewrito Launcher");
                     //Application.Current.Shutdown();
                     MsgBox MainWindow = new MsgBox("Update complete! Please restart the launcher.");
+
                     MainWindow.Show();
                     MainWindow.Focus();
                     
                 }
 
                 btnAction.Content = "Play Game";
-                WebBrowserServer.Visibility = System.Windows.Visibility.Visible;
-                WebBrowserStats.Visibility = System.Windows.Visibility.Visible;
-                lblVerify.Visibility = System.Windows.Visibility.Hidden;
-                lblVerify2.Visibility = System.Windows.Visibility.Hidden;
+                //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
             }
         }
@@ -626,6 +690,30 @@ namespace DoritoPatcherWPF
         private void btnIRC_Click(object sender, RoutedEventArgs e)
         {
             ProcessStartInfo sInfo = new ProcessStartInfo("http://irc.lc/gamesurge/eldorito");
+            Process.Start(sInfo);
+        }
+
+        private void btnServer_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+            Process.Start(sInfo);
+        }
+
+        private void btnStats_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/");
+            Process.Start(sInfo);
+        }
+
+        private void btnFile_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/forge/");
+            Process.Start(sInfo);
+        }
+
+        private void btnReddit_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
             Process.Start(sInfo);
         }
 
@@ -663,8 +751,8 @@ namespace DoritoPatcherWPF
 		    settingsViewModel.Input.PropertyChanged += SettingsChanged;
 
 			// Set the data context for the settings tabs
-			tabCustomization.DataContext = settingsViewModel;
-			tabGameSettings.DataContext = settingsViewModel;
+            Customization.DataContext = settingsViewModel;
+			Settings.DataContext = settingsViewModel;
 	    }
 
         private void btnReset_Click(object sender, EventArgs e)

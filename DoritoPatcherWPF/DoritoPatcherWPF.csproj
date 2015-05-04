@@ -200,6 +200,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -211,9 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\logo_old.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\launcher.ico" />
@@ -235,6 +233,60 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\stats.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BUTTON_PlayGame.png" />
+    <Resource Include="Resources\BUTTON_PlayGame_Disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\File Share.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Dark-halo-spartan-helmet.png" />
+    <Resource Include="Resources\halo-spartan-helmet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\picker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\playEnabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\buttonVerify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Browser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\darkpicker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\darklist.png" />
+    <Resource Include="Resources\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\darkreddit.png" />
+    <Resource Include="Resources\reddit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\darksettings.png" />
+    <Resource Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\customization.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\darkdebug.png" />
+    <Resource Include="Resources\debug.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

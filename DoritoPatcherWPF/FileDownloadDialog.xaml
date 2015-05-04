@@ -1,14 +1,18 @@
 ﻿<Window x:Class="DoritoPatcherWPF.FileDownloadDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Updating..." Height="100" Width="300" WindowStyle="None" BorderBrush="Black" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Background="White">
-    <Grid Background="Black">
+        Title="Updating..." Height="100" Width="300" WindowStyle="None" BorderBrush="Black" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True">
+    <Window.Background>
+        <SolidColorBrush Color="White" Opacity="0.5" />
+    </Window.Background>
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <ProgressBar x:Name="DownloadProgress" Margin="10,32,10,45" Foreground="White" Background="#FF424242" Opacity="0.7" Grid.ColumnSpan="2"/>
-        <Label x:Name="lblStatus" Content="Updating..." HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="30" Width="280" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="DownloadProgress" Margin="10,32,10,45" Foreground="#FF4563B4" Background="#FF424242" Opacity="0.7" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblStatus" Content="Updating..." HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="30" Width="280" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="DarkSlateGray" Grid.ColumnSpan="2"/>
         <Border  HorizontalAlignment="Center"  BorderBrush="White" BorderThickness="1" Width="300" Grid.ColumnSpan="2"/>
     </Grid>
     <Window.Resources>

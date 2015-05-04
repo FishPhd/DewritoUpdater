@@ -8,8 +8,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:st="http://schemas.spicytaco.io/"
         xmlns:utils="clr-namespace:DoritoPatcherWPF.Utils"
+        xmlns:local="clr-namespace:DoritoPatcherWPF"
         mc:Ignorable="d" 
-        Title="ElDewrito Launcher" Height="600" Width="1100" ResizeMode="CanMinimize" Icon="/Resources/launcher.ico"
+        Title="ElDewrito Launcher" Height="600" Width="1000" ResizeMode="CanMinimize" Icon="/Resources/launcher.ico"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="False"
         utils:WindowMovement.IsDraggable="True"
         Loaded="Window_Loaded"
@@ -28,6 +29,7 @@
         		Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
         		Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
         </Storyboard>
+        <!--
         <Storyboard x:Key="fadeServer" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="lblVerify" 
         		Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
@@ -38,47 +40,221 @@
         		Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
         		Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
         </Storyboard>
+        -->
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="/Resources/halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png"/>
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="64" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click">
+        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="left" Margin="10,0,0,0" Width="16">
+            <Button Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                <Button.Resources>
+                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                        <Border Name="border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Resources>
+                <Image Stretch="None">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Resources/debug.png" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Source" Value="Resources/darkdebug.png"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="64" VerticalAlignment="Top" Margin="26,0,0,0"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114">
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click" Style="{StaticResource Hover}">
                 <TextBlock Text="-" FontSize="25" Height="24" Margin="0,-14,0,0" />
             </Button>
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" SnapsToDevicePixels="True" Click="CloseButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" SnapsToDevicePixels="True" Click="CloseButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource Hover}">
                 <TextBlock Text="x" Height="24" Margin="0, 0,0,0" />
             </Button>
         </StackPanel>
-        <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,58" Columns="*,*" Margin="5,0,5,5">
+        <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,58" Columns="*,*" Margin="5,0,5,7">
             <Canvas Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="711" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 <Canvas.Background>
                     <ImageBrush ImageSource="Resources/logo.png"/>
                 </Canvas.Background>
             </Canvas>
-            <Border BorderBrush="White" BorderThickness="1">
-                <Border.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.7" />
-                </Border.Background>
-                <Button x:Name="btnAction" Content="Verifying Game" VerticalAlignment="Stretch" IsEnabled="False" FontWeight="Bold" Click="btnAction_Click" Margin="0,-1"/>
+            <Border BorderThickness="1" Width="175" HorizontalAlignment="Left" CornerRadius="2" Margin="5,0,0,5">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderBrush" Value="White">
+                        </Setter>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF4563B4" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid Name="gridAction">
+                    <Button x:Name="btnAction" Content="VERIFYING FILES" HorizontalAlignment="Center" IsEnabled="False" Click="btnAction_Click"  Template="{DynamicResource BackgroundButton}" BorderBrush="White" FontSize="14" FontFamily="Segoe UI Semibold" Width="173">
+                        <Button.Background>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Button.Background>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                        <Setter Property="Foreground" Value="#FF4563B4" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                <Border Name="border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
             </Border>
-            <StackPanel Orientation="Vertical">
-                <Button x:Name="btnIRC" Content="Visit IRC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnIRC_Click" Margin="5,0,0,0"/>
-                <Button x:Name="btnBug" Content="Report Bug" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="29" Click="btnBug_Click" Margin="5,0,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="-20,0,0,5" Width="200">
+                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                    <Button.Resources>
+                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                            <Border Name="border" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Resources>
+                    <Image Height="40" Stretch="Fill">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/darklist.png" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="Resources/list.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+                <!--
+                <Button Name="btnPlayer" BorderBrush="{x:Null}" Click="btnPlayer_Click" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                    <Button.Resources>
+                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                            <Border Name="border">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Resources>
+                    
+                    <Image Stretch="Fill" Height="40">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/darkpicker.png" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="Resources/picker.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+-->
+                <Button Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                    <Button.Resources>
+                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                            <Border Name="border" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Resources>
+                    <Image Stretch="Fill" Height="40">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/darksettings.png" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="Resources/settings.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+                <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                    <Button.Resources>
+                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                            <Border Name="border" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Resources>
+                    <Image Height="40" Stretch="Fill">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/darkreddit.png" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="Resources/reddit.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
             </StackPanel>
         </st:AutoGrid>
 
-        <TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
+        <!--<TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
             <TabItem Header="Server Browser" x:Name="Server">
                 <Grid>
                     <Grid.Background>
@@ -86,7 +262,6 @@
                     </Grid.Background>
                     <awe:WebControl x:Name="WebBrowserServer" WebSession="{Binding Source={StaticResource session}}"  Visibility="Hidden"/>
                     <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <!--
                     <Border BorderThickness="1" BorderBrush="White" Margin="-1,0,-1,423">
                         <Border.Background>
                             <SolidColorBrush Color="Black" Opacity="0.7"/>
@@ -105,7 +280,7 @@
                         </Border.Background>
                         <Button Content="Stats/Ranks" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
-                    -->
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Stats" x:Name="Stats">
@@ -117,7 +292,7 @@
                     <Label x:Name="lblVerify2" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Changelog">
+            <TabItem Header="Changelog" Visibility="Hidden">
                 <Grid>
                     <Grid Background="Black" Opacity="0.7" Grid.ColumnSpan="2" />
                     <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."/>
@@ -244,8 +419,400 @@
                     </st:AutoGrid>
                 </st:AutoGrid>
             </TabItem>
-            <TabItem x:Name="tabGameSettings" Header="Game Settings">
-                <TabItem.Resources>
+            
+            <TabItem Header="Debug" x:Name="Update" Visibility="Hidden">
+                <Grid>
+                    <Grid Background="Black" Opacity="0.7" />
+                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                        <FlowDocument/>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        -->
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="mainButtons" Visibility="Visible">
+            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="5,5,10,7">
+                <Grid Grid.Row="1" Margin="0,0,0,5">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Grid.Style>
+                    <Border BorderThickness="1">
+                        <Button x:Name="btnServer" Click="btnServer_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                    <Label Content="Server Browser" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
+                        <Label.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Label.Background>
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,0,0,5">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Grid.Style>
+                    <Border BorderThickness="1">
+                        <Button x:Name="btnStats" Click="btnStats_Click" BorderBrush="{x:Null}" Template="{DynamicResource BackgroundButton}" BorderThickness="0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                    <Label Content="Stats" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
+                        <Label.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Label.Background>
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="3" Margin="0,0,0,5">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Grid.Style>
+                    <Border BorderThickness="1">
+                        <Button x:Name="btnFile" Click="btnFile_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                    <Label Content="File Share" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
+                        <Label.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Label.Background>
+                    </Label>
+
+                </Grid>
+                <Grid Grid.Row="4" Margin="0,0,0,5">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Grid.Style>
+                    <Border BorderThickness="1">
+                        <Button x:Name="btnCustom" Click="btnCustomization_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
+                            </Button.Background>
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                    <Label Content="Customization" FontSize="20" Margin="1,100,1,1" FontFamily="Segoe UI Light">
+                        <Label.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        </Label.Background>
+                    </Label>
+                </Grid>
+            </st:AutoGrid>
+
+        </Grid>
+        <!--
+        <Grid x:Name="Update" Visibility="Hidden">
+            <Grid>
+                <Grid Background="Black" Opacity="0.7" />
+                <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                    <FlowDocument/>
+                </RichTextBox>
+            </Grid>
+        </Grid>
+        -->
+        <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+            <Grid>
+                <Grid.Background>
+                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                </Grid.Background>
+                <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left"  VerticalAlignment="Top" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                    <FlowDocument/>
+                </RichTextBox>
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,500,20,5">
+                    <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                        <Border.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07"/>
+                        </Border.Background>
+                        <Button x:Name="btnOkDebug" Click="btnOkDebug_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                    </Border>
+                </st:AutoGrid>
+            </Grid>
+        </Border>
+
+        <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style x:Key="Header" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="Grid.ColumnSpan" Value="2"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="CaretBrush" Value="White"/>
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                    <Style TargetType="{x:Type Slider}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="TickPlacement" Value="BottomRight"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    </Style>
+                    <Style TargetType="{x:Type xctk:ColorPicker}">
+                        <Setter Property="Height" Value="23"/>
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="ColorMode" Value="ColorCanvas"/>
+                        <Setter Property="UsingAlphaChannel" Value="False"/>
+                        <Setter Property="ShowDropDownButton" Value="False"/>
+                        <Setter Property="DisplayColorAndName" Value="True"/>
+                        <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <SolidColorBrush Color="White"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+                <st:AutoGrid Columns="*,*">
+                    <st:AutoGrid.Background>
+                        <SolidColorBrush Color="White" Opacity="0.07"/>
+                    </st:AutoGrid.Background>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
+                        <TextBlock Style="{StaticResource Header}">Player Settings</TextBlock>
+                        <TextBlock>Player Name:</TextBlock>
+                        <TextBox Width="auto" Text="{Binding Player.Name}">
+                            <TextBox.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </TextBox.Background>
+                        </TextBox>
+
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
+                        <TextBlock>Helmet:</TextBlock>
+                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393"/>
+                        <TextBlock>Chest:</TextBlock>
+                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
+                        <TextBlock>Shoulders:</TextBlock>
+                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325"/>
+                        <TextBlock>Arms:</TextBlock>
+                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293"/>
+                        <TextBlock>Legs:</TextBlock>
+                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260"/>
+
+
+                    </st:AutoGrid>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
+                        <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
+                        <TextBlock>Primary:</TextBlock>
+                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+
+                        <TextBlock>Secondary:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+                        <TextBlock>Visor:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+                        <TextBlock>Lights:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+                        <TextBlock>Holo:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}">
+                            <xctk:ColorPicker.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </xctk:ColorPicker.Background>
+                        </xctk:ColorPicker>
+                    </st:AutoGrid>
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,240,-280,0">
+                        <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Border.Background>
+                            <Button x:Name="btnApply" Click="btnApply_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                        </Border>
+                    </st:AutoGrid>
+                </st:AutoGrid>
+            </Grid>
+        </Border>
+
+        <Border x:Name="ChangelogGrid" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+            <Grid Grid.ColumnSpan="2">
+                <Grid.Background>
+                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                </Grid.Background>
+                <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." />
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,500,30,0">
+                    <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                        <Border.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07"/>
+                        </Border.Background>
+                        <Button x:Name="btnOk" Click="btnOk_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                    </Border>
+                </st:AutoGrid>
+            </Grid>
+        </Border>
+
+        <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+            <Grid x:Name="GameSettings">
+                <Grid.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="Margin" Value="5"/>
@@ -312,10 +879,10 @@
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
-                </TabItem.Resources>
+                </Grid.Resources>
                 <st:AutoGrid Columns="*,*">
                     <st:AutoGrid.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.7"/>
+                        <SolidColorBrush Color="White" Opacity="0.07"/>
                     </st:AutoGrid.Background>
                     <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
                         <TextBlock Style="{StaticResource Header}">Graphics Settings</TextBlock>
@@ -323,7 +890,7 @@
                         <DockPanel>
                             <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center">
                                 <TextBox.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                    <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
                             <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
@@ -344,7 +911,7 @@
                         <DockPanel>
                             <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center">
                                 <TextBox.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                    <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
                             <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
@@ -353,33 +920,33 @@
                         <DockPanel>
                             <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center">
                                 <TextBox.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                    <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
                             <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,300,-300,0">
-                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
-                            <Border.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7" />
-                            </Border.Background>
-                            <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click"/>
-                        </Border>
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,330,-280,0" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                                <Border.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                                </Border.Background>
+                                <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click" Style="{StaticResource Hover}"/>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30"  Margin="10,0,0,0" HorizontalAlignment="Right">
+                                <Border.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                                </Border.Background>
+                                <Button x:Name="btnApply2" Content="Ok" Click="btnApply2_Click" Style="{StaticResource Hover}"/>
+                            </Border>
+                        </StackPanel>
                     </st:AutoGrid>
 
                 </st:AutoGrid>
-            </TabItem>
-            <TabItem Header="Debug" x:Name="Update" Visibility="Hidden">
-                <Grid>
-                    <Grid Background="Black" Opacity="0.7" />
-                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
-                        <FlowDocument/>
-                    </RichTextBox>
-                </Grid>
-            </TabItem>
-        </TabControl>
+            </Grid>
+        </Border>
         <!--<Canvas HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="484">
             <Canvas.Background>
                 <ImageBrush ImageSource="Resources/logo.png" Stretch="Uniform"/>
