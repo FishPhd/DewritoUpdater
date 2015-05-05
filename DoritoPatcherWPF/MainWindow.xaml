@@ -15,14 +15,14 @@
         utils:WindowMovement.IsDraggable="True"
         Loaded="Window_Loaded"
         UseLayoutRounding="True" 
-        FontFamily="/Resources/#Aero Matics Light">
+        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18">
     <Window.Resources>
         <awe:WebSessionProvider x:Key="session">
             <core:WebPreferences 
                 SmoothScrolling="True"
                 EnableGPUAcceleration="True"
                 WebGL="True"
-                CustomCSS = "body { background: transparent !important; padding: 0 !important; } .navbar { display: none !important; } .main { padding: 10px !important; } .map-container { height : 350px !important; } ::-webkit-scrollbar { width: 18px; background-clip: padding-box; } ::-webkit-scrollbar-track { cursor: pointer; } ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.55); border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box;} ::-webkit-scrollbar-thumb:hover { background: grey; border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box; } ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement { height: 10px; width: 20px; } ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment { height: 20px; width: 20px; }"
+                CustomCSS = "body { background: transparent !important; padding: 0 !important; } .navbar { display: none !important; } .main { padding: 10px !important; } .map-container { height : 350px !important; } .reactiveAds { display : none; } ::-webkit-scrollbar { width: 18px; background-clip: padding-box; } ::-webkit-scrollbar-track { cursor: pointer; } ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.55); border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box;} ::-webkit-scrollbar-thumb:hover { background: grey; border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box; } ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement { height: 10px; width: 20px; } ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment { height: 20px; width: 20px; }"
                 />
         </awe:WebSessionProvider>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
@@ -48,27 +48,27 @@
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock TextWrapping="Wrap" Margin="20,5,580,0" Foreground="White" Grid.ColumnSpan="2" FontSize="18" TextOptions.TextFormattingMode="Display">
+        <TextBlock TextWrapping="Wrap" Margin="20,3,398,0" Foreground="White" Grid.ColumnSpan="2" FontSize="20" TextOptions.TextFormattingMode="Display">
             <Run Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center"/>
             <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center"/>
         </TextBlock>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114" Margin="0,0,20,570" Grid.RowSpan="2">
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click" Style="{StaticResource HoverTitlebar}" Cursor="Hand" ToolTip="Minimize the launcher">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114">
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click" Style="{StaticResource HoverMinimize}" Cursor="Hand" ToolTip="Minimize the launcher">
                 <Image Source="Resources/BTN_Minimize.png" Width="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" Click="CloseButton_Click" Style="{StaticResource HoverTitlebar}" Cursor="Hand" ToolTip="Close the launcher">
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" Click="CloseButton_Click" Style="{StaticResource HoverClose}" Cursor="Hand" ToolTip="Close the launcher">
                 <Image Source="Resources/BTN_Close.png" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
         </StackPanel>
-        <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+        <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}" Height="16" Width="16">
             <Button.Resources>
                 <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                     <Border Name="border" Background="{TemplateBinding Background}">
@@ -93,68 +93,164 @@
                 </Image.Style>
             </Image>
         </Button>
-        <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,58" Columns="*,*" Margin="5,0,5,7">
-            <Canvas Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="711" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor">
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="20,10,10,20">
+            <Canvas HorizontalAlignment="Center" Height="383" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,33,0,154">
                 <Canvas.Background>
-                    <ImageBrush ImageSource="Resources/logo.png"/>
+                    <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
             </Canvas>
-            <Border BorderThickness="1" Width="175" HorizontalAlignment="Left" CornerRadius="2" Margin="5,0,0,5">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="BorderBrush" Value="White">
-                        </Setter>
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="White" Opacity="0.07"/>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#FF4563B4" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <Grid Name="gridAction">
-                    <Button x:Name="btnAction" Content="VERIFYING FILES" HorizontalAlignment="Center" IsEnabled="False" Click="btnAction_Click"  Template="{DynamicResource BackgroundButton}" BorderBrush="White" FontSize="14" FontFamily="Segoe UI Semibold" Width="173">
-                        <Button.Background>
-                            <SolidColorBrush Color="Black" Opacity="0"/>
-                        </Button.Background>
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
+            <Grid Height="130" VerticalAlignment="Bottom">
+                <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0" Height="54" VerticalAlignment="Top">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="#FF47A6FF">
+                            </Setter>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FF214D75" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="#FFB3DAFF" />
+                                    <Setter Property="Background" Value="#FF567EA2" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Border.Clip>
+                        <GeometryGroup>
+                            <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                            <PathGeometry>
+                                <PathGeometry.Figures>
+                                    <PathFigure x:Name="BorderClipFigure" StartPoint="0,0">
+                                        <LineSegment Point="195,0" />
+                                        <LineSegment Point="215,20" />
+                                        <LineSegment Point="215,55" />
+                                        <LineSegment Point="0,55" />
+                                    </PathFigure>
+                                </PathGeometry.Figures>
+                            </PathGeometry>
+                        </GeometryGroup>
+                    </Border.Clip>
+                    <Grid Name="gridAction">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Line}">
+                                <Setter Property="Stroke" Value="#FF47A6FF" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
-                                        <Setter Property="Foreground" Value="#FF4563B4" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Stroke" Value="#FFB3DAFF" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Button.Style>
+                        </Grid.Resources>
+                        <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False" Click="btnAction_Click"  Template="{DynamicResource BackgroundButton}" BorderBrush="White" FontSize="30" Width="215" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics" Cursor="Hand">
+                            <Button.Background>
+                                <SolidColorBrush Color="#00FF0000"/>
+                            </Button.Background>
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Resources>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                            <Setter Property="Background" Value="White" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Fill="{x:Null}" X2="35" Margin="0,-4,-4,0" StrokeThickness="3"/>
+                    </Grid>
+                </Border>
+                <StackPanel HorizontalAlignment="Left" Height="54" Margin="222,0,-7,0" VerticalAlignment="Top" Width="155" Orientation="Horizontal">
+                    <Button Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" Width="51.6" UseLayoutRounding="False" IsHitTestVisible="True" Cursor="Hand" ToolTip="Change game or launcher settings">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                 <Border Name="border" Background="{TemplateBinding Background}">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/BTN_Settings.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Source" Value="Resources/BTN_Settings_Blue.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
                         </Button.Resources>
+                        <Image Height="26" HorizontalAlignment="Center" Width="26" />
                     </Button>
-                </Grid>
-            </Border>
-            <StackPanel Orientation="Horizontal" Margin="-20,0,0,5" Width="200">
-                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+                    <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Visit the reddit for news &amp; discussions">
+                        <Button.Resources>
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                <Border Name="border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/BTN_Reddit.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Source" Value="Resources/BTN_Reddit_Blue.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" />
+                    </Button>
+                    <Button Name="btnHelp" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Need help? Click here!">
+                        <Button.Resources>
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                <Border Name="border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/BTN_Help.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Source" Value="Resources/BTN_Help_Blue.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
+                    </Button>
+                </StackPanel>
+                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370" HorizontalAlignment="Left" Margin="0,60,0,0" Cursor="Hand" ToolTip="View the changelist">
                     <Button.Resources>
                         <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                            <Border Name="border" Background="{TemplateBinding Background}">
+                            <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -163,99 +259,38 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Resources>
-                    <Image Height="40" Stretch="Fill">
-                        <Image.Style>
+                    <StackPanel Height="35" Orientation="Horizontal">
+                        <StackPanel.Resources>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/darklist.png" />
+                                <Setter Property="Source" Value="Resources/BTN_Changelog.png" />
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/list.png"/>
-                                    </Trigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Source" Value="Resources/BTN_Changelog_Blue.png"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Image.Style>
-                    </Image>
-                </Button>
-                <!--
-                <Button Name="btnPlayer" BorderBrush="{x:Null}" Click="btnPlayer_Click" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
-                    <Button.Resources>
-                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                            <Border Name="border">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Resources>
-                    
-                    <Image Stretch="Fill" Height="40">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/darkpicker.png" />
+
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="#ffffffff" />
                                 <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/picker.png"/>
-                                    </Trigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button},
+                                                   Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Foreground" Value="#FF47A6FF" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Image.Style>
-                    </Image>
+                        </StackPanel.Resources>
+                        <Image Height="18" HorizontalAlignment="Left" Margin="0" Width="20" />
+                        <TextBlock TextWrapping="Wrap" Margin="20,-8,580,-7" Grid.ColumnSpan="2" FontSize="21" TextOptions.TextFormattingMode="Display" VerticalAlignment="Center" Width="340">
+                            <Run Text="CURRENT VERSION" BaselineAlignment="Center"/>
+                            <Run Text=" 0.4.5-cf04b81b " FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center"/>
+                        </TextBlock>
+                    </StackPanel>
                 </Button>
--->
-                <Button Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
-                    <Button.Resources>
-                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                            <Border Name="border" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Resources>
-                    <Image Stretch="Fill" Height="40">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/darksettings.png" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/settings.png"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                </Button>
-                <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
-                    <Button.Resources>
-                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                            <Border Name="border" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Resources>
-                    <Image Height="40" Stretch="Fill">
-                        <Image.Style>
-                            <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/darkreddit.png" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/reddit.png"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                </Button>
-            </StackPanel>
-        </st:AutoGrid>
+                <!-- Do not remove this, Fish, I'm looking at you -->
+                <TextBlock TextWrapping="Wrap" Margin="0" Foreground="White" FontSize="16" TextOptions.TextFormattingMode="Display" VerticalAlignment="Bottom" Height="34" Opacity="0.5" ><Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., "/><LineBreak/><Run Text="343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/><LineBreak/><Run/></TextBlock>
+            </Grid>
+        </Grid>
 
         <!--<TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
             <TabItem Header="Server Browser" x:Name="Server">
@@ -433,38 +468,41 @@
             </TabItem>
         </TabControl>
         -->
-        <Grid Grid.Column="1" x:Name="mainButtons" Visibility="Visible" Grid.RowSpan="2" Margin="0,30,0,0">
-            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
-                <Grid Grid.Row="1" Margin="0,0,0,5">
+        <Grid Grid.Column="1" x:Name="mainButtons" Grid.Row="1">
+            <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
+                <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                     <Grid.Style>
                         <Style TargetType="{x:Type Grid}">
                             <Style.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="White" />
+                                    <Setter Property="BorderBrush" Value="#FF47A6FF" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                                <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Foreground" Value="White" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
-                                               Path=IsMouseOver}" Value="True">
-                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                            <Setter Property="BorderBrush" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderThickness="1" CornerRadius="2">
-                        <Button x:Name="btnServer" Click="btnServer_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill"/>
-                            </Button.Background>
+                    <Border BorderThickness="1">
+                        <Border.Clip>
+                            <GeometryGroup>
+                                <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure x:Name="BorderClipFigure2" StartPoint="0,0">
+                                            <LineSegment Point="534,0" />
+                                            <LineSegment Point="570,36" />
+                                            <LineSegment Point="570,130" />
+                                            <LineSegment Point="0,130" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </GeometryGroup>
+                        </Border.Clip>
+                        <Button x:Name="btnServer" Click="btnServer_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand" ToolTip="Launch the server browser to look for games">
                             <Button.Resources>
                                 <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                     <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
@@ -475,45 +513,81 @@
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
-                            </Button.Resources>
-                        </Button>
-                    </Border>
-                    <Label Content="Server Browser" FontSize="20" Margin="2,100,2,2" FontFamily="Segoe UI Light">
-                        <Label.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Label.Background>
-                    </Label>
-                </Grid>
-                <Grid Grid.Row="2" Margin="0,0,0,5">
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="White" />
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="#FF47A6FF" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                            <Setter Property="Stroke" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                                 <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Margin" Value="20,0,0,13" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                            <Setter Property="Margin" Value="30,0,0,13" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                            <Grid Width="570" Height="125">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Label Content="SERVER BROWSER" FontSize="25" FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Padding="0,5,5,0" Foreground="White">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.7"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Rectangle HorizontalAlignment="Left" Height="125" Margin="264,0,0,0" StrokeThickness="2" VerticalAlignment="Top" Width="306">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0.5" MappingMode="RelativeToBoundingBox" StartPoint="0,0.5">
+                                            <GradientStop Color="#8C000000" Offset="1"/>
+                                            <GradientStop Color="#00000000"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Image Source="Resources/ICON_Servers.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
+                            </Grid>
+                        </Button>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0" VerticalAlignment="Center">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="#FF47A6FF" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderThickness="1" CornerRadius="2">
-                        <Button x:Name="btnStats" Click="btnStats_Click" BorderBrush="{x:Null}" Template="{DynamicResource BackgroundButton}" BorderThickness="0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill"/>
-                            </Button.Background>
+                    <Border BorderThickness="1">
+                        <Border.Clip>
+                            <GeometryGroup>
+                                <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure x:Name="BorderClipFigure3" StartPoint="0,0">
+                                            <LineSegment Point="534,0" />
+                                            <LineSegment Point="570,36" />
+                                            <LineSegment Point="570,130" />
+                                            <LineSegment Point="0,130" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </GeometryGroup>
+                        </Border.Clip>
+                        <Button x:Name="btnStats" Click="btnStats_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand" ToolTip="View your gameplay statistics">
                             <Button.Resources>
                                 <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                     <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
@@ -524,48 +598,81 @@
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
-                            </Button.Resources>
-                        </Button>
-                    </Border>
-                    <Label Content="Stats" FontSize="20" Margin="2,100,2,2" FontFamily="Segoe UI Light">
-                        <Label.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Label.Background>
-                    </Label>
-                </Grid>
-                <Grid Grid.Row="3" Margin="0,0,0,5">
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="White" />
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="#FF47A6FF" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                            <Setter Property="Stroke" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                                 <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Margin" Value="20,0,0,13" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                            <Setter Property="Margin" Value="30,0,0,13" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                            <Grid Width="570" Height="125">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Label Content="STATISTICS" FontSize="25" FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Padding="0,5,5,0" Foreground="White">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.7"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Rectangle HorizontalAlignment="Left" Height="125" Margin="264,0,0,0" StrokeThickness="2" VerticalAlignment="Top" Width="306">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0.5" MappingMode="RelativeToBoundingBox" StartPoint="0,0.5">
+                                            <GradientStop Color="#8C000000" Offset="1"/>
+                                            <GradientStop Color="#00000000"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Image Source="Resources/ICON_Stats.png" Margin="0,15,25,15" HorizontalAlignment="Right" />
+                                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
+                            </Grid>
+                        </Button>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="3" Margin="0" VerticalAlignment="Center">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="#FF47A6FF" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderThickness="1" CornerRadius="2">
-                        <Border.OpacityMask>
-                            <ImageBrush ImageSource="Resources/MASK_ButtonMask.png"/>
-                        </Border.OpacityMask>
-                        <Button x:Name="btnFile" Click="btnFile_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill"/>
-                            </Button.Background>
+                    <Border BorderThickness="1">
+                        <Border.Clip>
+                            <GeometryGroup>
+                                <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure x:Name="BorderClipFigure4" StartPoint="0,0">
+                                            <LineSegment Point="534,0" />
+                                            <LineSegment Point="570,36" />
+                                            <LineSegment Point="570,130" />
+                                            <LineSegment Point="0,130" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </GeometryGroup>
+                        </Border.Clip>
+                        <Button x:Name="btnFile" Click="btnFile_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand" ToolTip="File sharing for forge maps and gametypes">
                             <Button.Resources>
                                 <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                     <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
@@ -576,69 +683,132 @@
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
-                            </Button.Resources>
-                        </Button>
-                    </Border>
-                    <Label Content="File Share" FontSize="20" Margin="2,100,2,2" FontFamily="Segoe UI Light">
-                        <Label.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Label.Background>
-                    </Label>
-
-                </Grid>
-                <Grid Grid.Row="4" Margin="0,0,0,5">
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
-                            <Style.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="BorderBrush" Value="White" />
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="#FF47A6FF" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="BorderBrush" Value="#FF4563B4" />
+                                            <Setter Property="Stroke" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                                 <Style TargetType="{x:Type Label}">
-                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Margin" Value="20,0,0,13" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
                                                Path=IsMouseOver}" Value="True">
-                                            <Setter Property="Foreground" Value="#FFA0BAFF" />
+                                            <Setter Property="Margin" Value="30,0,0,13" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                            <Grid Width="570" Height="125">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Label Content="FILE SHARE" FontSize="25" FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Padding="0,5,5,0" Foreground="White">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.7"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Rectangle HorizontalAlignment="Left" Height="125" Margin="264,0,0,0" StrokeThickness="2" VerticalAlignment="Top" Width="306">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0.5" MappingMode="RelativeToBoundingBox" StartPoint="0,0.5">
+                                            <GradientStop Color="#8C000000" Offset="1"/>
+                                            <GradientStop Color="#00000000"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Image Source="Resources/ICON_Fileshare.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
+                            </Grid>
+                        </Button>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="4" Margin="0" VerticalAlignment="Bottom">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="#FF47A6FF" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FFB3DAFF" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Style.Resources>
                         </Style>
                     </Grid.Style>
-                    <Border BorderThickness="1" CornerRadius="2">
-                        <Grid>
-                            <Button x:Name="btnCustom" Click="btnCustomization_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
-                                <Button.Background>
+                    <Border BorderThickness="1">
+                        <Border.Clip>
+                            <GeometryGroup>
+                                <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure x:Name="BorderClipFigure5" StartPoint="0,0">
+                                            <LineSegment Point="534,0" />
+                                            <LineSegment Point="570,36" />
+                                            <LineSegment Point="570,130" />
+                                            <LineSegment Point="0,130" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </GeometryGroup>
+                        </Border.Clip>
+                        <Button x:Name="btnCustom" Click="btnCustomization_Click" Template="{DynamicResource BackgroundButton}" BorderThickness="0" BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand" ToolTip="Customize your username &amp; player">
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="#FF47A6FF" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Stroke" Value="#FFB3DAFF" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Margin" Value="20,0,0,13" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                               Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Margin" Value="30,0,0,13" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                            <Grid Width="570" Height="125">
+                                <Grid.Background>
                                     <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
-                                </Button.Background>
-                                <Button.Resources>
-                                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Resources>
-                            </Button>
-                            <Label Content="Customization" FontSize="20" Margin="0,100,0,0" FontFamily="Segoe UI Light">
-                                <Label.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
-                                </Label.Background>
-                            </Label>
-                        </Grid>
-                        
+                                </Grid.Background>
+                                <Label Content="PLAYER CUSTOMIZATION" FontSize="25" FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Padding="0,5,5,0" Foreground="White">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.7"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Rectangle HorizontalAlignment="Left" Height="125" Margin="264,0,0,0" StrokeThickness="2" VerticalAlignment="Top" Width="306">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0.5" MappingMode="RelativeToBoundingBox" StartPoint="0,0.5">
+                                            <GradientStop Color="#8C000000" Offset="1"/>
+                                            <GradientStop Color="#00000000"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Image Source="Resources/ICON_Custom.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
+                            </Grid>
+                        </Button>
                     </Border>
-
-                    
                 </Grid>
             </st:AutoGrid>
 
@@ -653,21 +823,21 @@
             </Grid>
         </Grid>
         -->
-        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden" >
+        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden" >
             <Grid >
                 <Grid.Background>
                     <SolidColorBrush Color="White" Opacity="0.15"/>
                 </Grid.Background>
-                <Border Margin="0,0,0,523" Width="583" BorderBrush="White" BorderThickness="0,0,0,1">
+                <Border Margin="0,0,0,495" BorderBrush="White" BorderThickness="0,0,0,1">
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.07"/>
                     </Border.Background>
-                    <Grid>
+                    <Grid Margin="0,0,16,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="191*"/>
                             <ColumnDefinition Width="392*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}" Background="{x:Null}" Template="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2">
+                        <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}" Background="{x:Null}" Template="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="0,0,16,0">
                             <Button.Resources>
                                 <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                     <Border Name="border" Background="{TemplateBinding Background}">
@@ -679,7 +849,7 @@
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Resources>
-                            <Image Height="16" Margin="10,0,0,0" HorizontalAlignment="left">
+                            <Image Height="16" HorizontalAlignment="left" Margin="20,0,0,0">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Source" Value="Resources/home.png" />
@@ -692,17 +862,17 @@
                                 </Image.Style>
                             </Image>
                         </Button>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="40,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3">
+                        <Border BorderThickness="1" BorderBrush="White" Margin="56,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3">
                             <Grid>
                                 <Button x:Name="browserServer" Click="browserServer_Click" Content="Server Browser" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
                         </Border>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="130,5,0,5" Width="80" HorizontalAlignment="left" Grid.ColumnSpan="2" CornerRadius="3">
+                        <Border BorderThickness="1" BorderBrush="White" Margin="156,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3" Grid.ColumnSpan="2">
                             <Grid>
                                 <Button x:Name="browserStats" Click="browserStat_Click" Content="Stats" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
                         </Border>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="29.333,5,0,5" Width="80" HorizontalAlignment="left" Grid.Column="1" CornerRadius="3">
+                        <Border BorderThickness="1" BorderBrush="White" Margin="75,5,0,5" Width="80" HorizontalAlignment="left" Grid.Column="1" CornerRadius="3">
                             <Grid>
                                 <Button x:Name="browserFile" Click="browserFile_Click" Content="File Share" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
                             </Grid>
@@ -712,7 +882,7 @@
                 <awe:WebControl x:Name="embeddedBrowser" Margin="0,33,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
             </Grid>
         </Border>
-        <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+        <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
             <Grid>
                 <Grid.Background>
                     <SolidColorBrush Color="White" Opacity="0.07"/>
@@ -720,7 +890,7 @@
                 <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left"  VerticalAlignment="Top" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                     <FlowDocument/>
                 </RichTextBox>
-                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,500,20,5">
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                     <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
                         <Border.Background>
                             <SolidColorBrush Color="White" Opacity="0.07"/>
@@ -731,7 +901,7 @@
             </Grid>
         </Border>
 
-        <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+        <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="{x:Type TextBlock}">
@@ -851,7 +1021,8 @@
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,240,-280,0">
+                </st:AutoGrid>
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                         <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
                             <Border.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
@@ -859,17 +1030,16 @@
                             <Button x:Name="btnApply" Click="btnApply_Click" Content="Ok" Style="{StaticResource Hover}"/>
                         </Border>
                     </st:AutoGrid>
-                </st:AutoGrid>
             </Grid>
         </Border>
 
-        <Border x:Name="ChangelogGrid" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+        <Border x:Name="ChangelogGrid" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
             <Grid Grid.ColumnSpan="2">
                 <Grid.Background>
                     <SolidColorBrush Color="White" Opacity="0.07"/>
                 </Grid.Background>
                 <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." />
-                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,500,30,0">
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                     <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
                         <Border.Background>
                             <SolidColorBrush Color="White" Opacity="0.07"/>
@@ -880,7 +1050,7 @@
             </Grid>
         </Border>
 
-        <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="5,5,10,12" Visibility="Hidden">
+        <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
             <Grid x:Name="GameSettings">
                 <Grid.Resources>
                     <Style TargetType="{x:Type TextBlock}">
@@ -995,9 +1165,9 @@
                             </TextBox>
                             <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
-
+                </st:AutoGrid>
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,330,-280,0" >
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
                                 <Border.Background>
@@ -1013,8 +1183,6 @@
                             </Border>
                         </StackPanel>
                     </st:AutoGrid>
-
-                </st:AutoGrid>
             </Grid>
         </Border>
         <!--<Canvas HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="484">
