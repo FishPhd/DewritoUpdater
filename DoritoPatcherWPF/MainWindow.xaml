@@ -14,7 +14,8 @@
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="False"
         utils:WindowMovement.IsDraggable="True"
         Loaded="Window_Loaded"
-        UseLayoutRounding="True">
+        UseLayoutRounding="True" 
+        FontFamily="/Resources/#Aero Matics Light">
     <Window.Resources>
         <awe:WebSessionProvider x:Key="session">
             <core:WebPreferences 
@@ -43,7 +44,7 @@
         -->
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="/Resources/halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png"/>
+        <ImageBrush ImageSource="Resources/BG_Nightfall.png"/>
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
@@ -54,47 +55,44 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" HorizontalAlignment="left" Width="1000" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <SolidColorBrush Color="White" Opacity="0.15"/>
-            </Grid.Background>
-            <Label Content="ELDEWRITO" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="14" />
-            <Label Content="- Halo Online"  Margin="78,0,0,0" Foreground="White" FontFamily="Segoe UI Light" FontSize="14" />
-            <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
-                <Button.Resources>
-                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                        <Border Name="border" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Resources>
-                <Image Stretch="None" Visibility="Hidden">
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Source" Value="Resources/debug.png" />
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Source" Value="Resources/darkdebug.png"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
+        <TextBlock TextWrapping="Wrap" Margin="20,5,580,0" Foreground="White" Grid.ColumnSpan="2" FontSize="18" TextOptions.TextFormattingMode="Display">
+            <Run Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center"/>
+            <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center"/>
+        </TextBlock>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114" Margin="0,0,20,570" Grid.RowSpan="2">
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click" Style="{StaticResource HoverTitlebar}" Cursor="Hand" ToolTip="Minimize the launcher">
+                <Image Source="Resources/BTN_Minimize.png" Width="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="64" VerticalAlignment="Top" Margin="26,0,0,0"/>
-        <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114">
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click" Style="{StaticResource Hover}">
-                <TextBlock Text="-" FontSize="25" Height="24" Margin="0,-14,0,0" />
-            </Button>
-            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" SnapsToDevicePixels="True" Click="CloseButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource Hover}">
-                <TextBlock Text="x" Height="24" Margin="0, 0,0,0" />
+            <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="15" Width="57" Click="CloseButton_Click" Style="{StaticResource HoverTitlebar}" Cursor="Hand" ToolTip="Close the launcher">
+                <Image Source="Resources/BTN_Close.png" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
         </StackPanel>
+        <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}">
+            <Button.Resources>
+                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                    <Border Name="border" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Resources>
+            <Image Stretch="None" Visibility="Hidden">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="Resources/debug.png" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Source" Value="Resources/darkdebug.png"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </Button>
         <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,58" Columns="*,*" Margin="5,0,5,7">
             <Canvas Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="400" VerticalAlignment="Center" Width="711" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor">
                 <Canvas.Background>
@@ -435,8 +433,8 @@
             </TabItem>
         </TabControl>
         -->
-        <Grid Grid.Column="1" Grid.Row="1" x:Name="mainButtons" Visibility="Visible">
-            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="5,10,10,7">
+        <Grid Grid.Column="1" x:Name="mainButtons" Visibility="Visible" Grid.RowSpan="2" Margin="0,30,0,0">
+            <st:AutoGrid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                 <Grid Grid.Row="1" Margin="0,0,0,5">
                     <Grid.Style>
                         <Style TargetType="{x:Type Grid}">
@@ -479,7 +477,7 @@
                                 </ControlTemplate>
                             </Button.Resources>
                         </Button>
-                        </Border>
+                    </Border>
                     <Label Content="Server Browser" FontSize="20" Margin="2,100,2,2" FontFamily="Segoe UI Light">
                         <Label.Background>
                             <SolidColorBrush Color="Black" Opacity="0.7"/>
@@ -561,6 +559,9 @@
                         </Style>
                     </Grid.Style>
                     <Border BorderThickness="1" CornerRadius="2">
+                        <Border.OpacityMask>
+                            <ImageBrush ImageSource="Resources/MASK_ButtonMask.png"/>
+                        </Border.OpacityMask>
                         <Button x:Name="btnFile" Click="btnFile_Click" BorderThickness="0" Template="{DynamicResource BackgroundButton}">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill"/>
