@@ -55,9 +55,9 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock TextWrapping="Wrap" Margin="20,5,580,0" Foreground="White" Grid.ColumnSpan="2" FontSize="18" TextOptions.TextFormattingMode="Display">
-            <Run Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center"/>
-            <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center"/>
+        <TextBlock TextWrapping="Wrap" Margin="20,5,580,0" Foreground="White" Grid.ColumnSpan="2" FontSize="18" TextOptions.TextFormattingMode="Display" VerticalAlignment="Center">
+            <Run Foreground="White" Text="ELDEWRITO" BaselineAlignment="Center" FontFamily="Segoe UI Semibold"/>
+            <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center" FontFamily="Segoe UI Light"/>
         </TextBlock>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top"/>
         <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114" Margin="0,0,20,570" Grid.RowSpan="2">
@@ -635,10 +635,10 @@
                                 </Label.Background>
                             </Label>
                         </Grid>
-                        
+
                     </Border>
 
-                    
+
                 </Grid>
             </st:AutoGrid>
 
