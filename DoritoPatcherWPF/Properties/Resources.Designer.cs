@@ -61,6 +61,66 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] avcodec_53 {
+            get {
+                object obj = ResourceManager.GetObject("avcodec_53", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] avformat_53 {
+            get {
+                object obj = ResourceManager.GetObject("avformat_53", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] avutil_51 {
+            get {
+                object obj = ResourceManager.GetObject("avutil_51", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] awesomium {
+            get {
+                object obj = ResourceManager.GetObject("awesomium", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Awesomium_Core {
+            get {
+                object obj = ResourceManager.GetObject("Awesomium_Core", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Awesomium_Windows_Controls {
+            get {
+                object obj = ResourceManager.GetObject("Awesomium_Windows_Controls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Browser {
@@ -73,119 +133,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Browser1 {
-            get {
-                object obj = ResourceManager.GetObject("Browser1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap button {
-            get {
-                object obj = ResourceManager.GetObject("button", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BUTTON_PlayGame {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BUTTON_PlayGame_Disabled {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame_Disabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BUTTON_PlayGame_Disabled1 {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame_Disabled1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BUTTON_PlayGame1 {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap button1 {
-            get {
-                object obj = ResourceManager.GetObject("button1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap buttonVerify {
-            get {
-                object obj = ResourceManager.GetObject("buttonVerify", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap buttonVerify1 {
-            get {
-                object obj = ResourceManager.GetObject("buttonVerify1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap customization {
             get {
                 object obj = ResourceManager.GetObject("customization", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Dark_halo_spartan_helmet {
-            get {
-                object obj = ResourceManager.GetObject("Dark_halo_spartan_helmet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Dark_halo_spartan_helmet1 {
-            get {
-                object obj = ResourceManager.GetObject("Dark_halo_spartan_helmet1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,50 +263,30 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx1 {
-            get {
-                object obj = ResourceManager.GetObject("halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx2 {
-            get {
-                object obj = ResourceManager.GetObject("halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_spartan_helmet {
-            get {
-                object obj = ResourceManager.GetObject("halo_spartan_helmet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_spartan_helmet1 {
-            get {
-                object obj = ResourceManager.GetObject("halo_spartan_helmet1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap home {
             get {
                 object obj = ResourceManager.GetObject("home", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ICSharpCode_SharpZipLib {
+            get {
+                object obj = ResourceManager.GetObject("ICSharpCode_SharpZipLib", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] icudt {
+            get {
+                object obj = ResourceManager.GetObject("icudt", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -381,21 +311,31 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap list {
+        internal static byte[] libEGL {
             get {
-                object obj = ResourceManager.GetObject("list", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("libEGL", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] libGLESv2 {
+            get {
+                object obj = ResourceManager.GetObject("libGLESv2", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap loading {
+        internal static System.Drawing.Bitmap list {
             get {
-                object obj = ResourceManager.GetObject("loading", resourceCulture);
+                object obj = ResourceManager.GetObject("list", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -411,32 +351,12 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap logo_old {
+        internal static byte[] Newtonsoft_Json {
             get {
-                object obj = ResourceManager.GetObject("logo_old", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap logo1 {
-            get {
-                object obj = ResourceManager.GetObject("logo1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap logo2 {
-            get {
-                object obj = ResourceManager.GetObject("logo2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("Newtonsoft_Json", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -461,22 +381,32 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap playEnabled {
+        internal static byte[] PresentationCore {
             get {
-                object obj = ResourceManager.GetObject("playEnabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("PresentationCore", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap playEnabled1 {
+        internal static byte[] PresentationFramework {
             get {
-                object obj = ResourceManager.GetObject("playEnabled1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("PresentationFramework", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] PresentationFramework_Aero2 {
+            get {
+                object obj = ResourceManager.GetObject("PresentationFramework_Aero2", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -511,6 +441,16 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SpicyTaco_AutoGrid {
+            get {
+                object obj = ResourceManager.GetObject("SpicyTaco_AutoGrid", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap stats {
@@ -521,12 +461,112 @@ namespace DoritoPatcherWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap stats1 {
+        internal static byte[] System {
             get {
-                object obj = ResourceManager.GetObject("stats1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("System", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Data {
+            get {
+                object obj = ResourceManager.GetObject("System_Data", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Data_DataSetExtensions {
+            get {
+                object obj = ResourceManager.GetObject("System_Data_DataSetExtensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Drawing {
+            get {
+                object obj = ResourceManager.GetObject("System_Drawing", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Xaml {
+            get {
+                object obj = ResourceManager.GetObject("System_Xaml", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Xml {
+            get {
+                object obj = ResourceManager.GetObject("System_Xml", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] System_Xml_Linq {
+            get {
+                object obj = ResourceManager.GetObject("System_Xml_Linq", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] WindowsBase {
+            get {
+                object obj = ResourceManager.GetObject("WindowsBase", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Xceed_Wpf_Toolkit {
+            get {
+                object obj = ResourceManager.GetObject("Xceed_Wpf_Toolkit", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] xinput9_1_0 {
+            get {
+                object obj = ResourceManager.GetObject("xinput9_1_0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] YamlDotNet {
+            get {
+                object obj = ResourceManager.GetObject("YamlDotNet", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

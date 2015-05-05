@@ -628,14 +628,16 @@
                                     </ControlTemplate>
                                 </Button.Resources>
                             </Button>
+                            <Label Content="Customization" FontSize="20" Margin="0,100,0,0" FontFamily="Segoe UI Light">
+                                <Label.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
+                                </Label.Background>
+                            </Label>
                         </Grid>
+                        
                     </Border>
 
-                    <Label Content="Customization" FontSize="20" Margin="2,100,2,2" FontFamily="Segoe UI Light">
-                        <Label.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Label.Background>
-                    </Label>
+                    
                 </Grid>
             </st:AutoGrid>
 

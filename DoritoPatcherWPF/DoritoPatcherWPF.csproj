@@ -17,7 +17,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>9771fc01</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>e5fe7f99</NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -77,80 +77,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.0\wrappers\Awesomium.NET\Assemblies\Awesomium.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.0, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.0\wrappers\Awesomium.NET\Assemblies\Awesomium.Windows.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PresentationFramework.Aero2, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="SpicyTaco.AutoGrid">
-      <HintPath>..\packages\SpicyTaco.AutoGrid.0.9.1.0\lib\net40\SpicyTaco.AutoGrid.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Data">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Drawing">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Xaml">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Xml">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Core">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="WindowsBase">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="PresentationCore">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.4\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>..\packages\YamlDotNet.3.5.1\lib\net35\YamlDotNet.dll</HintPath>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -311,6 +237,79 @@
   <ItemGroup>
     <Resource Include="Resources\darkhome.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\avcodec-53.dll" />
+    <EmbeddedResource Include="lib\avformat-53.dll" />
+    <EmbeddedResource Include="lib\avutil-51.dll" />
+    <EmbeddedResource Include="lib\Awesomium.Core.dll" />
+    <EmbeddedResource Include="lib\awesomium.dll" />
+    <EmbeddedResource Include="lib\Awesomium.Windows.Controls.dll" />
+    <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="lib\icudt.dll" />
+    <EmbeddedResource Include="lib\libEGL.dll" />
+    <EmbeddedResource Include="lib\libGLESv2.dll" />
+    <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="lib\PresentationCore.dll" />
+    <EmbeddedResource Include="lib\PresentationFramework.Aero2.dll" />
+    <EmbeddedResource Include="lib\PresentationFramework.dll" />
+    <EmbeddedResource Include="lib\SpicyTaco.AutoGrid.dll" />
+    <EmbeddedResource Include="lib\System.Data.DataSetExtensions.dll" />
+    <EmbeddedResource Include="lib\System.Data.dll" />
+    <EmbeddedResource Include="lib\System.dll" />
+    <EmbeddedResource Include="lib\System.Drawing.dll" />
+    <EmbeddedResource Include="lib\System.Xaml.dll" />
+    <EmbeddedResource Include="lib\System.Xml.dll" />
+    <EmbeddedResource Include="lib\System.Xml.Linq.dll" />
+    <EmbeddedResource Include="lib\WindowsBase.dll" />
+    <EmbeddedResource Include="lib\Xceed.Wpf.Toolkit.dll" />
+    <EmbeddedResource Include="lib\xinput9_1_0.dll" />
+    <EmbeddedResource Include="lib\YamlDotNet.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Awesomium.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Awesomium.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.0, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Awesomium.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero2, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\PresentationFramework.Aero2.dll</HintPath>
+    </Reference>
+    <Reference Include="SpicyTaco.AutoGrid">
+      <HintPath>lib\SpicyTaco.AutoGrid.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>lib\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>lib\YamlDotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -320,7 +319,6 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.1.26.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.26.1\build\Fody.targets'))" />
   </Target>
-  <Import Project="..\packages\Fody.1.26.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.26.1\build\Fody.targets')" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
@@ -329,6 +327,7 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Fody.1.26.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.26.1\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
