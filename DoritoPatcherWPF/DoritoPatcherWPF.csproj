@@ -326,15 +326,6 @@
     <Resource Include="Resources\BG_Nightfall.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <None Include="Resources\BTN_Close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BTN_Minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MASK_ButtonMask.png" />
-=======
     <Resource Include="Resources\BTN_Close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -384,7 +375,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BTN_Settings_Blue.png" />
->>>>>>> origin/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

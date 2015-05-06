@@ -253,19 +253,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap BG_Nightfall1 {
-            get {
-                object obj = ResourceManager.GetObject("BG_Nightfall1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-=======
->>>>>>> origin/master
         internal static System.Drawing.Bitmap Browser {
             get {
                 object obj = ResourceManager.GetObject("Browser", resourceCulture);
@@ -276,11 +263,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap Browser1 {
-            get {
-                object obj = ResourceManager.GetObject("Browser1", resourceCulture);
-=======
         internal static System.Drawing.Bitmap BTN_Changelog {
             get {
                 object obj = ResourceManager.GetObject("BTN_Changelog", resourceCulture);
@@ -294,7 +276,6 @@ namespace DoritoPatcherWPF.Properties {
         internal static System.Drawing.Bitmap BTN_Changelog_Blue {
             get {
                 object obj = ResourceManager.GetObject("BTN_Changelog_Blue", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -312,8 +293,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-=======
         internal static System.Drawing.Bitmap BTN_Help {
             get {
                 object obj = ResourceManager.GetObject("BTN_Help", resourceCulture);
@@ -334,7 +313,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
->>>>>>> origin/master
         internal static System.Drawing.Bitmap BTN_Minimize {
             get {
                 object obj = ResourceManager.GetObject("BTN_Minimize", resourceCulture);
@@ -345,15 +323,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap button {
-            get {
-                object obj = ResourceManager.GetObject("button", resourceCulture);
-=======
         internal static System.Drawing.Bitmap BTN_Reddit {
             get {
                 object obj = ResourceManager.GetObject("BTN_Reddit", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -361,15 +333,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap BUTTON_PlayGame {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame", resourceCulture);
-=======
         internal static System.Drawing.Bitmap BTN_Reddit_Blue {
             get {
                 object obj = ResourceManager.GetObject("BTN_Reddit_Blue", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -377,15 +343,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap BUTTON_PlayGame_Disabled {
-            get {
-                object obj = ResourceManager.GetObject("BUTTON_PlayGame_Disabled", resourceCulture);
-=======
         internal static System.Drawing.Bitmap BTN_Settings {
             get {
                 object obj = ResourceManager.GetObject("BTN_Settings", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -393,15 +353,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap buttonVerify {
-            get {
-                object obj = ResourceManager.GetObject("buttonVerify", resourceCulture);
-=======
         internal static System.Drawing.Bitmap BTN_Settings_Blue {
             get {
                 object obj = ResourceManager.GetObject("BTN_Settings_Blue", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -419,39 +373,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap customization1 {
-            get {
-                object obj = ResourceManager.GetObject("customization1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Dark_halo_spartan_helmet {
-            get {
-                object obj = ResourceManager.GetObject("Dark_halo_spartan_helmet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap darkdebug {
             get {
                 object obj = ResourceManager.GetObject("darkdebug", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap darkdebug1 {
-            get {
-                object obj = ResourceManager.GetObject("darkdebug1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -469,29 +393,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap darkhome1 {
-            get {
-                object obj = ResourceManager.GetObject("darkhome1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap darklist {
             get {
                 object obj = ResourceManager.GetObject("darklist", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap darklist1 {
-            get {
-                object obj = ResourceManager.GetObject("darklist1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -519,29 +423,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap darkpicker2 {
-            get {
-                object obj = ResourceManager.GetObject("darkpicker2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap darkreddit {
             get {
                 object obj = ResourceManager.GetObject("darkreddit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap darkreddit1 {
-            get {
-                object obj = ResourceManager.GetObject("darkreddit1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -569,29 +453,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap darksettings2 {
-            get {
-                object obj = ResourceManager.GetObject("darksettings2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap debug {
             get {
                 object obj = ResourceManager.GetObject("debug", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap debug1 {
-            get {
-                object obj = ResourceManager.GetObject("debug1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -619,43 +483,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap File_Share2 {
-            get {
-                object obj = ResourceManager.GetObject("File_Share2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx {
-=======
         internal static System.Drawing.Bitmap HaloOnlineLauncherDesign {
->>>>>>> origin/master
             get {
                 object obj = ResourceManager.GetObject("HaloOnlineLauncherDesign", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx1 {
-            get {
-                object obj = ResourceManager.GetObject("halo_nightfall_wallpaper__without_logo__by_i7infinity_d7ntwkx1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap halo_spartan_helmet {
-            get {
-                object obj = ResourceManager.GetObject("halo_spartan_helmet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -673,11 +503,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-<<<<<<< HEAD
-        internal static System.Drawing.Bitmap home1 {
-            get {
-                object obj = ResourceManager.GetObject("home1", resourceCulture);
-=======
         internal static System.Drawing.Bitmap ICON_Custom {
             get {
                 object obj = ResourceManager.GetObject("ICON_Custom", resourceCulture);
@@ -711,7 +536,6 @@ namespace DoritoPatcherWPF.Properties {
         internal static System.Drawing.Bitmap ICON_Stats {
             get {
                 object obj = ResourceManager.GetObject("ICON_Stats", resourceCulture);
->>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -789,49 +613,9 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap list1 {
-            get {
-                object obj = ResourceManager.GetObject("list1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap loading {
-            get {
-                object obj = ResourceManager.GetObject("loading", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap logo1 {
-            get {
-                object obj = ResourceManager.GetObject("logo1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MASK_ButtonMask {
-            get {
-                object obj = ResourceManager.GetObject("MASK_ButtonMask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -862,26 +646,6 @@ namespace DoritoPatcherWPF.Properties {
         internal static System.Drawing.Bitmap picker1 {
             get {
                 object obj = ResourceManager.GetObject("picker1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap picker2 {
-            get {
-                object obj = ResourceManager.GetObject("picker2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap playEnabled {
-            get {
-                object obj = ResourceManager.GetObject("playEnabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -929,16 +693,6 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reddit1 {
-            get {
-                object obj = ResourceManager.GetObject("reddit1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
@@ -952,16 +706,6 @@ namespace DoritoPatcherWPF.Properties {
         internal static System.Drawing.Bitmap settings1 {
             get {
                 object obj = ResourceManager.GetObject("settings1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap settings2 {
-            get {
-                object obj = ResourceManager.GetObject("settings2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -982,16 +726,6 @@ namespace DoritoPatcherWPF.Properties {
         internal static System.Drawing.Bitmap stats {
             get {
                 object obj = ResourceManager.GetObject("stats", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap stats1 {
-            get {
-                object obj = ResourceManager.GetObject("stats1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

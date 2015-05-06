@@ -55,15 +55,9 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-<<<<<<< HEAD
-        <TextBlock TextWrapping="Wrap" Margin="20,5,580,0" Foreground="White" Grid.ColumnSpan="2" FontSize="18" TextOptions.TextFormattingMode="Display" VerticalAlignment="Center">
-            <Run Foreground="White" Text="ELDEWRITO" BaselineAlignment="Center" FontFamily="Segoe UI Semibold"/>
-            <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center" FontFamily="Segoe UI Light"/>
-=======
         <TextBlock TextWrapping="Wrap" Margin="20,3,398,0" Foreground="White" Grid.ColumnSpan="2" FontSize="20" TextOptions.TextFormattingMode="Display">
             <Run Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center"/>
             <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center"/>
->>>>>>> origin/master
         </TextBlock>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Left" Background="Transparent" utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top"/>
         <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Width="114">
@@ -796,31 +790,6 @@
                             <Grid Width="570" Height="125">
                                 <Grid.Background>
                                     <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill"/>
-<<<<<<< HEAD
-                                </Button.Background>
-                                <Button.Resources>
-                                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                        <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Resources>
-                            </Button>
-                            <Label Content="Customization" FontSize="20" Margin="0,100,0,0" FontFamily="Segoe UI Light">
-                                <Label.Background>
-                                    <SolidColorBrush Color="Black" Opacity="0.7"/>
-                                </Label.Background>
-                            </Label>
-                        </Grid>
-
-                    </Border>
-
-
-=======
                                 </Grid.Background>
                                 <Label Content="PLAYER CUSTOMIZATION" FontSize="25" FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Padding="0,5,5,0" Foreground="White">
                                     <Label.Effect>
@@ -840,7 +809,6 @@
                             </Grid>
                         </Button>
                     </Border>
->>>>>>> origin/master
                 </Grid>
             </st:AutoGrid>
 
