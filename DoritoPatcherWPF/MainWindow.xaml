@@ -100,7 +100,7 @@
                 </Canvas.Background>
             </Canvas>
             <Grid Height="130" VerticalAlignment="Bottom">
-                <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0" Height="54" VerticalAlignment="Top">
+                <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0,30,0,0" Height="54" VerticalAlignment="Top">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="BorderBrush" Value="#FF47A6FF">
@@ -179,7 +179,7 @@
                         <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="25" Fill="{x:Null}" X2="35" Margin="0,-4,-4,0" StrokeThickness="3"/>
                     </Grid>
                 </Border>
-                <StackPanel HorizontalAlignment="Left" Height="54" Margin="222,0,-7,0" VerticalAlignment="Top" Width="155" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Height="54" Margin="222,30,-7,0" VerticalAlignment="Top" Width="155" Orientation="Horizontal">
                     <Button Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" Width="51.6" UseLayoutRounding="False" IsHitTestVisible="True" Cursor="Hand" ToolTip="Change game or launcher settings">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
@@ -247,7 +247,7 @@
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
                     </Button>
                 </StackPanel>
-                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370" HorizontalAlignment="Left" Margin="0,60,0,0" Cursor="Hand" ToolTip="View the changelist">
+                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370" HorizontalAlignment="Left" Margin="0,85,0,0" Cursor="Hand" ToolTip="View the changelist">
                     <Button.Resources>
                         <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                             <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
@@ -288,7 +288,7 @@
                     </StackPanel>
                 </Button>
                 <!-- Do not remove this, Fish, I'm looking at you -->
-                <TextBlock TextWrapping="Wrap" Margin="0" Foreground="White" FontSize="16" TextOptions.TextFormattingMode="Display" VerticalAlignment="Bottom" Height="34" Opacity="0.5" ><Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., "/><LineBreak/><Run Text="343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/><LineBreak/><Run/></TextBlock>
+                <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="8" TextOptions.TextFormattingMode="Display" VerticalAlignment="Bottom" Height="10" Opacity="0.5" Margin="0,0,-78,0" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" ><Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., "/><Run Text="343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/><LineBreak/><Run/></TextBlock>
             </Grid>
         </Grid>
 
@@ -960,76 +960,82 @@
                         </Setter>
                     </Style>
                 </Grid.Resources>
+                <Grid Margin="0,0,0,504">
+                    <Grid.Background>
+                        <SolidColorBrush Color="White" Opacity="0.1"/>
+                    </Grid.Background>
+                    <TextBlock Margin="10,0,0,0" Text="Player Customization" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
+                </Grid>
                 <st:AutoGrid Columns="*,*">
                     <st:AutoGrid.Background>
                         <SolidColorBrush Color="White" Opacity="0.07"/>
                     </st:AutoGrid.Background>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Player Settings</TextBlock>
-                        <TextBlock>Player Name:</TextBlock>
-                        <TextBox Width="auto" Text="{Binding Player.Name}">
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,25,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Player Settings</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Player Name:</TextBlock>
+                        <TextBox Width="auto" Text="{Binding Player.Name}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <TextBox.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </TextBox.Background>
                         </TextBox>
 
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
-                        <TextBlock>Helmet:</TextBlock>
-                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393"/>
-                        <TextBlock>Chest:</TextBlock>
-                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
-                        <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325"/>
-                        <TextBlock>Arms:</TextBlock>
-                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293"/>
-                        <TextBlock>Legs:</TextBlock>
-                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260"/>
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Armor Customization</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Helmet:</TextBlock>
+                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Chest:</TextBlock>
+                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Shoulders:</TextBlock>
+                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Arms:</TextBlock>
+                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Legs:</TextBlock>
+                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
 
 
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
-                        <TextBlock>Primary:</TextBlock>
-                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}">
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,30,25,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Armor Colors</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Primary:</TextBlock>
+                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
 
-                        <TextBlock>Secondary:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}">
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Secondary:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock>Visor:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}">
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Visor:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock>Lights:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}">
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Lights:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock>Holo:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}">
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Holo:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
                     </st:AutoGrid>
                 </st:AutoGrid>
-                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
-                        <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
-                            <Border.Background>
-                                <SolidColorBrush Color="White" Opacity="0.07"/>
-                            </Border.Background>
-                            <Button x:Name="btnApply" Click="btnApply_Click" Content="Ok" Style="{StaticResource Hover}"/>
-                        </Border>
-                    </st:AutoGrid>
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                    <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                        <Border.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07"/>
+                        </Border.Background>
+                        <Button x:Name="btnApply" Click="btnApply_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                    </Border>
+                </st:AutoGrid>
             </Grid>
         </Border>
 
@@ -1038,13 +1044,19 @@
                 <Grid.Background>
                     <SolidColorBrush Color="White" Opacity="0.07"/>
                 </Grid.Background>
-                <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." />
-                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                <Grid Margin="0,0,0,504">
+                    <Grid.Background>
+                        <SolidColorBrush Color="White" Opacity="0.1"/>
+                    </Grid.Background>
+                    <TextBlock Margin="10,0,0,0" Text="Changelog" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
+                </Grid>
+                <TextBox x:Name="ChangelogContent" Margin="5,24,5,5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16" />
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,10" Height="30" VerticalAlignment="Bottom">
                     <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
                         <Border.Background>
                             <SolidColorBrush Color="White" Opacity="0.07"/>
                         </Border.Background>
-                        <Button x:Name="btnOk" Click="btnOk_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                        <Button x:Name="btnOk" Click="btnOk_Click" Content="Ok" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
                     </Border>
                 </st:AutoGrid>
             </Grid>
@@ -1120,15 +1132,21 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                 </Grid.Resources>
+                <Grid Margin="0,0,0,504">
+                    <Grid.Background>
+                        <SolidColorBrush Color="White" Opacity="0.1"/>
+                    </Grid.Background>
+                    <TextBlock Margin="10,0,0,0" Text="Settings" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
+                </Grid>
                 <st:AutoGrid Columns="*,*">
                     <st:AutoGrid.Background>
                         <SolidColorBrush Color="White" Opacity="0.07"/>
                     </st:AutoGrid.Background>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Graphics Settings</TextBlock>
-                        <TextBlock>Field of View:</TextBlock>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,25,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Graphics Settings</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Field of View:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
@@ -1136,53 +1154,53 @@
                             <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
-                        <CheckBox Name="chkCenter" Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}">
+                        <CheckBox Name="chkCenter" Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             Centered Crosshair
                         </CheckBox>
 
-                        <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5">Input Settings</TextBlock>
-                        <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}">
+                        <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Input Settings</TextBlock>
+                        <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                             Use Raw Mouse Input
                         </CheckBox>
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Host Settings</TextBlock>
-                        <TextBlock>Start Timer:</TextBlock>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,5,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Host Settings</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Start Timer:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
                         </DockPanel>
-                        <TextBlock>Maximum Players:</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Maximum Players:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+                            <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
                         </DockPanel>
+                    </st:AutoGrid>
                 </st:AutoGrid>
-                    </st:AutoGrid>
-                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
-                                <Border.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07"/>
-                                </Border.Background>
-                                <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click" Style="{StaticResource Hover}"/>
-                            </Border>
-                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30"  Margin="10,0,0,0" HorizontalAlignment="Right">
-                                <Border.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07"/>
-                                </Border.Background>
-                                <Button x:Name="btnApply2" Content="Ok" Click="btnApply2_Click" Style="{StaticResource Hover}"/>
-                            </Border>
-                        </StackPanel>
-                    </st:AutoGrid>
+                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Border.Background>
+                            <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30"  Margin="10,0,0,0" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Border.Background>
+                            <Button x:Name="btnApply2" Content="Ok" Click="btnApply2_Click" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
+                        </Border>
+                    </StackPanel>
+                </st:AutoGrid>
             </Grid>
         </Border>
         <!--<Canvas HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="484">
