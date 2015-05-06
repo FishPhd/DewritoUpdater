@@ -47,6 +47,11 @@
         <ImageBrush ImageSource="Resources/BG_Nightfall.png"/>
     </Window.Background>
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="2000"/>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
@@ -94,7 +99,7 @@
             </Image>
         </Button>
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="20,10,10,20">
-            <Canvas HorizontalAlignment="Center" Height="383" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,33,0,154">
+            <Canvas HorizontalAlignment="Center" Height="402" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,38,0,130">
                 <Canvas.Background>
                     <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
@@ -145,7 +150,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Resources>
-                        <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False" Click="btnAction_Click"  Template="{DynamicResource BackgroundButton}" BorderBrush="White" FontSize="30" Width="215" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics" Cursor="Hand">
+                        <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False" Click="btnAction_Click"  Template="{DynamicResource BackgroundButton}" BorderBrush="White" FontSize="30" Width="215" FontFamily="/Resources/#Aero Matics" Cursor="Hand">
                             <Button.Background>
                                 <SolidColorBrush Color="#00FF0000"/>
                             </Button.Background>
@@ -202,7 +207,7 @@
                         </Button.Resources>
                         <Image Height="26" HorizontalAlignment="Center" Width="26" />
                     </Button>
-                    <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Visit the reddit for news &amp; discussions">
+                    <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Open the reddit page in your browser">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                 <Border Name="border" Background="{TemplateBinding Background}">
@@ -224,7 +229,7 @@
                         </Button.Resources>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" />
                     </Button>
-                    <Button Name="btnHelp" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Need help? Click here!">
+                    <Button Name="btnInfo" Click="btnInfo_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Information about stuff.">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                 <Border Name="border" Background="{TemplateBinding Background}">
@@ -288,187 +293,14 @@
                     </StackPanel>
                 </Button>
                 <!-- Do not remove this, Fish, I'm looking at you -->
-                <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="8" TextOptions.TextFormattingMode="Display" VerticalAlignment="Bottom" Height="10" Opacity="0.5" Margin="0,0,-78,0" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" ><Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., "/><Run Text="343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/><LineBreak/><Run/></TextBlock>
+                <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="8.25" TextOptions.TextFormattingMode="Display" VerticalAlignment="Bottom" Height="10" Opacity="0.5" Margin="0,0,-78,0" FontFamily="/Resources/#Aero Matics" >
+                    <Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., 343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/>
+                </TextBlock>
             </Grid>
         </Grid>
 
-        <!--<TabControl Grid.Row="1" Grid.Column="2"  Background="Transparent" BorderBrush="White" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0,0,5,5" SelectionChanged="TabControl_SelectionChanged" Name="tabControl">
-            <TabItem Header="Server Browser" x:Name="Server">
-                <Grid>
-                    <Grid.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.7"/>
-                    </Grid.Background>
-                    <awe:WebControl x:Name="WebBrowserServer" WebSession="{Binding Source={StaticResource session}}"  Visibility="Hidden"/>
-                    <Label x:Name="lblVerify" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,0,-1,423">
-                        <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Border.Background>
-                        <Label Content="Server Browser" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,214,-1,209" HorizontalAlignment="Left" Width="655" Height="108">
-                        <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Border.Background>
-                        <Button Content="File Share" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <Border BorderThickness="1" BorderBrush="White" Margin="-1,107,-1,316" Width="655" Height="108">
-                        <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                        </Border.Background>
-                        <Button Content="Stats/Ranks" Foreground="White" FontSize="20" FontWeight="Bold" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    
-                </Grid>
-            </TabItem>
-            <TabItem Header="Stats" x:Name="Stats">
-                <Grid>
-                    <Grid.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.7"/>
-                    </Grid.Background>
-                    <awe:WebControl x:Name="WebBrowserStats" Visibility="Hidden" WebSession="{Binding Source={StaticResource session}}"/>
-                    <Label x:Name="lblVerify2" Content="Verifying Game" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Changelog" Visibility="Hidden">
-                <Grid>
-                    <Grid Background="Black" Opacity="0.7" Grid.ColumnSpan="2" />
-                    <TextBox x:Name="ChangelogContent" Margin="5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."/>
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tabCustomization" Header="Player Customization">
-                <TabItem.Resources>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
-                    <Style x:Key="Header" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="Grid.ColumnSpan" Value="2"/>
-                    </Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Height" Value="23"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="BorderBrush" Value="White" />
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                        <Setter Property="CaretBrush" Value="White"/>
-                    </Style>
-                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-                        <Setter Property="Height" Value="23"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    </Style>
-                    <Style TargetType="{x:Type Slider}">
-                        <Setter Property="Height" Value="23"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="TickPlacement" Value="BottomRight"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    </Style>
-                    <Style TargetType="{x:Type xctk:ColorPicker}">
-                        <Setter Property="Height" Value="23"/>
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="ColorMode" Value="ColorCanvas"/>
-                        <Setter Property="UsingAlphaChannel" Value="False"/>
-                        <Setter Property="ShowDropDownButton" Value="False"/>
-                        <Setter Property="DisplayColorAndName" Value="True"/>
-                        <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="BorderBrush">
-                            <Setter.Value>
-                                <SolidColorBrush Color="White"/>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabItem.Resources>
-                <st:AutoGrid Columns="*,*">
-                    <st:AutoGrid.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.7"/>
-                    </st:AutoGrid.Background>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Player Settings</TextBlock>
-                        <TextBlock>Player Name:</TextBlock>
-                        <TextBox Width="200" Text="{Binding Player.Name}">
-                            <TextBox.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </TextBox.Background>
-                        </TextBox>
-
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5">Armor Customization</TextBlock>
-                        <TextBlock>Helmet:</TextBlock>
-                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393"/>
-                        <TextBlock>Chest:</TextBlock>
-                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"/>
-                        <TextBlock>Shoulders:</TextBlock>
-                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325"/>
-                        <TextBlock>Arms:</TextBlock>
-                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293"/>
-                        <TextBlock>Legs:</TextBlock>
-                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260"/>
-
-
-                    </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,5,25,5">
-                        <TextBlock Style="{StaticResource Header}">Armor Colors</TextBlock>
-                        <TextBlock>Primary:</TextBlock>
-                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}">
-                            <xctk:ColorPicker.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-
-                        <TextBlock>Secondary:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}">
-                            <xctk:ColorPicker.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-                        <TextBlock>Visor:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}">
-                            <xctk:ColorPicker.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-                        <TextBlock>Lights:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}">
-                            <xctk:ColorPicker.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-                        <TextBlock>Holo:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}">
-                            <xctk:ColorPicker.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            </xctk:ColorPicker.Background>
-                        </xctk:ColorPicker>
-                    </st:AutoGrid>
-                </st:AutoGrid>
-            </TabItem>
-            
-            <TabItem Header="Debug" x:Name="Update" Visibility="Hidden">
-                <Grid>
-                    <Grid Background="Black" Opacity="0.7" />
-                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Height="458" Margin="10,10,0,0" VerticalAlignment="Top" Width="633" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
-                        <FlowDocument/>
-                    </RichTextBox>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        -->
-        <Grid Grid.Column="1" x:Name="mainButtons" Grid.Row="1">
+        <!-- Right column starts here -->
+        <Grid Grid.Column="1" x:Name="mainButtons" Grid.Row="1" Visibility="Hidden">
             <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                 <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                     <Grid.Style>
@@ -823,85 +655,136 @@
             </Grid>
         </Grid>
         -->
-        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden" >
-            <Grid >
-                <Grid.Background>
-                    <SolidColorBrush Color="White" Opacity="0.15"/>
-                </Grid.Background>
-                <Border Margin="0,0,0,495" BorderBrush="White" BorderThickness="0,0,0,1">
-                    <Border.Background>
-                        <SolidColorBrush Color="White" Opacity="0.07"/>
-                    </Border.Background>
-                    <Grid Margin="0,0,16,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="191*"/>
-                            <ColumnDefinition Width="392*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}" Background="{x:Null}" Template="{DynamicResource BackgroundButton}" Grid.ColumnSpan="2" Margin="0,0,16,0">
-                            <Button.Resources>
-                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                    <Border Name="border" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="left" VerticalAlignment="Center" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Resources>
-                            <Image Height="16" HorizontalAlignment="left" Margin="20,0,0,0">
-                                <Image.Style>
-                                    <Style TargetType="{x:Type Image}">
-                                        <Setter Property="Source" Value="Resources/home.png" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Source" Value="Resources/darkhome.png"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </Button>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="56,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3">
-                            <Grid>
-                                <Button x:Name="browserServer" Click="browserServer_Click" Content="Server Browser" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
-                            </Grid>
-                        </Border>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="156,5,0,5" Width="80" HorizontalAlignment="left" CornerRadius="3" Grid.ColumnSpan="2">
-                            <Grid>
-                                <Button x:Name="browserStats" Click="browserStat_Click" Content="Stats" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
-                            </Grid>
-                        </Border>
-                        <Border BorderThickness="1" BorderBrush="White" Margin="75,5,0,5" Width="80" HorizontalAlignment="left" Grid.Column="1" CornerRadius="3">
-                            <Grid>
-                                <Button x:Name="browserFile" Click="browserFile_Click" Content="File Share" Style="{StaticResource Hover}" FontSize="10" FontFamily="Segoe UI Light" />
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </Border>
-                <awe:WebControl x:Name="embeddedBrowser" Margin="0,33,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
-            </Grid>
-        </Border>
-        <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" >
+            <Border.Clip>
+                <GeometryGroup>
+                    <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure x:Name="BorderClipFigure6" StartPoint="0,0">
+                                <LineSegment Point="534,0" />
+                                <LineSegment Point="570,36" />
+                                <LineSegment Point="570,530" />
+                                <LineSegment Point="0,530" />
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </GeometryGroup>
+            </Border.Clip>
             <Grid>
-                <Grid.Background>
-                    <SolidColorBrush Color="White" Opacity="0.07"/>
-                </Grid.Background>
-                <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left"  VerticalAlignment="Top" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
-                    <FlowDocument/>
-                </RichTextBox>
-                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
-                    <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
-                        <Border.Background>
-                            <SolidColorBrush Color="White" Opacity="0.07"/>
-                        </Border.Background>
-                        <Button x:Name="btnOkDebug" Click="btnOkDebug_Click" Content="Ok" Style="{StaticResource Hover}"/>
-                    </Border>
-                </st:AutoGrid>
+                <Border Margin="0" BorderBrush="#FF47A6FF" BorderThickness="0,0,0,1" VerticalAlignment="Top" Height="36">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                    </Border.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" Width="74" HorizontalAlignment="left" Height="35" Cursor="Hand">
+                            <Grid>
+                                <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}" Background="#00000000" Template="{DynamicResource BackgroundButton}">
+                                    <Button.Resources>
+                                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                            <Border Name="border" Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="left" VerticalAlignment="Center" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Resources>
+                                    <Image Height="16" Margin="0" Width="73">
+                                        <Image.Style>
+                                            <Style TargetType="{x:Type Image}">
+                                                <Setter Property="Source" Value="Resources/home.png" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Source" Value="Resources/darkhome.png"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0" HorizontalAlignment="left" Padding="20,0" Height="35">
+                            <Grid>
+                                <Button x:Name="browserServer" Click="browserServer_Click" Content="SERVER BROWSER" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
+                            </Grid>
+                        </Border>
+                        <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0" HorizontalAlignment="left" Padding="20,0" Height="35">
+                            <Grid>
+                                <Button x:Name="browserStats" Click="browserStat_Click" Content="STATS" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
+                            </Grid>
+                        </Border>
+                        <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" HorizontalAlignment="left" Padding="20,0" Height="35">
+                            <Grid>
+                                <Button x:Name="browserFile" Click="browserFile_Click" Content="FILE SHARE" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <awe:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
             </Grid>
         </Border>
-
-        <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+        <Border x:Name="Debug" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+            <Border.Clip>
+                <GeometryGroup>
+                    <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure x:Name="BorderClipFigure7" StartPoint="0,0">
+                                <LineSegment Point="534,0" />
+                                <LineSegment Point="570,36" />
+                                <LineSegment Point="570,530" />
+                                <LineSegment Point="0,530" />
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </GeometryGroup>
+            </Border.Clip>
+            <Grid>
+                <Border Height="36" Margin="0" BorderBrush="#FF47A6FF" BorderThickness="0,0,0,1" VerticalAlignment="Top">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                    </Border.Background>
+                    <TextBlock Margin="20,0,0,0" Text="DEBUG LOG" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/Resources/#Aero Matics" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+                <Grid Margin="0,36,0,0">
+                    <Grid.Background>
+                        <SolidColorBrush Color="White" Opacity="0.07"/>
+                    </Grid.Background>
+                    <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Padding="20,20,20,0">
+                        <FlowDocument/>
+                    </RichTextBox>
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                        <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Border.Background>
+                            <Button x:Name="btnOkDebug" Click="btnOkDebug_Click" Content="OK" Style="{StaticResource Hover}"/>
+                        </Border>
+                    </st:AutoGrid>
+                </Grid>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
+            </Grid>
+        </Border>
+        <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+            <Border.Clip>
+                <GeometryGroup>
+                    <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure x:Name="BorderClipFigure8" StartPoint="0,0">
+                                <LineSegment Point="534,0" />
+                                <LineSegment Point="570,36" />
+                                <LineSegment Point="570,530" />
+                                <LineSegment Point="0,530" />
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </GeometryGroup>
+            </Border.Clip>
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="{x:Type TextBlock}">
@@ -960,68 +843,70 @@
                         </Setter>
                     </Style>
                 </Grid.Resources>
-                <Grid Margin="0,0,0,504">
-                    <Grid.Background>
-                        <SolidColorBrush Color="White" Opacity="0.1"/>
-                    </Grid.Background>
-                    <TextBlock Margin="10,0,0,0" Text="Player Customization" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
-                </Grid>
-                <st:AutoGrid Columns="*,*">
+                <Border Height="36" Margin="0" BorderBrush="#FF47A6FF" BorderThickness="0,0,0,1" VerticalAlignment="Top">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                    </Border.Background>
+                    <TextBlock Margin="20,0,0,0" Text="PLAYER CUSTOMIZATION" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/Resources/#Aero Matics" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+                <st:AutoGrid Columns="*,*" Margin="0,36,0,0">
                     <st:AutoGrid.Background>
                         <SolidColorBrush Color="White" Opacity="0.07"/>
                     </st:AutoGrid.Background>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,25,5">
-                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Player Settings</TextBlock>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Player Name:</TextBlock>
-                        <TextBox Width="auto" Text="{Binding Player.Name}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="20,20,20,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics" FontWeight="Normal" >
+                            Player Settings
+                        </TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Player Name:</TextBlock>
+                        <TextBox Width="auto" Text="{Binding Player.Name}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <TextBox.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </TextBox.Background>
                         </TextBox>
 
-                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Armor Customization</TextBlock>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Helmet:</TextBlock>
-                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Chest:</TextBlock>
-                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Shoulders:</TextBlock>
-                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Arms:</TextBlock>
-                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Legs:</TextBlock>
-                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                        <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5" FontFamily="/Resources/#Aero Matics" FontWeight="Normal">Armor Customization</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
+                        <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" ItemsSource="{Binding Player.Armor.HelmetChoices}" SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName" MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light"/>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Chest:</TextBlock>
+                        <ComboBox  x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" ItemsSource="{Binding Player.Armor.ChestChoices}" SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName" FontSize="16" FontFamily="/Resources/#Aero Matics Light"/>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
+                        <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" ItemsSource="{Binding Player.Armor.ShoulderChoices}" SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName" MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light"/>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
+                        <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" ItemsSource="{Binding Player.Armor.ArmChoices}" SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName" MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light"/>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
+                        <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}" SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName" MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light"/>
 
 
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,30,25,5">
-                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Armor Colors</TextBlock>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Primary:</TextBlock>
-                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,20,20,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics" FontWeight="Normal">Armor Colors</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Primary:</TextBlock>
+                        <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
 
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Secondary:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Visor:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Lights:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
                         </xctk:ColorPicker>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Holo:</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             <xctk:ColorPicker.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </xctk:ColorPicker.Background>
@@ -1033,36 +918,68 @@
                         <Border.Background>
                             <SolidColorBrush Color="White" Opacity="0.07"/>
                         </Border.Background>
-                        <Button x:Name="btnApply" Click="btnApply_Click" Content="Ok" Style="{StaticResource Hover}"/>
+                        <Button x:Name="btnApply" Click="btnApply_Click" Content="OK" Style="{StaticResource Hover}"/>
                     </Border>
                 </st:AutoGrid>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
             </Grid>
         </Border>
-
-        <Border x:Name="ChangelogGrid" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+        <Border x:Name="ChangelogGrid" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+            <Border.Clip>
+                <GeometryGroup>
+                    <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure x:Name="BorderClipFigure9" StartPoint="0,0">
+                                <LineSegment Point="534,0" />
+                                <LineSegment Point="570,36" />
+                                <LineSegment Point="570,530" />
+                                <LineSegment Point="0,530" />
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </GeometryGroup>
+            </Border.Clip>
             <Grid Grid.ColumnSpan="2">
-                <Grid.Background>
-                    <SolidColorBrush Color="White" Opacity="0.07"/>
-                </Grid.Background>
-                <Grid Margin="0,0,0,504">
+                <Border Height="36" Margin="0" BorderBrush="#FF47A6FF" BorderThickness="0,0,0,1" VerticalAlignment="Top">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                    </Border.Background>
+                    <TextBlock Margin="20,0,0,0" Text="CHANGELOG" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/Resources/#Aero Matics" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Border>
+                <Grid Margin="0,36,0,0">
                     <Grid.Background>
-                        <SolidColorBrush Color="White" Opacity="0.1"/>
+                        <SolidColorBrush Color="White" Opacity="0.07"/>
                     </Grid.Background>
-                    <TextBlock Margin="10,0,0,0" Text="Changelog" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
+                    <TextBox x:Name="ChangelogContent" Margin="0" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." FontFamily="/Resources/#Aero Matics Light" FontSize="16" Padding="20,0" />
+                    <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                        <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
+                            <Border.Background>
+                                <SolidColorBrush Color="White" Opacity="0.07"/>
+                            </Border.Background>
+                            <Button x:Name="btnOk" Click="btnOk_Click" Content="OK" Style="{StaticResource Hover}"/>
+                        </Border>
+                    </st:AutoGrid>
                 </Grid>
-                <TextBox x:Name="ChangelogContent" Margin="5,24,5,5" Background="Transparent" Foreground="White" BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..." FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16" />
-                <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,10" Height="30" VerticalAlignment="Bottom">
-                    <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30" HorizontalAlignment="Right">
-                        <Border.Background>
-                            <SolidColorBrush Color="White" Opacity="0.07"/>
-                        </Border.Background>
-                        <Button x:Name="btnOk" Click="btnOk_Click" Content="Ok" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
-                    </Border>
-                </st:AutoGrid>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
             </Grid>
         </Border>
-
-        <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden">
+        <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" Margin="10,20,20,20" BorderThickness="1" Visibility="Hidden">
+            <Border.Clip>
+                <GeometryGroup>
+                    <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure x:Name="BorderClipFigure10" StartPoint="0,0">
+                                <LineSegment Point="534,0" />
+                                <LineSegment Point="570,36" />
+                                <LineSegment Point="570,530" />
+                                <LineSegment Point="0,530" />
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </GeometryGroup>
+            </Border.Clip>
             <Grid x:Name="GameSettings">
                 <Grid.Resources>
                     <Style TargetType="{x:Type TextBlock}">
@@ -1132,21 +1049,21 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch" />
                     </Style>
                 </Grid.Resources>
-                <Grid Margin="0,0,0,504">
-                    <Grid.Background>
-                        <SolidColorBrush Color="White" Opacity="0.1"/>
-                    </Grid.Background>
-                    <TextBlock Margin="10,0,0,0" Text="Settings" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display" FontWeight="Bold" FontSize="20"/>
-                </Grid>
-                <st:AutoGrid Columns="*,*">
+                <Border VerticalAlignment="Top" Height="36" Margin="0" BorderBrush="#FF47A6FF" BorderThickness="0,0,0,1">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                    </Border.Background>
+                    <TextBlock Margin="20,0,0,0" Text="SETTINGS" Foreground="White" TextWrapping="WrapWithOverflow"  FontFamily="/Resources/#Aero Matics" FontSize="20" HorizontalAlignment="Left"/>
+                </Border>
+                <st:AutoGrid Columns="*,*" Margin="0,36,0,0">
                     <st:AutoGrid.Background>
                         <SolidColorBrush Color="White" Opacity="0.07"/>
                     </st:AutoGrid.Background>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,25,5">
-                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Graphics Settings</TextBlock>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Field of View:</TextBlock>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,20,25,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics" Margin="5,0,5,5" FontWeight="Normal">Graphics Settings</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Field of View:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
@@ -1154,34 +1071,34 @@
                             <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Video.FieldOfView}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
                         </DockPanel>
 
-                        <CheckBox Name="chkCenter" Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <CheckBox Name="chkCenter" Grid.ColumnSpan="2" IsChecked="{Binding Video.CrosshairCentered}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             Centered Crosshair
                         </CheckBox>
 
-                        <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Input Settings</TextBlock>
-                        <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                        <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5" FontFamily="/Resources/#Aero Matics" FontWeight="Normal">Input Settings</TextBlock>
+                        <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}" Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16" FontFamily="/Resources/#Aero Matics Light">
                             Use Raw Mouse Input
                         </CheckBox>
                     </st:AutoGrid>
-                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,30,5,5">
-                        <TextBlock Style="{StaticResource Header}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display">Host Settings</TextBlock>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Start Timer:</TextBlock>
+                    <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,20,5,5">
+                        <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics" Margin="5,0,5,5" FontWeight="Normal">Host Settings</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Start Timer:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                            <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
                         </DockPanel>
-                        <TextBlock FontSize="16" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">Maximum Players:</TextBlock>
+                        <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Maximum Players:</TextBlock>
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light">
+                            <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
                                 <TextBox.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light"/>
+                            <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
                         </DockPanel>
                     </st:AutoGrid>
                 </st:AutoGrid>
@@ -1191,16 +1108,17 @@
                             <Border.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </Border.Background>
-                            <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
+                            <Button x:Name="btnReset" Content="RESET" Click="btnReset_Click" Style="{StaticResource Hover}"/>
                         </Border>
-                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30"  Margin="10,0,0,0" HorizontalAlignment="Right">
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75" Height="30"  Margin="20,0,0,0" HorizontalAlignment="Right">
                             <Border.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07"/>
                             </Border.Background>
-                            <Button x:Name="btnApply2" Content="Ok" Click="btnApply2_Click" Style="{StaticResource Hover}" FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Display Light" FontSize="16"/>
+                            <Button x:Name="btnApply2" Content="OK" Click="btnApply2_Click" Style="{StaticResource Hover}"/>
                         </Border>
                     </StackPanel>
                 </st:AutoGrid>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
             </Grid>
         </Border>
         <!--<Canvas HorizontalAlignment="Left" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" Width="484">

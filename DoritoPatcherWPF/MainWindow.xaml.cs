@@ -798,6 +798,11 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }
 
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 	    private void LoadSettings()
 	    {
 			// Load settings from the YAML file
