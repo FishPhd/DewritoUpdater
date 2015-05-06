@@ -30,11 +30,14 @@ namespace DoritoPatcherWPF
 		public DewritoPlayerSettings()
 		{
 			Name = "";
+			Uid = "";
 			Armor = new DewritoArmorSettings();
 			Colors = new DewritoColorSettings();
 		}
 
 		public string Name { get; set; }
+
+		public string Uid { get; set; }
 
 		public DewritoArmorSettings Armor { get; set; }
 
