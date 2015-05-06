@@ -299,8 +299,10 @@
             </Grid>
         </Grid>
 
+        
         <!-- Right column starts here -->
-        <Grid Grid.Column="1" x:Name="mainButtons" Grid.Row="1" Visibility="Hidden">
+        
+        <Grid Grid.Column="1" x:Name="mainButtons" Grid.Row="1">
             <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                 <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                     <Grid.Style>
@@ -655,7 +657,7 @@
             </Grid>
         </Grid>
         -->
-        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" >
+        <Border x:Name="Browser" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1" Margin="10,20,20,20" Visibility="Hidden" >
             <Border.Clip>
                 <GeometryGroup>
                     <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
