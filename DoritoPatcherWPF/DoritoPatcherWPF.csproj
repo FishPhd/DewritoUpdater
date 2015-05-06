@@ -152,6 +152,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Aero Matics Bold Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Bold.ttf" />
+    <Resource Include="Resources\Aero Matics Display Bold Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Display Bold.ttf" />
+    <Resource Include="Resources\Aero Matics Display Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Display Light Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Display Light.ttf" />
+    <Resource Include="Resources\Aero Matics Display Regular.ttf" />
+    <Resource Include="Resources\Aero Matics Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Light Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Light.ttf" />
+    <Resource Include="Resources\Aero Matics Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png" />
@@ -314,6 +326,7 @@
     <Resource Include="Resources\BG_Nightfall.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="Resources\BTN_Close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +334,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MASK_ButtonMask.png" />
+=======
+    <Resource Include="Resources\BTN_Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MASK_ButtonMask.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BORDER_Button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Changelog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Reddit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HaloOnlineLauncherDesign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ICON_Custom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ICON_Fileshare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ICON_Servers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ICON_Stats.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Changelog_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Help_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Reddit_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Settings_Blue.png" />
+>>>>>>> origin/master
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

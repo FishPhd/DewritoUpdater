@@ -344,7 +344,7 @@ namespace DoritoPatcherWPF
                     new Action(
                         () =>
                         {
-                            btnAction.Content = "Play Game";
+                            btnAction.Content = "PLAY GAME";
                             //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
 
                             /*
@@ -376,7 +376,7 @@ namespace DoritoPatcherWPF
                 new Action(
                     () =>
                         {
-                            btnAction.Content = "Update Game";
+                            btnAction.Content = "UPDATE";
 
                             Storyboard fade = (Storyboard)TryFindResource("fade");
                             fade.Stop();	// Stop
@@ -633,7 +633,7 @@ namespace DoritoPatcherWPF
         {
             if (btnAction.Dispatcher.CheckAccess())
             {
-                btnAction.Content = status;
+                btnAction.Content = status.ToUpper();
 
                 if (error)
                 {
@@ -674,7 +674,7 @@ namespace DoritoPatcherWPF
                     MainWindow.Focus();
                 }
             }
-            else if (btnAction.Content == "Update Game")
+            else if (btnAction.Content == "UPDATE")
             {
                 foreach (var file in filesToDownload)
                 {
@@ -708,7 +708,7 @@ namespace DoritoPatcherWPF
                     
                 }
 
-                btnAction.Content = "Play Game";
+                btnAction.Content = "PLAY GAME";
                 isPlayEnabled = true;
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
