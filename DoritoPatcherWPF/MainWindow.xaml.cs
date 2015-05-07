@@ -304,7 +304,14 @@ namespace DoritoPatcherWPF
             catch
             {
                 SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
-                SetStatusLabels("Error", true);
+                btnAction.Content = "PLAY";
+
+                MsgBox2 MainWindow = new MsgBox2("Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
+                isPlayEnabled = true;
+                btnAction.IsEnabled = true;
+
+                MainWindow.Show();
+                MainWindow.Focus();
                 return;
             }
 
@@ -533,6 +540,8 @@ namespace DoritoPatcherWPF
                     }
                 }
 
+                lblVersion.Text = latestUpdateVersion;
+                 
                 return true;
             }
             catch (WebException)
@@ -669,13 +678,6 @@ namespace DoritoPatcherWPF
                     //What to do with stuff if error is true (make text red or whatever)
 
                     btnAction.Foreground = Brushes.Red;
-
-                    /*Uri resourceUri = new Uri("Resources/BUTTON_PlayGame_Error.png", UriKind.Relative);
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                    var brush = new ImageBrush();
-                    brush.ImageSource = temp;
-                    btnAction.Background = brush;*/
                 }
             }
             else

@@ -22,7 +22,7 @@ namespace DoritoPatcherWPF
         public MsgBox(string text)
         {
             InitializeComponent();
-            Msg.Content = text;
+            Msg.Text = text;
         }
 
         //Restart button

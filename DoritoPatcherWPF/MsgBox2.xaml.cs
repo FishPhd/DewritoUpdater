@@ -54,7 +54,7 @@ namespace DoritoPatcherWPF
         public MsgBox2(string text)
         {
             InitializeComponent();
-            Msg.Content = text;
+            Msg.Text = text;
         }
 
         //Ok button (Close)
