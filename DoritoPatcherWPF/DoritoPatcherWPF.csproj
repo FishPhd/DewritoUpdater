@@ -87,10 +87,20 @@
       <DependentUpon>FileDownloadDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileShareWindow.xaml.cs">
+      <DependentUpon>FileShareWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsViewModel.cs" />
+    <Compile Include="GameFileShare.cs" />
+    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Utils\JSONSerializer.cs" />
     <Compile Include="Utils\WindowMovement.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="FileDownloadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +322,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
