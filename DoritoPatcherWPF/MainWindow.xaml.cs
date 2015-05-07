@@ -89,79 +89,95 @@ namespace DoritoPatcherWPF
 
         /* --- Content Panel Control --- */
 
-        private bool switchPanel(string panel)
+        private void switchPanel(string panel, bool animationComplete)
         {
-            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-            Settings.Visibility = System.Windows.Visibility.Hidden;
-            Customization.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Hidden;
-            Debug.Visibility = System.Windows.Visibility.Hidden;
-            Browser.Visibility = System.Windows.Visibility.Hidden;
-
-            switch(panel)
+            if (!animationComplete)
             {
-                case "main":
-                    mainButtons.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                case "browser":
-                    Browser.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                case "settings":
-                    Settings.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                case "custom":
-                    Customization.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                case "changelog":
-                    ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                case "debug":
-                    Debug.Visibility = System.Windows.Visibility.Visible;
-                    return true;
-                default:
-                    mainButtons.Visibility = System.Windows.Visibility.Visible;
-                    return false;
+                Storyboard fadePanels = (Storyboard)TryFindResource("fadePanels");
+                fadePanels.Completed += new EventHandler((sender, e) => switchPanelAnimationComplete(sender, e, panel));
+                fadePanels.Begin();	// Start fadeout
             }
+            else
+            {
+                ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
+                Settings.Visibility = System.Windows.Visibility.Hidden;
+                Customization.Visibility = System.Windows.Visibility.Hidden;
+                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+                Debug.Visibility = System.Windows.Visibility.Hidden;
+                Browser.Visibility = System.Windows.Visibility.Hidden;
+
+                switch (panel)
+                {
+                    case "main":
+                        mainButtons.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "browser":
+                        Browser.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "settings":
+                        Settings.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "custom":
+                        Customization.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "changelog":
+                        ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    case "debug":
+                        Debug.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        mainButtons.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                }
+                Storyboard showPanels = (Storyboard)TryFindResource("showPanels");
+                showPanels.Begin();	// Start fadein
+            }
+        }
+
+        private void switchPanelAnimationComplete(object sender, EventArgs e, string panel)
+        {
+            switchPanel(panel, true);
         }
 
         private void btnChangelog_Click(object sender, EventArgs e)
         {
-            switchPanel("changelog");
+            switchPanel("changelog", false);
         }
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            switchPanel("debug");
+            switchPanel("debug", false);
         }
 
         private void btnOkDebug_Click(object sender, EventArgs e)
         {
-            switchPanel("main");
+            switchPanel("main", false);
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            switchPanel("main");
+            switchPanel("main", false);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            switchPanel("settings");
+            switchPanel("settings", false);
         }
 
         private void btnApply2_Click(object sender, EventArgs e)
         {
-            switchPanel("main");
+            switchPanel("main", false);
         }
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
-            switchPanel("custom");
+            switchPanel("custom", false);
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            switchPanel("main");
+            switchPanel("main", false);
         }
 
         private void helmetOpen(object sender, EventArgs e)
@@ -240,9 +256,9 @@ namespace DoritoPatcherWPF
 
             InitializeComponent();
 
-           
             Storyboard fade = (Storyboard)TryFindResource("fade");
             fade.Begin();	// Start animation
+
             /*
             Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
             fadeServer.Begin();	// Start animation
@@ -748,7 +764,7 @@ namespace DoritoPatcherWPF
         }
         private void browserHome_Click(object sender, RoutedEventArgs e)
         {
-            switchPanel("main");
+            switchPanel("main", false);
         }
 
 
@@ -757,7 +773,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-                switchPanel("browser");
+                switchPanel("browser", false);
             }
             else
             {
@@ -771,7 +787,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click");
-                switchPanel("browser");
+                switchPanel("browser", false);
             }
             else
             {
@@ -786,7 +802,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://haloshare.net/");
-                switchPanel("browser");
+                switchPanel("browser", false);
             }
             else
             {
