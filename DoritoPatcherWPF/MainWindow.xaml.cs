@@ -75,75 +75,93 @@ namespace DoritoPatcherWPF
 	    private DewritoSettings settings;
 	    private SettingsViewModel settingsViewModel;
 
-        //Titlebar control
+        /* --- Titlebar Control --- */
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void btnChangelog_Click(object sender, EventArgs e)
+        private void MinButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
+            WindowState = WindowState.Minimized;
+        }
+
+        /* --- Content Panel Control --- */
+
+        private bool switchPanel(string panel)
+        {
+            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
             Settings.Visibility = System.Windows.Visibility.Hidden;
             Customization.Visibility = System.Windows.Visibility.Hidden;
             mainButtons.Visibility = System.Windows.Visibility.Hidden;
             Debug.Visibility = System.Windows.Visibility.Hidden;
             Browser.Visibility = System.Windows.Visibility.Hidden;
+
+            switch(panel)
+            {
+                case "main":
+                    mainButtons.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                case "browser":
+                    Browser.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                case "settings":
+                    Settings.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                case "custom":
+                    Customization.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                case "changelog":
+                    ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                case "debug":
+                    Debug.Visibility = System.Windows.Visibility.Visible;
+                    return true;
+                default:
+                    mainButtons.Visibility = System.Windows.Visibility.Visible;
+                    return false;
+            }
+        }
+
+        private void btnChangelog_Click(object sender, EventArgs e)
+        {
+            switchPanel("changelog");
         }
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
-            Debug.Visibility = System.Windows.Visibility.Visible;
-            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-            Settings.Visibility = System.Windows.Visibility.Hidden;
-            Customization.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Hidden;
-            Browser.Visibility = System.Windows.Visibility.Hidden;
+            switchPanel("debug");
         }
 
         private void btnOkDebug_Click(object sender, EventArgs e)
         {
-            Debug.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Visible;
+            switchPanel("main");
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Visible;
+            switchPanel("main");
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            Settings.Visibility = System.Windows.Visibility.Visible;
-            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-            Customization.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Hidden;
-            Debug.Visibility = System.Windows.Visibility.Hidden;
-            Browser.Visibility = System.Windows.Visibility.Hidden;
+            switchPanel("settings");
         }
 
         private void btnApply2_Click(object sender, EventArgs e)
         {
-            Settings.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Visible;
+            switchPanel("main");
         }
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
-            Customization.Visibility = System.Windows.Visibility.Visible;
-            Settings.Visibility = System.Windows.Visibility.Hidden;
-            ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Hidden;
-            Debug.Visibility = System.Windows.Visibility.Hidden;
-            Browser.Visibility = System.Windows.Visibility.Hidden;
+            switchPanel("custom");
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            Customization.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Visible;
-
+            switchPanel("main");
         }
 
         private void helmetOpen(object sender, EventArgs e)
@@ -196,11 +214,6 @@ namespace DoritoPatcherWPF
         private void armsClose(object sender, EventArgs e)
         {
             cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void MinButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
         }
 
         public MainWindow()
@@ -735,8 +748,7 @@ namespace DoritoPatcherWPF
         }
         private void browserHome_Click(object sender, RoutedEventArgs e)
         {
-            Browser.Visibility = System.Windows.Visibility.Hidden;
-            mainButtons.Visibility = System.Windows.Visibility.Visible;
+            switchPanel("main");
         }
 
 
@@ -745,8 +757,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-                Browser.Visibility = System.Windows.Visibility.Visible;
-                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+                switchPanel("browser");
             }
             else
             {
@@ -760,8 +771,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click");
-                Browser.Visibility = System.Windows.Visibility.Visible;
-                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+                switchPanel("browser");
             }
             else
             {
@@ -776,8 +786,7 @@ namespace DoritoPatcherWPF
             if (embedded == true)
             {
                 embeddedBrowser.Source = new Uri("https://haloshare.net/");
-                Browser.Visibility = System.Windows.Visibility.Visible;
-                mainButtons.Visibility = System.Windows.Visibility.Hidden;
+                switchPanel("browser");
             }
             else
             {
