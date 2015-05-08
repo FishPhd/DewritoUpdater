@@ -177,9 +177,6 @@
     <Resource Include="Resources\Aero Matics Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\halo_nightfall_wallpaper__without_logo__by_i7infinity-d7ntwkx.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\launcher.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +318,12 @@
   <ItemGroup>
     <EmbeddedResource Include="lib\awesomium.dll" />
     <EmbeddedResource Include="lib\icudt.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FORGE_guardian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FORGE_valhalla.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

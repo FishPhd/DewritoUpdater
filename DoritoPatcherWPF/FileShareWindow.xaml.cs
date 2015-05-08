@@ -28,13 +28,13 @@ namespace DoritoPatcherWPF
 
             variant = GameFileShare.FetchVariant(url);
 
-            VariantName.Text = variant.Name;
+            VariantName.Text = variant.Name.ToUpper();
             VariantAuthor.Text = variant.Author;
             VariantDescription.Text = variant.Description;
-            VariantTypeName.Text = variant.TypeName;
-            VariantType.Text = variant.Type + ":  " + variant.TypeName;
-
-
+            VariantTypeName.Text = variant.TypeName.ToUpper();
+            VariantType.Text = variant.Type.ToUpper() + ": ";
+            //VariantIcon.DataContext = "https://haloshare.net/Content/Images/" + variant.Type + "s/" + variant.TypeName + ".jpg"; //This doesn't work because wombarly doesn't consistently name shit
+            VariantIcon.DataContext = "/Resources/" + variant.Type + "_" + variant.TypeName + ".png";
 
             GameFileShare.Download(url, variant, onProgress, onCompleted, onDuplicate);         
         }
