@@ -677,7 +677,7 @@ namespace DoritoPatcherWPF
                 {
                     //What to do with stuff if error is true (make text red or whatever)
 
-                    btnAction.Foreground = Brushes.Red;
+                    btnAction.Foreground = Brushes.Gray;
                 }
             }
             else
@@ -827,7 +827,6 @@ namespace DoritoPatcherWPF
 
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
 	    private void LoadSettings()
