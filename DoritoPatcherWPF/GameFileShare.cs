@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using DoritoPatcherWPF.Utils;
 using System.Runtime.Serialization;
 using System.Windows;
+using System.ComponentModel;
 
 namespace DoritoPatcherWPF
 {
@@ -80,6 +81,47 @@ namespace DoritoPatcherWPF
             
             
             return Utils.JSONSerializer<Model>.DeSerialize(json);
+        }
+
+        /// <summary>
+        /// Download a game 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="variant"></param>
+        /// <param name="onProgress"></param>
+        /// <param name="onCompleted"></param>
+        /// <param name="onDuplicate"></param>
+        public static void Download(Uri url, Model variant, Action<int> onProgress, Action<AsyncCompletedEventArgs> onCompleted, Func<bool> onDuplicate)
+        {
+            WebClient wc = new WebClient();
+
+            wc.DownloadProgressChanged += (s, e) => onProgress(e.ProgressPercentage);   
+            wc.DownloadFileCompleted += (s, e) => onCompleted(e);
+
+            string path = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            switch (variant.Type)
+            {
+                case "Forge":
+                    path = System.IO.Path.Combine(path, "mods/forge/");
+                    break;
+                case "GameType":
+                    path = System.IO.Path.Combine(path, "mods/variants/");
+                    break;
+            }
+            System.IO.Directory.CreateDirectory(path);
+
+
+            string filePath =
+                System.IO.Path.Combine(path, string.Format("{0} ({1}).bin", variant.Name, variant.Author));
+
+
+            // Ask the user if they want to overwrite the variant if it already exists.
+            if (System.IO.File.Exists(filePath))
+            {
+                if (onDuplicate())
+                    return;
+            }
+            wc.DownloadFileAsync(new Uri("https://" + url.Host + variant.Download), filePath);
         }
 
         [DataContract]
