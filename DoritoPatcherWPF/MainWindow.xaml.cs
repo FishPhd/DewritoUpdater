@@ -258,13 +258,6 @@ namespace DoritoPatcherWPF
 
             Storyboard fade = (Storyboard)TryFindResource("fade");
             fade.Begin();	// Start animation
-
-            /*
-            Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
-            fadeServer.Begin();	// Start animation
-            Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
-            fadeStat.Begin();	// Start animation
-             */
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -337,23 +330,6 @@ namespace DoritoPatcherWPF
             }
         }
 
-        /*
-        private void TabControl_SelectionChanged(object sender, EventArgs e)
-        {
-            if (Stats != null && Stats.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
-	        {
-                WebBrowserStats.Source = new Uri("https://stats.halo.click/");
-                WebBrowserServer.Source = new Uri("about:blank");
-	        }
-            else if (Server != null && Server.IsSelected && btnAction.Content != "Error" && btnAction.Content != "Update Game")
-			{
-                WebBrowserServer.Source = new Uri("https://stats.halo.click/servers");
-                //WebBrowserServer.Source = new Uri("https://haloshare.net/forge");
-                WebBrowserStats.Source = new Uri("about:blank");
-            }
-        }
-         */
-
         private void BackgroundThread()
         {
             if (!CompareHashesWithJson())
@@ -381,16 +357,6 @@ namespace DoritoPatcherWPF
                         () =>
                         {
                             btnAction.Content = "PLAY GAME";
-                            //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
-
-                            /*
-                            BitmapImage bi3 = new BitmapImage();
-                            bi3.BeginInit();
-                            bi3.UriSource = new Uri("Resources/playEnabled.png", UriKind.Relative);
-                            bi3.EndInit();
-                            imgAction.Stretch = Stretch.Uniform;
-                            imgAction.Source = bi3;
-                            */
 
                             isPlayEnabled = true;
 
@@ -540,7 +506,7 @@ namespace DoritoPatcherWPF
                     }
                 }
 
-                lblVersion.Text = latestUpdateVersion;
+                SetUpdateLabel(latestUpdateVersion);
                  
                 return true;
             }
@@ -676,13 +642,24 @@ namespace DoritoPatcherWPF
                 if (error)
                 {
                     //What to do with stuff if error is true (make text red or whatever)
-
                     btnAction.Foreground = Brushes.Gray;
                 }
             }
             else
             {
                 btnAction.Dispatcher.Invoke(new Action(() => SetStatusLabels(status, true, updateLabel)));
+            }
+        }
+
+        private void SetUpdateLabel(string version)
+        {
+            if (lblVersion.Dispatcher.CheckAccess())
+            {
+                lblVersion.Text = version;
+            }
+            else
+            {
+                lblVersion.Dispatcher.Invoke(new Action(() => SetUpdateLabel(version)));
             }
         }
 
