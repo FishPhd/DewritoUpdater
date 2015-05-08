@@ -26,10 +26,10 @@
                         <Run x:Name="Msg" Text="Message text"/>
                 </TextBlock>
                 <Border HorizontalAlignment="Right"  BorderBrush="White" BorderThickness="1" Margin="89,98,140,20" Width="100" Height="30" VerticalAlignment="Bottom">
-                    <Button x:Name="btnClose" Content="CANCEL" Click="CloseButton_Click" Style="{StaticResource Hover}" Margin="0"/>
+                    <Button x:Name="btnClose" Content="CANCEL" Click="CloseButton_Click" Style="{StaticResource Hover}" Margin="0" FontSize="16"/>
                 </Border>
                 <Border HorizontalAlignment="Right"  BorderBrush="White" BorderThickness="1" Margin="89,98,20,20" Width="100" Height="30" VerticalAlignment="Bottom">
-                    <Button x:Name="btnRestart" Content="RESTART" Click="Restart_Click" Style="{StaticResource Hover}" Margin="0"/>
+                    <Button x:Name="btnRestart" Content="RESTART" Click="Restart_Click" Style="{StaticResource Hover}" Margin="0" FontSize="16"/>
                 </Border>
                 <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="31" Width="31" Fill="{x:Null}" X2="35" Margin="0,-5,-4,0" StrokeThickness="3" Stroke="#FF47A6FF"/>
             </Grid>

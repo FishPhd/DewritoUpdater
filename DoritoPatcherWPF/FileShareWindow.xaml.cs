@@ -28,8 +28,12 @@ namespace DoritoPatcherWPF
 
             variant = GameFileShare.FetchVariant(url);
 
-        
-            VariantName.Content = variant.Name;
+            VariantName.Text = variant.Name;
+            VariantAuthor.Text = variant.Author;
+            VariantDescription.Text = variant.Description;
+            VariantTypeName.Text = variant.TypeName;
+            VariantType.Text = variant.Type + ":  " + variant.TypeName;
+
 
 
             GameFileShare.Download(url, variant, onProgress, onCompleted, onDuplicate);         
@@ -40,16 +44,31 @@ namespace DoritoPatcherWPF
             string existsMessage =
                 string.Format("The variant '{0}' by {1} already exist. Do you Want to overide it?", variant.Name, variant.Author);
             return MessageBox.Show(existsMessage, "Duplicate", MessageBoxButton.YesNo) != MessageBoxResult.Yes;
+
+            //var MainWindow = new FileShareMsg("The variant '{0}' by {1} already exist. Do you Want to overide it?", variant.Name, variant.Author);
+
+            //MainWindow.Show();
+            //MainWindow.Focus();
         }
 
         private void onProgress(int progress)
         {
-
+            FileShareProgress.Value = progress;
         }
 
         private void onCompleted(AsyncCompletedEventArgs args)
         {
-            MessageBox.Show(variant.Name + " is downloaded!");
+            Complete.Visibility = Visibility.Visible;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MinButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

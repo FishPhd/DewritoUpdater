@@ -775,13 +775,13 @@ namespace DoritoPatcherWPF
         {
             if (embedded)
             {
-                embeddedBrowser.Source = new Uri("https://haloshare.net/");
-                switchPanel("browser", false);
+                var sInfo = new ProcessStartInfo("blamfile://haloshare.net?type=forge&id=15");
+                Process.Start(sInfo);
             }
             else
             {
-                var sInfo = new ProcessStartInfo("https://haloshare.net/");
-                Process.Start(sInfo);
+                embeddedBrowser.Source = new Uri("https://haloshare.net/");
+                switchPanel("browser", false);
             }
         }
 

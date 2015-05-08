@@ -87,6 +87,9 @@
       <DependentUpon>FileDownloadDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileShareMsg.xaml.cs">
+      <DependentUpon>FileShareMsg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileShareWindow.xaml.cs">
       <DependentUpon>FileShareWindow.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     <Compile Include="Utils\WindowMovement.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="FileDownloadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileShareMsg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
