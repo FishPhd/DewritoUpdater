@@ -1,9 +1,9 @@
 ﻿<Window x:Class="DoritoPatcherWPF.FileDownloadDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Updating..." Height="120" Width="400" WindowStyle="None" BorderBrush="Black" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+        Title="Updating..." Height="120" Width="400" WindowStyle="None" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
-        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1" Background="{x:Null}">
+        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1" Background="{x:Null}" Foreground="{x:Null}">
     <Grid Margin="-1">
         <Border Background="#FF214D75" BorderBrush="#FF47A6FF" BorderThickness="2">
             <Border.Clip>

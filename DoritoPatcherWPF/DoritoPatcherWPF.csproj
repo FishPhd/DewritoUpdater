@@ -167,12 +167,6 @@
     <AppDesigner Include="Properties\" />
     <Resource Include="Resources\Aero Matics Bold Italic.ttf" />
     <Resource Include="Resources\Aero Matics Bold.ttf" />
-    <Resource Include="Resources\Aero Matics Display Bold Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Display Bold.ttf" />
-    <Resource Include="Resources\Aero Matics Display Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Display Light Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Display Light.ttf" />
-    <Resource Include="Resources\Aero Matics Display Regular.ttf" />
     <Resource Include="Resources\Aero Matics Italic.ttf" />
     <Resource Include="Resources\Aero Matics Light Italic.ttf" />
     <Resource Include="Resources\Aero Matics Light.ttf" />
@@ -206,61 +200,16 @@
     <Resource Include="Resources\stats.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BUTTON_PlayGame.png" />
-    <Resource Include="Resources\BUTTON_PlayGame_Disabled.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\File Share.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dark-halo-spartan-helmet.png" />
-    <Resource Include="Resources\halo-spartan-helmet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\picker.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\playEnabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\buttonVerify.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Browser.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\darkpicker.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\darklist.png" />
-    <Resource Include="Resources\list.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\loading.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\darkreddit.png" />
-    <Resource Include="Resources\reddit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\darksettings.png" />
-    <Resource Include="Resources\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\customization.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\darkdebug.png" />
-    <Resource Include="Resources\debug.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\darkhome.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="lib\avcodec-53.dll" />
@@ -346,12 +295,6 @@
     <Resource Include="Resources\BTN_Minimize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MASK_ButtonMask.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BORDER_Button.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\BTN_Changelog.png" />
   </ItemGroup>
   <ItemGroup>
@@ -359,9 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BTN_Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\HaloOnlineLauncherDesign.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BTN_Help.png" />
@@ -393,6 +333,18 @@
   <ItemGroup>
     <Resource Include="lib\Awesomium.Core.XML" />
     <Resource Include="lib\Awesomium.Windows.Controls.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Debug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Debug_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BTN_Home_Blue.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

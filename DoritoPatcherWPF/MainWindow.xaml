@@ -83,33 +83,8 @@
                 <Image Source="Resources/BTN_Close.png" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
         </StackPanel>
-        <Button Margin="5,0,0,5" Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="left" Background="{x:Null}" Template="{DynamicResource BackgroundButton}" Height="16" Width="16">
-            <Button.Resources>
-                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                    <Border Name="border" Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Resources>
-            <Image Stretch="None" Visibility="Hidden">
-                <Image.Style>
-                    <Style TargetType="{x:Type Image}">
-                        <Setter Property="Source" Value="Resources/debug.png" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Source" Value="Resources/darkdebug.png"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-        </Button>
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="20,10,10,20">
-            <Canvas HorizontalAlignment="Center" Height="389" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,41,0,140">
+            <Canvas HorizontalAlignment="Center" Height="374" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,52,0,144">
                 <Canvas.Background>
                     <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
@@ -239,7 +214,7 @@
                         </Button.Resources>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" />
                     </Button>
-                    <Button Name="btnInfo" Click="btnInfo_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Information about stuff.">
+                    <Button Name="btnInfo" Click="btnInfo_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Information about stuff." Visibility="Collapsed">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                 <Border Name="border" Background="{TemplateBinding Background}">
@@ -255,6 +230,28 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
                                         <Setter Property="Source" Value="Resources/BTN_Help_Blue.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
+                    </Button>
+                    <Button Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="View the debug logs for debugging purposes.">
+                        <Button.Resources>
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                                <Border Name="border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/BTN_Debug.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Source" Value="Resources/BTN_Debug_Blue.png"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -747,10 +744,10 @@
                                         <Image Height="16" Margin="0" Width="73">
                                             <Image.Style>
                                                 <Style TargetType="{x:Type Image}">
-                                                    <Setter Property="Source" Value="Resources/home.png" />
+                                                    <Setter Property="Source" Value="Resources/BTN_Home.png" />
                                                     <Style.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Source" Value="Resources/darkhome.png"/>
+                                                            <Setter Property="Source" Value="Resources/BTN_Home_Blue.png"/>
                                                         </Trigger>
                                                     </Style.Triggers>
                                                 </Style>
