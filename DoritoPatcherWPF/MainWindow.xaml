@@ -1,7 +1,7 @@
 ﻿<Window x:Class="DoritoPatcherWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:awe="http://schemas.awesomium.com/winfx"
+        xmlns:osm="http://schemas.awesomium.com/winfx"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,14 +17,14 @@
         UseLayoutRounding="True" 
         FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18">
     <Window.Resources>
-        <awe:WebSessionProvider x:Key="session">
+        <osm:WebSessionProvider x:Key="session">
             <core:WebPreferences 
                 SmoothScrolling="True"
                 EnableGPUAcceleration="True"
                 WebGL="True"
                 CustomCSS = "body { background: transparent !important; padding: 0 !important; } .navbar { display: none !important; } .main { padding: 10px !important; } .map-container { height : 350px !important; } .reactiveAds { display : none; } ::-webkit-scrollbar { width: 18px; background-clip: padding-box; } ::-webkit-scrollbar-track { cursor: pointer; } ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.55); border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box;} ::-webkit-scrollbar-thumb:hover { background: grey; border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box; } ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement { height: 10px; width: 20px; } ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment { height: 20px; width: 20px; }"
                 />
-        </awe:WebSessionProvider>
+        </osm:WebSessionProvider>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction" 
         		Storyboard.TargetProperty="Opacity" From="0.20" To="1" 
@@ -773,7 +773,7 @@
                             </Border>
                         </StackPanel>
                     </Border>
-                    <awe:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
+                    <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
                 </Grid>
             </Border>

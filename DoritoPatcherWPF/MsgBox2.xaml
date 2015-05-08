@@ -30,7 +30,7 @@
                 </GeometryGroup>
             </Border.Clip>
             <Grid>
-                <TextBlock TextWrapping="Wrap"  Margin="20,20,20,70" Foreground="White" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display">
+                <TextBlock TextWrapping="Wrap"  Margin="20,26,20,70" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display">
                         <Run x:Name="Msg" Text="Message text"/>
                 </TextBlock>
                 <Border HorizontalAlignment="Right"  BorderBrush="White" BorderThickness="1" Margin="89,98,20,20" Width="100" Height="30" VerticalAlignment="Bottom">

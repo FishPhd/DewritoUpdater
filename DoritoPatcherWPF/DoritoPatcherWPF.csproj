@@ -17,7 +17,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>e5fe7f99</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>9fa9eef4</NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -90,6 +90,11 @@
     <Compile Include="FileShareWindow.xaml.cs">
       <DependentUpon>FileShareWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SettingsViewModel.cs" />
     <Compile Include="GameFileShare.cs" />
     <Compile Include="Utils\Extensions.cs" />
@@ -140,11 +145,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -152,13 +152,10 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="lib\awesomium_process" />
-    <None Include="lib\inspector.pak" />
-    <None Include="lib\pdf_js.pak" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -212,41 +209,20 @@
     <Resource Include="Resources\customization.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib\avcodec-53.dll" />
-    <EmbeddedResource Include="lib\avformat-53.dll" />
-    <EmbeddedResource Include="lib\avutil-51.dll" />
-    <EmbeddedResource Include="lib\Awesomium.Core.dll" />
-    <EmbeddedResource Include="lib\awesomium.dll" />
-    <EmbeddedResource Include="lib\Awesomium.Windows.Controls.dll" />
     <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
-    <EmbeddedResource Include="lib\icudt.dll" />
-    <EmbeddedResource Include="lib\libEGL.dll" />
-    <EmbeddedResource Include="lib\libGLESv2.dll" />
     <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
-    <EmbeddedResource Include="lib\PresentationCore.dll" />
-    <EmbeddedResource Include="lib\PresentationFramework.Aero2.dll" />
-    <EmbeddedResource Include="lib\PresentationFramework.dll" />
     <EmbeddedResource Include="lib\SpicyTaco.AutoGrid.dll" />
-    <EmbeddedResource Include="lib\System.Data.DataSetExtensions.dll" />
-    <EmbeddedResource Include="lib\System.Data.dll" />
-    <EmbeddedResource Include="lib\System.dll" />
-    <EmbeddedResource Include="lib\System.Drawing.dll" />
-    <EmbeddedResource Include="lib\System.Xaml.dll" />
-    <EmbeddedResource Include="lib\System.Xml.dll" />
-    <EmbeddedResource Include="lib\System.Xml.Linq.dll" />
-    <EmbeddedResource Include="lib\WindowsBase.dll" />
     <EmbeddedResource Include="lib\Xceed.Wpf.Toolkit.dll" />
-    <EmbeddedResource Include="lib\xinput9_1_0.dll" />
     <EmbeddedResource Include="lib\YamlDotNet.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+    <Reference Include="Awesomium.Core, Version=1.7.5.1, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Awesomium.Core.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.0, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
+    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.1, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Awesomium.Windows.Controls.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -259,22 +235,15 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="PresentationFramework.Aero2, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\PresentationFramework.Aero2.dll</HintPath>
-    </Reference>
     <Reference Include="SpicyTaco.AutoGrid">
       <HintPath>lib\SpicyTaco.AutoGrid.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="Xceed.Wpf.Toolkit">
       <HintPath>lib\Xceed.Wpf.Toolkit.dll</HintPath>
@@ -331,10 +300,6 @@
     <Resource Include="Resources\BTN_Settings_Blue.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="lib\Awesomium.Core.XML" />
-    <Resource Include="lib\Awesomium.Windows.Controls.XML" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\BTN_Debug.png" />
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +311,10 @@
   <ItemGroup>
     <Resource Include="Resources\BTN_Home_Blue.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\awesomium.dll" />
+    <EmbeddedResource Include="lib\icudt.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -353,7 +322,6 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.1.26.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.26.1\build\Fody.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
@@ -363,7 +331,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\Fody.1.26.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.26.1\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

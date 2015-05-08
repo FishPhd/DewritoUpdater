@@ -1,79 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
+using Newtonsoft.Json.Linq;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
-using Awesomium;
 
 namespace DoritoPatcherWPF
 {
-    using Microsoft.Win32;
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Mime;
-    using System.Reflection;
-    using System.Security.Cryptography;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Threading;
-    using System.Windows.Controls;
-    using System.Windows.Documents;
-    using System.Windows.Media;
-    using System.Xml.Serialization;
-    using System.Windows.Media.Animation;
-    using System.Windows.Navigation;
-    using System.Windows.Threading;
-
-    using DoritoPatcher;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        SHA1 hasher = SHA1.Create();
-        Dictionary<string, string> fileHashes;
-        string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink" };
-        string[] skipFileExtensions = { ".bik" };
-        string[] skipFiles = { "eldorado.exe", "game.cfg", "tags.dat", "font_package.bin", "binkw32.dll", "crash_reporter.exe", "game_local.cfg" };
+        private const string SettingsFileName = "dewrito_prefs.yaml";
+        private readonly bool embedded = true;
+        private readonly SHA1 hasher = SHA1.Create();
+        private readonly bool silentStart;
+        private readonly string[] skipFileExtensions = {".bik"};
 
-        JObject settingsJson;
-        JObject updateJson;
-        string latestUpdateVersion;
-        JToken latestUpdate;
+        private readonly string[] skipFiles =
+        {
+            "eldorado.exe", "game.cfg", "tags.dat", "font_package.bin", "binkw32.dll",
+            "crash_reporter.exe", "game_local.cfg"
+        };
 
-        List<string> filesToDownload;
-
-        Thread validateThread;
-
+        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink"};
         public string BasePath = Directory.GetCurrentDirectory();
+        private Dictionary<string, string> fileHashes;
+        private List<string> filesToDownload;
+        private bool isPlayEnabled;
+        private JToken latestUpdate;
+        private string latestUpdateVersion;
+        private DewritoSettings settings;
+        private JObject settingsJson;
+        private SettingsViewModel settingsViewModel;
+        private JObject updateJson;
+        private Thread validateThread;
 
-        private bool silentStart = false;
+        public MainWindow()
+        {
+            var e = Environment.GetCommandLineArgs();
 
-        private bool isPlayEnabled = false;
-        private bool embedded = true;
+            foreach (var entry in e)
+            {
+                if (entry.StartsWith("-"))
+                {
+                    switch (entry)
+                    {
+                        case "-silent":
+                            silentStart = true;
+                            break;
+                    }
+                }
+            }
 
-	    private const string SettingsFileName = "dewrito_prefs.yaml";
-	    private DewritoSettings settings;
-	    private SettingsViewModel settingsViewModel;
+            AppDomain.CurrentDomain.AssemblyResolve +=
+                ResolveAssembly;
+
+            // proceed starting app...
+
+            InitializeComponent();
+
+            var fade = (Storyboard) TryFindResource("fade");
+            fade.Begin(); // Start animation
+        }
 
         /* --- Titlebar Control --- */
 
@@ -93,45 +96,45 @@ namespace DoritoPatcherWPF
         {
             if (!animationComplete)
             {
-                Storyboard fadePanels = (Storyboard)TryFindResource("fadePanels");
-                fadePanels.Completed += new EventHandler((sender, e) => switchPanelAnimationComplete(sender, e, panel));
-                fadePanels.Begin();	// Start fadeout
+                var fadePanels = (Storyboard) TryFindResource("fadePanels");
+                fadePanels.Completed += (sender, e) => switchPanelAnimationComplete(sender, e, panel);
+                fadePanels.Begin(); // Start fadeout
             }
             else
             {
-                ChangelogGrid.Visibility = System.Windows.Visibility.Hidden;
-                Settings.Visibility = System.Windows.Visibility.Hidden;
-                Customization.Visibility = System.Windows.Visibility.Hidden;
-                mainButtons.Visibility = System.Windows.Visibility.Hidden;
-                Debug.Visibility = System.Windows.Visibility.Hidden;
-                Browser.Visibility = System.Windows.Visibility.Hidden;
+                ChangelogGrid.Visibility = Visibility.Hidden;
+                Settings.Visibility = Visibility.Hidden;
+                Customization.Visibility = Visibility.Hidden;
+                mainButtons.Visibility = Visibility.Hidden;
+                Debug.Visibility = Visibility.Hidden;
+                Browser.Visibility = Visibility.Hidden;
 
                 switch (panel)
                 {
                     case "main":
-                        mainButtons.Visibility = System.Windows.Visibility.Visible;
+                        mainButtons.Visibility = Visibility.Visible;
                         break;
                     case "browser":
-                        Browser.Visibility = System.Windows.Visibility.Visible;
+                        Browser.Visibility = Visibility.Visible;
                         break;
                     case "settings":
-                        Settings.Visibility = System.Windows.Visibility.Visible;
+                        Settings.Visibility = Visibility.Visible;
                         break;
                     case "custom":
-                        Customization.Visibility = System.Windows.Visibility.Visible;
+                        Customization.Visibility = Visibility.Visible;
                         break;
                     case "changelog":
-                        ChangelogGrid.Visibility = System.Windows.Visibility.Visible;
+                        ChangelogGrid.Visibility = Visibility.Visible;
                         break;
                     case "debug":
-                        Debug.Visibility = System.Windows.Visibility.Visible;
+                        Debug.Visibility = Visibility.Visible;
                         break;
                     default:
-                        mainButtons.Visibility = System.Windows.Visibility.Visible;
+                        mainButtons.Visibility = Visibility.Visible;
                         break;
                 }
-                Storyboard showPanels = (Storyboard)TryFindResource("showPanels");
-                showPanels.Begin();	// Start fadein
+                var showPanels = (Storyboard) TryFindResource("showPanels");
+                showPanels.Begin(); // Start fadein
             }
         }
 
@@ -182,89 +185,61 @@ namespace DoritoPatcherWPF
 
         private void helmetOpen(object sender, EventArgs e)
         {
-            cmbChest.Visibility = System.Windows.Visibility.Hidden;
-            cmbShoulders.Visibility = System.Windows.Visibility.Hidden;
-            cmbArms.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            cmbChest.Visibility = Visibility.Hidden;
+            cmbShoulders.Visibility = Visibility.Hidden;
+            cmbArms.Visibility = Visibility.Hidden;
+            cmbLegs.Visibility = Visibility.Hidden;
         }
 
         private void helmetClose(object sender, EventArgs e)
         {
-            cmbChest.Visibility = System.Windows.Visibility.Visible;
-            cmbShoulders.Visibility = System.Windows.Visibility.Visible;
-            cmbArms.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            cmbChest.Visibility = Visibility.Visible;
+            cmbShoulders.Visibility = Visibility.Visible;
+            cmbArms.Visibility = Visibility.Visible;
+            cmbLegs.Visibility = Visibility.Visible;
         }
 
         private void chestOpen(object sender, EventArgs e)
         {
-            cmbShoulders.Visibility = System.Windows.Visibility.Hidden;
-            cmbArms.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            cmbShoulders.Visibility = Visibility.Hidden;
+            cmbArms.Visibility = Visibility.Hidden;
+            cmbLegs.Visibility = Visibility.Hidden;
         }
 
         private void chestClose(object sender, EventArgs e)
         {
-            cmbShoulders.Visibility = System.Windows.Visibility.Visible;
-            cmbArms.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            cmbShoulders.Visibility = Visibility.Visible;
+            cmbArms.Visibility = Visibility.Visible;
+            cmbLegs.Visibility = Visibility.Visible;
         }
 
         private void shouldersOpen(object sender, EventArgs e)
         {
-            cmbArms.Visibility = System.Windows.Visibility.Hidden;
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            cmbArms.Visibility = Visibility.Hidden;
+            cmbLegs.Visibility = Visibility.Hidden;
         }
 
         private void shouldersClose(object sender, EventArgs e)
         {
-            cmbArms.Visibility = System.Windows.Visibility.Visible;
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
+            cmbArms.Visibility = Visibility.Visible;
+            cmbLegs.Visibility = Visibility.Visible;
         }
 
         private void armsOpen(object sender, EventArgs e)
         {
-            cmbLegs.Visibility = System.Windows.Visibility.Hidden;
+            cmbLegs.Visibility = Visibility.Hidden;
         }
 
         private void armsClose(object sender, EventArgs e)
         {
-            cmbLegs.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        public MainWindow()
-        {
-            var e = Environment.GetCommandLineArgs();
-
-            foreach (var entry in e)
-            {
-                if (entry.StartsWith("-"))
-                {
-                    switch (entry)
-                    {
-                        case "-silent":
-                            silentStart = true;
-                            break;
-                    }
-                }
-            }
-
-            AppDomain.CurrentDomain.AssemblyResolve +=
-            new ResolveEventHandler(ResolveAssembly);
-
-            // proceed starting app...
-
-            InitializeComponent();
-
-            Storyboard fade = (Storyboard)TryFindResource("fade");
-            fade.Begin();	// Start animation
+            cmbLegs.Visibility = Visibility.Visible;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (silentStart)
             {
-                this.WindowState = WindowState.Minimized;
+                WindowState = WindowState.Minimized;
             }
             using (var wc = new WebClient())
             {
@@ -276,11 +251,10 @@ namespace DoritoPatcherWPF
                 {
                     ChangelogContent.Text = "You are offline. No changelog available.";
                 }
-
             }
 
             LoadSettings();
-			SaveSettings();
+            SaveSettings();
 
             try
             {
@@ -288,18 +262,20 @@ namespace DoritoPatcherWPF
 
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
-                    SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
+                    SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255, 0, 0));
                     SetStatusLabels("Error", true);
-                    
+
                     return;
                 }
             }
             catch
             {
-                SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255,0,0));
+                SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255, 0, 0));
                 btnAction.Content = "PLAY";
 
-                MsgBox2 MainWindow = new MsgBox2("Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
+                var MainWindow =
+                    new MsgBox2(
+                        "Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
                 isPlayEnabled = true;
                 btnAction.IsEnabled = true;
 
@@ -309,22 +285,21 @@ namespace DoritoPatcherWPF
             }
 
             // CreateHashJson();
-            validateThread = new Thread(new ThreadStart(BackgroundThread));
+            validateThread = new Thread(BackgroundThread);
             validateThread.Start();
-            
         }
 
-        static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+        private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
         {
-            Assembly parentAssembly = Assembly.GetExecutingAssembly();
+            var parentAssembly = Assembly.GetExecutingAssembly();
 
             var name = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
             var resourceName = parentAssembly.GetManifestResourceNames()
                 .First(s => s.EndsWith(name));
 
-            using (Stream stream = parentAssembly.GetManifestResourceStream(resourceName))
+            using (var stream = parentAssembly.GetManifestResourceStream(resourceName))
             {
-                byte[] block = new byte[stream.Length];
+                var block = new byte[stream.Length];
                 stream.Read(block, 0, block.Length);
                 return Assembly.Load(block);
             }
@@ -350,8 +325,7 @@ namespace DoritoPatcherWPF
             {
                 SetStatus("You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
 
-                
-                
+
                 btnAction.Dispatcher.Invoke(
                     new Action(
                         () =>
@@ -360,44 +334,43 @@ namespace DoritoPatcherWPF
 
                             isPlayEnabled = true;
 
-                            Storyboard fade = (Storyboard)TryFindResource("fade");
-                            fade.Stop();	// Start animation
+                            var fade = (Storyboard) TryFindResource("fade");
+                            fade.Stop(); // Start animation
                             btnAction.IsEnabled = true;
                         }));
 
                 if (silentStart)
                 {
-                    this.btnAction_Click(new object(), new RoutedEventArgs());
+                    btnAction_Click(new object(), new RoutedEventArgs());
                 }
                 return;
             }
 
             SetStatus("An update is available. (" + latestUpdateVersion + ")", Color.FromRgb(255, 255, 0));
-            
+
             btnAction.Dispatcher.Invoke(
                 new Action(
                     () =>
-                        {
-                            btnAction.Content = "UPDATE";
+                    {
+                        btnAction.Content = "UPDATE";
 
-                            Storyboard fade = (Storyboard)TryFindResource("fade");
-                            fade.Stop();	// Stop
-                            /*
+                        var fade = (Storyboard) TryFindResource("fade");
+                        fade.Stop(); // Stop
+                        /*
                             Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
                             fadeStat.Stop();	// Start
                             Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
                             fadeServer.Stop();	// Start 
                              */
-                            btnAction.IsEnabled = true;
-                        }));
+                        btnAction.IsEnabled = true;
+                    }));
             if (silentStart)
             {
                 //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
-                MsgBox2 MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
+                var MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
 
                 MainWindow.Show();
                 MainWindow.Focus();
-
             }
         }
 
@@ -405,7 +378,7 @@ namespace DoritoPatcherWPF
         {
             try
             {
-                string updateData = settingsJson["updateServiceUrl"].ToString().Replace("\"", "");
+                var updateData = settingsJson["updateServiceUrl"].ToString().Replace("\"", "");
                 if (updateData.StartsWith("http"))
                 {
                     using (var wc = new WebClient())
@@ -440,7 +413,8 @@ namespace DoritoPatcherWPF
                     }
 
                     if (latestUpdate == null ||
-                        int.Parse(x.Value["releaseNo"].ToString().Replace("\"", "")) > int.Parse(latestUpdate["releaseNo"].ToString().Replace("\"", "")))
+                        int.Parse(x.Value["releaseNo"].ToString().Replace("\"", "")) >
+                        int.Parse(latestUpdate["releaseNo"].ToString().Replace("\"", "")))
                     {
                         latestUpdate = x.Value;
                         latestUpdateVersion = x.Key + "-" + latestUpdate["gitRevision"].ToString().Replace("\"", "");
@@ -450,25 +424,34 @@ namespace DoritoPatcherWPF
                 if (latestUpdate == null)
                     return false;
 
-                List<string> patchFiles = new List<string>();
-                foreach (var file in latestUpdate["patchFiles"]) // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
+                var patchFiles = new List<string>();
+                foreach (var file in latestUpdate["patchFiles"])
+                    // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
                 {
-                    string fileName = (string)file;
-                    string fileHash = (string)settingsJson["gameFiles"][fileName];
-                    if (!fileHashes.ContainsKey(fileName) && !fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)))
+                    var fileName = (string) file;
+                    var fileHash = (string) settingsJson["gameFiles"][fileName];
+                    if (!fileHashes.ContainsKey(fileName) &&
+                        !fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)))
                     {
-                        SetStatus("Original file data for file \"" + fileName + "\" not found.", Color.FromRgb(255,0,0));
-                        SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255,0,0), false);
+                        SetStatus("Original file data for file \"" + fileName + "\" not found.",
+                            Color.FromRgb(255, 0, 0));
+                        SetStatus("Please redo your Halo Online installation with the original HO files.",
+                            Color.FromRgb(255, 0, 0), false);
                         return false;
                     }
 
                     if (fileHashes.ContainsKey(fileName)) // we have the file
                     {
                         if (fileHashes[fileName] != fileHash &&
-                            (!fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)) || fileHashes[Path.Combine("_dewbackup", fileName)] != fileHash))
+                            (!fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)) ||
+                             fileHashes[Path.Combine("_dewbackup", fileName)] != fileHash))
                         {
-                            SetStatus("File \"" + fileName + "\" was found but isn't original, and a valid backup of the original data wasn't found.", Color.FromRgb(255, 0, 0));
-                            SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                            SetStatus(
+                                "File \"" + fileName +
+                                "\" was found but isn't original, and a valid backup of the original data wasn't found.",
+                                Color.FromRgb(255, 0, 0));
+                            SetStatus("Please redo your Halo Online installation with the original HO files.",
+                                Color.FromRgb(255, 0, 0), false);
                             return false;
                         }
                     }
@@ -476,10 +459,13 @@ namespace DoritoPatcherWPF
                     {
                         // we don't have the file
                         if (!fileHashes.ContainsKey(fileName + ".orig") &&
-                            (!fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)) || fileHashes[Path.Combine("_dewbackup", fileName)] != fileHash))
+                            (!fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)) ||
+                             fileHashes[Path.Combine("_dewbackup", fileName)] != fileHash))
                         {
-                            SetStatus("Original file data for file \"" + fileName + "\" not found.", Color.FromRgb(255, 0, 0));
-                            SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                            SetStatus("Original file data for file \"" + fileName + "\" not found.",
+                                Color.FromRgb(255, 0, 0));
+                            SetStatus("Please redo your Halo Online installation with the original HO files.",
+                                Color.FromRgb(255, 0, 0), false);
                             return false;
                         }
                     }
@@ -487,18 +473,20 @@ namespace DoritoPatcherWPF
                     patchFiles.Add(fileName);
                 }
 
-                IDictionary<string, JToken> files = (JObject)latestUpdate["files"];
+                IDictionary<string, JToken> files = (JObject) latestUpdate["files"];
 
                 filesToDownload = new List<string>();
                 foreach (var x in files)
                 {
-                    string keyName = x.Key;
-                    if (!fileHashes.ContainsKey(keyName) && fileHashes.ContainsKey(keyName.Replace(@"\", @"/"))) // linux system maybe?
+                    var keyName = x.Key;
+                    if (!fileHashes.ContainsKey(keyName) && fileHashes.ContainsKey(keyName.Replace(@"\", @"/")))
+                        // linux system maybe?
                         keyName = keyName.Replace(@"\", @"/");
 
                     if (!fileHashes.ContainsKey(keyName) || fileHashes[keyName] != x.Value.ToString().Replace("\"", ""))
                     {
-                        SetStatus("File \"" + keyName + "\" is missing or a newer version was found.", Color.FromRgb(255, 0, 0));
+                        SetStatus("File \"" + keyName + "\" is missing or a newer version was found.",
+                            Color.FromRgb(255, 0, 0));
                         var name = x.Key;
                         if (patchFiles.Contains(keyName))
                             name += ".bspatch";
@@ -507,7 +495,7 @@ namespace DoritoPatcherWPF
                 }
 
                 SetUpdateLabel(latestUpdateVersion);
-                 
+
                 return true;
             }
             catch (WebException)
@@ -525,12 +513,13 @@ namespace DoritoPatcherWPF
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
 
-            IDictionary<string, JToken> files = (JObject)settingsJson["gameFiles"];
+            IDictionary<string, JToken> files = (JObject) settingsJson["gameFiles"];
 
             foreach (var x in files)
             {
-                string keyName = x.Key;
-                if (!fileHashes.ContainsKey(keyName) && fileHashes.ContainsKey(keyName.Replace(@"\", @"/"))) // linux system maybe?
+                var keyName = x.Key;
+                if (!fileHashes.ContainsKey(keyName) && fileHashes.ContainsKey(keyName.Replace(@"\", @"/")))
+                    // linux system maybe?
                     keyName = keyName.Replace(@"\", @"/");
 
                 if (!fileHashes.ContainsKey(keyName))
@@ -539,10 +528,11 @@ namespace DoritoPatcherWPF
                         continue;
 
                     SetStatus("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
-                    SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                    SetStatus("Please redo your Halo Online installation with the original HO files.",
+                        Color.FromRgb(255, 0, 0), false);
                     SetStatusLabels("Error", true);
 
-                    Storyboard fade = (Storyboard)TryFindResource("fade");
+                    var fade = (Storyboard) TryFindResource("fade");
                     fade.Stop(); // Stop animation
                     SetStatusLabels("Error", true);
 
@@ -551,13 +541,15 @@ namespace DoritoPatcherWPF
 
                 if (fileHashes[keyName] != x.Value.ToString().Replace("\"", ""))
                 {
-                    if (skipFileExtensions.Contains(Path.GetExtension(keyName)) || skipFiles.Contains(Path.GetFileName(keyName)))
+                    if (skipFileExtensions.Contains(Path.GetExtension(keyName)) ||
+                        skipFiles.Contains(Path.GetFileName(keyName)))
                         continue;
 
                     SetStatus("Game file \"" + keyName + "\" data is invalid.", Color.FromRgb(255, 0, 0));
                     SetStatus("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0), false);
                     SetStatus("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0), false);
-                    SetStatus("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                    SetStatus("Please redo your Halo Online installation with the original HO files.",
+                        Color.FromRgb(255, 0, 0), false);
                     return false;
                 }
             }
@@ -570,7 +562,7 @@ namespace DoritoPatcherWPF
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
 
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.AppendLine("{");
             foreach (var kvp in fileHashes)
             {
@@ -589,7 +581,7 @@ namespace DoritoPatcherWPF
             if (String.IsNullOrEmpty(dirPath))
             {
                 dirPath = basePath;
-                SetStatus("Validating game files...", Color.FromRgb(255,255,255));
+                SetStatus("Validating game files...", Color.FromRgb(255, 255, 255));
             }
 
             foreach (var folder in Directory.GetDirectories(dirPath))
@@ -616,7 +608,9 @@ namespace DoritoPatcherWPF
                             fileHashes.Add(fileKey, hashStr);
                     }
                 }
-                catch { }
+                catch
+                {
+                }
             }
         }
 
@@ -624,8 +618,8 @@ namespace DoritoPatcherWPF
         {
             if (UpdateContent.Dispatcher.CheckAccess())
             {
-
-                UpdateContent.Document.Blocks.Add(new Paragraph(new Run(status){Foreground = new SolidColorBrush(color)}));
+                UpdateContent.Document.Blocks.Add(
+                    new Paragraph(new Run(status) {Foreground = new SolidColorBrush(color)}));
             }
             else
             {
@@ -665,9 +659,9 @@ namespace DoritoPatcherWPF
 
         private void btnAction_Click(object sender, RoutedEventArgs e)
         {
-            if (isPlayEnabled == true)
+            if (isPlayEnabled)
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
+                var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
                 try
                 {
@@ -676,7 +670,7 @@ namespace DoritoPatcherWPF
                 catch
                 {
                     //MessageBox.Show("Game executable not found.");
-                    MsgBox2 MainWindow = new MsgBox2("Game executable not found.");
+                    var MainWindow = new MsgBox2("Game executable not found.");
 
                     MainWindow.Show();
                     MainWindow.Focus();
@@ -686,7 +680,7 @@ namespace DoritoPatcherWPF
             {
                 foreach (var file in filesToDownload)
                 {
-                    SetStatus("Downloading file \"" + file + "\"...", Color.FromRgb(255,255,0));
+                    SetStatus("Downloading file \"" + file + "\"...", Color.FromRgb(255, 255, 0));
                     var url = latestUpdate["baseUrl"].ToString().Replace("\"", "") + file;
                     var destPath = Path.Combine(BasePath, file);
                     var dialog = new FileDownloadDialog(this, url, destPath);
@@ -709,23 +703,23 @@ namespace DoritoPatcherWPF
                 {
                     //MessageBox.Show("Update complete! Please restart the launcher.", "ElDewrito Launcher");
                     //Application.Current.Shutdown();
-                    MsgBox MainWindow = new MsgBox("Update complete! Please restart the launcher.");
+                    var MainWindow = new MsgBox("Update complete! Please restart the launcher.");
 
                     MainWindow.Show();
                     MainWindow.Focus();
-                    
                 }
 
                 btnAction.Content = "PLAY GAME";
                 isPlayEnabled = true;
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
-                SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
+                SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
+                    Color.FromRgb(0, 255, 0));
             }
         }
 
         private void btnIRC_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("http://irc.lc/gamesurge/eldorito");
+            var sInfo = new ProcessStartInfo("http://irc.lc/gamesurge/eldorito");
             Process.Start(sInfo);
         }
 
@@ -733,72 +727,73 @@ namespace DoritoPatcherWPF
         {
             embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
         }
+
         private void browserStat_Click(object sender, RoutedEventArgs e)
         {
             embeddedBrowser.Source = new Uri("https://stats.halo.click/");
         }
+
         private void browserFile_Click(object sender, RoutedEventArgs e)
         {
             embeddedBrowser.Source = new Uri("https://haloshare.net/forge/");
         }
+
         private void browserHome_Click(object sender, RoutedEventArgs e)
         {
             switchPanel("main", false);
         }
 
-
         private void btnServer_Click(object sender, RoutedEventArgs e)
         {
-            if (embedded == true)
+            if (embedded)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
                 switchPanel("browser", false);
             }
             else
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+                var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
                 Process.Start(sInfo);
             }
         }
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
-            if (embedded == true)
+            if (embedded)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click");
                 switchPanel("browser", false);
             }
             else
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo("https://stats.halo.click/");
+                var sInfo = new ProcessStartInfo("https://stats.halo.click/");
                 Process.Start(sInfo);
             }
-            
         }
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-            if (embedded == true)
+            if (embedded)
             {
                 embeddedBrowser.Source = new Uri("https://haloshare.net/");
                 switchPanel("browser", false);
             }
             else
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo("https://haloshare.net/");
+                var sInfo = new ProcessStartInfo("https://haloshare.net/");
                 Process.Start(sInfo);
             }
         }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
+            var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
             Process.Start(sInfo);
         }
 
         private void btnBug_Click(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo sInfo = new ProcessStartInfo("https://gitlab.com/emoose/ElDorito/issues");
+            var sInfo = new ProcessStartInfo("https://gitlab.com/emoose/ElDorito/issues");
             Process.Start(sInfo);
         }
 
@@ -806,37 +801,41 @@ namespace DoritoPatcherWPF
         {
         }
 
-	    private void LoadSettings()
-	    {
-			// Load settings from the YAML file
-			settings = null;
-		    try
-		    {
-			    using (var stream = File.OpenText(SettingsFileName))
-			    {
-				    var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
-				    settings = deserializer.Deserialize<DewritoSettings>(stream);
-			    }
-		    }
-		    catch (IOException) { }
-			catch (YamlException) { }
-			if (settings == null)
-				settings = new DewritoSettings(); // Use defaults if an error occurred
+        private void LoadSettings()
+        {
+            // Load settings from the YAML file
+            settings = null;
+            try
+            {
+                using (var stream = File.OpenText(SettingsFileName))
+                {
+                    var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+                    settings = deserializer.Deserialize<DewritoSettings>(stream);
+                }
+            }
+            catch (IOException)
+            {
+            }
+            catch (YamlException)
+            {
+            }
+            if (settings == null)
+                settings = new DewritoSettings(); // Use defaults if an error occurred
 
-			// Create the view model and listen for changes
-			settingsViewModel = new SettingsViewModel(settings);
-			settingsViewModel.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Player.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Player.Armor.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Player.Colors.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Video.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Host.PropertyChanged += SettingsChanged;
-		    settingsViewModel.Input.PropertyChanged += SettingsChanged;
+            // Create the view model and listen for changes
+            settingsViewModel = new SettingsViewModel(settings);
+            settingsViewModel.PropertyChanged += SettingsChanged;
+            settingsViewModel.Player.PropertyChanged += SettingsChanged;
+            settingsViewModel.Player.Armor.PropertyChanged += SettingsChanged;
+            settingsViewModel.Player.Colors.PropertyChanged += SettingsChanged;
+            settingsViewModel.Video.PropertyChanged += SettingsChanged;
+            settingsViewModel.Host.PropertyChanged += SettingsChanged;
+            settingsViewModel.Input.PropertyChanged += SettingsChanged;
 
-			// Set the data context for the settings tabs
+            // Set the data context for the settings tabs
             Customization.DataContext = settingsViewModel;
-			Settings.DataContext = settingsViewModel;
-	    }
+            Settings.DataContext = settingsViewModel;
+        }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -846,24 +845,29 @@ namespace DoritoPatcherWPF
             sldTimer.Value = 5;
             sldMax.Value = 16;
         }
-	    private void SaveSettings()
-	    {
-			settingsViewModel.Save(settings);
-		    try
-		    {
-			    using (var writer = new StreamWriter(File.Open(SettingsFileName, FileMode.Create, FileAccess.Write)))
-			    {
-				    var serializer = new Serializer(SerializationOptions.EmitDefaults, new CamelCaseNamingConvention());
-				    serializer.Serialize(writer, settings);
-			    }
-		    }
-		    catch (IOException) { }
-			catch (YamlException) { }
-	    }
 
-		void SettingsChanged(object sender, PropertyChangedEventArgs e)
-		{
-			SaveSettings();
-		}
+        private void SaveSettings()
+        {
+            settingsViewModel.Save(settings);
+            try
+            {
+                using (var writer = new StreamWriter(File.Open(SettingsFileName, FileMode.Create, FileAccess.Write)))
+                {
+                    var serializer = new Serializer(SerializationOptions.EmitDefaults, new CamelCaseNamingConvention());
+                    serializer.Serialize(writer, settings);
+                }
+            }
+            catch (IOException)
+            {
+            }
+            catch (YamlException)
+            {
+            }
+        }
+
+        private void SettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            SaveSettings();
+        }
     }
 }
