@@ -1,4 +1,7 @@
 # DewritoLauncher
+
+**We use Git for the purpose of sharing code. There are no guarantees that any commits made to this repository will work perfectly or even compile. If you compile this yourself, you are on your own unless you have constructive advice to offer. Do not beg for help or whine about issues on the IRC channel. Additionally, it is expected that you will not share anything that you compile. We do not want users getting viruses or mistaking an unofficial release for an official one.**
+
 Halo Online Launcher with auto updating features
 
 0.4.6 (Message FishPhd for all visual issues)
