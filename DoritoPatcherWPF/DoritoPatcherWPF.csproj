@@ -169,6 +169,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Minecraftia-Regular.ttf" />
     <Resource Include="Resources\Aero Matics Bold Italic.ttf" />
     <Resource Include="Resources\Aero Matics Bold.ttf" />
     <Resource Include="Resources\Aero Matics Italic.ttf" />

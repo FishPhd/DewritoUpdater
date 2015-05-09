@@ -23573,4 +23573,7 @@
         Mk61PxvBu+sv29ZO0t5/TPAbG26Sdx+jOjgt2/8DbBVTg1EpVXkAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="Minecraftia_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Minecraftia-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

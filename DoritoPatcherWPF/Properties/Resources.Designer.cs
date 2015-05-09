@@ -423,6 +423,16 @@ namespace DoritoPatcherWPF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Minecraftia_Regular {
+            get {
+                object obj = ResourceManager.GetObject("Minecraftia_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Newtonsoft_Json {
             get {
                 object obj = ResourceManager.GetObject("Newtonsoft_Json", resourceCulture);
