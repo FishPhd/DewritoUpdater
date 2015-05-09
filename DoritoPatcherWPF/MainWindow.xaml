@@ -83,8 +83,8 @@
                 <Image Source="Resources/BTN_Close.png" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button>
         </StackPanel>
-        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="20,10,10,20">
-            <Canvas HorizontalAlignment="Center" Height="374" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,52,0,144">
+        <Grid Grid.Row="1" Grid.Column="0" Margin="20,20,10,20">
+            <Canvas HorizontalAlignment="Center" Height="374" VerticalAlignment="Center" Width="370" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,12,0,144">
                 <Canvas.Background>
                     <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
@@ -304,6 +304,38 @@
                     <Run Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., 343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS"/>
                 </TextBlock>
             </Grid>
+            <Label x:Name="minecraft" Content="NOW WITH MORE ANIMATIONS" HorizontalAlignment="Left" Margin="56,103,-23,0" VerticalAlignment="Top" Foreground="#FFFFE800" RenderTransformOrigin="0.5,0.5" FontFamily="Minecraftia" Height="54" Width="337" HorizontalContentAlignment="Center" Visibility="Hidden">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="FontSize" Value="18" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                                   Path=IsMouseOver}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimation 
+        		                                Storyboard.TargetProperty="FontSize" From="18.1" To="20.1" 
+        		                                Duration="0:0:0.500" BeginTime="0:0:0" AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+                <Label.Effect>
+                    <DropShadowEffect BlurRadius="0" ShadowDepth="3"/>
+                </Label.Effect>
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="27.26"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
         </Grid>
 
 
@@ -403,7 +435,7 @@
                                             </LinearGradientBrush>
                                         </Rectangle.Fill>
                                     </Rectangle>
-                                    <Image Source="Resources/ICON_Servers.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                    <Image Source="Resources/ICON_Servers.png" Margin="0,23,33,23" HorizontalAlignment="Right" />
                                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
                                 </Grid>
                             </Button>
@@ -501,7 +533,7 @@
                                             </LinearGradientBrush>
                                         </Rectangle.Fill>
                                     </Rectangle>
-                                    <Image Source="Resources/ICON_Stats.png" Margin="0,15,25,15" HorizontalAlignment="Right" />
+                                    <Image Source="Resources/ICON_Stats.png" Margin="0,18,28,18" HorizontalAlignment="Right" />
                                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
                                 </Grid>
                             </Button>
@@ -599,7 +631,7 @@
                                             </LinearGradientBrush>
                                         </Rectangle.Fill>
                                     </Rectangle>
-                                    <Image Source="Resources/ICON_Fileshare.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                    <Image Source="Resources/ICON_Fileshare.png" Margin="0,23,33,23" HorizontalAlignment="Right" />
                                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
                                 </Grid>
                             </Button>
@@ -697,7 +729,7 @@
                                             </LinearGradientBrush>
                                         </Rectangle.Fill>
                                     </Rectangle>
-                                    <Image Source="Resources/ICON_Custom.png" Margin="0,20,30,20" HorizontalAlignment="Right" />
+                                    <Image Source="Resources/ICON_Custom.png" Margin="0,23,33,23" HorizontalAlignment="Right" />
                                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="38" Width="38" Fill="{x:Null}" X2="35" Margin="0,-2,0,0" StrokeThickness="2"/>
                                 </Grid>
                             </Button>
@@ -766,11 +798,11 @@
                                     <Button x:Name="browserStats" Click="browserStat_Click" Content="STATS" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
                                 </Grid>
                             </Border>
-                            <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" HorizontalAlignment="left" Padding="20,0" Height="35">
+                            <!--<Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" HorizontalAlignment="left" Padding="20,0" Height="35">
                                 <Grid>
                                     <Button x:Name="browserFile" Click="browserFile_Click" Content="FILE SHARE" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
                                 </Grid>
-                            </Border>
+                            </Border>-->
                         </StackPanel>
                     </Border>
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>

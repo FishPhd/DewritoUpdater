@@ -1,7 +1,7 @@
 ﻿<Window x:Class="DoritoPatcherWPF.FileShareWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Fetching Variant Information..." Height="285" Width="511"
+        Title="ElDewrito - Downloading File..." Height="285" Width="511"
         WindowStyle="None" Icon="Resources/launcher.ico" ResizeMode="NoResize" ShowInTaskbar="True" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1" Background="{x:Null}" Foreground="{x:Null}">
@@ -59,7 +59,7 @@
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.2"/>
                     </Border.Background>
-                    <Image Name="VariantIcon" Source="{Binding}"/>
+                    <Image Name="VariantIcon" Source="{Binding}" Stretch="UniformToFill"/>
                 </Border>
                 <ProgressBar x:Name="FileShareProgress" Margin="0,170,0,0" Foreground="#FF47A6FF" Background="White" Opacity="0.7" VerticalAlignment="Top" Height="40" BorderBrush="{x:Null}" Grid.Row="1" Grid.ColumnSpan="2"/>
                 <Label Name="Complete" Content="DOWNLOAD COMPLETE" Margin="0,175,0,0" Grid.Row="1" Foreground="White" VerticalAlignment="Top" Height="30" HorizontalAlignment="Center" FontFamily="/Resources/#Aero Matics" Visibility="Hidden"/>

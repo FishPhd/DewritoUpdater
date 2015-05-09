@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DoritoPatcherWPF
 {
@@ -18,11 +19,33 @@ namespace DoritoPatcherWPF
     /// </summary>
     public partial class FileShareMsg : Window
     {
+        public bool confirm = false;
 
-        public FileShareMsg(string text)
+        public FileShareMsg(string name, string author, string type)
         {
             InitializeComponent();
-            FileShareText.Text = text;
+            if (type == "Forge")
+            {
+                fileType.Text = "map";
+            }
+            else
+            {
+                fileType.Text = type.ToLower();
+            }
+            fileName.Text = name.ToUpper();
+            fileAuthor.Text = author;
+        }
+
+        private void btnYes_Click(object sender, RoutedEventArgs e)
+        {
+            confirm = true;
+            Close();
+        }
+
+        private void btnNo_Click(object sender, RoutedEventArgs e)
+        {
+            confirm = false;
+            Close();
         }
 
     }

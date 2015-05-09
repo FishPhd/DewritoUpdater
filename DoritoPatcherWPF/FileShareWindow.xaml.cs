@@ -31,24 +31,34 @@ namespace DoritoPatcherWPF
             VariantName.Text = variant.Name.ToUpper();
             VariantAuthor.Text = variant.Author;
             VariantDescription.Text = variant.Description;
+            if (variant.Type == "Forge")
+            {
+                VariantType.Text = "MAP: ";
+            }
+            else
+            {
+                VariantType.Text = variant.Type.ToUpper() + ": ";
+            }
             VariantTypeName.Text = variant.TypeName.ToUpper();
-            VariantType.Text = variant.Type.ToUpper() + ": ";
-            //VariantIcon.DataContext = "https://haloshare.net/Content/Images/" + variant.Type + "s/" + variant.TypeName + ".jpg"; //This doesn't work because wombarly doesn't consistently name shit
-            VariantIcon.DataContext = "/Resources/" + variant.Type + "_" + variant.TypeName + ".png";
+            VariantIcon.DataContext = "https://" + url.Host + variant.Icon;
 
-            GameFileShare.Download(url, variant, onProgress, onCompleted, onDuplicate);         
+            if(!GameFileShare.Download(url, variant, onProgress, onCompleted, onDuplicate))
+            { 
+                Close();
+            }
         }
 
         private bool onDuplicate()
         {
-            string existsMessage =
-                string.Format("The variant '{0}' by {1} already exist. Do you Want to overide it?", variant.Name, variant.Author);
-            return MessageBox.Show(existsMessage, "Duplicate", MessageBoxButton.YesNo) != MessageBoxResult.Yes;
+            bool confirm = false;
+            var duplicateWindow = new FileShareMsg(variant.Name, variant.Author, variant.Type);
 
-            //var MainWindow = new FileShareMsg("The variant '{0}' by {1} already exist. Do you Want to overide it?", variant.Name, variant.Author);
+            if (duplicateWindow.ShowDialog() == false)
+            {
+                confirm = duplicateWindow.confirm;
+            }
 
-            //MainWindow.Show();
-            //MainWindow.Focus();
+            return confirm;
         }
 
         private void onProgress(int progress)

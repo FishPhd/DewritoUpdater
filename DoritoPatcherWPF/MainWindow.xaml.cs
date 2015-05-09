@@ -773,7 +773,9 @@ namespace DoritoPatcherWPF
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-            if (embedded)
+            var sInfo = new ProcessStartInfo("https://haloshare.net/");
+            Process.Start(sInfo);
+            /*if (embedded)
             {
                 var sInfo = new ProcessStartInfo("blamfile://haloshare.net?type=forge&id=15");
                 Process.Start(sInfo);
@@ -782,7 +784,7 @@ namespace DoritoPatcherWPF
             {
                 embeddedBrowser.Source = new Uri("https://haloshare.net/");
                 switchPanel("browser", false);
-            }
+            }*/
         }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)

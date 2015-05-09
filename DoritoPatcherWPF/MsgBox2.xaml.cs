@@ -49,8 +49,6 @@ namespace DoritoPatcherWPF
     /// </summary>
     public partial class MsgBox2 : Window
     {
-        
-
         public MsgBox2(string text)
         {
             InitializeComponent();

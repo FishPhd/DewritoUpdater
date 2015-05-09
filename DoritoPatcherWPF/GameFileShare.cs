@@ -91,7 +91,7 @@ namespace DoritoPatcherWPF
         /// <param name="onProgress"></param>
         /// <param name="onCompleted"></param>
         /// <param name="onDuplicate"></param>
-        public static void Download(Uri url, Model variant, Action<int> onProgress, Action<AsyncCompletedEventArgs> onCompleted, Func<bool> onDuplicate)
+        public static bool Download(Uri url, Model variant, Action<int> onProgress, Action<AsyncCompletedEventArgs> onCompleted, Func<bool> onDuplicate)
         {
             WebClient wc = new WebClient();
 
@@ -118,10 +118,13 @@ namespace DoritoPatcherWPF
             // Ask the user if they want to overwrite the variant if it already exists.
             if (System.IO.File.Exists(filePath))
             {
-                if (onDuplicate())
-                    return;
+                if (!onDuplicate())
+                {
+                    return false;
+                }
             }
             wc.DownloadFileAsync(new Uri("https://" + url.Host + variant.Download), filePath);
+            return true;
         }
 
         [DataContract]
