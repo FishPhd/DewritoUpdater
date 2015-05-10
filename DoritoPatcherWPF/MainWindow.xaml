@@ -22,7 +22,172 @@
                 SmoothScrolling="True"
                 EnableGPUAcceleration="True"
                 WebGL="True"
-                CustomCSS = "body { background: transparent !important; padding: 0 !important; } .navbar { display: none !important; } .main { padding: 10px !important; } .map-container { height : 350px !important; } .reactiveAds { display : none; } ::-webkit-scrollbar { width: 18px; background-clip: padding-box; } ::-webkit-scrollbar-track { cursor: pointer; } ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.55); border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box;} ::-webkit-scrollbar-thumb:hover { background: grey; border-right: 10px solid rgba(0, 0, 0, 0); background-clip: padding-box; } ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement { height: 10px; width: 20px; } ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment { height: 20px; width: 20px; }"
+                CustomCSS = "body 
+{ 
+    font-family: Aero Matics Light !important;
+    letter-spacing: 1px !important;
+    background: transparent !important; 
+    padding: 0 !important; 
+} 
+
+b, strong
+{
+    font-family: Aero Matics !important;
+    font-weight: 400 !important;
+}
+
+.navbar 
+{ 
+    display: none !important;
+} 
+
+.main 
+{ 
+    padding: 20px 10px !important; 
+} 
+
+.panel
+{
+    opacity: 1 !important;
+    background: rgba(33, 77, 117, 0.85) !important;
+    border: 1px solid #47a6ff !important;
+    border-radius: 0 !important;
+}
+
+.panel-heading, .panel-default>.panel-heading
+{
+    opacity: 1 !important;
+    font-family: Aero Matics !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-radius: 0 !important;
+}
+
+.panel .panel
+{
+    background: rgba(33, 77, 117, 0) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.panel .panel-heading, .panel .panel-default>.panel-heading
+{
+    opacity: 1 !important;
+    font-family: Aero Matics !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-radius: 0 !important;
+}
+
+.panel-body
+{
+    color: white !important;
+}
+
+.map-container 
+{ 
+    height : 350px !important; 
+} 
+
+.reactiveAds 
+{ 
+    display : none !important; 
+} 
+
+::-webkit-scrollbar 
+{ 
+    width: 18px !important; 
+    background-clip: padding-box !important; 
+} 
+
+::-webkit-scrollbar-track 
+{ 
+    cursor: pointer !important; 
+} 
+
+::-webkit-scrollbar-thumb 
+{ 
+    background: rgba(255, 255, 255, 0.3) !important; 
+    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
+    border-left: 3px solid rgba(0, 0, 0, 0) !important;
+    background-clip: padding-box !important;
+} 
+
+::-webkit-scrollbar-thumb:hover 
+{ 
+    background: rgba(255, 255, 255, 0.7) !important; 
+    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
+    border-left: 0px solid rgba(0, 0, 0, 0) !important;
+    background-clip: padding-box !important; 
+} 
+
+::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement 
+{ 
+    height: 10px !important; 
+    width: 20px !important; 
+} 
+
+::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment 
+{ 
+    height: 20px !important; 
+    width: 20px !important; 
+}
+
+.table {
+  width: 530px !important;
+  max-width: none !important;
+  margin: 0 -15px 20px !important;
+}
+
+#playerTable
+{
+  margin: 0 0 40px !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background: rgba(0, 0, 0, 0.07) !important;
+}
+
+td
+{
+    font-size: 16px !important;
+}
+
+.table-responsive {
+    background: none !important;
+    border: none !important;
+    width: 530px !important;
+    margin: 0 -15px !important;
+}
+
+.well {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+h3.sub-header.text-center {
+    font-family: aero matics !important;
+    text-transform: uppercase !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 0 0 !important;
+}
+
+.chartPadding {
+    padding: 10px 20px !important;
+    margin: -15px -15px -35px !important;
+    width: 529px !important;
+    background: rgba(255, 255, 255, 0.77) !important;
+}"
                 />
         </osm:WebSessionProvider>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
@@ -805,7 +970,11 @@
                             </Border>-->
                         </StackPanel>
                     </Border>
-                    <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True"/>
+                    <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0" WebSession="{Binding Source={StaticResource session}}"  Foreground="{x:Null}" IsTransparent="True">
+                        <osm:WebControl.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07"/>
+                        </osm:WebControl.Background>
+                    </osm:WebControl>
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2"/>
                 </Grid>
             </Border>
