@@ -80,7 +80,7 @@ namespace DoritoPatcherWPF
             string json = wc.DownloadString(string.Format("https://{0}/api/{1}/{2}", blamUri.Host, type, id));
             
             
-            return Utils.JSONSerializer<Model>.DeSerialize(json);
+            return Utils.JSONSerializer.DeSerialize<Model>(json);
         }
 
         /// <summary>

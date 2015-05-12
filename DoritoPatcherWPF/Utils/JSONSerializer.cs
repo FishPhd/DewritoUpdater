@@ -7,12 +7,12 @@ using System.Text;
 
 namespace DoritoPatcherWPF.Utils
 {
-    public static class JSONSerializer<TType> where TType : class
+    public static class JSONSerializer
     {
         /// <summary>
         /// Serializes an object to JSON
         /// </summary>
-        public static string Serialize(TType instance)
+        public static string Serialize<TType>(TType instance)
         {
             var serializer = new DataContractJsonSerializer(typeof(TType));
             using (var stream = new MemoryStream())
@@ -25,11 +25,12 @@ namespace DoritoPatcherWPF.Utils
         /// <summary>
         /// DeSerializes an object from JSON
         /// </summary>
-        public static TType DeSerialize(string json)
+        public static TType DeSerialize<TType>(string json)
+            where TType : class
         {
             using (var stream = new MemoryStream(Encoding.Default.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof(TType));
+			    var serializer = new DataContractJsonSerializer(typeof(TType));
                 return serializer.ReadObject(stream) as TType;
             }
         }
