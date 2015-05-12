@@ -30,7 +30,7 @@ namespace DoritoPatcherWPF.Utils
         {
             using (var stream = new MemoryStream(Encoding.Default.GetBytes(json)))
             {
-			    var serializer = new DataContractJsonSerializer(typeof(TType));
+                var serializer = new DataContractJsonSerializer(typeof(TType));
                 return serializer.ReadObject(stream) as TType;
             }
         }
