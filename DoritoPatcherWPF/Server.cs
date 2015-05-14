@@ -40,5 +40,9 @@ namespace DoritoPatcherWPF
 }
 
 /* USAGE
-string result = Eldewrito.dewCmd("command to run"); if (result == "Error") { MessageBox.Show("Error communicating with Eldewrito. Please make sure Eldewrito is running and try again."); }
+string result = Eldewrito.dewCmd("command to run");
+if (result == "Error")
+{
+MessageBox.Show("Error communicating with Eldewrito. Please make sure Eldewrito is running and try again.");
+}
  * */
