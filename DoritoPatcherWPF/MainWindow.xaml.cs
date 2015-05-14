@@ -845,7 +845,7 @@ namespace DoritoPatcherWPF
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
             sldTimer.Value = 5;
-            sldMax.Value = 16;
+            //sldMax.Value = 16;
         }
 
         private void SaveSettings()

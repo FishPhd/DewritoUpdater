@@ -421,7 +421,7 @@ h3.sub-header.text-center {
                                 </Style.Triggers>
                             </Style>
                         </Button.Resources>
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" Opacity="0.9" />
                     </Button>
                 </StackPanel>
                 <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Top" Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370" HorizontalAlignment="Left" Margin="0,60,0,0" Cursor="Hand" ToolTip="View the changelist">
@@ -1342,6 +1342,7 @@ h3.sub-header.text-center {
                                 </TextBox>
                                 <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
                             </DockPanel>
+                            <!--
                             <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Maximum Players:</TextBlock>
                             <DockPanel>
                                 <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
@@ -1351,6 +1352,7 @@ h3.sub-header.text-center {
                                 </TextBox>
                                 <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
                             </DockPanel>
+                            -->
                         </st:AutoGrid>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">

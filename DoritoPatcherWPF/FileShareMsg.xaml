@@ -34,10 +34,10 @@
                     <Run Text="A"/>
                     <Run x:Name="fileType" Text="map"/>
                     <Run Text="by the name of"/>
-                    <Run x:Name="fileName" Text="TREEHALLA" FontFamily="/Resources/#Aero Matics"/>
+                    <Run x:Name="fileName" Text="MAPNAME" FontFamily="/Resources/#Aero Matics"/>
                     <Run Text="
                          by"/>
-                    <Run x:Name="fileAuthor" Text="ihatecompvir" FontFamily="/Resources/#Aero Matics"/>
+                    <Run x:Name="fileAuthor" Text="AUTHOR" FontFamily="/Resources/#Aero Matics"/>
                     <Run Text="already exists."/>
                 </TextBlock>
                 <TextBlock TextWrapping="Wrap"  Margin="20,80,20,0" Foreground="White"  HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display">
