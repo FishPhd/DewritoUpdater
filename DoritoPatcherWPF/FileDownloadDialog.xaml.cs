@@ -1,41 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using DoritoPatcher;
 
 namespace DoritoPatcherWPF
 {
-    using System.Diagnostics;
-    using System.IO;
-    using System.Net;
-    using System.Threading;
-    using System.Windows.Threading;
-
-    using DoritoPatcher;
-
     /// <summary>
-    /// Interaction logic for FileDownloadDialog.xaml
+    ///     Interaction logic for FileDownloadDialog.xaml
     /// </summary>
-
     public partial class FileDownloadDialog : Window
     {
-        WebClient wc = new WebClient();
+        private readonly WebClient wc = new WebClient();
         public Exception Error;
         public MainWindow Window;
 
-         public FileDownloadDialog(MainWindow window, string url, string destPath)
+        public FileDownloadDialog(MainWindow window, string url, string destPath)
         {
             InitializeComponent();
-            this.Window = window;
+            Window = window;
 
-            lblStatus.Content = "Downloading " + System.IO.Path.GetFileName(destPath);
+            lblStatus.Content = "Downloading " + Path.GetFileName(destPath);
 
             // sketchy code to replace current exe
             if (File.Exists(destPath) && destPath.ToLower() == Process.GetCurrentProcess().MainModule.FileName.ToLower())
@@ -46,34 +34,31 @@ namespace DoritoPatcherWPF
                 File.Move(destPath, destPath + ".old");
             }
 
-            wc.DownloadProgressChanged += (s, e) =>
-            {
-                DownloadProgress.Value = e.ProgressPercentage;
-            };
+            wc.DownloadProgressChanged += (s, e) => { DownloadProgress.Value = e.ProgressPercentage; };
             wc.DownloadFileCompleted += (s, e) =>
             {
                 DownloadProgress.Value = 100;
-                
+
                 if (e.Error != null)
                 {
-                    this.DialogResult = false;
+                    DialogResult = false;
                     Error = e.Error;
                 }
                 else
                 {
-                    this.DialogResult = true;
+                    DialogResult = true;
                 }
                 var patchFileExtension = ".bspatch";
                 if (destPath.EndsWith(patchFileExtension))
                 {
-                    string destFilePath = destPath.Substring(0, destPath.Length - patchFileExtension.Length);
-                    string destFileName = destFilePath.Replace(Window.BasePath, "");
+                    var destFilePath = destPath.Substring(0, destPath.Length - patchFileExtension.Length);
+                    var destFileName = destFilePath.Replace(Window.BasePath, "");
                     if (destFileName.StartsWith("\\") || destFileName.StartsWith("/"))
                         destFileName = destFileName.Substring(1);
 
                     // patch file
-                    string backupFolder = Path.Combine(Window.BasePath, "_dewbackup");
-                    string backupFile = Path.Combine(backupFolder, destFileName);
+                    var backupFolder = Path.Combine(Window.BasePath, "_dewbackup");
+                    var backupFile = Path.Combine(backupFolder, destFileName);
                     if (File.Exists(backupFile))
                     {
                         // backup exists, copy backup over original file and patch orig
@@ -96,16 +81,17 @@ namespace DoritoPatcherWPF
 
                     lblStatus.Content = "Applying patch file...";
                     Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                          new ThreadStart(delegate { }));
+                        new ThreadStart(delegate { }));
 
-                    using (FileStream input = new FileStream(backupFile, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    using (FileStream output = new FileStream(destFilePath, FileMode.Create))
-                        BinaryPatchUtility.Apply(input, () => new FileStream(destPath, FileMode.Open, FileAccess.Read, FileShare.Read), output);
+                    using (var input = new FileStream(backupFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using (var output = new FileStream(destFilePath, FileMode.Create))
+                        BinaryPatchUtility.Apply(input,
+                            () => new FileStream(destPath, FileMode.Open, FileAccess.Read, FileShare.Read), output);
 
                     File.Delete(destPath);
                 }
 
-                this.Close();
+                Close();
             };
             wc.DownloadFileAsync(new Uri(url), destPath);
         }

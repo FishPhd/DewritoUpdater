@@ -7,269 +7,270 @@ using System.Windows.Media;
 
 namespace DoritoPatcherWPF.Utils
 {
-	public static class WindowMovement
-	{
-		#region IsDraggable attached property
+    public static class WindowMovement
+    {
+        /// <summary>
+        ///     Gets a Window's HwndSource.
+        /// </summary>
+        /// <param name="window">The Window to get the HwndSource for.</param>
+        /// <returns>The Window's HwndSource, or null if it is not initialized.</returns>
+        private static HwndSource GetWindowSource(Window window)
+        {
+            var interop = new WindowInteropHelper(window);
+            if (interop.Handle == IntPtr.Zero)
+                return null;
 
-		public static readonly DependencyProperty IsDraggableProperty = DependencyProperty.RegisterAttached(
-			"IsDraggable",
-			typeof (bool),
-			typeof (WindowMovement),
-			new PropertyMetadata(false, IsDraggableChanged));
+            return HwndSource.FromHwnd(interop.Handle);
+        }
 
-		/// <summary>
-		/// Sets the value of the WindowMovement.IsDraggable attached property on a Window.
-		/// </summary>
-		/// <param name="window">The Window to set the property on.</param>
-		/// <param name="value">The value to set the property to.</param>
-		public static void SetIsDraggable(Window window, bool value)
-		{
-			window.SetValue(IsDraggableProperty, value);
-		}
+        /// <summary>
+        ///     Makes a custom-shaped window draggable based upon clicks on objects with the WindowMovement.DragsWindow attribute.
+        /// </summary>
+        /// <param name="window">The Window to make draggable.</param>
+        /// <returns>true if the operation was successful.</returns>
+        private static bool MakeWindowMovable(Window window)
+        {
+            var source = GetWindowSource(window);
+            if (source == null)
+                return false;
 
-		/// <summary>
-		/// Gets the value of the WindowMovement.IsDraggable attached property on a Window.
-		/// </summary>
-		/// <param name="window">The Window to set the property on.</param>
-		/// <returns>The value of the property on the Window.</returns>
-		public static bool GetIsDraggable(Window window)
-		{
-			return (bool) window.GetValue(IsDraggableProperty);
-		}
+            CaptionHitTester tester;
+            if (!RegisteredWindows.TryGetValue(window, out tester))
+            {
+                // Register a CaptionHitTester for the window
+                tester = new CaptionHitTester(window);
+                RegisteredWindows[window] = tester;
+                window.Closed += window_Closed; // Unregisters the window when it's closed
+            }
 
-		private static void IsDraggableChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			var window = sender as Window;
-			if (window == null)
-				return;
-			if (e.NewValue.Equals(e.OldValue))
-				return;
+            // Register the CaptionHitTester on the window (this is where the magic happens)
+            tester.Hook(source);
+            return true;
+        }
 
-			var newValue = (bool) e.NewValue;
-			if (newValue)
-			{
-				// Make the window movable
-				if (!MakeWindowMovable(window))
-					window.SourceInitialized += WindowSourceInitialized;
-				// The window isn't initialized, so wait for it to be before making it movable
-			}
-			else
-			{
-				// Make the window unmovable
-				MakeWindowUnmovable(window);
-				window.SourceInitialized -= WindowSourceInitialized;
-			}
-		}
+        private static void window_Closed(object sender, EventArgs e)
+        {
+            // Unregister the window so the dictionary doesn't eat up memory
+            RegisteredWindows.Remove((Window) sender);
+        }
 
-		private static void WindowSourceInitialized(object sender, EventArgs e)
-		{
-			MakeWindowMovable((Window) sender);
-		}
+        /// <summary>
+        ///     Makes a window affected by <see cref="MakeWindowMovable" /> no longer movable.
+        /// </summary>
+        /// <param name="window">The Window to make unmovable.</param>
+        private static void MakeWindowUnmovable(Window window)
+        {
+            var source = GetWindowSource(window);
+            if (source == null)
+                return;
 
-		#endregion
+            CaptionHitTester tester;
+            if (RegisteredWindows.TryGetValue(window, out tester))
+                tester.Unhook(source);
+        }
 
-		#region DragsWindow attached property
+        /// <summary>
+        ///     Hooks onto WPF windows and makes WM_NCHITTEST return HTCLIENT if the mouse is over
+        ///     a control with WindowMovement.DragsWindow set to True.
+        /// </summary>
+        private class CaptionHitTester
+        {
+            private readonly Window _window;
+            private HitTestResult _testResult;
 
-		public static readonly DependencyProperty DragsWindow = DependencyProperty.RegisterAttached(
-			"DragsWindow",
-			typeof (bool),
-			typeof (WindowMovement),
-			new PropertyMetadata(false));
+            public CaptionHitTester(Window window)
+            {
+                _window = window;
+            }
 
-		/// <summary>
-		/// Sets the value of the WindowMovement.DragsWindow attached property on a Visual.
-		/// </summary>
-		/// <param name="window">The Visual to set the property on.</param>
-		/// <param name="value">The value to set the property to.</param>
-		public static void SetDragsWindow(Visual visual, bool value)
-		{
-			visual.SetValue(DragsWindow, value);
-		}
+            /// <summary>
+            ///     Registers the CaptionHitTester with an HwndSource, hooking into its window procedure.
+            /// </summary>
+            /// <param name="source">The HwndSource to hook into.</param>
+            public void Hook(HwndSource source)
+            {
+                source.AddHook(HitTestHook);
+            }
 
-		/// <summary>
-		/// Gets the value of the WindowMovement.DragsWindow attached property on a Visual.
-		/// </summary>
-		/// <param name="window">The Visual to set the property on.</param>
-		/// <returns>The value of the property on the Visual.</returns>
-		public static bool GetDragsWindow(Visual visual)
-		{
-			return (bool) visual.GetValue(DragsWindow);
-		}
+            /// <summary>
+            ///     Unregisters the CaptionHitTester with an HwndSource, removing its window procedure hook.
+            /// </summary>
+            /// <param name="source">The HwndSource to remove the hook from.</param>
+            public void Unhook(HwndSource source)
+            {
+                source.RemoveHook(HitTestHook);
+            }
 
-		/// <summary>
-		/// Determines whether or not a DependencyObject has the WindowMovement.DragsWindow property set to true.
-		/// </summary>
-		/// <param name="visual">The DependencyObject to test for the property on.</param>
-		/// <returns>true if the object has the attached property and it is set to true.</returns>
-		public static bool HasDragsWindowEnabled(DependencyObject visual)
-		{
-			object dragsWindow = visual.ReadLocalValue(DragsWindow);
-			return (dragsWindow != DependencyProperty.UnsetValue && (bool) dragsWindow);
-		}
+            private IntPtr HitTestHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+            {
+                if (msg == WM_NCHITTEST)
+                {
+                    // Set handled to true because we need to do the default test anyway
+                    // and can just return defaultTest (below)
+                    handled = true;
 
-		#endregion
+                    // Don't check if the mouse isn't over the client area
+                    var defaultTest = DefWindowProc(hwnd, msg, wParam, lParam);
+                    if ((int) defaultTest != HTCLIENT)
+                        return defaultTest;
 
-		private static readonly Dictionary<Window, CaptionHitTester> RegisteredWindows =
-			new Dictionary<Window, CaptionHitTester>();
+                    // Get the cursor position on the screen from lParam
+                    var screenPos = lParam.ToInt32();
+                    int x = (short) (screenPos & 0xFFFF); // Low word
+                    int y = (short) (screenPos >> 16); // High word
 
-		/// <summary>
-		/// Gets a Window's HwndSource.
-		/// </summary>
-		/// <param name="window">The Window to get the HwndSource for.</param>
-		/// <returns>The Window's HwndSource, or null if it is not initialized.</returns>
-		private static HwndSource GetWindowSource(Window window)
-		{
-			var interop = new WindowInteropHelper(window);
-			if (interop.Handle == IntPtr.Zero)
-				return null;
+                    // Get the position relative to the window
+                    var clientPos = _window.PointFromScreen(new Point(x, y));
 
-			return HwndSource.FromHwnd(interop.Handle);
-		}
+                    // Check if the mouse is over the titlebar
+                    // (HitTestResult stores the result to _testResult)
+                    _testResult = null;
+                    VisualTreeHelper.HitTest(_window, HitTestFilter, HitTestResult,
+                        new PointHitTestParameters(clientPos));
 
-		/// <summary>
-		/// Makes a custom-shaped window draggable based upon clicks on objects with the WindowMovement.DragsWindow attribute.
-		/// </summary>
-		/// <param name="window">The Window to make draggable.</param>
-		/// <returns>true if the operation was successful.</returns>
-		private static bool MakeWindowMovable(Window window)
-		{
-			HwndSource source = GetWindowSource(window);
-			if (source == null)
-				return false;
+                    if (_testResult != null && _testResult.VisualHit != null)
+                    {
+                        // Only accept objects which have the WindowMovement.DragsWindow attached property set to true
+                        if (HasDragsWindowEnabled(_testResult.VisualHit))
+                            return (IntPtr) HTCAPTION; // Return HTCAPTION to make the WM think the titlebar was clicked
+                    }
 
-			CaptionHitTester tester;
-			if (!RegisteredWindows.TryGetValue(window, out tester))
-			{
-				// Register a CaptionHitTester for the window
-				tester = new CaptionHitTester(window);
-				RegisteredWindows[window] = tester;
-				window.Closed += window_Closed; // Unregisters the window when it's closed
-			}
+                    return defaultTest;
+                }
+                return IntPtr.Zero;
+            }
 
-			// Register the CaptionHitTester on the window (this is where the magic happens)
-			tester.Hook(source);
-			return true;
-		}
+            private HitTestFilterBehavior HitTestFilter(DependencyObject o)
+            {
+                // By default, VisualTreeHelper.HitTest ignores IsHitTestVisible
+                var elem = o as UIElement;
+                if (elem != null && (!elem.IsHitTestVisible || !elem.IsVisible))
+                    return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
 
-		private static void window_Closed(object sender, EventArgs e)
-		{
-			// Unregister the window so the dictionary doesn't eat up memory
-			RegisteredWindows.Remove((Window) sender);
-		}
+                return HitTestFilterBehavior.Continue;
+            }
 
-		/// <summary>
-		/// Makes a window affected by <see cref="MakeWindowMovable" /> no longer movable.
-		/// </summary>
-		/// <param name="window">The Window to make unmovable.</param>
-		private static void MakeWindowUnmovable(Window window)
-		{
-			HwndSource source = GetWindowSource(window);
-			if (source == null)
-				return;
+            private HitTestResultBehavior HitTestResult(HitTestResult result)
+            {
+                // Store the result and stop
+                _testResult = result;
+                return HitTestResultBehavior.Stop;
+            }
 
-			CaptionHitTester tester;
-			if (RegisteredWindows.TryGetValue(window, out tester))
-				tester.Unhook(source);
-		}
+            #region Native definitions
 
-		/// <summary>
-		/// Hooks onto WPF windows and makes WM_NCHITTEST return HTCLIENT if the mouse is over
-		/// a control with WindowMovement.DragsWindow set to True.
-		/// </summary>
-		private class CaptionHitTester
-		{
-			private readonly Window _window;
-			private HitTestResult _testResult;
+            private const int WM_NCHITTEST = 0x0084;
 
-			public CaptionHitTester(Window window)
-			{
-				_window = window;
-			}
+            private const int HTCLIENT = 1;
+            private const int HTCAPTION = 2;
 
-			/// <summary>
-			/// Registers the CaptionHitTester with an HwndSource, hooking into its window procedure.
-			/// </summary>
-			/// <param name="source">The HwndSource to hook into.</param>
-			public void Hook(HwndSource source)
-			{
-				source.AddHook(HitTestHook);
-			}
+            [DllImport("user32.dll")]
+            private static extern IntPtr DefWindowProc(IntPtr hWnd, int uMsg, IntPtr wParam, IntPtr lParam);
 
-			/// <summary>
-			/// Unregisters the CaptionHitTester with an HwndSource, removing its window procedure hook.
-			/// </summary>
-			/// <param name="source">The HwndSource to remove the hook from.</param>
-			public void Unhook(HwndSource source)
-			{
-				source.RemoveHook(HitTestHook);
-			}
+            #endregion Native definitions
+        }
 
-			private IntPtr HitTestHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-			{
-				if (msg == WM_NCHITTEST)
-				{
-					// Set handled to true because we need to do the default test anyway
-					// and can just return defaultTest (below)
-					handled = true;
+        #region IsDraggable attached property
 
-					// Don't check if the mouse isn't over the client area
-					IntPtr defaultTest = DefWindowProc(hwnd, msg, wParam, lParam);
-					if ((int) defaultTest != HTCLIENT)
-						return defaultTest;
+        public static readonly DependencyProperty IsDraggableProperty = DependencyProperty.RegisterAttached(
+            "IsDraggable",
+            typeof (bool),
+            typeof (WindowMovement),
+            new PropertyMetadata(false, IsDraggableChanged));
 
-					// Get the cursor position on the screen from lParam
-					int screenPos = lParam.ToInt32();
-					int x = (short) (screenPos & 0xFFFF); // Low word
-					int y = (short) (screenPos >> 16); // High word
+        /// <summary>
+        ///     Sets the value of the WindowMovement.IsDraggable attached property on a Window.
+        /// </summary>
+        /// <param name="window">The Window to set the property on.</param>
+        /// <param name="value">The value to set the property to.</param>
+        public static void SetIsDraggable(Window window, bool value)
+        {
+            window.SetValue(IsDraggableProperty, value);
+        }
 
-					// Get the position relative to the window
-					Point clientPos = _window.PointFromScreen(new Point(x, y));
+        /// <summary>
+        ///     Gets the value of the WindowMovement.IsDraggable attached property on a Window.
+        /// </summary>
+        /// <param name="window">The Window to set the property on.</param>
+        /// <returns>The value of the property on the Window.</returns>
+        public static bool GetIsDraggable(Window window)
+        {
+            return (bool) window.GetValue(IsDraggableProperty);
+        }
 
-					// Check if the mouse is over the titlebar
-					// (HitTestResult stores the result to _testResult)
-					_testResult = null;
-					VisualTreeHelper.HitTest(_window, HitTestFilter, HitTestResult, new PointHitTestParameters(clientPos));
+        private static void IsDraggableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var window = sender as Window;
+            if (window == null)
+                return;
+            if (e.NewValue.Equals(e.OldValue))
+                return;
 
-					if (_testResult != null && _testResult.VisualHit != null)
-					{
-						// Only accept objects which have the WindowMovement.DragsWindow attached property set to true
-						if (HasDragsWindowEnabled(_testResult.VisualHit))
-							return (IntPtr) HTCAPTION; // Return HTCAPTION to make the WM think the titlebar was clicked
-					}
+            var newValue = (bool) e.NewValue;
+            if (newValue)
+            {
+                // Make the window movable
+                if (!MakeWindowMovable(window))
+                    window.SourceInitialized += WindowSourceInitialized;
+                // The window isn't initialized, so wait for it to be before making it movable
+            }
+            else
+            {
+                // Make the window unmovable
+                MakeWindowUnmovable(window);
+                window.SourceInitialized -= WindowSourceInitialized;
+            }
+        }
 
-					return defaultTest;
-				}
-				return IntPtr.Zero;
-			}
+        private static void WindowSourceInitialized(object sender, EventArgs e)
+        {
+            MakeWindowMovable((Window) sender);
+        }
 
-			private HitTestFilterBehavior HitTestFilter(DependencyObject o)
-			{
-				// By default, VisualTreeHelper.HitTest ignores IsHitTestVisible
-				var elem = o as UIElement;
-				if (elem != null && (!elem.IsHitTestVisible || !elem.IsVisible))
-					return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+        #endregion
 
-				return HitTestFilterBehavior.Continue;
-			}
+        #region DragsWindow attached property
 
-			private HitTestResultBehavior HitTestResult(HitTestResult result)
-			{
-				// Store the result and stop
-				_testResult = result;
-				return HitTestResultBehavior.Stop;
-			}
+        public static readonly DependencyProperty DragsWindow = DependencyProperty.RegisterAttached(
+            "DragsWindow",
+            typeof (bool),
+            typeof (WindowMovement),
+            new PropertyMetadata(false));
 
-			#region Native definitions
+        /// <summary>
+        ///     Sets the value of the WindowMovement.DragsWindow attached property on a Visual.
+        /// </summary>
+        /// <param name="window">The Visual to set the property on.</param>
+        /// <param name="value">The value to set the property to.</param>
+        public static void SetDragsWindow(Visual visual, bool value)
+        {
+            visual.SetValue(DragsWindow, value);
+        }
 
-			private const int WM_NCHITTEST = 0x0084;
+        /// <summary>
+        ///     Gets the value of the WindowMovement.DragsWindow attached property on a Visual.
+        /// </summary>
+        /// <param name="window">The Visual to set the property on.</param>
+        /// <returns>The value of the property on the Visual.</returns>
+        public static bool GetDragsWindow(Visual visual)
+        {
+            return (bool) visual.GetValue(DragsWindow);
+        }
 
-			private const int HTCLIENT = 1;
-			private const int HTCAPTION = 2;
+        /// <summary>
+        ///     Determines whether or not a DependencyObject has the WindowMovement.DragsWindow property set to true.
+        /// </summary>
+        /// <param name="visual">The DependencyObject to test for the property on.</param>
+        /// <returns>true if the object has the attached property and it is set to true.</returns>
+        public static bool HasDragsWindowEnabled(DependencyObject visual)
+        {
+            var dragsWindow = visual.ReadLocalValue(DragsWindow);
+            return (dragsWindow != DependencyProperty.UnsetValue && (bool) dragsWindow);
+        }
 
-			[DllImport("user32.dll")]
-			private static extern IntPtr DefWindowProc(IntPtr hWnd, int uMsg, IntPtr wParam, IntPtr lParam);
+        #endregion
 
-			#endregion Native definitions
-		}
-	}
+        private static readonly Dictionary<Window, CaptionHitTester> RegisteredWindows =
+            new Dictionary<Window, CaptionHitTester>();
+    }
 }

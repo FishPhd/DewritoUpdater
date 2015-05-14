@@ -1,9 +1,9 @@
 ﻿<Window x:Class="DoritoPatcherWPF.FileShareMsg"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:awe="http://schemas.awesomium.com/winfx"
         xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:st="http://schemas.spicytaco.io/"
@@ -11,7 +11,8 @@
         mc:Ignorable="d"
         Title="ElDewrito - Duplicate File" Height="180" Width="400"
         ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1" Background="{x:Null}">
+        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18"
+        BorderThickness="1" Background="{x:Null}">
     <Grid Width="400" Height="180" Margin="-1">
         <Border Background="#FF214D75" BorderBrush="#FF47A6FF" BorderThickness="2">
             <Border.Clip>
@@ -30,26 +31,33 @@
                 </GeometryGroup>
             </Border.Clip>
             <Grid Margin="0">
-                <TextBlock TextWrapping="Wrap"  Margin="20,20,20,0" Foreground="White" VerticalAlignment="Top" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display" Width="356">
-                    <Run Text="A"/>
-                    <Run x:Name="fileType" Text="map"/>
-                    <Run Text="by the name of"/>
-                    <Run x:Name="fileName" Text="MAPNAME" FontFamily="/Resources/#Aero Matics"/>
+                <TextBlock TextWrapping="Wrap" Margin="20,20,20,0" Foreground="White" VerticalAlignment="Top"
+                           IsHitTestVisible="True" TextOptions.TextFormattingMode="Display" Width="356">
+                    <Run Text="A" />
+                    <Run x:Name="fileType" Text="map" />
+                    <Run Text="by the name of" />
+                    <Run x:Name="fileName" Text="MAPNAME" FontFamily="/Resources/#Aero Matics" />
                     <Run Text="
-                         by"/>
-                    <Run x:Name="fileAuthor" Text="AUTHOR" FontFamily="/Resources/#Aero Matics"/>
-                    <Run Text="already exists."/>
+                         by" />
+                    <Run x:Name="fileAuthor" Text="AUTHOR" FontFamily="/Resources/#Aero Matics" />
+                    <Run Text="already exists." />
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap"  Margin="20,80,20,0" Foreground="White"  HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display">
-                    <Run Text="Do you want to overwrite it?" FontFamily="/Resources/#Aero Matics"/>
+                <TextBlock TextWrapping="Wrap" Margin="20,80,20,0" Foreground="White" HorizontalAlignment="Left"
+                           VerticalAlignment="Top" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display">
+                    <Run Text="Do you want to overwrite it?" FontFamily="/Resources/#Aero Matics" />
                 </TextBlock>
-                <Border HorizontalAlignment="Right"  BorderBrush="White" BorderThickness="1" Margin="0,0,20,20" Width="100" Height="30" VerticalAlignment="Bottom">
-                    <Button x:Name="btnYes" Content="YES" Style="{StaticResource Hover}" Margin="0" FontSize="16" Click="btnYes_Click"/>
+                <Border HorizontalAlignment="Right" BorderBrush="White" BorderThickness="1" Margin="0,0,20,20"
+                        Width="100" Height="30" VerticalAlignment="Bottom">
+                    <Button x:Name="btnYes" Content="YES" Style="{StaticResource Hover}" Margin="0" FontSize="16"
+                            Click="btnYes_Click" />
                 </Border>
-                <Border HorizontalAlignment="Right"  BorderBrush="White" BorderThickness="1" Margin="0,0,136,20" Width="100" Height="30" VerticalAlignment="Bottom">
-                    <Button x:Name="btnNo" Content="NO" Style="{StaticResource Hover}" Margin="0" FontSize="16" Click="btnNo_Click"/>
+                <Border HorizontalAlignment="Right" BorderBrush="White" BorderThickness="1" Margin="0,0,136,20"
+                        Width="100" Height="30" VerticalAlignment="Bottom">
+                    <Button x:Name="btnNo" Content="NO" Style="{StaticResource Hover}" Margin="0" FontSize="16"
+                            Click="btnNo_Click" />
                 </Border>
-                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="31" Width="31" Fill="{x:Null}" X2="35" Margin="0,-5,-4,0" StrokeThickness="3" Stroke="#FF47A6FF"/>
+                <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="31" Width="31"
+                      Fill="{x:Null}" X2="35" Margin="0,-5,-4,0" StrokeThickness="3" Stroke="#FF47A6FF" />
             </Grid>
         </Border>
     </Grid>

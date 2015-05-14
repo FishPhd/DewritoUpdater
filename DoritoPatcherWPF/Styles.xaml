@@ -8,8 +8,8 @@
     <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#CCC" Offset="1.0"/>
+                <GradientStop Color="#FFF" Offset="0.0" />
+                <GradientStop Color="#CCC" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -17,8 +17,8 @@
     <LinearGradientBrush x:Key="HorizontalNormalBrush" StartPoint="0,0" EndPoint="1,0">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#CCC" Offset="1.0"/>
+                <GradientStop Color="#FFF" Offset="0.0" />
+                <GradientStop Color="#CCC" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -26,8 +26,8 @@
     <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#EEE" Offset="1.0"/>
+                <GradientStop Color="#FFF" Offset="0.0" />
+                <GradientStop Color="#EEE" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -35,8 +35,8 @@
     <LinearGradientBrush x:Key="HorizontalLightBrush" StartPoint="0,0" EndPoint="1,0">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#EEE" Offset="1.0"/>
+                <GradientStop Color="#FFF" Offset="0.0" />
+                <GradientStop Color="#EEE" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -44,8 +44,8 @@
     <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#AAA" Offset="1.0"/>
+                <GradientStop Color="#FFF" Offset="0.0" />
+                <GradientStop Color="#AAA" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -53,10 +53,10 @@
     <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#BBB" Offset="0.0"/>
-                <GradientStop Color="#EEE" Offset="0.1"/>
-                <GradientStop Color="#EEE" Offset="0.9"/>
-                <GradientStop Color="#FFF" Offset="1.0"/>
+                <GradientStop Color="#BBB" Offset="0.0" />
+                <GradientStop Color="#EEE" Offset="0.1" />
+                <GradientStop Color="#EEE" Offset="0.9" />
+                <GradientStop Color="#FFF" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -74,8 +74,8 @@
     <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#CCC" Offset="0.0"/>
-                <GradientStop Color="#444" Offset="1.0"/>
+                <GradientStop Color="#CCC" Offset="0.0" />
+                <GradientStop Color="#444" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -83,8 +83,8 @@
     <LinearGradientBrush x:Key="HorizontalNormalBorderBrush" StartPoint="0,0" EndPoint="1,0">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#CCC" Offset="0.0"/>
-                <GradientStop Color="#444" Offset="1.0"/>
+                <GradientStop Color="#CCC" Offset="0.0" />
+                <GradientStop Color="#444" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -92,8 +92,8 @@
     <LinearGradientBrush x:Key="DefaultedBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#777" Offset="0.0"/>
-                <GradientStop Color="#000" Offset="1.0"/>
+                <GradientStop Color="#777" Offset="0.0" />
+                <GradientStop Color="#000" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -101,8 +101,8 @@
     <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
-                <GradientStop Color="#444" Offset="0.0"/>
-                <GradientStop Color="#888" Offset="1.0"/>
+                <GradientStop Color="#444" Offset="0.0" />
+                <GradientStop Color="#888" Offset="1.0" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -124,10 +124,10 @@
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid x:Name="Panel" Margin="-2,0,0,0">
                         <ContentPresenter x:Name="ContentSite"
-                        		VerticalAlignment="Center"
-                        		HorizontalAlignment="Center"
-                        		ContentSource="Header"
-                        		Margin="20,10"/>
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="20,10" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
@@ -135,7 +135,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Panel" Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="White" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -157,11 +157,11 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation
-                                        Storyboard.TargetProperty="RenderTransform.Angle"
-                                        From="0"
-                                        To="360"
-                                        Duration="0:0:5"
-                                        RepeatBehavior="Forever" />
+                                Storyboard.TargetProperty="RenderTransform.Angle"
+                                From="0"
+                                To="360"
+                                Duration="0:0:5"
+                                RepeatBehavior="Forever" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -170,16 +170,17 @@
     </Style>
 
     <Style x:Key="Hover" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="White" />
         <Setter Property="FontFamily" Value="/DoritoPatcherWPF;component/Resources/#Aero Matics" />
         <Setter Property="FontSize" Value="20" />
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="0" Background="{TemplateBinding Background}">
                         <Grid>
-                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
 
@@ -205,16 +206,17 @@
     </Style>
 
     <Style x:Key="HoverTab" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="White" />
         <Setter Property="FontFamily" Value="/DoritoPatcherWPF;component/Resources/#Aero Matics" />
         <Setter Property="FontSize" Value="20" />
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="0" Background="{TemplateBinding Background}">
                         <Grid>
-                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
 
@@ -240,13 +242,14 @@
     </Style>
 
     <Style x:Key="HoverClose" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="0" Background="{TemplateBinding Background}">
                         <Grid>
-                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
 
@@ -264,13 +267,14 @@
     </Style>
 
     <Style x:Key="HoverMinimize" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="0" Background="{TemplateBinding Background}">
                         <Grid>
-                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
 
@@ -292,8 +296,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Grid x:Name="Grid">
-                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
-                        <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"
+                                   Fill="Transparent" />
+                        <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" Width="Auto" Height="Auto"
+                                Background="{TemplateBinding Background}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Tag" Value="Horizontal">
@@ -322,20 +329,24 @@
 
                         <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="false">
                             <Track.Thumb>
-                                <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollThumbs}" />
+                                <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}"
+                                       Style="{DynamicResource ScrollThumbs}" />
                             </Track.Thumb>
                             <Track.IncreaseRepeatButton>
-                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0"
+                                              Focusable="false" />
                             </Track.IncreaseRepeatButton>
                             <Track.DecreaseRepeatButton>
-                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0"
+                                              Focusable="false" />
                             </Track.DecreaseRepeatButton>
                         </Track>
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                            <Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
+                            <Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb"
+                                    Property="Background" />
                         </Trigger>
                         <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
                             <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
@@ -374,27 +385,27 @@
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
             <Border
-        			x:Name="Border" 
-        			Grid.ColumnSpan="2"
-        			BorderBrush="White"
-        			BorderThickness="1" >
+                x:Name="Border"
+                Grid.ColumnSpan="2"
+                BorderBrush="White"
+                BorderThickness="1">
                 <Border.Background>
-                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                    <SolidColorBrush Color="White" Opacity="0.07" />
                 </Border.Background>
             </Border>
-            <Border 
-        			Grid.Column="0"
-        			Margin="1" 
-        			Background="Transparent" 
-        			BorderBrush="Transparent"
-        			BorderThickness="0,0,1,0" />
-            <Path 
-        			x:Name="Arrow"
-        			Grid.Column="1"
-        			Fill="White"
-        			HorizontalAlignment="Center"
-        			VerticalAlignment="Center"
-        			Data="M 0 0 L 4 4 L 8 0 Z"/>
+            <Border
+                Grid.Column="0"
+                Margin="1"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0,0,1,0" />
+            <Path
+                x:Name="Arrow"
+                Grid.Column="1"
+                Fill="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="M 0 0 L 4 4 L 8 0 Z" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
@@ -419,68 +430,67 @@
     </ControlTemplate>
 
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
-        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Foreground" Value="White" />
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
-        <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-        <Setter Property="MinWidth" Value="120"/>
-        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="20" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
-                        <ToggleButton 
-        						x:Name="ToggleButton" 
-        						Template="{StaticResource ComboBoxToggleButton}" 
-        						Grid.Column="2" 
-        						Focusable="false"
-        						IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-        						ClickMode="Press"
-                                />
+                        <ToggleButton
+                            x:Name="ToggleButton"
+                            Template="{StaticResource ComboBoxToggleButton}"
+                            Grid.Column="2"
+                            Focusable="false"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press" />
                         <ContentPresenter
-        						x:Name="ContentSite"
-        						IsHitTestVisible="False" 
-        						Content="{TemplateBinding SelectionBoxItem}"
-        						ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-        						ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-        						Margin="3,3,23,3"
-        						VerticalAlignment="Center"
-        						HorizontalAlignment="Left" />
+                            x:Name="ContentSite"
+                            IsHitTestVisible="False"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
                         <TextBox x:Name="PART_EditableTextBox"
-        						Style="{x:Null}" 
-        						Template="{StaticResource ComboBoxTextBox}" 
-        						HorizontalAlignment="Left" 
-        						VerticalAlignment="Center" 
-        						Margin="3,3,23,3"
-        						Focusable="True" 
-        						Background="Transparent"
-                                Foreground="White"
-        						Visibility="Hidden"
-        						IsReadOnly="{TemplateBinding IsReadOnly}"/>
-                        <Popup 
-        						x:Name="Popup"
-        						Placement="Bottom"
-        						IsOpen="{TemplateBinding IsDropDownOpen}"
-        						AllowsTransparency="True" 
-        						Focusable="False"
-        						PopupAnimation="Slide">
-                            <Grid 
-        							x:Name="DropDown"
-        							SnapsToDevicePixels="True"                
-        							MinWidth="{TemplateBinding ActualWidth}"
-        							MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                 Style="{x:Null}"
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Margin="3,3,23,3"
+                                 Focusable="True"
+                                 Background="Transparent"
+                                 Foreground="White"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
+                        <Popup
+                            x:Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            PopupAnimation="Slide">
+                            <Grid
+                                x:Name="DropDown"
+                                SnapsToDevicePixels="True"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-        								Background="White"
+                                        Background="White"
                                         Opacity="0.2"
-        								BorderThickness="1"
-                                        BorderBrush="#B5B5B5"/>
+                                        BorderThickness="1"
+                                        BorderBrush="#B5B5B5" />
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -489,25 +499,25 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Foreground" Value="Black" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="White" />
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
-                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
                         </Trigger>
                         <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true">
-                            <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
                         </Trigger>
                         <Trigger Property="IsEditable"
-        						Value="true">
-                            <Setter Property="IsTabStop" Value="false"/>
-                            <Setter TargetName="PART_EditableTextBox" Property="Visibility"    Value="Visible"/>
-                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                 Value="true">
+                            <Setter Property="IsTabStop" Value="false" />
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -518,14 +528,18 @@
     <ControlTemplate x:Key="ColorPickerControlTemplate" TargetType="{x:Type xctk:ColorPicker}">
         <Grid UseLayoutRounding="True">
 
-            <ToggleButton x:Name="PART_ColorPickerToggleButton" BorderBrush="White" BorderThickness="1" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" MinHeight="22" UseLayoutRounding="True" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+            <ToggleButton x:Name="PART_ColorPickerToggleButton" BorderBrush="White" BorderThickness="1"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True"
+                          IsChecked="{Binding IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                          MinHeight="22" UseLayoutRounding="True"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                 <ToggleButton.Background>
-                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                    <SolidColorBrush Color="White" Opacity="0.07" />
                 </ToggleButton.Background>
                 <ToggleButton.IsHitTestVisible>
                     <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
                         <Binding.Converter>
-                            <xctk:InverseBoolConverter/>
+                            <xctk:InverseBoolConverter />
                         </Binding.Converter>
                     </Binding>
                 </ToggleButton.IsHitTestVisible>
@@ -534,25 +548,26 @@
                     <ContentControl x:Name="ColorOnly" UseLayoutRounding="True">
                         <ContentControl.Style>
                             <Style TargetType="{x:Type ContentControl}">
-                                <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="Focusable" Value="False" />
                                 <Setter Property="ContentTemplate">
                                     <Setter.Value>
                                         <DataTemplate>
                                             <Border UseLayoutRounding="True">
                                                 <Border.Background>
-                                                    <DrawingBrush TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute">
+                                                    <DrawingBrush TileMode="Tile" Viewport="0,0,10,10"
+                                                                  ViewportUnits="Absolute">
                                                         <DrawingBrush.Drawing>
                                                             <DrawingGroup>
                                                                 <GeometryDrawing Brush="White">
                                                                     <GeometryDrawing.Geometry>
-                                                                        <RectangleGeometry Rect="0,0,100,100"/>
+                                                                        <RectangleGeometry Rect="0,0,100,100" />
                                                                     </GeometryDrawing.Geometry>
                                                                 </GeometryDrawing>
                                                                 <GeometryDrawing Brush="LightGray">
                                                                     <GeometryDrawing.Geometry>
                                                                         <GeometryGroup>
-                                                                            <RectangleGeometry Rect="0,0,50,50"/>
-                                                                            <RectangleGeometry Rect="50,50,50,50"/>
+                                                                            <RectangleGeometry Rect="0,0,50,50" />
+                                                                            <RectangleGeometry Rect="50,50,50,50" />
                                                                         </GeometryGroup>
                                                                     </GeometryDrawing.Geometry>
                                                                 </GeometryDrawing>
@@ -562,9 +577,10 @@
                                                 </Border.Background>
                                                 <Rectangle UseLayoutRounding="True">
                                                     <Rectangle.Fill>
-                                                        <Binding Path="SelectedColor" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:ColorPicker}}">
+                                                        <Binding Path="SelectedColor"
+                                                                 RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:ColorPicker}}">
                                                             <Binding.Converter>
-                                                                <xctk:ColorToSolidColorBrushConverter/>
+                                                                <xctk:ColorToSolidColorBrushConverter />
                                                             </Binding.Converter>
                                                         </Binding>
                                                     </Rectangle.Fill>
@@ -578,28 +594,31 @@
                     </ContentControl>
                     <Border x:Name="ColorAndName" UseLayoutRounding="True" Visibility="Hidden">
                         <StackPanel Orientation="Horizontal" UseLayoutRounding="True">
-                            <ContentControl BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Margin="2,1,4,1" UseLayoutRounding="True" Width="20">
+                            <ContentControl BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left"
+                                            Margin="2,1,4,1" UseLayoutRounding="True" Width="20">
                                 <ContentControl.Style>
                                     <Style TargetType="{x:Type ContentControl}">
-                                        <Setter Property="Focusable" Value="False"/>
+                                        <Setter Property="Focusable" Value="False" />
                                         <Setter Property="ContentTemplate">
                                             <Setter.Value>
                                                 <DataTemplate>
                                                     <Border UseLayoutRounding="True">
                                                         <Border.Background>
-                                                            <DrawingBrush TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute">
+                                                            <DrawingBrush TileMode="Tile" Viewport="0,0,10,10"
+                                                                          ViewportUnits="Absolute">
                                                                 <DrawingBrush.Drawing>
                                                                     <DrawingGroup>
                                                                         <GeometryDrawing Brush="White">
                                                                             <GeometryDrawing.Geometry>
-                                                                                <RectangleGeometry Rect="0,0,100,100"/>
+                                                                                <RectangleGeometry Rect="0,0,100,100" />
                                                                             </GeometryDrawing.Geometry>
                                                                         </GeometryDrawing>
                                                                         <GeometryDrawing Brush="LightGray">
                                                                             <GeometryDrawing.Geometry>
                                                                                 <GeometryGroup>
-                                                                                    <RectangleGeometry Rect="0,0,50,50"/>
-                                                                                    <RectangleGeometry Rect="50,50,50,50"/>
+                                                                                    <RectangleGeometry Rect="0,0,50,50" />
+                                                                                    <RectangleGeometry
+                                                                                        Rect="50,50,50,50" />
                                                                                 </GeometryGroup>
                                                                             </GeometryDrawing.Geometry>
                                                                         </GeometryDrawing>
@@ -609,9 +628,10 @@
                                                         </Border.Background>
                                                         <Rectangle UseLayoutRounding="True">
                                                             <Rectangle.Fill>
-                                                                <Binding Path="SelectedColor" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:ColorPicker}}">
+                                                                <Binding Path="SelectedColor"
+                                                                         RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type xctk:ColorPicker}}">
                                                                     <Binding.Converter>
-                                                                        <xctk:ColorToSolidColorBrushConverter/>
+                                                                        <xctk:ColorToSolidColorBrushConverter />
                                                                     </Binding.Converter>
                                                                 </Binding>
                                                             </Rectangle.Fill>
@@ -623,38 +643,42 @@
                                     </Style>
                                 </ContentControl.Style>
                             </ContentControl>
-                            <TextBlock Foreground="White" Text="{Binding SelectedColorText, RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="White"
+                                       Text="{Binding SelectedColorText, RelativeSource={RelativeSource TemplatedParent}}"
+                                       UseLayoutRounding="True" VerticalAlignment="Center" />
                         </StackPanel>
                     </Border>
                 </Grid>
             </ToggleButton>
-            <Popup x:Name="PART_ColorPickerPalettePopup" AllowsTransparency="True" Focusable="False" HorizontalOffset="1" IsOpen="{Binding IsChecked, ElementName=PART_ColorPickerToggleButton}" PopupAnimation="Slide" StaysOpen="False" VerticalOffset="1" VerticalAlignment="Bottom">
+            <Popup x:Name="PART_ColorPickerPalettePopup" AllowsTransparency="True" Focusable="False"
+                   HorizontalOffset="1" IsOpen="{Binding IsChecked, ElementName=PART_ColorPickerToggleButton}"
+                   PopupAnimation="Slide" StaysOpen="False" VerticalOffset="1" VerticalAlignment="Bottom">
                 <Border BorderBrush="White" BorderThickness="1" Padding="0" UseLayoutRounding="True">
                     <Grid UseLayoutRounding="True" Height="237">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid x:Name="_colorPaletteHost" Margin="4" UseLayoutRounding="True" Visibility="Collapsed">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="1" UseLayoutRounding="True">
                                 <Grid.Visibility>
-                                    <TemplateBinding Property="ShowAvailableColors">
-                                    </TemplateBinding>
+                                    <TemplateBinding Property="ShowAvailableColors" />
                                 </Grid.Visibility>
                                 <Grid UseLayoutRounding="True">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2" Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True"/>
+                                    <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2"
+                                               Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True" />
                                     <!--
                                     <ListBox x:Name="PART_AvailableColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White" BorderBrush="White">
                                         <ListBox.Style>
@@ -753,16 +777,16 @@
                             </Grid>
                             <Grid Grid.Row="2" UseLayoutRounding="True">
                                 <Grid.Visibility>
-                                    <TemplateBinding Property="ShowStandardColors">
-                                    </TemplateBinding>
+                                    <TemplateBinding Property="ShowStandardColors" />
                                 </Grid.Visibility>
                                 <Grid UseLayoutRounding="True">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True"/>
+                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2"
+                                               Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True" />
                                     <!--
                                     <ListBox x:Name="PART_StandardColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
@@ -861,16 +885,16 @@
                             </Grid>
                             <Grid Margin="0,1" Grid.Row="3" UseLayoutRounding="True">
                                 <Grid.Visibility>
-                                    <TemplateBinding Property="ShowRecentColors">
-                                    </TemplateBinding>
+                                    <TemplateBinding Property="ShowRecentColors" />
                                 </Grid.Visibility>
                                 <Grid UseLayoutRounding="True">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2" Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True"/>
+                                    <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2"
+                                               Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True" />
                                     <!--
                                     <ListBox x:Name="PART_RecentColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
@@ -969,42 +993,45 @@
                             </Grid>
                         </Grid>
                         <Grid x:Name="_colorCanvasHost" UseLayoutRounding="True" Visibility="Collapsed">
-                            <xctk:ColorCanvas BorderThickness="0" SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}" UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}" UseLayoutRounding="True">
+                            <xctk:ColorCanvas BorderThickness="0"
+                                              SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
+                                              UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}"
+                                              UseLayoutRounding="True">
                                 <xctk:ColorCanvas.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07"/>
+                                    <SolidColorBrush Color="White" Opacity="0.07" />
                                 </xctk:ColorCanvas.Background>
                                 <xctk:ColorCanvas.Foreground>
-                                    <SolidColorBrush Color="White"/>
+                                    <SolidColorBrush Color="White" />
                                 </xctk:ColorCanvas.Foreground>
                             </xctk:ColorCanvas>
                         </Grid>
-                        <Button x:Name="PART_ColorModeButton" Margin="5" Grid.Row="2" UseLayoutRounding="True" Visibility="Hidden">
-                        </Button>
+                        <Button x:Name="PART_ColorModeButton" Margin="5" Grid.Row="2" UseLayoutRounding="True"
+                                Visibility="Hidden" />
                     </Grid>
                 </Border>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="White"/>
-                <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black"/>
+                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="White" />
+                <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black" />
             </Trigger>
             <Trigger Property="DisplayColorAndName" Value="True">
-                <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed"/>
-                <Setter Property="Visibility" TargetName="ColorAndName" Value="Visible"/>
+                <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed" />
+                <Setter Property="Visibility" TargetName="ColorAndName" Value="Visible" />
             </Trigger>
             <Trigger Property="ColorMode" Value="ColorPalette">
-                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Hidden"/>
-                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Collapsed"/>
-                <Setter Property="Content" TargetName="PART_ColorModeButton" Value="Advanced"/>
+                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Hidden" />
+                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Collapsed" />
+                <Setter Property="Content" TargetName="PART_ColorModeButton" Value="Advanced" />
             </Trigger>
             <Trigger Property="ColorMode" Value="ColorCanvas">
-                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Collapsed"/>
-                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Visible"/>
-                <Setter Property="Content" TargetName="PART_ColorModeButton" Value="Standard"/>
+                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Collapsed" />
+                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Visible" />
+                <Setter Property="Content" TargetName="PART_ColorModeButton" Value="Standard" />
             </Trigger>
             <Trigger Property="ShowDropDownButton" Value="False">
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderThickness" Value="1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -1012,16 +1039,27 @@
     <ControlTemplate x:Key="CheckBoxControlTemplate1" TargetType="{x:Type CheckBox}">
         <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                 <Grid x:Name="markGrid">
-                    <Path x:Name="optionMark" Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z" Fill="White" Margin="1" Opacity="0" Stretch="None"/>
-                    <Rectangle x:Name="indeterminateMark" Fill="#FF212121" Margin="2" Opacity="0"/>
+                    <Path x:Name="optionMark"
+                          Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z"
+                          Fill="White" Margin="1" Opacity="0" Stretch="None" />
+                    <Rectangle x:Name="indeterminateMark" Fill="#FF212121" Margin="2" Opacity="0" />
                 </Grid>
             </Border>
-            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}" Grid.Column="1"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasContent" Value="True">
@@ -1031,34 +1069,35 @@
                             <Setter Property="Control.Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" StrokeThickness="1"
+                                                   StrokeDashArray="1 2" />
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Padding" Value="4,-1,0,0"/>
+                <Setter Property="Padding" Value="4,-1,0,0" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="checkBoxBorder" Value="White"/>
-                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="White"/>
-                <Setter Property="Fill" TargetName="optionMark" Value="Black"/>
-                <Setter Property="Fill" TargetName="indeterminateMark" Value="Black"/>
+                <Setter Property="Background" TargetName="checkBoxBorder" Value="White" />
+                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="White" />
+                <Setter Property="Fill" TargetName="optionMark" Value="Black" />
+                <Setter Property="Fill" TargetName="indeterminateMark" Value="Black" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" TargetName="checkBoxBorder" Value="Transparent"/>
-                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="White"/>
-                <Setter Property="Fill" TargetName="optionMark" Value="White"/>
-                <Setter Property="Fill" TargetName="indeterminateMark" Value="White"/>
+                <Setter Property="Background" TargetName="checkBoxBorder" Value="Transparent" />
+                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="White" />
+                <Setter Property="Fill" TargetName="optionMark" Value="White" />
+                <Setter Property="Fill" TargetName="indeterminateMark" Value="White" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
-                <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
+                <Setter Property="Opacity" TargetName="optionMark" Value="1" />
+                <Setter Property="Opacity" TargetName="indeterminateMark" Value="0" />
             </Trigger>
             <Trigger Property="IsChecked" Value="{x:Null}">
-                <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
-                <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
+                <Setter Property="Opacity" TargetName="optionMark" Value="0" />
+                <Setter Property="Opacity" TargetName="indeterminateMark" Value="1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\launcher.ico</ApplicationIcon>
+    <ApplicationIcon>launcher.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -169,19 +169,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\Minecraftia-Regular.ttf" />
-    <Resource Include="Resources\Aero Matics Bold Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Bold.ttf" />
-    <Resource Include="Resources\Aero Matics Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Light Italic.ttf" />
-    <Resource Include="Resources\Aero Matics Light.ttf" />
-    <Resource Include="Resources\Aero Matics Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\launcher.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -197,134 +184,115 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Resources\Aero Matics Bold Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Bold.ttf" />
+    <Resource Include="Resources\Aero Matics Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Light Italic.ttf" />
+    <Resource Include="Resources\Aero Matics Light.ttf" />
+    <Resource Include="Resources\Aero Matics Regular.ttf" />
+    <Resource Include="Resources\BG_Nightfall.png" />
+    <Resource Include="Resources\Browser.png" />
+    <Resource Include="Resources\BTN_Changelog.png" />
+    <Resource Include="Resources\BTN_Changelog_Blue.png" />
+    <Resource Include="Resources\BTN_Close.png" />
+    <Resource Include="Resources\BTN_Debug.png" />
+    <Resource Include="Resources\BTN_Debug_Blue.png" />
+    <Resource Include="Resources\BTN_Help.png" />
+    <Resource Include="Resources\BTN_Help_Blue.png" />
+    <Resource Include="Resources\BTN_Home.png" />
+    <Resource Include="Resources\BTN_Home_Blue.png" />
+    <Resource Include="Resources\BTN_Minimize.png" />
+    <Resource Include="Resources\BTN_Reddit.png" />
+    <Resource Include="Resources\BTN_Reddit_Blue.png" />
+    <Resource Include="Resources\BTN_Settings.png" />
+    <Resource Include="Resources\BTN_Settings_Blue.png" />
+    <Resource Include="Resources\customization.png" />
+    <Resource Include="Resources\File Share.png" />
+    <Resource Include="Resources\FORGE_guardian.png" />
+    <Resource Include="Resources\FORGE_valhalla.png" />
+    <Resource Include="Resources\ICON_Custom.png" />
+    <Resource Include="Resources\ICON_Fileshare.png" />
+    <Resource Include="Resources\ICON_Servers.png" />
+    <Resource Include="Resources\ICON_Stats.png" />
+    <Resource Include="Resources\launcher.ico" />
+    <Resource Include="Resources\loading.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\Minecraftia-Regular.ttf" />
     <Resource Include="Resources\stats.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\File Share.png" />
+    <Reference Include="Awesomium.Core, Version=1.7.5.1, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Core.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.1, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Windows.Controls.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SpicyTaco.AutoGrid">
+      <HintPath>lib\SpicyTaco.AutoGrid.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xml">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>lib\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>lib\YamlDotNet.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Browser.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\loading.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\customization.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="lib\awesomium.dll" />
     <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="lib\icudt.dll" />
     <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="lib\SpicyTaco.AutoGrid.dll" />
     <EmbeddedResource Include="lib\Xceed.Wpf.Toolkit.dll" />
     <EmbeddedResource Include="lib\YamlDotNet.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.5.1, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.1, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="SpicyTaco.AutoGrid">
-      <HintPath>lib\SpicyTaco.AutoGrid.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>lib\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>lib\YamlDotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BG_Nightfall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Minimize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Changelog.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Reddit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ICON_Custom.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ICON_Fileshare.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ICON_Servers.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\ICON_Stats.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Changelog_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Help_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Reddit_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Settings_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Debug.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Debug_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\BTN_Home_Blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib\awesomium.dll" />
-    <EmbeddedResource Include="lib\icudt.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\FORGE_guardian.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\FORGE_valhalla.png" />
+    <Resource Include="launcher.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
