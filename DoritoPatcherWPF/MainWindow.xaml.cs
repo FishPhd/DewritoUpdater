@@ -735,7 +735,7 @@ namespace DoritoPatcherWPF
 
         private void browserFile_Click(object sender, RoutedEventArgs e)
         {
-            embeddedBrowser.Source = new Uri("https://haloshare.net/forge/");
+            embeddedBrowser.Source = new Uri("https://haloshare.net/");
         }
 
         private void browserHome_Click(object sender, RoutedEventArgs e)
@@ -773,18 +773,18 @@ namespace DoritoPatcherWPF
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-            var sInfo = new ProcessStartInfo("https://haloshare.net/");
-            Process.Start(sInfo);
-            /*if (embedded)
+            //var sInfo = new ProcessStartInfo("https://haloshare.net/");
+            //Process.Start(sInfo);
+            if (embedded)
+            {
+                embeddedBrowser.Source = new Uri("https://haloshare.net");
+                switchPanel("browser", false);
+            }
+            else
             {
                 var sInfo = new ProcessStartInfo("blamfile://haloshare.net?type=forge&id=15");
                 Process.Start(sInfo);
             }
-            else
-            {
-                embeddedBrowser.Source = new Uri("https://haloshare.net/");
-                switchPanel("browser", false);
-            }*/
         }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)

@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server.cs" />
     <Compile Include="SettingsViewModel.cs" />
     <Compile Include="GameFileShare.cs" />
     <Compile Include="Utils\Extensions.cs" />

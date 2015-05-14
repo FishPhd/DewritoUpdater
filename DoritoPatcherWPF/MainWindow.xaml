@@ -1100,11 +1100,11 @@ h3.sub-header.text-center {
                                             TextOptions.TextFormattingMode="Display" />
                                 </Grid>
                             </Border>
-                            <!--<Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" HorizontalAlignment="left" Padding="20,0" Height="35">
+                            <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" HorizontalAlignment="left" Padding="20,0" Height="35">
                                 <Grid>
                                     <Button x:Name="browserFile" Click="browserFile_Click" Content="FILE SHARE" Style="{StaticResource HoverTab}" FontSize="16" TextOptions.TextFormattingMode="Display" />
                                 </Grid>
-                            </Border>-->
+                            </Border>
                         </StackPanel>
                     </Border>
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0"
