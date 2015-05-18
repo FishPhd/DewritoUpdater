@@ -648,7 +648,7 @@ h3.sub-header.text-center {
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblServers" Content="SERVER BROWSER" FontSize="25"
+                                    <Label x:Name="lblServers" Content="SERVER BROWSER (Coming Soon)" FontSize="25"
                                            FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -765,7 +765,7 @@ h3.sub-header.text-center {
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblStats" Content="STATISTICS" FontSize="25"
+                                    <Label x:Name="lblStats" Content="STATISTICS (Coming Soon)" FontSize="25"
                                            FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -882,7 +882,7 @@ h3.sub-header.text-center {
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblFileshare" Content="FILE SHARE" FontSize="25"
+                                    <Label x:Name="lblFileshare" Content="FILE SHARE (Coming Soon)" FontSize="25"
                                            FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -1054,7 +1054,9 @@ h3.sub-header.text-center {
                         <StackPanel Orientation="Horizontal">
                             <Border BorderThickness="0,0,1,0" BorderBrush="#FF47A6FF" Margin="0,0,0,-1" Width="74"
                                     HorizontalAlignment="left" Height="35" Cursor="Hand">
+
                                 <Grid>
+                                    
                                     <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}"
                                             Background="#00000000" Template="{DynamicResource BackgroundButton}">
                                         <Button.Resources>
@@ -1107,6 +1109,7 @@ h3.sub-header.text-center {
                             </Border>
                         </StackPanel>
                     </Border>
+
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0"
                                     WebSession="{Binding Source={StaticResource session}}" Foreground="{x:Null}"
                                     IsTransparent="True">

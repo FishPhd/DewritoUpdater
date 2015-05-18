@@ -745,6 +745,7 @@ namespace DoritoPatcherWPF
 
         private void btnServer_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if (embedded)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
@@ -755,10 +756,12 @@ namespace DoritoPatcherWPF
                 var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
                 Process.Start(sInfo);
             }
+             * */
         }
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if (embedded)
             {
                 embeddedBrowser.Source = new Uri("https://stats.halo.click");
@@ -769,33 +772,28 @@ namespace DoritoPatcherWPF
                 var sInfo = new ProcessStartInfo("https://stats.halo.click/");
                 Process.Start(sInfo);
             }
+             * */
         }
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-            //var sInfo = new ProcessStartInfo("https://haloshare.net/");
-            //Process.Start(sInfo);
+            /*
             if (embedded)
             {
-                embeddedBrowser.Source = new Uri("https://haloshare.net");
+                embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
                 switchPanel("browser", false);
             }
             else
             {
-                var sInfo = new ProcessStartInfo("blamfile://haloshare.net?type=forge&id=15");
+                var sInfo = new ProcessStartInfo("https://haloshare.net/");
                 Process.Start(sInfo);
             }
+             * */
         }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
             var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
-            Process.Start(sInfo);
-        }
-
-        private void btnBug_Click(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://gitlab.com/emoose/ElDorito/issues");
             Process.Start(sInfo);
         }
 
