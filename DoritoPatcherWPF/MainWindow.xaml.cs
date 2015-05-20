@@ -663,6 +663,34 @@ namespace DoritoPatcherWPF
             {
                 var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
+                if (settingsViewModel.LaunchParams.WindowedMode)
+                {
+                    sInfo.Arguments += " -window";
+                }
+                if (settingsViewModel.LaunchParams.Fullscreen)
+                {
+                    sInfo.Arguments += " -fullscreen";
+                }
+                if (settingsViewModel.LaunchParams.NoVSync)
+                {
+                    sInfo.Arguments += " -no_vsync";
+                }
+                if (settingsViewModel.LaunchParams.DX9Ex)
+                {
+                    sInfo.Arguments += " -3d9ex";
+                }
+                else
+                {
+                    sInfo.Arguments += " -nod3d9ex";
+                }
+                if (settingsViewModel.LaunchParams.FPSCounter)
+                {
+                    sInfo.Arguments += " -show_fps";
+                }
+
+                sInfo.Arguments += " -width " + settingsViewModel.LaunchParams.Width;
+                sInfo.Arguments += " -height " + settingsViewModel.LaunchParams.Height;
+
                 try
                 {
                     Process.Start(sInfo);
@@ -831,6 +859,7 @@ namespace DoritoPatcherWPF
             settingsViewModel.Video.PropertyChanged += SettingsChanged;
             settingsViewModel.Host.PropertyChanged += SettingsChanged;
             settingsViewModel.Input.PropertyChanged += SettingsChanged;
+            settingsViewModel.LaunchParams.PropertyChanged += SettingsChanged;
 
             // Set the data context for the settings tabs
             Customization.DataContext = settingsViewModel;
