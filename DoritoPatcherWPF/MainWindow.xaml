@@ -1578,6 +1578,51 @@ h3.sub-header.text-center {
                                 <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
                             </DockPanel>
                             -->
+                            <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
+                                       FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
+                                Launch Parameters
+                            </TextBlock>
+                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.WindowedMode}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Windowed Mode
+                            </CheckBox>
+                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.Fullscreen}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Fullscreen Mode
+                            </CheckBox>
+                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.NoVSync}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Disable Vertical Sync (VSync)
+                            </CheckBox>
+                            <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.DX9Ex}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Toggle DirectX 9.0 Extensions
+                            </CheckBox>
+                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.FPSCounter}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Show FPS Counter
+                            </CheckBox>
+                            <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
+                                       Margin="5,25,5,5" FontWeight="Normal">
+                                Custom Resolution
+                            </TextBlock>
+                            <TextBox Name="setWidth" DockPanel.Dock="Right" Text="{Binding LaunchParams.Width}" Width="60"
+                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.07" />
+                                </TextBox.Background>
+                            </TextBox>
+                            <TextBox Name="setHeight" DockPanel.Dock="Right" Text="{Binding LaunchParams.Height}" Width="60"
+                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.07" />
+                                </TextBox.Background>
+                            </TextBox>
                         </st:AutoGrid>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">

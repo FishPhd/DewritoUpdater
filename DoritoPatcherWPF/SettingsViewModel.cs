@@ -11,6 +11,7 @@ namespace DoritoPatcherWPF
         private InputSettingsViewModel _input;
         private PlayerSettingsViewModel _player;
         private VideoSettingsViewModel _video;
+        private LaunchParamsSettingsViewModel _launchparams;
 
         public SettingsViewModel(DewritoSettings settings)
         {
@@ -41,12 +42,19 @@ namespace DoritoPatcherWPF
             set { SetField(ref _input, value, () => Input); }
         }
 
+        public LaunchParamsSettingsViewModel LaunchParams
+        {
+            get { return _launchparams; }
+            set { SetField(ref _launchparams, value, () => LaunchParams); }
+        }
+
         private void Load(DewritoSettings settings)
         {
             _player = new PlayerSettingsViewModel(settings.Player ?? new DewritoPlayerSettings());
             _video = new VideoSettingsViewModel(settings.Video ?? new DewritoVideoSettings());
             _host = new HostSettingsViewModel(settings.Host ?? new DewritoHostSettings());
             _input = new InputSettingsViewModel(settings.Input ?? new DewritoInputSettings());
+            _launchparams = new LaunchParamsSettingsViewModel(settings.LaunchParams ?? new DewritoLaunchParamsSettings());
         }
 
         public void Save(DewritoSettings settings)
@@ -59,10 +67,13 @@ namespace DoritoPatcherWPF
                 settings.Host = new DewritoHostSettings();
             if (settings.Input == null)
                 settings.Input = new DewritoInputSettings();
+            if (settings.LaunchParams == null)
+                settings.LaunchParams = new DewritoLaunchParamsSettings();
             _player.Save(settings.Player);
             _video.Save(settings.Video);
             _host.Save(settings.Host);
             _input.Save(settings.Input);
+            _launchparams.Save(settings.LaunchParams);
         }
     }
 
@@ -501,6 +512,86 @@ namespace DoritoPatcherWPF
         public void Save(DewritoInputSettings settings)
         {
             settings.RawMouse = _rawMouse;
+        }
+    }
+
+    public class LaunchParamsSettingsViewModel : ViewModel
+    {
+        private bool _windowedMode;
+        private bool _fullscreen;
+        private bool _noVSync;
+        private bool _DX9ex;
+        private bool _FPSCounter;
+        private int _width;
+        private int _height;
+
+        public LaunchParamsSettingsViewModel(DewritoLaunchParamsSettings settings)
+        {
+            Load(settings);
+        }
+
+        public bool WindowedMode
+        {
+            get { return _windowedMode; }
+            set { SetField(ref _windowedMode, value, () => WindowedMode); }
+        }
+
+        public bool Fullscreen
+        {
+            get { return _fullscreen; }
+            set { SetField(ref _fullscreen, value, () => Fullscreen); }
+        }
+
+        public bool NoVSync
+        {
+            get { return _noVSync; }
+            set { SetField(ref _noVSync, value, () => NoVSync); }
+        }
+
+        public bool DX9Ex
+        {
+            get { return _DX9ex; }
+            set { SetField(ref _DX9ex, value, () => DX9Ex); }
+        }
+
+        public bool FPSCounter
+        {
+            get { return _FPSCounter; }
+            set { SetField(ref _FPSCounter, value, () => FPSCounter); }
+        }
+
+        public int Width
+        {
+            get { return _width; }
+            set { SetField(ref _width, value, () => Width); }
+        }
+
+        public int Height
+        {
+            get { return _height; }
+            set { SetField(ref _height, value, () => Height); }
+        }
+
+        private void Load(DewritoLaunchParamsSettings settings)
+        {
+            _windowedMode = settings.WindowedMode;
+            _fullscreen = settings.Fullscreen;
+            _noVSync = settings.NoVSync;
+            _DX9ex = settings.DX9Ex;
+            _FPSCounter = settings.FPSCounter;
+            _width = settings.Width;
+            _height = settings.Height;
+        }
+
+        public void Save(DewritoLaunchParamsSettings settings)
+        {
+            settings.WindowedMode = _windowedMode;
+            settings.Fullscreen = _fullscreen;
+            settings.NoVSync = _noVSync;
+            settings.DX9Ex = _DX9ex;
+            settings.FPSCounter = _FPSCounter;
+            settings.Width = _width;
+            settings.Height = _height;
         }
     }
 }

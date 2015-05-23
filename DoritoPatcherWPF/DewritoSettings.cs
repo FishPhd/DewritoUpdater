@@ -10,12 +10,14 @@ namespace DoritoPatcherWPF
             Video = new DewritoVideoSettings();
             Host = new DewritoHostSettings();
             Input = new DewritoInputSettings();
+            LaunchParams = new DewritoLaunchParamsSettings();
         }
 
         public DewritoPlayerSettings Player { get; set; }
         public DewritoVideoSettings Video { get; set; }
         public DewritoHostSettings Host { get; set; }
         public DewritoInputSettings Input { get; set; }
+        public DewritoLaunchParamsSettings LaunchParams { get; set; }
     }
 
     public class DewritoPlayerSettings
@@ -133,5 +135,27 @@ namespace DoritoPatcherWPF
         }
 
         public bool RawMouse { get; set; }
+    }
+
+    public class DewritoLaunchParamsSettings
+    {
+        public DewritoLaunchParamsSettings()
+        {
+            WindowedMode = false;
+            Fullscreen = true;
+            NoVSync = false;
+            DX9Ex = true;
+            FPSCounter = false;
+            Width = 1920;
+            Height = 1080;
+        }
+
+        public bool WindowedMode { get; set; }
+        public bool Fullscreen { get; set; }
+        public bool NoVSync { get; set; }
+        public bool DX9Ex { get; set; }
+        public bool FPSCounter { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }
