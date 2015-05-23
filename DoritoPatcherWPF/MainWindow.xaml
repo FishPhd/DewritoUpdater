@@ -649,7 +649,7 @@ h3.sub-header.text-center {
                                         <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill" />
                                     </Grid.Background>
                                     <Label x:Name="lblServers" Content="SERVER BROWSER (Coming Soon)" FontSize="25"
-                                           FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
+                                           FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
                                         <Label.Effect>
@@ -766,7 +766,7 @@ h3.sub-header.text-center {
                                         <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill" />
                                     </Grid.Background>
                                     <Label x:Name="lblStats" Content="STATISTICS (Coming Soon)" FontSize="25"
-                                           FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
+                                           FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
                                         <Label.Effect>
@@ -883,7 +883,7 @@ h3.sub-header.text-center {
                                         <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill" />
                                     </Grid.Background>
                                     <Label x:Name="lblFileshare" Content="FILE SHARE (Coming Soon)" FontSize="25"
-                                           FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
+                                           FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
                                         <Label.Effect>
@@ -1000,7 +1000,7 @@ h3.sub-header.text-center {
                                         <ImageBrush ImageSource="Resources/Customization.png" Stretch="UniformToFill" />
                                     </Grid.Background>
                                     <Label x:Name="lblCustom" Content="PLAYER CUSTOMIZATION" FontSize="25"
-                                           FontFamily="Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
+                                           FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
                                         <Label.Effect>
