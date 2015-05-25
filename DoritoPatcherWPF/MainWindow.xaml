@@ -10,12 +10,12 @@
         xmlns:utils="clr-namespace:DoritoPatcherWPF.Utils"
         xmlns:local="clr-namespace:DoritoPatcherWPF"
         mc:Ignorable="d"
-        Title="ElDewrito Launcher" Height="600" Width="1000" ResizeMode="CanMinimize" Icon="/Resources/launcher.ico"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="False"
+        Title="ElDewrito Launcher" Height="602" Width="1002" ResizeMode="CanMinimize" Icon="LOGO_icon.ico"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         utils:WindowMovement.IsDraggable="True"
         Loaded="Window_Loaded"
         UseLayoutRounding="True"
-        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18">
+        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1">
     <Window.Resources>
         <osm:WebSessionProvider x:Key="session">
             <core:WebPreferences
@@ -23,171 +23,171 @@
                 EnableGPUAcceleration="True"
                 WebGL="True"
                 CustomCSS="body 
-{ 
-    font-family: Aero Matics Light !important;
-    letter-spacing: 1px !important;
-    background: transparent !important; 
-    padding: 0 !important; 
-} 
+                { 
+                    font-family: Aero Matics Light !important;
+                    letter-spacing: 1px !important;
+                    background: transparent !important; 
+                    padding: 0 !important; 
+                } 
 
-b, strong
-{
-    font-family: Aero Matics !important;
-    font-weight: 400 !important;
-}
+                b, strong
+                {
+                    font-family: Aero Matics !important;
+                    font-weight: 400 !important;
+                }
 
-.navbar 
-{ 
-    display: none !important;
-} 
+                .navbar 
+                { 
+                    display: none !important;
+                } 
 
-.main 
-{ 
-    padding: 20px 10px !important; 
-} 
+                .main 
+                { 
+                    padding: 20px 10px !important; 
+                } 
 
-.panel
-{
-    opacity: 1 !important;
-    background: rgba(33, 77, 117, 0.85) !important;
-    border: 1px solid #47a6ff !important;
-    border-radius: 0 !important;
-}
+                .panel
+                {
+                    opacity: 1 !important;
+                    background: rgba(33, 77, 117, 0.85) !important;
+                    border: 1px solid #47a6ff !important;
+                    border-radius: 0 !important;
+                }
 
-.panel-heading, .panel-default>.panel-heading
-{
-    opacity: 1 !important;
-    font-family: Aero Matics !important;
-    color: white !important;
-    text-transform: uppercase !important;
-    background: rgba(255, 255, 255, 0.07) !important;
-    border-radius: 0 !important;
-}
+                .panel-heading, .panel-default>.panel-heading
+                {
+                    opacity: 1 !important;
+                    font-family: Aero Matics !important;
+                    color: white !important;
+                    text-transform: uppercase !important;
+                    background: rgba(255, 255, 255, 0.07) !important;
+                    border-radius: 0 !important;
+                }
 
-.panel .panel
-{
-    background: rgba(33, 77, 117, 0) !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
+                .panel .panel
+                {
+                    background: rgba(33, 77, 117, 0) !important;
+                    border: none !important;
+                    border-radius: 0 !important;
+                    box-shadow: none !important;
+                }
 
-.panel .panel-heading, .panel .panel-default>.panel-heading
-{
-    opacity: 1 !important;
-    font-family: Aero Matics !important;
-    color: white !important;
-    text-transform: uppercase !important;
-    background: rgba(255, 255, 255, 0.07) !important;
-    border-radius: 0 !important;
-}
+                .panel .panel-heading, .panel .panel-default>.panel-heading
+                {
+                    opacity: 1 !important;
+                    font-family: Aero Matics !important;
+                    color: white !important;
+                    text-transform: uppercase !important;
+                    background: rgba(255, 255, 255, 0.07) !important;
+                    border-radius: 0 !important;
+                }
 
-.panel-body
-{
-    color: white !important;
-}
+                .panel-body
+                {
+                    color: white !important;
+                }
 
-.map-container 
-{ 
-    height : 350px !important; 
-} 
+                .map-container 
+                { 
+                    height : 350px !important; 
+                } 
 
-.reactiveAds 
-{ 
-    display : none !important; 
-} 
+                .reactiveAds 
+                { 
+                    display : none !important; 
+                } 
 
-::-webkit-scrollbar 
-{ 
-    width: 18px !important; 
-    background-clip: padding-box !important; 
-} 
+                ::-webkit-scrollbar 
+                { 
+                    width: 18px !important; 
+                    background-clip: padding-box !important; 
+                } 
 
-::-webkit-scrollbar-track 
-{ 
-    cursor: pointer !important; 
-} 
+                ::-webkit-scrollbar-track 
+                { 
+                    cursor: pointer !important; 
+                } 
 
-::-webkit-scrollbar-thumb 
-{ 
-    background: rgba(255, 255, 255, 0.3) !important; 
-    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
-    border-left: 3px solid rgba(0, 0, 0, 0) !important;
-    background-clip: padding-box !important;
-} 
+                ::-webkit-scrollbar-thumb 
+                { 
+                    background: rgba(255, 255, 255, 0.3) !important; 
+                    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
+                    border-left: 3px solid rgba(0, 0, 0, 0) !important;
+                    background-clip: padding-box !important;
+                } 
 
-::-webkit-scrollbar-thumb:hover 
-{ 
-    background: rgba(255, 255, 255, 0.7) !important; 
-    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
-    border-left: 0px solid rgba(0, 0, 0, 0) !important;
-    background-clip: padding-box !important; 
-} 
+                ::-webkit-scrollbar-thumb:hover 
+                { 
+                    background: rgba(255, 255, 255, 0.7) !important; 
+                    border-right: 10px solid rgba(0, 0, 0, 0) !important; 
+                    border-left: 0px solid rgba(0, 0, 0, 0) !important;
+                    background-clip: padding-box !important; 
+                } 
 
-::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement 
-{ 
-    height: 10px !important; 
-    width: 20px !important; 
-} 
+                ::-webkit-scrollbar-button:vertical:decrement, ::-webkit-scrollbar-button:horizontal:decrement 
+                { 
+                    height: 10px !important; 
+                    width: 20px !important; 
+                } 
 
-::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment 
-{ 
-    height: 20px !important; 
-    width: 20px !important; 
-}
+                ::-webkit-scrollbar-button:vertical:increment, ::-webkit-scrollbar-button:horizontal:increment 
+                { 
+                    height: 20px !important; 
+                    width: 20px !important; 
+                }
 
-.table {
-  width: 530px !important;
-  max-width: none !important;
-  margin: 0 -15px 20px !important;
-}
+                .table {
+                  width: 530px !important;
+                  max-width: none !important;
+                  margin: 0 -15px 20px !important;
+                }
 
-#playerTable
-{
-  margin: 0 0 40px !important;
-}
+                #playerTable
+                {
+                  margin: 0 0 40px !important;
+                }
 
-.table-striped>tbody>tr:nth-of-type(odd) {
-    background: rgba(255, 255, 255, 0.07) !important;
-}
+                .table-striped>tbody>tr:nth-of-type(odd) {
+                    background: rgba(255, 255, 255, 0.07) !important;
+                }
 
-.table-striped>tbody>tr:nth-of-type(even) {
-    background: rgba(0, 0, 0, 0.07) !important;
-}
+                .table-striped>tbody>tr:nth-of-type(even) {
+                    background: rgba(0, 0, 0, 0.07) !important;
+                }
 
-td
-{
-    font-size: 16px !important;
-}
+                td
+                {
+                    font-size: 16px !important;
+                }
 
-.table-responsive {
-    background: none !important;
-    border: none !important;
-    width: 530px !important;
-    margin: 0 -15px !important;
-}
+                .table-responsive {
+                    background: none !important;
+                    border: none !important;
+                    width: 530px !important;
+                    margin: 0 -15px !important;
+                }
 
-.well {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
+                .well {
+                    background: none !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    padding: 0 !important;
+                }
 
-h3.sub-header.text-center {
-    font-family: aero matics !important;
-    text-transform: uppercase !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 0 0 !important;
-}
+                h3.sub-header.text-center {
+                    font-family: aero matics !important;
+                    text-transform: uppercase !important;
+                    color: white !important;
+                    border: none !important;
+                    padding: 10px 0 0 !important;
+                }
 
-.chartPadding {
-    padding: 10px 20px !important;
-    margin: -15px -15px -35px !important;
-    width: 529px !important;
-    background: rgba(255, 255, 255, 0.77) !important;
-}" />
+                .chartPadding {
+                    padding: 10px 20px !important;
+                    margin: -15px -15px -35px !important;
+                    width: 529px !important;
+                    background: rgba(255, 255, 255, 0.77) !important;
+                }" />
         </osm:WebSessionProvider>
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction"
@@ -217,6 +217,9 @@ h3.sub-header.text-center {
         </Storyboard>
         -->
     </Window.Resources>
+    <Window.BorderBrush>
+        <SolidColorBrush Color="#FF47A6FF" Opacity="0.75"/>
+    </Window.BorderBrush>
     <Window.Background>
         <ImageBrush ImageSource="Resources/BG_Nightfall.png" />
     </Window.Background>
@@ -234,9 +237,9 @@ h3.sub-header.text-center {
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <TextBlock TextWrapping="Wrap" Margin="20,3,398,0" Foreground="White" Grid.ColumnSpan="2" FontSize="20"
+        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Margin="20,3,398,0" Foreground="White" Grid.ColumnSpan="2" FontSize="20"
                    TextOptions.TextFormattingMode="Display">
-            <Run Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center" />
+            <Run x:Name="run" Foreground="White" Text="ELDEWRITO" FontFamily="/Resources/#Aero Matics" BaselineAlignment="Center" />
             <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center" />
         </TextBlock>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Left" Background="Transparent"
@@ -255,13 +258,28 @@ h3.sub-header.text-center {
             </Button>
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0" Margin="20,20,10,20">
-            <Canvas HorizontalAlignment="Center" Height="374" VerticalAlignment="Center" Width="370"
-                    SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,12,0,144">
+            <Canvas HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="370"
+                    SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,52,0,253">
                 <Canvas.Background>
-                    <ImageBrush ImageSource="Resources/logo.png" Stretch="UniformToFill" />
+                    <ImageBrush ImageSource="Resources/LOGO_Launcher.png" Stretch="Uniform" />
                 </Canvas.Background>
             </Canvas>
-            <Grid Height="108" VerticalAlignment="Bottom">
+            <ItemsControl ItemsSource="{Binding Text, ElementName=run}"
+                              Foreground="White" FontFamily="/Resources/#Aero Matics" FontSize="42" 
+                              Margin="65,0,65,185" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" 
+            					Margin="2.5,0,2.5,0"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Height="127" VerticalAlignment="Bottom">
                 <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0" Height="54"
                         VerticalAlignment="Top">
                     <Border.Style>
@@ -507,11 +525,10 @@ h3.sub-header.text-center {
                     </StackPanel>
                 </Button>
                 <!-- Do not remove this, Fish, I'm looking at you -->
-                <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="9" TextOptions.TextFormattingMode="Display"
-                           VerticalAlignment="Bottom" Height="10" Opacity="0.5" Margin="0,0,-78,0"
-                           FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Light">
-                    <Run
-                        Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO., 343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS" />
+                <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Foreground="White" FontSize="14.667" TextOptions.TextFormattingMode="Display"
+                           VerticalAlignment="Bottom" Height="32" Opacity="0.25"
+                           FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics Light" 
+                           Text="THIS PROGRAM IS IN NO WAY AFFILIATED WITH INNOVA CO. S.A.R.L., 343 INDUSTRIES, MICROSOFT STUDIOS OR BUNGIE STUDIOS">
                 </TextBlock>
             </Grid>
             <Label x:Name="minecraft" Content="NOW WITH MORE ANIMATIONS" HorizontalAlignment="Left"
@@ -627,7 +644,7 @@ h3.sub-header.text-center {
                                                 <DataTrigger.EnterActions>
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ThicknessAnimation Duration="0:0:0.150" To="30,0,0,15"
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="25,0,0,15"
                                                                                 Storyboard.TargetProperty="Margin" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -643,12 +660,38 @@ h3.sub-header.text-center {
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Margin" Value="0,23,33,23" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                                   Path=IsMouseOver}"
+                                                Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="0,20,30,20"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.200" To="0,23,33,23"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/Browser.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblServers" Content="SERVER BROWSER (Coming Soon)" FontSize="25"
+                                    <Label x:Name="lblServers" Content="SERVER BROWSER" FontSize="25"
                                            FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -744,7 +787,7 @@ h3.sub-header.text-center {
                                                 <DataTrigger.EnterActions>
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ThicknessAnimation Duration="0:0:0.150" To="30,0,0,15"
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="25,0,0,15"
                                                                                 Storyboard.TargetProperty="Margin" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -760,12 +803,38 @@ h3.sub-header.text-center {
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Margin" Value="0,18,28,18" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                                   Path=IsMouseOver}"
+                                                Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="0,15,25,15"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.200" To="0,18,28,18"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/stats.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblStats" Content="STATISTICS (Coming Soon)" FontSize="25"
+                                    <Label x:Name="lblStats" Content="STATISTICS" FontSize="25"
                                            FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -861,7 +930,7 @@ h3.sub-header.text-center {
                                                 <DataTrigger.EnterActions>
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ThicknessAnimation Duration="0:0:0.150" To="30,0,0,15"
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="25,0,0,15"
                                                                                 Storyboard.TargetProperty="Margin" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -877,12 +946,38 @@ h3.sub-header.text-center {
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Margin" Value="0,23,33,23" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                                   Path=IsMouseOver}"
+                                                Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="0,20,30,20"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.200" To="0,23,33,23"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
                                     <Grid.Background>
                                         <ImageBrush ImageSource="Resources/File Share.png" Stretch="UniformToFill" />
                                     </Grid.Background>
-                                    <Label x:Name="lblFileshare" Content="FILE SHARE (Coming Soon)" FontSize="25"
+                                    <Label x:Name="lblFileshare" Content="FILE SHARE" FontSize="25"
                                            FontFamily="/Resources/#Aero Matics" Background="{x:Null}" HorizontalAlignment="Left"
                                            VerticalAlignment="Bottom" VerticalContentAlignment="Bottom"
                                            Padding="0,5,5,0" Foreground="White">
@@ -978,7 +1073,7 @@ h3.sub-header.text-center {
                                                 <DataTrigger.EnterActions>
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ThicknessAnimation Duration="0:0:0.150" To="30,0,0,15"
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="25,0,0,15"
                                                                                 Storyboard.TargetProperty="Margin" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -987,6 +1082,32 @@ h3.sub-header.text-center {
                                                     <BeginStoryboard>
                                                         <Storyboard>
                                                             <ThicknessAnimation Duration="0:0:0.200" To="20,0,0,15"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Margin" Value="0,23,33,23" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
+                                                   Path=IsMouseOver}"
+                                                Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.150" To="0,20,30,20"
+                                                                                Storyboard.TargetProperty="Margin" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Duration="0:0:0.200" To="0,23,33,23"
                                                                                 Storyboard.TargetProperty="Margin" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
@@ -1056,7 +1177,7 @@ h3.sub-header.text-center {
                                     HorizontalAlignment="left" Height="35" Cursor="Hand">
 
                                 <Grid>
-                                    
+
                                     <Button Name="browserHome" Click="browserHome_Click" BorderBrush="{x:Null}"
                                             Background="#00000000" Template="{DynamicResource BackgroundButton}">
                                         <Button.Resources>
@@ -1220,6 +1341,7 @@ h3.sub-header.text-center {
                             <Setter Property="Margin" Value="5" />
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="Height" Value="23" />
@@ -1230,6 +1352,7 @@ h3.sub-header.text-center {
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="TickPlacement" Value="BottomRight" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Style>
                         <Style TargetType="{x:Type xctk:ColorPicker}">
                             <Setter Property="Height" Value="23" />
@@ -1242,6 +1365,7 @@ h3.sub-header.text-center {
                             <Setter Property="DisplayColorAndName" Value="True" />
                             <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                             <Setter Property="BorderBrush">
                                 <Setter.Value>
                                     <SolidColorBrush Color="White" />
@@ -1262,93 +1386,111 @@ h3.sub-header.text-center {
                         <st:AutoGrid.Background>
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </st:AutoGrid.Background>
-                        <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="20,20,20,5">
+                        <StackPanel Margin="20,20,10,5" VerticalAlignment="Top">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
-                                       FontWeight="Normal">
+                                       FontWeight="Normal" Margin="5,0,5,5">
                                 Player Settings
                             </TextBlock>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Player Name:</TextBlock>
-                            <TextBox Width="auto" Text="{Binding Player.Name}" FontSize="16"
-                                     FontFamily="/Resources/#Aero Matics Light">
-                                <TextBox.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </TextBox.Background>
-                            </TextBox>
-
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Grid.Column="1" HorizontalAlignment="Left">Player Name:</TextBlock>
+                                <TextBox Width="140" Text="{Binding Player.Name}" FontSize="16"
+                                         FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" Grid.Column="1" HorizontalAlignment="Right">
+                                    <TextBox.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </TextBox.Background>
+                                </TextBox>
+                            </Grid>
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Armor Customization
                             </TextBlock>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
-                            <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen"
-                                      ItemsSource="{Binding Player.Armor.HelmetChoices}"
-                                      SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName"
-                                      MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" />
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Chest:</TextBlock>
-                            <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen"
-                                      ItemsSource="{Binding Player.Armor.ChestChoices}"
-                                      SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"
-                                      FontSize="16" FontFamily="/Resources/#Aero Matics Light" />
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
-                            <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose"
-                                      DropDownOpened="shouldersOpen"
-                                      ItemsSource="{Binding Player.Armor.ShoulderChoices}"
-                                      SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName"
-                                      MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" />
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
-                            <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen"
-                                      ItemsSource="{Binding Player.Armor.ArmChoices}"
-                                      SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName"
-                                      MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" />
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
-                            <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}"
-                                      SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName"
-                                      MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" />
-
-
-                        </st:AutoGrid>
-                        <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="0,20,20,5">
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
+                                <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen"
+                                          ItemsSource="{Binding Player.Armor.HelmetChoices}"
+                                          SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Chest:</TextBlock>
+                                <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen"
+                                          ItemsSource="{Binding Player.Armor.ChestChoices}"
+                                          SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"
+                                          FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
+                                <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose"
+                                          DropDownOpened="shouldersOpen"
+                                          ItemsSource="{Binding Player.Armor.ShoulderChoices}"
+                                          SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
+                                <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen"
+                                          ItemsSource="{Binding Player.Armor.ArmChoices}"
+                                          SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
+                                <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}"
+                                          SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Margin="10,20,20,5" VerticalAlignment="Top">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
-                                       FontWeight="Normal">
+                                       FontWeight="Normal" Margin="5,0,5,5">
                                 Armor Colors
                             </TextBlock>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Primary:</TextBlock>
-                            <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}"
-                                              FontSize="16" FontFamily="/Resources/#Aero Matics Light">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </xctk:ColorPicker.Background>
-                            </xctk:ColorPicker>
-
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
-                            <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </xctk:ColorPicker.Background>
-                            </xctk:ColorPicker>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
-                            <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </xctk:ColorPicker.Background>
-                            </xctk:ColorPicker>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
-                            <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </xctk:ColorPicker.Background>
-                            </xctk:ColorPicker>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
-                            <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light">
-                                <xctk:ColorPicker.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </xctk:ColorPicker.Background>
-                            </xctk:ColorPicker>
-                        </st:AutoGrid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Primary:</TextBlock>
+                                <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}"
+                                                  FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
+                                    <xctk:ColorPicker.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
+                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16"
+                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
+                                    <xctk:ColorPicker.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
+                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16"
+                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
+                                    <xctk:ColorPicker.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
+                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16"
+                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
+                                    <xctk:ColorPicker.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
+                            </Grid>
+                            <Grid>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
+                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16"
+                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
+                                    <xctk:ColorPicker.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
+                            </Grid>
+                        </StackPanel>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                         <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30"
@@ -1398,7 +1540,7 @@ h3.sub-header.text-center {
                         <TextBox x:Name="ChangelogContent" Margin="0" Background="Transparent" Foreground="White"
                                  BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow"
                                  VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."
-                                 FontFamily="/Resources/#Aero Matics Light" FontSize="16" Padding="20,0" />
+                                 FontFamily="/Resources/#Aero Matics Light" FontSize="16" Padding="20" />
                         <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30"
                                      VerticalAlignment="Bottom">
                             <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30"
@@ -1460,6 +1602,7 @@ h3.sub-header.text-center {
                             <Setter Property="Margin" Value="5" />
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                             <Setter Property="Foreground" Value="White" />
                         </Style>
                         <Style TargetType="{x:Type Slider}">
@@ -1471,6 +1614,7 @@ h3.sub-header.text-center {
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="TickPlacement" Value="BottomRight" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Style>
                         <Style TargetType="{x:Type xctk:ColorPicker}">
                             <Setter Property="Height" Value="23" />
@@ -1484,6 +1628,7 @@ h3.sub-header.text-center {
                             <Setter Property="DisplayColorAndName" Value="True" />
                             <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                             <Setter Property="BorderBrush">
                                 <Setter.Value>
                                     <SolidColorBrush Color="White" Opacity="0.7" />
@@ -1499,6 +1644,7 @@ h3.sub-header.text-center {
                             <Setter Property="Margin" Value="5" />
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Style>
                     </Grid.Resources>
                     <Border VerticalAlignment="Top" Height="36" Margin="0" BorderBrush="#FF47A6FF"
@@ -1513,33 +1659,54 @@ h3.sub-header.text-center {
                         <st:AutoGrid.Background>
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </st:AutoGrid.Background>
-                        <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,20,25,5">
+                        <StackPanel Margin="20,20,10,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
                                        Margin="5,0,5,5" FontWeight="Normal">
                                 Graphics Settings
                             </TextBlock>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Field of View:</TextBlock>
-                            <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60"
-                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
-                                    <TextBox.Background>
-                                        <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </TextBox.Background>
-                                </TextBox>
-                                <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150"
-                                        TickFrequency="5" IsSnapToTickEnabled="True"
-                                        Value="{Binding Video.FieldOfView}" Background="{x:Null}"
-                                        BorderBrush="{x:Null}" Foreground="White" />
-                            </DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Resolution:</TextBlock>
+                                <DockPanel>
+                                    <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,2,5">W:</TextBlock>
+                                    <TextBox Name="setWidth" Text="{Binding LaunchParams.Width}" Width="60"
+                                     TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5">
+                                        <TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.07" />
+                                        </TextBox.Background>
+                                    </TextBox>
+                                    <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="7,5,2,5">H:</TextBlock>
+                                    <TextBox Name="setHeight" Text="{Binding LaunchParams.Height}" Width="60"
+                                     TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                        <TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.07" />
+                                        </TextBox.Background>
+                                    </TextBox>
+                                </DockPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Field of View:</TextBlock>
+                                <StackPanel Orientation="Horizontal">
 
+                                    <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150"
+                                                TickFrequency="5" IsSnapToTickEnabled="True"
+                                                Value="{Binding Video.FieldOfView}" Background="{x:Null}"
+                                                BorderBrush="{x:Null}" Foreground="White" Width="90" />
+                                    <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60"
+                                                 TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                        <TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.07" />
+                                        </TextBox.Background>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
                             <CheckBox Name="chkCenter" Grid.ColumnSpan="2"
-                                      IsChecked="{Binding Video.CrosshairCentered}"
-                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
-                                      FontFamily="/Resources/#Aero Matics Light">
+                                          IsChecked="{Binding Video.CrosshairCentered}"
+                                          Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                          FontFamily="/Resources/#Aero Matics Light">
                                 Centered Crosshair
                             </CheckBox>
 
-                            <TextBlock Style="{StaticResource Header}" Margin="5,25,5,5"
+                            <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Input Settings
                             </TextBlock>
@@ -1548,36 +1715,41 @@ h3.sub-header.text-center {
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
                             </CheckBox>
-                        </st:AutoGrid>
-                        <st:AutoGrid Columns="auto,*" RowHeight="auto" Margin="5,20,5,5">
+                        </StackPanel>
+                        <StackPanel Margin="10,20,20,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
                                        Margin="5,0,5,5" FontWeight="Normal">
                                 Host Settings
                             </TextBlock>
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Start Timer:</TextBlock>
-                            <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Text="{Binding Host.Countdown}" Width="60"
-                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
-                                    <TextBox.Background>
-                                        <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </TextBox.Background>
-                                </TextBox>
-                                <Slider Name="sldTimer" DockPanel.Dock="Left" Minimum="0" Maximum="20"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Start Timer:</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider Name="sldTimer" Minimum="0" Maximum="20"
                                         TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}"
                                         Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"
-                                        FontFamily="/Resources/#Aero Matics Light" />
-                            </DockPanel>
-                            <!--
-                            <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Maximum Players:</TextBlock>
-                            <DockPanel>
-                                <TextBox DockPanel.Dock="Right" Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
-                                    <TextBox.Background>
-                                        <SolidColorBrush Color="White" Opacity="0.07"/>
-                                    </TextBox.Background>
-                                </TextBox>
-                                <Slider Name="sldMax" DockPanel.Dock="Left" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light"/>
-                            </DockPanel>
+                                        FontFamily="/Resources/#Aero Matics Light" Width="95" />
+                                    <TextBox Text="{Binding Host.Countdown}" Width="60"
+                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                        <TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.07" />
+                                        </TextBox.Background>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- 
+                                    Max Players Slider - Collapsed until the game supports it.
                             -->
+                            <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Max Players:</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Slider Name="sldMax" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light" Width="90"/>
+                                    <TextBox Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                        <TextBox.Background>
+                                            <SolidColorBrush Color="White" Opacity="0.07"/>
+                                        </TextBox.Background>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Launch Parameters
@@ -1600,30 +1772,14 @@ h3.sub-header.text-center {
                             <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.DX9Ex}"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
-                                Toggle DirectX 9.0 Extensions
+                                Enable DirectX 9.0 Extensions
                             </CheckBox>
                             <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.FPSCounter}"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Show FPS Counter
                             </CheckBox>
-                            <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
-                                       Margin="5,25,5,5" FontWeight="Normal">
-                                Custom Resolution
-                            </TextBlock>
-                            <TextBox Name="setWidth" DockPanel.Dock="Right" Text="{Binding LaunchParams.Width}" Width="60"
-                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
-                                <TextBox.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </TextBox.Background>
-                            </TextBox>
-                            <TextBox Name="setHeight" DockPanel.Dock="Right" Text="{Binding LaunchParams.Height}" Width="60"
-                                         TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
-                                <TextBox.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
-                                </TextBox.Background>
-                            </TextBox>
-                        </st:AutoGrid>
+                        </StackPanel>
                     </st:AutoGrid>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

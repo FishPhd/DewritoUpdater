@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>launcher.ico</ApplicationIcon>
+    <ApplicationIcon>LOGO_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -304,6 +304,13 @@
     <EmbeddedResource Include="lib\SpicyTaco.AutoGrid.dll" />
     <EmbeddedResource Include="lib\Xceed.Wpf.Toolkit.dll" />
     <EmbeddedResource Include="lib\YamlDotNet.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LOGO_icon.ico" />
+    <Resource Include="Resources\LOGO_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LOGO_Launcher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

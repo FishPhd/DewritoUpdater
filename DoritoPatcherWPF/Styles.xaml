@@ -487,10 +487,13 @@
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                                        Background="White"
-                                        Opacity="0.2"
+                                        Opacity="1"
                                         BorderThickness="1"
-                                        BorderBrush="#B5B5B5" />
+                                        BorderBrush="#FF47A6FF" >
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#FF20304A" Opacity="0.8"/>
+                                    </Border.Background>
+                                </Border>
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
@@ -534,8 +537,11 @@
                           MinHeight="22" UseLayoutRounding="True"
                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                 <ToggleButton.Background>
-                    <SolidColorBrush Color="White" Opacity="0.07" />
+                    <SolidColorBrush Color="#11FFFFFF" />
                 </ToggleButton.Background>
+                <ToggleButton.Foreground>
+                    <SolidColorBrush Color="White" />
+                </ToggleButton.Foreground>
                 <ToggleButton.IsHitTestVisible>
                     <Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
                         <Binding.Converter>
@@ -643,7 +649,7 @@
                                     </Style>
                                 </ContentControl.Style>
                             </ContentControl>
-                            <TextBlock Foreground="White"
+                            <TextBlock 
                                        Text="{Binding SelectedColorText, RelativeSource={RelativeSource TemplatedParent}}"
                                        UseLayoutRounding="True" VerticalAlignment="Center" />
                         </StackPanel>
@@ -653,8 +659,8 @@
             <Popup x:Name="PART_ColorPickerPalettePopup" AllowsTransparency="True" Focusable="False"
                    HorizontalOffset="1" IsOpen="{Binding IsChecked, ElementName=PART_ColorPickerToggleButton}"
                    PopupAnimation="Slide" StaysOpen="False" VerticalOffset="1" VerticalAlignment="Bottom">
-                <Border BorderBrush="White" BorderThickness="1" Padding="0" UseLayoutRounding="True">
-                    <Grid UseLayoutRounding="True" Height="237">
+                <Border BorderBrush="#FF47A6FF" BorderThickness="1" Padding="0" UseLayoutRounding="True">
+                    <Grid UseLayoutRounding="True" Height="260">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
@@ -996,9 +1002,10 @@
                             <xctk:ColorCanvas BorderThickness="0"
                                               SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
                                               UsingAlphaChannel="{Binding UsingAlphaChannel, RelativeSource={RelativeSource TemplatedParent}}"
-                                              UseLayoutRounding="True">
+                                              UseLayoutRounding="True"
+                                              Height="260">
                                 <xctk:ColorCanvas.Background>
-                                    <SolidColorBrush Color="White" Opacity="0.07" />
+                                    <SolidColorBrush Color="#FF20304A" Opacity="0.8" />
                                 </xctk:ColorCanvas.Background>
                                 <xctk:ColorCanvas.Foreground>
                                     <SolidColorBrush Color="White" />
@@ -1015,6 +1022,10 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="White" />
                 <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="Black" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" TargetName="PART_ColorPickerToggleButton" Value="#11FFFFFF" />
+                <Setter Property="Foreground" TargetName="PART_ColorPickerToggleButton" Value="White" />
             </Trigger>
             <Trigger Property="DisplayColorAndName" Value="True">
                 <Setter Property="Visibility" TargetName="ColorOnly" Value="Collapsed" />
