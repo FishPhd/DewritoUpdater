@@ -3,11 +3,11 @@
 namespace DoritoPatcherWPF
 {
     /// <summary>
-    ///     Interaction logic for MsgBox2.xaml
+    ///     Interaction logic for MsgBoxOk.xaml
     /// </summary>
-    public partial class MsgBox2 : Window
+    public partial class MsgBoxOk : Window
     {
-        public MsgBox2(string text)
+        public MsgBoxOk(string text)
         {
             InitializeComponent();
             Msg.Text = text;

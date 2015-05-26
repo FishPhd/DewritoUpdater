@@ -94,6 +94,9 @@
     <Compile Include="FileShareWindow.xaml.cs">
       <DependentUpon>FileShareWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MsgBoxConfirm.xaml.cs">
+      <DependentUpon>MsgBoxConfirm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,11 +134,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MsgBox.xaml">
+    <Page Include="MsgBoxConfirm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MsgBoxRestart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MsgBox2.xaml">
+    <Page Include="MsgBoxOk.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,11 +152,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MsgBox.xaml.cs">
-      <DependentUpon>MsgBox.xaml</DependentUpon>
+    <Compile Include="MsgBoxRestart.xaml.cs">
+      <DependentUpon>MsgBoxRestart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MsgBox2.xaml.cs">
-      <DependentUpon>MsgBox2.xaml</DependentUpon>
+    <Compile Include="MsgBoxOk.xaml.cs">
+      <DependentUpon>MsgBoxOk.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

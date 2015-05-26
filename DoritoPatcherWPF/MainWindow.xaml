@@ -10,11 +10,10 @@
         xmlns:utils="clr-namespace:DoritoPatcherWPF.Utils"
         mc:Ignorable="d"
         Title="ElDewrito Launcher" Height="602" Width="1002" ResizeMode="CanMinimize" Icon="LOGO_icon.ico"
-        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" UseLayoutRounding="True"
         utils:WindowMovement.IsDraggable="True"
-        Loaded="Window_Loaded"
-        UseLayoutRounding="True"
-        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1">
+        FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <osm:WebSessionProvider x:Key="session">
             <core:WebPreferences

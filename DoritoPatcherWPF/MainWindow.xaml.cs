@@ -272,13 +272,10 @@ namespace DoritoPatcherWPF
             {
                 SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255, 0, 0));
                 btnAction.Content = "PLAY";
-
-                var MainWindow =
-                    new MsgBox2(
-                        "Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
                 isPlayEnabled = true;
                 btnAction.IsEnabled = true;
 
+                var MainWindow = new MsgBoxOk("Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
                 MainWindow.Show();
                 MainWindow.Focus();
                 return;
@@ -316,9 +313,75 @@ namespace DoritoPatcherWPF
 
             if (!ProcessUpdateData())
             {
-                SetStatus("Failed to retrieve update information.", Color.FromRgb(255, 0, 0));
-                SetStatusLabels("Error", true);
-                return;
+                bool confirm = false;
+
+                SetStatus("Failed to retrieve update information from set update server.", Color.FromRgb(255, 0, 0));
+
+                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json")
+                {
+                    SetStatus("Set update server is not default server...", Color.FromRgb(255, 255, 255));
+                    SetStatus("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
+
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        var confirmWindow = new MsgBoxConfirm("Failed to retrieve update information. Do you want to try updating from the default server?");
+
+                        if (confirmWindow.ShowDialog() == false)
+                        {
+                            if (confirmWindow.confirm)
+                            {
+                                settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
+                                if (!ProcessUpdateData())
+                                {
+                                    SetStatus("Failed to connect to the default update server.", Color.FromRgb(255, 0, 0));
+                                    btnAction.Content = "PLAY";
+                                    isPlayEnabled = true;
+                                    btnAction.IsEnabled = true;
+
+                                    var MainWindow = new MsgBoxOk("Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
+                                    MainWindow.Show();
+                                    MainWindow.Focus();
+                                    return;
+                                }
+                                else
+                                {
+                                    confirm = true;
+                                }
+                            }
+                            else
+                            {
+                                SetStatus("Update server connection manually canceled.", Color.FromRgb(255, 0, 0));
+                                btnAction.Content = "PLAY";
+                                isPlayEnabled = true;
+                                btnAction.IsEnabled = true;
+
+                                var MainWindow = new MsgBoxOk("Update server connection manually canceled, you can still play the game if your files aren't invalid.");
+                                MainWindow.Show();
+                                MainWindow.Focus();
+                                return;
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        SetStatus("Failed to retrieve update information from the default update server.", Color.FromRgb(255, 0, 0));
+                        btnAction.Content = "PLAY";
+                        isPlayEnabled = true;
+                        btnAction.IsEnabled = true;
+
+                        var MainWindow = new MsgBoxOk("Could not connect to the default update server, you can still play the game if your files aren't invalid.");
+                        MainWindow.Show();
+                        MainWindow.Focus();
+                    });
+                }
+
+                if (!confirm)
+                {
+                    return;
+                }
             }
 
             if (filesToDownload.Count <= 0)
@@ -367,7 +430,7 @@ namespace DoritoPatcherWPF
             if (silentStart)
             {
                 //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
-                var MainWindow = new MsgBox2("Sorry, you need to update before the game can be started silently.");
+                var MainWindow = new MsgBoxOk("Sorry, you need to update before the game can be started silently.");
 
                 MainWindow.Show();
                 MainWindow.Focus();
@@ -635,7 +698,6 @@ namespace DoritoPatcherWPF
 
                 if (error)
                 {
-                    //What to do with stuff if error is true (make text red or whatever)
                     btnAction.Foreground = Brushes.Gray;
                 }
             }
@@ -698,7 +760,7 @@ namespace DoritoPatcherWPF
                 catch
                 {
                     //MessageBox.Show("Game executable not found.");
-                    var MainWindow = new MsgBox2("Game executable not found.");
+                    var MainWindow = new MsgBoxOk("Game executable not found.");
 
                     MainWindow.Show();
                     MainWindow.Focus();
