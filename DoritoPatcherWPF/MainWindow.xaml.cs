@@ -262,20 +262,21 @@ namespace DoritoPatcherWPF
 
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
-                    SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255, 0, 0));
-                    SetStatusLabels("Error", true);
+                    SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
+                    SetStatusLabels("ERROR", true);
 
+                    var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
+                    MainWindow.Show();
+                    MainWindow.Focus();
                     return;
                 }
             }
             catch
             {
-                SetStatus("Failed to read Dewrito updater configuration.", Color.FromRgb(255, 0, 0));
-                btnAction.Content = "PLAY";
-                isPlayEnabled = true;
-                btnAction.IsEnabled = true;
+                SetStatus("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
+                SetStatusLabels("ERROR", true);
 
-                var MainWindow = new MsgBoxOk("Could not connect to update servers. You can still play, but game files can not be updated or verified against the latest versions.");
+                var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                 MainWindow.Show();
                 MainWindow.Focus();
                 return;
@@ -315,7 +316,7 @@ namespace DoritoPatcherWPF
             {
                 bool confirm = false;
 
-                SetStatus("Failed to retrieve update information from set update server.", Color.FromRgb(255, 0, 0));
+                SetStatus("Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"].ToString(), Color.FromRgb(255, 0, 0));
 
                 if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json")
                 {
@@ -634,6 +635,8 @@ namespace DoritoPatcherWPF
             builder.AppendLine("}");
             var json = builder.ToString();
             json = json;
+
+            SetStatus(json, Color.FromRgb(255, 255, 0));
         }
 
         private void HashFilesInFolder(string basePath, string dirPath = "")
