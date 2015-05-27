@@ -659,6 +659,7 @@
                                     </Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Margin" Value="0,23,33,23" />
+                                        <!--
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
@@ -682,6 +683,7 @@
                                                 </DataTrigger.ExitActions>
                                             </DataTrigger>
                                         </Style.Triggers>
+                                        -->
                                     </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
@@ -802,6 +804,7 @@
                                     </Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Margin" Value="0,18,28,18" />
+                                        <!--
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
@@ -825,6 +828,7 @@
                                                 </DataTrigger.ExitActions>
                                             </DataTrigger>
                                         </Style.Triggers>
+                                        -->
                                     </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
@@ -945,6 +949,7 @@
                                     </Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Margin" Value="0,23,33,23" />
+                                        <!--
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
@@ -968,6 +973,7 @@
                                                 </DataTrigger.ExitActions>
                                             </DataTrigger>
                                         </Style.Triggers>
+                                        -->
                                     </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
@@ -1088,6 +1094,7 @@
                                     </Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Margin" Value="0,23,33,23" />
+                                        <!--
                                         <Style.Triggers>
                                             <DataTrigger
                                                 Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
@@ -1111,6 +1118,7 @@
                                                 </DataTrigger.ExitActions>
                                             </DataTrigger>
                                         </Style.Triggers>
+                                        -->
                                     </Style>
                                 </Button.Resources>
                                 <Grid Width="570" Height="125">
