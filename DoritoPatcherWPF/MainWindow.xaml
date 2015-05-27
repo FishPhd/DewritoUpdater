@@ -277,7 +277,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Grid Height="120" VerticalAlignment="Bottom">
+            <Grid Height="125" VerticalAlignment="Bottom">
                 <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0,0,0,0" Height="54"
                         VerticalAlignment="Top">
                     <Border.Style>
@@ -475,9 +475,9 @@
                                Opacity="0.9" />
                     </Button>
                 </StackPanel>
-                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Top"
+                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Center"
                         Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370"
-                        HorizontalAlignment="Left" Margin="0,60,0,0" Cursor="Hand" ToolTip="View the changelist">
+                        HorizontalAlignment="Left" Margin="0,45,0,0" Cursor="Hand" ToolTip="View the changelist">
                     <Button.Resources>
                         <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                             <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
@@ -524,7 +524,7 @@
                 </Button>
                 <!-- Do not remove this, Fish, I'm looking at you -->
                 <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Foreground="White" FontSize="10" TextOptions.TextFormattingMode="Display"
-                           VerticalAlignment="Bottom" Height="20" Opacity="0.25"
+                           VerticalAlignment="Bottom" Opacity="0.25"
                            FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics" 
                            Text="IN NO WAY AFFILIATED WITH INNOVA CO., 343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS" HorizontalAlignment="Left"/>
             </Grid>
@@ -1235,7 +1235,7 @@
                             </Border>
                         </StackPanel>
                     </Border>
-<!--
+                    <!--
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0"
                                     WebSession="{Binding Source={StaticResource session}}" Foreground="{x:Null}"
                                     IsTransparent="True">
