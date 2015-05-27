@@ -517,7 +517,7 @@
                         <TextBlock TextWrapping="Wrap" Margin="10,-8,580,-7" Grid.ColumnSpan="2" FontSize="21"
                                    TextOptions.TextFormattingMode="Display" VerticalAlignment="Center" Width="350">
                             <Run Text="CURRENT VERSION " BaselineAlignment="Center" />
-                            <Run x:Name="lblVersion" Text="0.4.5-cf04b81b " FontFamily="/Resources/#Aero Matics"
+                            <Run x:Name="lblVersion" Text="? " FontFamily="/Resources/#Aero Matics"
                                  BaselineAlignment="Center" />
                         </TextBlock>
                     </StackPanel>
