@@ -230,18 +230,6 @@
     <Resource Include="Resources\stats.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.5.1, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Core.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.5.1, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Awesomium Technologies LLC\Awesomium SDK\1.7.5.1\wrappers\Awesomium.NET\Assemblies\Awesomium.Windows.Controls.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>False</Private>
@@ -305,9 +293,7 @@
     <Resource Include="launcher.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib\awesomium.dll" />
     <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
-    <EmbeddedResource Include="lib\icudt.dll" />
     <EmbeddedResource Include="lib\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="lib\SpicyTaco.AutoGrid.dll" />
     <EmbeddedResource Include="lib\Xceed.Wpf.Toolkit.dll" />

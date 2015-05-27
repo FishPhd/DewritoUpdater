@@ -816,73 +816,82 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }
 
+       
         private void browserServer_Click(object sender, RoutedEventArgs e)
         {
-            embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-        }
+           /*
+           embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+           */
+       }
 
-        private void browserStat_Click(object sender, RoutedEventArgs e)
-        {
-            embeddedBrowser.Source = new Uri("https://stats.halo.click/");
-        }
+       private void browserStat_Click(object sender, RoutedEventArgs e)
+       {
+           /*
+           embeddedBrowser.Source = new Uri("https://stats.halo.click/");
+           */
+      }
 
-        private void browserFile_Click(object sender, RoutedEventArgs e)
-        {
-            embeddedBrowser.Source = new Uri("https://haloshare.net/");
-        }
+      private void browserFile_Click(object sender, RoutedEventArgs e)
+      {
+          /*
+          embeddedBrowser.Source = new Uri("https://haloshare.net/");
+          */
+     }
 
-        private void browserHome_Click(object sender, RoutedEventArgs e)
-        {
-            switchPanel("main", false);
-        }
+     private void browserHome_Click(object sender, RoutedEventArgs e)
+     {
+         /*
+         switchPanel("main", false);
+         */
+    }
 
-        private void btnServer_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-                Process.Start(sInfo);
-            }
-             * */
-        }
+    private void btnServer_Click(object sender, RoutedEventArgs e)
+    {
+        /*
+       if (embedded)
+       {
+           embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+           switchPanel("browser", false);
+       }
+       else
+       {
+           var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+           Process.Start(sInfo);
+       }
+         */
+   }
 
-        private void btnStats_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("https://stats.halo.click");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://stats.halo.click/");
-                Process.Start(sInfo);
-            }
-             * */
-        }
+   private void btnStats_Click(object sender, RoutedEventArgs e)
+   {
+       /*
+       if (embedded)
+       {
+           embeddedBrowser.Source = new Uri("https://stats.halo.click");
+           switchPanel("browser", false);
+       }
+       else
+       {
+           var sInfo = new ProcessStartInfo("https://stats.halo.click/");
+           Process.Start(sInfo);
+       }
+        */
+   }
 
-        private void btnFile_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://haloshare.net/");
-                Process.Start(sInfo);
-            }
-             * */
-        }
+   private void btnFile_Click(object sender, RoutedEventArgs e)
+   {
+       /*
+       if (embedded)
+       {
+           embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
+           switchPanel("browser", false);
+       }
+       else
+       {
+           var sInfo = new ProcessStartInfo("https://haloshare.net/");
+           Process.Start(sInfo);
+       }
+       */
+    }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
