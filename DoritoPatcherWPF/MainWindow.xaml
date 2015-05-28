@@ -328,7 +328,7 @@
                         <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False"
                                 Click="btnAction_Click" Template="{DynamicResource BackgroundButton}"
                                 BorderBrush="White" FontSize="30" Width="215" FontFamily="/Resources/#Aero Matics"
-                                Cursor="Hand">
+                                Cursor="Hand" Margin="-4,0,0,0">
                             <Button.Background>
                                 <SolidColorBrush Color="#00FF0000" />
                             </Button.Background>
@@ -565,6 +565,34 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
+            <Image HorizontalAlignment="Center" Width="26" Margin="0,371,344,133" />
+            <Button Name="btnUpdate" Click="btnNo_Update" BorderBrush="{x:Null}"
+                            VerticalAlignment="Bottom" Background="#00000000"
+                            Template="{DynamicResource BackgroundButton}" Margin="0,371,330,115" Height="54" Width="51.6"
+                            UseLayoutRounding="False" IsHitTestVisible="True" Cursor="Hand"
+                            ToolTip="Launch the game without updating">
+                <Button.Resources>
+                    <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
+                        <Border Name="border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="Resources/BTN_Debug.png" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                        Value="True">
+                                <Setter Property="Source" Value="Resources/BTN_Debug_Blue.png" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+                <Image Height="26" HorizontalAlignment="Center" Width="26" />
+            </Button>
         </Grid>
 
 
