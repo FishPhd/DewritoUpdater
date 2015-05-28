@@ -947,6 +947,13 @@ namespace DoritoPatcherWPF
             chkRaw.IsChecked = true;
             sldTimer.Value = 5;
             //sldMax.Value = 16;
+            chkWin.IsChecked = false;
+            chkFull.IsChecked = true;
+            chkVSync.IsChecked = false;
+            chkDX9Ex.IsChecked = true;
+            chkFPS.IsChecked = false;
+            setWidth.Text = SystemParameters.PrimaryScreenWidth.ToString();
+            setHeight.Text = SystemParameters.PrimaryScreenHeight.ToString();
         }
 
         private void SaveSettings()

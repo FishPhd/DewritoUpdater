@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using System.Windows;
 
 namespace DoritoPatcherWPF
 {
@@ -146,8 +147,8 @@ namespace DoritoPatcherWPF
             NoVSync = false;
             DX9Ex = true;
             FPSCounter = false;
-            Width = 1920;
-            Height = 1080;
+            Width = (int)SystemParameters.PrimaryScreenWidth;
+            Height = (int)SystemParameters.PrimaryScreenHeight;
         }
 
         public bool WindowedMode { get; set; }

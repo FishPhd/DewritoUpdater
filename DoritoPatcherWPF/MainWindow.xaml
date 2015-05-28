@@ -1674,15 +1674,15 @@
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Resolution:</TextBlock>
                                 <DockPanel>
                                     <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,2,5">W:</TextBlock>
-                                    <TextBox Name="setWidth" Text="{Binding LaunchParams.Width}" Width="60"
-                                     TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5">
+                                    <TextBox    Name="setWidth" Text="{Binding LaunchParams.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="60"
+                                                TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
                                         </TextBox.Background>
                                     </TextBox>
                                     <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="7,5,2,5">H:</TextBlock>
-                                    <TextBox Name="setHeight" Text="{Binding LaunchParams.Height}" Width="60"
-                                     TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                    <TextBox    Name="setHeight" Text="{Binding LaunchParams.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="60"
+                                                TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
                                         </TextBox.Background>
