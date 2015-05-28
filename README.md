@@ -20,7 +20,7 @@ Halo Online Launcher with auto updating features
 * Added animations for verifying files and Errors
 * Application is now borderless (no windows titlebar)
 * Custom messageboxes, progress bar, and minimize/close items added
-* Launcher will give option to restart application automatcally after update
+* Launcher will give option to restart application automatically after update
 * Added new scrollbar for changelog
 * Tons of new settings
 * Player Customization tab for pimping your spartan
