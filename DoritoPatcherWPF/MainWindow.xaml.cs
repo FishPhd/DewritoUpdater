@@ -180,6 +180,10 @@ namespace DoritoPatcherWPF
                     {
                         isPlayEnabled = true;
                     }
+                    else
+                    {
+                        isPlayEnabled = false;
+                    }
                 }
             }
             if (isPlayEnabled && isUpdating == true)
@@ -872,6 +876,7 @@ namespace DoritoPatcherWPF
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
+                isUpdating = false;
             }
         }
 
