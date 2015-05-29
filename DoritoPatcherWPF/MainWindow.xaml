@@ -1758,7 +1758,7 @@
                             </StackPanel>
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
-                                Launch Parameters
+                                Launch Options
                             </TextBlock>
                             <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.WindowedMode}"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
@@ -1784,6 +1784,11 @@
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Show FPS Counter
+                            </CheckBox>
+                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" IsChecked="{Binding Video.IntroVideo}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Disable Intro Videos
                             </CheckBox>
                         </StackPanel>
                     </st:AutoGrid>

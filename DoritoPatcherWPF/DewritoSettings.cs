@@ -114,6 +114,7 @@ namespace DoritoPatcherWPF
 
         public float Fov { get; set; }
         public bool CrosshairCentered { get; set; }
+        public bool IntroVideo { get; set; }
     }
 
     public class DewritoHostSettings

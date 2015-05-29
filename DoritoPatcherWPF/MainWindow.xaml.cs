@@ -728,6 +728,7 @@ namespace DoritoPatcherWPF
             {
                 var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
+
                 if (settingsViewModel.LaunchParams.WindowedMode)
                 {
                     sInfo.Arguments += " -window";
@@ -756,6 +757,11 @@ namespace DoritoPatcherWPF
                 sInfo.Arguments += " -width " + settingsViewModel.LaunchParams.Width;
                 sInfo.Arguments += " -height " + settingsViewModel.LaunchParams.Height;
 
+                if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
+                {
+                    SetStatus("Your bink directory could not be found. Did you change the name manually or delete it?", Color.FromRgb(255, 255, 0));
+                }
+
                 try
                 {
                     Process.Start(sInfo);
@@ -769,7 +775,7 @@ namespace DoritoPatcherWPF
                     MainWindow.Focus();
                 }
             }
-            else if (btnAction.Content == "UPDATE")
+            else if (btnAction.Content.ToString() == "UPDATE")
             {
                 foreach (var file in filesToDownload)
                 {
@@ -942,6 +948,8 @@ namespace DoritoPatcherWPF
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            setWidth.Text = SystemParameters.PrimaryScreenWidth.ToString();
+            setHeight.Text = SystemParameters.PrimaryScreenHeight.ToString();
             sldFov.Value = 90;
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
@@ -952,13 +960,22 @@ namespace DoritoPatcherWPF
             chkVSync.IsChecked = false;
             chkDX9Ex.IsChecked = true;
             chkFPS.IsChecked = false;
-            setWidth.Text = SystemParameters.PrimaryScreenWidth.ToString();
-            setHeight.Text = SystemParameters.PrimaryScreenHeight.ToString();
+            chkIntro.IsChecked = false;
         }
 
         private void SaveSettings()
         {
             settingsViewModel.Save(settings);
+
+            if (settingsViewModel.Video.IntroVideo && Directory.Exists("bink"))
+            {
+                Directory.Move("bink", "bink_disabled");
+            }
+            else if (!settingsViewModel.Video.IntroVideo && Directory.Exists("bink_disabled"))
+            {
+                Directory.Move("bink_disabled", "bink");
+            }
+
             try
             {
                 using (var writer = new StreamWriter(File.Open(SettingsFileName, FileMode.Create, FileAccess.Write)))
