@@ -1745,7 +1745,7 @@
                             <!-- 
                                     Max Players Slider - Collapsed until the game supports it.
                             -->
-                            <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal" Visibility="Visible">
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Max Players:</TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <Slider Name="sldMax" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light" Width="90"/>
