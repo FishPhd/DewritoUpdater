@@ -42,6 +42,7 @@ namespace DoritoPatcherWPF
         private Dictionary<string, string> fileHashes;
         private List<string> filesToDownload;
         private bool isPlayEnabled;
+        private bool isUpdating;
         private JToken latestUpdate;
         private string latestUpdateVersion;
         private DewritoSettings settings;
@@ -168,6 +169,73 @@ namespace DoritoPatcherWPF
             switchPanel("settings", false);
         }
 
+        private void btnNo_Update(object sender, EventArgs e)
+        {
+            if (isUpdating == true)
+            {
+                var StartGameNoUpdate = new MsgBoxConfirm("Are you sure you would like to bypass the update process? There could be unforeseeable consequences.");
+                if (StartGameNoUpdate.ShowDialog() == false)
+                {
+                    if (StartGameNoUpdate.confirm)
+                    {
+                        isPlayEnabled = true;
+                    }
+                    else
+                    {
+                        isPlayEnabled = false;
+                    }
+                }
+            }
+            if (isPlayEnabled && isUpdating == true)
+            {
+                var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
+                sInfo.Arguments = "-launcher";
+                if (settingsViewModel.LaunchParams.WindowedMode)
+                {
+                    sInfo.Arguments += " -window";
+                }
+                if (settingsViewModel.LaunchParams.Fullscreen)
+                {
+                    sInfo.Arguments += " -fullscreen";
+                }
+                if (settingsViewModel.LaunchParams.NoVSync)
+                {
+                    sInfo.Arguments += " -no_vsync";
+                }
+                if (settingsViewModel.LaunchParams.DX9Ex)
+                {
+                    sInfo.Arguments += " -3d9ex";
+                }
+                else
+                {
+                    sInfo.Arguments += " -nod3d9ex";
+                }
+                if (settingsViewModel.LaunchParams.FPSCounter)
+                {
+                    sInfo.Arguments += " -show_fps";
+                }
+
+                sInfo.Arguments += " -width " + settingsViewModel.LaunchParams.Width;
+                sInfo.Arguments += " -height " + settingsViewModel.LaunchParams.Height;
+
+                try
+                {
+                    Process.Start(sInfo);
+                }
+                catch
+                {
+                    //MessageBox.Show("Game executable not found.");
+                    var MainWindow = new MsgBoxOk("Game executable not found.");
+                    MainWindow.Show();
+                    MainWindow.Focus();
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
         private void btnApply2_Click(object sender, EventArgs e)
         {
             switchPanel("main", false);
@@ -255,7 +323,7 @@ namespace DoritoPatcherWPF
 
             LoadSettings();
             SaveSettings();
-
+            isUpdating = true;
             try
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
@@ -264,6 +332,7 @@ namespace DoritoPatcherWPF
                 {
                     SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
                     SetStatusLabels("ERROR", true);
+                    
 
                     var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                     MainWindow.Show();
@@ -275,7 +344,7 @@ namespace DoritoPatcherWPF
             {
                 SetStatus("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
                 SetStatusLabels("ERROR", true);
-
+                
                 var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                 MainWindow.Show();
                 MainWindow.Focus();
@@ -311,7 +380,7 @@ namespace DoritoPatcherWPF
             }
 
             SetStatus("Game files validated, contacting update server...", Color.FromRgb(255, 255, 255));
-
+            
             if (!ProcessUpdateData())
             {
                 bool confirm = false;
@@ -388,7 +457,7 @@ namespace DoritoPatcherWPF
             if (filesToDownload.Count <= 0)
             {
                 SetStatus("You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
-
+                isUpdating = false;
 
                 btnAction.Dispatcher.Invoke(
                     new Action(
@@ -411,7 +480,7 @@ namespace DoritoPatcherWPF
             }
 
             SetStatus("An update is available. (" + latestUpdateVersion + ")", Color.FromRgb(255, 255, 0));
-
+            isUpdating = true;
             btnAction.Dispatcher.Invoke(
                 new Action(
                     () =>
@@ -813,6 +882,7 @@ namespace DoritoPatcherWPF
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 SetStatus("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
+                isUpdating = false;
             }
         }
 
