@@ -9,6 +9,7 @@ namespace DoritoPatcherWPF
     {
         private HostSettingsViewModel _host;
         private InputSettingsViewModel _input;
+        //private DownloadSettingsViewModel _beta;
         private PlayerSettingsViewModel _player;
         private VideoSettingsViewModel _video;
         private LaunchParamsSettingsViewModel _launchparams;
@@ -41,7 +42,13 @@ namespace DoritoPatcherWPF
             get { return _input; }
             set { SetField(ref _input, value, () => Input); }
         }
-
+        /*
+        public DownloadSettingsViewModel Beta
+        {
+            get { return _beta; }
+            set { SetField(ref _beta, value, () => Beta); }
+        }
+        */
         public LaunchParamsSettingsViewModel LaunchParams
         {
             get { return _launchparams; }
@@ -54,6 +61,7 @@ namespace DoritoPatcherWPF
             _video = new VideoSettingsViewModel(settings.Video ?? new DewritoVideoSettings());
             _host = new HostSettingsViewModel(settings.Host ?? new DewritoHostSettings());
             _input = new InputSettingsViewModel(settings.Input ?? new DewritoInputSettings());
+            //_beta = new DownloadSettingsViewModel(settings.Beta ?? new DewritoDownloadSettings());
             _launchparams = new LaunchParamsSettingsViewModel(settings.LaunchParams ?? new DewritoLaunchParamsSettings());
         }
 
@@ -67,12 +75,15 @@ namespace DoritoPatcherWPF
                 settings.Host = new DewritoHostSettings();
             if (settings.Input == null)
                 settings.Input = new DewritoInputSettings();
+            //if (settings.Beta == null)
+                //settings.Beta = new DewritoDownloadSettings();
             if (settings.LaunchParams == null)
                 settings.LaunchParams = new DewritoLaunchParamsSettings();
             _player.Save(settings.Player);
             _video.Save(settings.Video);
             _host.Save(settings.Host);
             _input.Save(settings.Input);
+            //_beta.Save(settings.Beta);
             _launchparams.Save(settings.LaunchParams);
         }
     }
@@ -523,6 +534,34 @@ namespace DoritoPatcherWPF
             settings.RawMouse = _rawMouse;
         }
     }
+
+    /*
+    public class DownloadSettingsViewModel : ViewModel
+    {
+        private bool _beta;
+
+        public DownloadSettingsViewModel(DewritoDownloadSettings settings)
+        {
+            Load(settings);
+        }
+
+        public bool Beta
+        {
+            get { return _beta; }
+            set { SetField(ref _beta, value, () => Beta); }
+        }
+
+        private void Load(DewritoDownloadSettings settings)
+        {
+            _beta = settings.Beta;
+        }
+
+        public void Save(DewritoDownloadSettings settings)
+        {
+            settings.Beta = _beta;
+        }
+    }
+     */
 
     public class LaunchParamsSettingsViewModel : ViewModel
     {

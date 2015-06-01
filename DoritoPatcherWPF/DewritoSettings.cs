@@ -11,6 +11,7 @@ namespace DoritoPatcherWPF
             Video = new DewritoVideoSettings();
             Host = new DewritoHostSettings();
             Input = new DewritoInputSettings();
+            //Beta = new DewritoDownloadSettings();
             LaunchParams = new DewritoLaunchParamsSettings();
         }
 
@@ -18,6 +19,7 @@ namespace DoritoPatcherWPF
         public DewritoVideoSettings Video { get; set; }
         public DewritoHostSettings Host { get; set; }
         public DewritoInputSettings Input { get; set; }
+        //public DewritoDownloadSettings Beta { get; set; }
         public DewritoLaunchParamsSettings LaunchParams { get; set; }
     }
 
@@ -138,6 +140,18 @@ namespace DoritoPatcherWPF
 
         public bool RawMouse { get; set; }
     }
+
+    /*
+    public class DewritoDownloadSettings
+    {
+        public DewritoDownloadSettings()
+        {
+            Beta = false;
+        }
+
+        public bool Beta { get; set; }
+    }
+    */
 
     public class DewritoLaunchParamsSettings
     {

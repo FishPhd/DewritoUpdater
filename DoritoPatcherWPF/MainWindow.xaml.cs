@@ -259,7 +259,12 @@ namespace DoritoPatcherWPF
             try
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
-
+                /*
+                if (chkBeta.IsChecked == true)
+                {
+                    settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update_publicbeta.json";
+                }
+                */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
@@ -332,6 +337,7 @@ namespace DoritoPatcherWPF
                             if (confirmWindow.confirm)
                             {
                                 settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
+                                
                                 if (!ProcessUpdateData())
                                 {
                                     SetStatus("Failed to connect to the default update server.", Color.FromRgb(255, 0, 0));
@@ -867,6 +873,36 @@ namespace DoritoPatcherWPF
          */
    }
 
+   private void btnRandom_Click(object sender, RoutedEventArgs e)
+   {
+       Random r = new Random();
+       int helmet = r.Next(0, 25);
+       int chest = r.Next(0, 25);
+       int shoulders = r.Next(0, 25);
+       int arms = r.Next(0, 25);
+       int legs = r.Next(0, 25);
+
+       var randomColor = new Random();
+       var primary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+       var secondary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+       var visor = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+       var lights = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+       var holo = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+
+       cmbHelmet.SelectedIndex = helmet;
+       cmbChest.SelectedIndex = chest;
+       cmbShoulders.SelectedIndex = shoulders;
+       cmbArms.SelectedIndex = arms;
+       cmbLegs.SelectedIndex = legs;
+
+       clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
+       clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
+       clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
+       clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
+       clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
+
+   }
+
    private void btnStats_Click(object sender, RoutedEventArgs e)
    {
        /*
@@ -939,6 +975,7 @@ namespace DoritoPatcherWPF
             settingsViewModel.Video.PropertyChanged += SettingsChanged;
             settingsViewModel.Host.PropertyChanged += SettingsChanged;
             settingsViewModel.Input.PropertyChanged += SettingsChanged;
+            //settingsViewModel.Beta.PropertyChanged += SettingsChanged;
             settingsViewModel.LaunchParams.PropertyChanged += SettingsChanged;
 
             // Set the data context for the settings tabs
@@ -953,6 +990,7 @@ namespace DoritoPatcherWPF
             sldFov.Value = 90;
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
+            //chkBeta.IsChecked = false;
             sldTimer.Value = 5;
             //sldMax.Value = 16;
             chkWin.IsChecked = false;

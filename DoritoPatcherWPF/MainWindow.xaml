@@ -570,7 +570,7 @@
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1">
+            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
                 <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                     <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                         <Grid.Style>
@@ -1301,7 +1301,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1"
-                    Margin="10,20,20,20" Visibility="Hidden">
+                    Margin="10,20,20,20" Visibility="Visible">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1462,7 +1462,7 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
-                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrSecondary" SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1471,7 +1471,7 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
-                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Visor}" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrVisor" SelectedColor="{Binding Player.Colors.Visor}" FontSize="16"
                                               FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1480,7 +1480,7 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
-                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Lights}" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrLights" SelectedColor="{Binding Player.Colors.Lights}" FontSize="16"
                                               FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1489,7 +1489,7 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
-                                <xctk:ColorPicker SelectedColor="{Binding Player.Colors.Holo}" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrHolo" SelectedColor="{Binding Player.Colors.Holo}" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1498,7 +1498,15 @@
                             </Grid>
                         </StackPanel>
                     </st:AutoGrid>
+                    <Border BorderBrush="White" BorderThickness="1" Width="90" Height="30" Margin="364,478,114,20">
+                        <Border.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07" />
+                        </Border.Background>
+                        <Button Click="btnRandom_Click" Content="RANDOM"
+                                    Style="{StaticResource Hover}" />
+                    </Border>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
+                        
                         <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30"
                                 HorizontalAlignment="Right">
                             <Border.Background>
@@ -1721,6 +1729,17 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
                             </CheckBox>
+                            <!--
+                            <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
+                                       FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
+                                Download Settings
+                            </TextBlock>
+                            <CheckBox Name="chkBeta" Grid.ColumnSpan="2" IsChecked="{Binding Beta.Beta}"
+                                      Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                      FontFamily="/Resources/#Aero Matics Light">
+                                Download Beta Files
+                            </CheckBox>
+                            -->
                         </StackPanel>
                         <StackPanel Margin="10,20,20,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
