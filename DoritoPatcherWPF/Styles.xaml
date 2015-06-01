@@ -685,7 +685,6 @@
 
                                     <TextBlock Background="White" Foreground="White" Margin="0,0,0,1" Padding="2"
                                                Text="{TemplateBinding AvailableColorsHeader}" UseLayoutRounding="True" />
-                                    <!--
                                     <ListBox x:Name="PART_AvailableColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White" BorderBrush="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -778,7 +777,7 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox>-->
+                                    </ListBox>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="2" UseLayoutRounding="True">
@@ -793,7 +792,6 @@
 
                                     <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2"
                                                Text="{TemplateBinding StandardColorsHeader}" UseLayoutRounding="True" />
-                                    <!--
                                     <ListBox x:Name="PART_StandardColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -886,7 +884,7 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox> -->
+                                    </ListBox>
                                 </Grid>
                             </Grid>
                             <Grid Margin="0,1" Grid.Row="3" UseLayoutRounding="True">
@@ -901,7 +899,6 @@
 
                                     <TextBlock Background="White" Foreground="White" Margin="0,1" Padding="2"
                                                Text="{TemplateBinding RecentColorsHeader}" UseLayoutRounding="True" />
-                                    <!--
                                     <ListBox x:Name="PART_RecentColors" Grid.Row="1" UseLayoutRounding="True" Foreground="White">
                                         <ListBox.Style>
                                             <Style TargetType="{x:Type ListBox}">
@@ -994,7 +991,7 @@
                                                 <Setter Property="SelectionMode" Value="Single"/>
                                             </Style>
                                         </ListBox.Style>
-                                    </ListBox> -->
+                                    </ListBox>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1032,8 +1029,8 @@
                 <Setter Property="Visibility" TargetName="ColorAndName" Value="Visible" />
             </Trigger>
             <Trigger Property="ColorMode" Value="ColorPalette">
-                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Hidden" />
-                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Collapsed" />
+                <Setter Property="Visibility" TargetName="_colorPaletteHost" Value="Visible" />
+                <Setter Property="Visibility" TargetName="_colorCanvasHost" Value="Hidden" />
                 <Setter Property="Content" TargetName="PART_ColorModeButton" Value="Advanced" />
             </Trigger>
             <Trigger Property="ColorMode" Value="ColorCanvas">

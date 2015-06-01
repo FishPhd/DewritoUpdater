@@ -6,6 +6,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:st="http://schemas.spicytaco.io/"
         xmlns:utils="clr-namespace:DoritoPatcherWPF.Utils"
+        xmlns:osm="http://schemas.awesomium.com/winfx"
+        xmlns:core="http://schemas.awesomium.com/core"
         mc:Ignorable="d"
         Title="ElDewrito Launcher" Height="602" Width="1002" ResizeMode="CanMinimize" Icon="LOGO_icon.ico"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" UseLayoutRounding="True"
@@ -13,7 +15,6 @@
         FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1"
         Loaded="Window_Loaded">
     <Window.Resources>
-        <!--
         <osm:WebSessionProvider x:Key="session">
             <core:WebPreferences
                 SmoothScrolling="True"
@@ -186,7 +187,6 @@
                     background: rgba(255, 255, 255, 0.77) !important;
                 }" />
         </osm:WebSessionProvider>
-        -->
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction"
                              Storyboard.TargetProperty="Opacity" From="0.20" To="1"
@@ -1235,7 +1235,6 @@
                             </Border>
                         </StackPanel>
                     </Border>
-                    <!--
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0"
                                     WebSession="{Binding Source={StaticResource session}}" Foreground="{x:Null}"
                                     IsTransparent="True">
@@ -1243,7 +1242,6 @@
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </osm:WebControl.Background>
                     </osm:WebControl>
-    -->
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45"
                           Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2" />
                 </Grid>
@@ -1365,7 +1363,7 @@
                             <Setter Property="Background" Value="Black" />
                             <Setter Property="VerticalAlignment" Value="Center" />
                             <Setter Property="Margin" Value="5" />
-                            <Setter Property="ColorMode" Value="ColorCanvas" />
+                            <Setter Property="ColorMode" Value="ColorCanvas"/>
                             <Setter Property="UsingAlphaChannel" Value="False" />
                             <Setter Property="ShowDropDownButton" Value="False" />
                             <Setter Property="DisplayColorAndName" Value="True" />
