@@ -269,6 +269,7 @@ namespace DoritoPatcherWPF
                 {
                     SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
                     SetStatusLabels("ERROR", true);
+                    lblVersion.Text = "Error";
 
                     var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                     MainWindow.Show();
@@ -280,6 +281,7 @@ namespace DoritoPatcherWPF
             {
                 SetStatus("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
                 SetStatusLabels("ERROR", true);
+                lblVersion.Text = "Error";
 
                 var MainWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                 MainWindow.Show();
@@ -602,6 +604,8 @@ namespace DoritoPatcherWPF
                         Color.FromRgb(255, 0, 0), false);
                     SetStatusLabels("Error", true);
 
+                    lblVersion.Text = "Error";
+
                     var fade = (Storyboard) TryFindResource("fade");
                     fade.Stop(); // Stop animation
                     SetStatusLabels("Error", true);
@@ -708,6 +712,7 @@ namespace DoritoPatcherWPF
                 if (error)
                 {
                     btnAction.Foreground = Brushes.Gray;
+                    lblVersion.Text = "Error";
                 }
             }
             else
@@ -798,6 +803,7 @@ namespace DoritoPatcherWPF
                     {
                         SetStatus("Download for file \"" + file + "\" failed.", Color.FromRgb(255, 0, 0));
                         SetStatus("Error: " + dialog.Error.Message, Color.FromRgb(255, 0, 0), false);
+                        lblVersion.Text = "Error";
                         if (dialog.Error.InnerException != null)
                             SetStatus("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0), false);
                         return;
