@@ -6,9 +6,9 @@ namespace DoritoPatcherWPF
     /// <summary>
     ///     Interaction logic for MsgBox.xaml
     /// </summary>
-    public partial class MsgBox : Window
+    public partial class MsgBoxRestart : Window
     {
-        public MsgBox(string text)
+        public MsgBoxRestart(string text)
         {
             InitializeComponent();
             Msg.Text = text;
