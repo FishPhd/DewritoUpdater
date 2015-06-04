@@ -421,7 +421,7 @@
                         </Button.Resources>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" />
                     </Button>
-                    <Button Name="btnInfo" Click="btnInfo_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
+                    <!--<Button Name="btnInfo" Click="btnInfo_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand" ToolTip="Information about stuff."
                             Visibility="Collapsed">
@@ -446,7 +446,7 @@
                             </Style>
                         </Button.Resources>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
-                    </Button>
+                    </Button>-->
                     <Button Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand"
@@ -1277,7 +1277,7 @@
                         <Grid.Background>
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </Grid.Background>
-                        <RichTextBox x:Name="UpdateContent" HorizontalAlignment="Left" Background="Transparent"
+                        <RichTextBox x:Name="DebugLogger" HorizontalAlignment="Left" Background="Transparent"
                                      Foreground="White" BorderThickness="0" IsReadOnly="True"
                                      VerticalScrollBarVisibility="Auto" Padding="20,20,20,0">
                             <FlowDocument />
