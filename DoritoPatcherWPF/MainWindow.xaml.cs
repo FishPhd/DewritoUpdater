@@ -288,15 +288,9 @@ namespace DoritoPatcherWPF
                 */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
-<<<<<<< HEAD
-                    SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
-                        Color.FromRgb(255, 0, 0));
-                    SetStatusLabels("ERROR", true);
                     lblVersion.Text = "Error";
-=======
                     AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
                     SetButtonText("ERROR", true);
->>>>>>> origin/master
 
                     var AlertWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
                     AlertWindow.Show();
@@ -349,13 +343,7 @@ namespace DoritoPatcherWPF
             {
                 var confirm = false;
 
-<<<<<<< HEAD
-                SetStatus(
-                    "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
-                    Color.FromRgb(255, 0, 0));
-=======
                 AppendDebugLine("Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"].ToString(), Color.FromRgb(255, 0, 0));
->>>>>>> origin/master
 
                 if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json")
                 {
@@ -364,13 +352,10 @@ namespace DoritoPatcherWPF
 
                     Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-<<<<<<< HEAD
                         var confirmWindow =
                             new MsgBoxConfirm(
                                 "Failed to retrieve update information. Do you want to try updating from the default server?");
-=======
                         var ConfirmWindow = new MsgBoxConfirm("Failed to retrieve update information. Do you want to try updating from the default server?");
->>>>>>> origin/master
 
                         if (ConfirmWindow.ShowDialog() == false)
                         {
@@ -380,28 +365,20 @@ namespace DoritoPatcherWPF
 
                                 if (!ProcessUpdateData())
                                 {
-<<<<<<< HEAD
-                                    SetStatus("Failed to connect to the default update server.",
-                                        Color.FromRgb(255, 0, 0));
-=======
                                     AppendDebugLine("Failed to connect to the default update server.", Color.FromRgb(255, 0, 0));
->>>>>>> origin/master
                                     btnAction.Content = "PLAY";
                                     isPlayEnabled = true;
                                     btnAction.IsEnabled = true;
 
-<<<<<<< HEAD
                                     var MainWindow =
                                         new MsgBoxOk(
                                             "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
                                     MainWindow.Show();
                                     MainWindow.Focus();
-=======
                                     var AlertWindow = new MsgBoxOk("Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
                                     AlertWindow.Show();
                                     AlertWindow.Focus();
                                     return;
->>>>>>> origin/master
                                 }
                                 else
                                 {
@@ -415,18 +392,15 @@ namespace DoritoPatcherWPF
                                 isPlayEnabled = true;
                                 btnAction.IsEnabled = true;
 
-<<<<<<< HEAD
                                 var MainWindow =
                                     new MsgBoxOk(
                                         "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
                                 MainWindow.Show();
                                 MainWindow.Focus();
-=======
                                 var AlertWindow = new MsgBoxOk("Update server connection manually canceled, you can still play the game if your files aren't invalid.");
                                 AlertWindow.Show();
                                 AlertWindow.Focus();
                                 return;
->>>>>>> origin/master
                             }
                         }
                     });
@@ -435,27 +409,19 @@ namespace DoritoPatcherWPF
                 {
                     Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-<<<<<<< HEAD
-                        SetStatus("Failed to retrieve update information from the default update server.",
-                            Color.FromRgb(255, 0, 0));
-=======
                         AppendDebugLine("Failed to retrieve update information from the default update server.", Color.FromRgb(255, 0, 0));
->>>>>>> origin/master
                         btnAction.Content = "PLAY";
                         isPlayEnabled = true;
                         btnAction.IsEnabled = true;
 
-<<<<<<< HEAD
                         var MainWindow =
                             new MsgBoxOk(
                                 "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
                         MainWindow.Show();
                         MainWindow.Focus();
-=======
                         var AlertWindow = new MsgBoxOk("Could not connect to the default update server, you can still play the game if your files aren't invalid.");
                         AlertWindow.Show();
                         AlertWindow.Focus();
->>>>>>> origin/master
                     });
                 }
 
@@ -837,12 +803,7 @@ namespace DoritoPatcherWPF
 
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
-<<<<<<< HEAD
-                    SetStatus("Your bink directory could not be found. Did you change the name manually or delete it?",
-                        Color.FromRgb(255, 255, 0));
-=======
                     AppendDebugLine("Your bink directory could not be found. Did you change the name manually or delete it?", Color.FromRgb(255, 255, 0));
->>>>>>> origin/master
                 }
 
                 try
@@ -908,7 +869,6 @@ namespace DoritoPatcherWPF
 
         private void browserServer_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
         }
 
@@ -927,26 +887,6 @@ namespace DoritoPatcherWPF
             switchPanel("main", false);
         }
 
-=======
-           embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-        }
-
-        private void browserStat_Click(object sender, RoutedEventArgs e)
-        {
-            embeddedBrowser.Source = new Uri("https://stats.halo.click/");
-        }
-
-        private void browserFile_Click(object sender, RoutedEventArgs e)
-        {
-            embeddedBrowser.Source = new Uri("https://haloshare.net/");
-        }
-
-        private void browserHome_Click(object sender, RoutedEventArgs e)
-        {
-            switchPanel("main", false);
-        }
-
->>>>>>> origin/master
         private void btnServer_Click(object sender, RoutedEventArgs e)
         {
             if (embedded)
@@ -954,38 +894,21 @@ namespace DoritoPatcherWPF
                 embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
                 switchPanel("browser", false);
             }
-<<<<<<< HEAD
             else
             {
                 var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
                 Process.Start(sInfo);
             }
-=======
-           else
-           {
-               var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-               Process.Start(sInfo);
-           }
->>>>>>> origin/master
         }
 
         private void btnRandom_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             var r = new Random();
             var helmet = r.Next(0, 25);
             var chest = r.Next(0, 25);
             var shoulders = r.Next(0, 25);
             var arms = r.Next(0, 25);
             var legs = r.Next(0, 25);
-=======
-            Random r = new Random();
-            int helmet = r.Next(0, 25);
-            int chest = r.Next(0, 25);
-            int shoulders = r.Next(0, 25);
-            int arms = r.Next(0, 25);
-            int legs = r.Next(0, 25);
->>>>>>> origin/master
 
             var randomColor = new Random();
             var primary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
@@ -1000,20 +923,17 @@ namespace DoritoPatcherWPF
             cmbArms.SelectedIndex = arms;
             cmbLegs.SelectedIndex = legs;
 
-<<<<<<< HEAD
             clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
             clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
             clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
             clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
             clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
-=======
             clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
             clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
             clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
             clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
             clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
 
->>>>>>> origin/master
         }
 
         private void btnStats_Click(object sender, RoutedEventArgs e)
