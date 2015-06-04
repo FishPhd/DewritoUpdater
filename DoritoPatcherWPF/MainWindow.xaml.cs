@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,13 +10,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Newtonsoft.Json.Linq;
-using YamlDotNet.Core;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace DoritoPatcherWPF
 {
@@ -26,6 +24,7 @@ namespace DoritoPatcherWPF
     public partial class MainWindow : Window
     {
         private const string SettingsFileName = "dewrito_prefs.yaml";
+        private static Dictionary<string, string> configFile;
         private readonly bool embedded = true;
         private readonly SHA1 hasher = SHA1.Create();
         private readonly bool silentStart;
@@ -253,8 +252,30 @@ namespace DoritoPatcherWPF
                 }
             }
 
+            Initial();
+
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+
+            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+
+            plrName.Text = configFile["Player.Name"];
+
+            
+
+            
+
+            /*
             LoadSettings();
             SaveSettings();
+             */
 
             try
             {
@@ -267,7 +288,8 @@ namespace DoritoPatcherWPF
                 */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
-                    SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
+                    SetStatus("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
+                        Color.FromRgb(255, 0, 0));
                     SetStatusLabels("ERROR", true);
                     lblVersion.Text = "Error";
 
@@ -321,36 +343,42 @@ namespace DoritoPatcherWPF
 
             if (!ProcessUpdateData())
             {
-                bool confirm = false;
+                var confirm = false;
 
-                SetStatus("Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"].ToString(), Color.FromRgb(255, 0, 0));
+                SetStatus(
+                    "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
+                    Color.FromRgb(255, 0, 0));
 
                 if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json")
                 {
                     SetStatus("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     SetStatus("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
 
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-                        var confirmWindow = new MsgBoxConfirm("Failed to retrieve update information. Do you want to try updating from the default server?");
+                        var confirmWindow =
+                            new MsgBoxConfirm(
+                                "Failed to retrieve update information. Do you want to try updating from the default server?");
 
                         if (confirmWindow.ShowDialog() == false)
                         {
                             if (confirmWindow.confirm)
                             {
                                 settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
-                                
+
                                 if (!ProcessUpdateData())
                                 {
-                                    SetStatus("Failed to connect to the default update server.", Color.FromRgb(255, 0, 0));
+                                    SetStatus("Failed to connect to the default update server.",
+                                        Color.FromRgb(255, 0, 0));
                                     btnAction.Content = "PLAY";
                                     isPlayEnabled = true;
                                     btnAction.IsEnabled = true;
 
-                                    var MainWindow = new MsgBoxOk("Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
+                                    var MainWindow =
+                                        new MsgBoxOk(
+                                            "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
                                     MainWindow.Show();
                                     MainWindow.Focus();
-                                    return;
                                 }
                                 else
                                 {
@@ -364,24 +392,28 @@ namespace DoritoPatcherWPF
                                 isPlayEnabled = true;
                                 btnAction.IsEnabled = true;
 
-                                var MainWindow = new MsgBoxOk("Update server connection manually canceled, you can still play the game if your files aren't invalid.");
+                                var MainWindow =
+                                    new MsgBoxOk(
+                                        "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
                                 MainWindow.Show();
                                 MainWindow.Focus();
-                                return;
                             }
                         }
                     });
                 }
                 else
                 {
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-                        SetStatus("Failed to retrieve update information from the default update server.", Color.FromRgb(255, 0, 0));
+                        SetStatus("Failed to retrieve update information from the default update server.",
+                            Color.FromRgb(255, 0, 0));
                         btnAction.Content = "PLAY";
                         isPlayEnabled = true;
                         btnAction.IsEnabled = true;
 
-                        var MainWindow = new MsgBoxOk("Could not connect to the default update server, you can still play the game if your files aren't invalid.");
+                        var MainWindow =
+                            new MsgBoxOk(
+                                "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
                         MainWindow.Show();
                         MainWindow.Focus();
                     });
@@ -770,7 +802,8 @@ namespace DoritoPatcherWPF
 
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
-                    SetStatus("Your bink directory could not be found. Did you change the name manually or delete it?", Color.FromRgb(255, 255, 0));
+                    SetStatus("Your bink directory could not be found. Did you change the name manually or delete it?",
+                        Color.FromRgb(255, 255, 0));
                 }
 
                 try
@@ -834,98 +867,96 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }
 
-       
         private void browserServer_Click(object sender, RoutedEventArgs e)
         {
-           embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-       }
+            embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+        }
 
-       private void browserStat_Click(object sender, RoutedEventArgs e)
-       {
-           embeddedBrowser.Source = new Uri("https://stats.halo.click/");
-      }
+        private void browserStat_Click(object sender, RoutedEventArgs e)
+        {
+            embeddedBrowser.Source = new Uri("https://stats.halo.click/");
+        }
 
-      private void browserFile_Click(object sender, RoutedEventArgs e)
-      {
-          embeddedBrowser.Source = new Uri("https://haloshare.net/");
-     }
+        private void browserFile_Click(object sender, RoutedEventArgs e)
+        {
+            embeddedBrowser.Source = new Uri("https://haloshare.net/");
+        }
 
-     private void browserHome_Click(object sender, RoutedEventArgs e)
-     {
-         switchPanel("main", false);
-    }
+        private void browserHome_Click(object sender, RoutedEventArgs e)
+        {
+            switchPanel("main", false);
+        }
 
-    private void btnServer_Click(object sender, RoutedEventArgs e)
-    {
-       if (embedded)
-       {
-           embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-           switchPanel("browser", false);
-       }
-       else
-       {
-           var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-           Process.Start(sInfo);
-       }
-   }
+        private void btnServer_Click(object sender, RoutedEventArgs e)
+        {
+            if (embedded)
+            {
+                embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+                switchPanel("browser", false);
+            }
+            else
+            {
+                var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+                Process.Start(sInfo);
+            }
+        }
 
-   private void btnRandom_Click(object sender, RoutedEventArgs e)
-   {
-       Random r = new Random();
-       int helmet = r.Next(0, 25);
-       int chest = r.Next(0, 25);
-       int shoulders = r.Next(0, 25);
-       int arms = r.Next(0, 25);
-       int legs = r.Next(0, 25);
+        private void btnRandom_Click(object sender, RoutedEventArgs e)
+        {
+            var r = new Random();
+            var helmet = r.Next(0, 25);
+            var chest = r.Next(0, 25);
+            var shoulders = r.Next(0, 25);
+            var arms = r.Next(0, 25);
+            var legs = r.Next(0, 25);
 
-       var randomColor = new Random();
-       var primary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-       var secondary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-       var visor = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-       var lights = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-       var holo = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var randomColor = new Random();
+            var primary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var secondary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var visor = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var lights = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var holo = String.Format("#{0:X6}", randomColor.Next(0x1000000));
 
-       cmbHelmet.SelectedIndex = helmet;
-       cmbChest.SelectedIndex = chest;
-       cmbShoulders.SelectedIndex = shoulders;
-       cmbArms.SelectedIndex = arms;
-       cmbLegs.SelectedIndex = legs;
+            cmbHelmet.SelectedIndex = helmet;
+            cmbChest.SelectedIndex = chest;
+            cmbShoulders.SelectedIndex = shoulders;
+            cmbArms.SelectedIndex = arms;
+            cmbLegs.SelectedIndex = legs;
 
-       clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
-       clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
-       clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
-       clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
-       clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
+        }
 
-   }
+        private void btnStats_Click(object sender, RoutedEventArgs e)
+        {
+            if (embedded)
+            {
+                embeddedBrowser.Source = new Uri("https://stats.halo.click");
+                switchPanel("browser", false);
+            }
+            else
+            {
+                var sInfo = new ProcessStartInfo("https://stats.halo.click/");
+                Process.Start(sInfo);
+            }
+        }
 
-   private void btnStats_Click(object sender, RoutedEventArgs e)
-   {
-       if (embedded)
-       {
-           embeddedBrowser.Source = new Uri("https://stats.halo.click");
-           switchPanel("browser", false);
-       }
-       else
-       {
-           var sInfo = new ProcessStartInfo("https://stats.halo.click/");
-           Process.Start(sInfo);
-       }
-   }
-
-   private void btnFile_Click(object sender, RoutedEventArgs e)
-   {
-       if (embedded)
-       {
-           embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
-           switchPanel("browser", false);
-       }
-       else
-       {
-           var sInfo = new ProcessStartInfo("https://haloshare.net/");
-           Process.Start(sInfo);
-       }
-    }
+        private void btnFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (embedded)
+            {
+                embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
+                switchPanel("browser", false);
+            }
+            else
+            {
+                var sInfo = new ProcessStartInfo("https://haloshare.net/");
+                Process.Start(sInfo);
+            }
+        }
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
@@ -937,6 +968,168 @@ namespace DoritoPatcherWPF
         {
         }
 
+        private static void Initial()
+        {
+            var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
+            if (!cfgFileExists)
+            {
+                SetVariable("Game.MedalsZip", "halo3", ref configFile);
+                SetVariable("Game.LanguageID", "0", ref configFile);
+                SetVariable("Game.SkipLauncher", "0", ref configFile);
+                SetVariable("Player.Armor.Accessory", "", ref configFile);
+                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
+                SetVariable("Player.Colors.Primary", "#000000", ref configFile);
+                SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
+                SetVariable("Player.Colors.Lights", "#000000", ref configFile);
+                SetVariable("Player.Colors.Holo", "#000000", ref configFile);
+                SetVariable("Player.Colors.Visor", "#000000", ref configFile);
+                SetVariable("Player.Name", "Forgot", ref configFile);
+                SetVariable("Player.UserID", "0", ref configFile);
+                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
+                SetVariable("Server.Password", "", ref configFile);
+                SetVariable("Server.Countdown", "5", ref configFile);
+                SetVariable("Server.MaxPlayers", "16", ref configFile);
+                SetVariable("Server.Port", "11775", ref configFile);
+                SetVariable("Camera.Crosshair", "0", ref configFile);
+                SetVariable("Camera.FOV", "90.000000", ref configFile);
+                SetVariable("Camera.HideHUD", "0", ref configFile);
+                SetVariable("Input.RawInput", "1", ref configFile);
+            }
+            
+            //var armorShoulders = configFile["Player.Armor.Shoulders"];
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void plrName_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetVariable("Player.Name", plrName.Text, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            SetVariable("Player.Colors.Primary", clrPrimary.SelectedColorText, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void clrSecondary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            SetVariable("Player.Colors.Secondary", clrSecondary.SelectedColorText, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void clrLights_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            SetVariable("Player.Colors.Lights", clrLights.SelectedColorText, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void clrHolo_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            SetVariable("Player.Colors.Holo", clrHolo.SelectedColorText, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void clrVisor_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            SetVariable("Player.Colors.Visor", clrVisor.SelectedColorText, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void cmbHelmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetVariable("Player.Armor.Helmet", cmbHelmet.SelectedValue.ToString(), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void cmbChest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetVariable("Player.Armor.Chest", cmbChest.SelectedValue.ToString(), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void cmbShoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetVariable("Player.Armor.Shoulders", cmbShoulders.SelectedValue.ToString(), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void cmbArms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetVariable("Player.Armor.Arms", cmbArms.SelectedValue.ToString(), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void cmbLegs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetVariable("Player.Armor.Legs", cmbLegs.SelectedValue.ToString(), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
+        {
+            returnDict = new Dictionary<string, string>();
+            if (!File.Exists(cfgFileName))
+                return false;
+
+            var lines = File.ReadAllLines(cfgFileName);
+            foreach (var line in lines)
+            {
+                var splitIdx = line.IndexOf(" ");
+                if (splitIdx < 0 || splitIdx + 1 >= line.Length)
+                    continue; // line isn't valid?
+                var varName = line.Substring(0, splitIdx);
+                var varValue = line.Substring(splitIdx + 1);
+
+                // remove quotes from variable values
+                if (varValue.StartsWith("\""))
+                    varValue = varValue.Substring(1);
+                if (varValue.EndsWith("\""))
+                    varValue = varValue.Substring(0, varValue.Length - 1);
+
+                SetVariable(varName, varValue, ref returnDict);
+            }
+            return true;
+        }
+
+        private static void SetVariable(string varName, string varValue, ref Dictionary<string, string> configDict)
+        {
+            if (configDict.ContainsKey(varName))
+                configDict[varName] = varValue;
+            else
+                configDict.Add(varName, varValue);
+        }
+
+        private static bool SaveConfigFile(string cfgFileName, Dictionary<string, string> configDict)
+        {
+            try
+            {
+                if (File.Exists(cfgFileName))
+                    File.Delete(cfgFileName);
+
+                var lines = new List<string>();
+                foreach (var kvp in configDict)
+                    lines.Add(kvp.Key + " \"" + kvp.Value + "\"");
+
+                File.WriteAllLines(cfgFileName, lines.ToArray());
+
+                // live update of config
+                // could skip the GameIsRunning bit and just try connecting, if it fails to connect game isn't running
+                // if(GameIsRunning())
+                //     RconSendCommand("Execute dewrito_prefs.cfg");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /*
         private void LoadSettings()
         {
             // Load settings from the YAML file
@@ -974,6 +1167,7 @@ namespace DoritoPatcherWPF
             Customization.DataContext = settingsViewModel;
             Settings.DataContext = settingsViewModel;
         }
+        */
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -993,38 +1187,7 @@ namespace DoritoPatcherWPF
             chkIntro.IsChecked = false;
         }
 
-        private void SaveSettings()
-        {
-            settingsViewModel.Save(settings);
 
-            if (settingsViewModel.Video.IntroVideo && Directory.Exists("bink"))
-            {
-                Directory.Move("bink", "bink_disabled");
-            }
-            else if (!settingsViewModel.Video.IntroVideo && Directory.Exists("bink_disabled"))
-            {
-                Directory.Move("bink_disabled", "bink");
-            }
-
-            try
-            {
-                using (var writer = new StreamWriter(File.Open(SettingsFileName, FileMode.Create, FileAccess.Write)))
-                {
-                    var serializer = new Serializer(SerializationOptions.EmitDefaults, new CamelCaseNamingConvention());
-                    serializer.Serialize(writer, settings);
-                }
-            }
-            catch (IOException)
-            {
-            }
-            catch (YamlException)
-            {
-            }
-        }
-
-        private void SettingsChanged(object sender, PropertyChangedEventArgs e)
-        {
-            SaveSettings();
-        }
+        
     }
 }
