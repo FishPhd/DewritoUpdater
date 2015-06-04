@@ -570,7 +570,7 @@
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
+            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1">
                 <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                     <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                         <Grid.Style>
@@ -1299,7 +1299,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1"
-                    Margin="10,20,20,20" Visibility="Visible">
+                    Margin="10,20,20,20" Visibility="Hidden">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1397,8 +1397,8 @@
                             </TextBlock>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Grid.Column="1" HorizontalAlignment="Left">Player Name:</TextBlock>
-                                <TextBox x:Name="plrName" MaxLength="15" Width="140" Text="" FontSize="16"
-                                         FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" Grid.Column="1" HorizontalAlignment="Right" TextChanged="plrName_OnTextChanged">
+                                <TextBox MaxLength="15" Width="140" Text="{Binding Player.Name}" FontSize="16"
+                                         FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" Grid.Column="1" HorizontalAlignment="Right">
                                     <TextBox.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </TextBox.Background>
@@ -1410,177 +1410,38 @@
                             </TextBlock>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
-                                <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" SelectionChanged="cmbHelmet_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
-                                        <ComboBoxItem Content="Stealth" Tag="stealth"/>
-                                        <ComboBoxItem Content="Renegade" Tag="renegade"/>
-                                        <ComboBoxItem Content="Nihard" Tag="nihard"/>
-                                        <ComboBoxItem Content="Gladiator" Tag="gladiator"/>
-                                        <ComboBoxItem Content="Mac" Tag="mac"/>
-                                        <ComboBoxItem Content="Shark" Tag="shark"/>
-                                        <ComboBoxItem Content="Juggernaut" Tag="juggernaut"/>
-                                        <ComboBoxItem Content="Dutch" Tag="dutch"/>
-                                        <ComboBoxItem Content="Chameleon" Tag="chameleon"/>
-                                        <ComboBoxItem Content="Halberd" Tag="halberd"/>
-                                        <ComboBoxItem Content="Cyclops" Tag="cyclops"/>
-                                        <ComboBoxItem Content="Scanner" Tag="scanner"/>
-                                        <ComboBoxItem Content="Mercenary" Tag="mercenary"/>
-                                        <ComboBoxItem Content="Hoplite" Tag="hoplite"/>
-                                        <ComboBoxItem Content="Ballista" Tag="ballista"/>
-                                        <ComboBoxItem Content="Strider" Tag="strider"/>
-                                        <ComboBoxItem Content="Demo" Tag="demo"/>
-                                        <ComboBoxItem Content="Orbital" Tag="orbital"/>
-                                        <ComboBoxItem Content="Spectrum" Tag="spectrum"/>
-                                        <ComboBoxItem Content="Gungnir" Tag="gungnir"/>
-                                        <ComboBoxItem Content="Hammerhead" Tag="hammerhead"/>
-                                        <ComboBoxItem Content="Omni" Tag="omni"/>
-                                        <ComboBoxItem Content="Oracle" Tag="oracle"/>
-                                        <ComboBoxItem Content="Silverback" Tag="silverback"/>
-                                        <ComboBoxItem Content="Widow Maker" Tag="widow_maker"/>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen"
+                                          ItemsSource="{Binding Player.Armor.HelmetChoices}"
+                                          SelectedItem="{Binding Player.Armor.Helmet}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
                             </Grid>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="74*"/>
-                                    <ColumnDefinition Width="53*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Grid.ColumnSpan="2" Margin="5,7">Chest:</TextBlock>
-                                <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" SelectionChanged="cmbChest_OnSelectionChanged"
-                                          SelectedValue="" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="0,5" Width="140" Grid.ColumnSpan="2" SelectedValuePath="Tag">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
-                                        <ComboBoxItem Content="Stealth" Tag="stealth"/>
-                                        <ComboBoxItem Content="Renegade" Tag="renegade"/>
-                                        <ComboBoxItem Content="Nihard" Tag="nihard"/>
-                                        <ComboBoxItem Content="Gladiator" Tag="gladiator"/>
-                                        <ComboBoxItem Content="Mac" Tag="mac"/>
-                                        <ComboBoxItem Content="Shark" Tag="shark"/>
-                                        <ComboBoxItem Content="Juggernaut" Tag="juggernaut"/>
-                                        <ComboBoxItem Content="Dutch" Tag="dutch"/>
-                                        <ComboBoxItem Content="Chameleon" Tag="chameleon"/>
-                                        <ComboBoxItem Content="Halberd" Tag="halberd"/>
-                                        <ComboBoxItem Content="Cyclops" Tag="cyclops"/>
-                                        <ComboBoxItem Content="Scanner" Tag="scanner"/>
-                                        <ComboBoxItem Content="Mercenary" Tag="mercenary"/>
-                                        <ComboBoxItem Content="Hoplite" Tag="hoplite"/>
-                                        <ComboBoxItem Content="Ballista" Tag="ballista"/>
-                                        <ComboBoxItem Content="Strider" Tag="strider"/>
-                                        <ComboBoxItem Content="Demo" Tag="demo"/>
-                                        <ComboBoxItem Content="Orbital" Tag="orbital"/>
-                                        <ComboBoxItem Content="Spectrum" Tag="spectrum"/>
-                                        <ComboBoxItem Content="Gungnir" Tag="gungnir"/>
-                                        <ComboBoxItem Content="Hammerhead" Tag="hammerhead"/>
-                                        <ComboBoxItem Content="Omni" Tag="omni"/>
-                                        <ComboBoxItem Content="Oracle" Tag="oracle"/>
-                                        <ComboBoxItem Content="Silverback" Tag="silverback"/>
-                                        <ComboBoxItem Content="Widow Maker" Tag="widow_maker"/>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Chest:</TextBlock>
+                                <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen"
+                                          ItemsSource="{Binding Player.Armor.ChestChoices}"
+                                          SelectedItem="{Binding Player.Armor.Chest}" DisplayMemberPath="DisplayName"
+                                          FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
-                                <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" SelectionChanged="cmbShoulders_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
-                                        <ComboBoxItem Content="Stealth" Tag="stealth"/>
-                                        <ComboBoxItem Content="Renegade" Tag="renegade"/>
-                                        <ComboBoxItem Content="Nihard" Tag="nihard"/>
-                                        <ComboBoxItem Content="Gladiator" Tag="gladiator"/>
-                                        <ComboBoxItem Content="Mac" Tag="mac"/>
-                                        <ComboBoxItem Content="Shark" Tag="shark"/>
-                                        <ComboBoxItem Content="Juggernaut" Tag="juggernaut"/>
-                                        <ComboBoxItem Content="Dutch" Tag="dutch"/>
-                                        <ComboBoxItem Content="Chameleon" Tag="chameleon"/>
-                                        <ComboBoxItem Content="Halberd" Tag="halberd"/>
-                                        <ComboBoxItem Content="Cyclops" Tag="cyclops"/>
-                                        <ComboBoxItem Content="Scanner" Tag="scanner"/>
-                                        <ComboBoxItem Content="Mercenary" Tag="mercenary"/>
-                                        <ComboBoxItem Content="Hoplite" Tag="hoplite"/>
-                                        <ComboBoxItem Content="Ballista" Tag="ballista"/>
-                                        <ComboBoxItem Content="Strider" Tag="strider"/>
-                                        <ComboBoxItem Content="Demo" Tag="demo"/>
-                                        <ComboBoxItem Content="Orbital" Tag="orbital"/>
-                                        <ComboBoxItem Content="Spectrum" Tag="spectrum"/>
-                                        <ComboBoxItem Content="Gungnir" Tag="gungnir"/>
-                                        <ComboBoxItem Content="Hammerhead" Tag="hammerhead"/>
-                                        <ComboBoxItem Content="Omni" Tag="omni"/>
-                                        <ComboBoxItem Content="Oracle" Tag="oracle"/>
-                                        <ComboBoxItem Content="Silverback" Tag="silverback"/>
-                                        <ComboBoxItem Content="Widow Maker" Tag="widow_maker"/>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose"
+                                          DropDownOpened="shouldersOpen"
+                                          ItemsSource="{Binding Player.Armor.ShoulderChoices}"
+                                          SelectedItem="{Binding Player.Armor.Shoulders}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
-                                <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" SelectionChanged="cmbArms_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
-                                        <ComboBoxItem Content="Stealth" Tag="stealth"/>
-                                        <ComboBoxItem Content="Renegade" Tag="renegade"/>
-                                        <ComboBoxItem Content="Nihard" Tag="nihard"/>
-                                        <ComboBoxItem Content="Gladiator" Tag="gladiator"/>
-                                        <ComboBoxItem Content="Mac" Tag="mac"/>
-                                        <ComboBoxItem Content="Shark" Tag="shark"/>
-                                        <ComboBoxItem Content="Juggernaut" Tag="juggernaut"/>
-                                        <ComboBoxItem Content="Dutch" Tag="dutch"/>
-                                        <ComboBoxItem Content="Chameleon" Tag="chameleon"/>
-                                        <ComboBoxItem Content="Halberd" Tag="halberd"/>
-                                        <ComboBoxItem Content="Cyclops" Tag="cyclops"/>
-                                        <ComboBoxItem Content="Scanner" Tag="scanner"/>
-                                        <ComboBoxItem Content="Mercenary" Tag="mercenary"/>
-                                        <ComboBoxItem Content="Hoplite" Tag="hoplite"/>
-                                        <ComboBoxItem Content="Ballista" Tag="ballista"/>
-                                        <ComboBoxItem Content="Strider" Tag="strider"/>
-                                        <ComboBoxItem Content="Demo" Tag="demo"/>
-                                        <ComboBoxItem Content="Orbital" Tag="orbital"/>
-                                        <ComboBoxItem Content="Spectrum" Tag="spectrum"/>
-                                        <ComboBoxItem Content="Gungnir" Tag="gungnir"/>
-                                        <ComboBoxItem Content="Hammerhead" Tag="hammerhead"/>
-                                        <ComboBoxItem Content="Omni" Tag="omni"/>
-                                        <ComboBoxItem Content="Oracle" Tag="oracle"/>
-                                        <ComboBoxItem Content="Silverback" Tag="silverback"/>
-                                        <ComboBoxItem Content="Widow Maker" Tag="widow_maker"/>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen"
+                                          ItemsSource="{Binding Player.Armor.ArmChoices}"
+                                          SelectedItem="{Binding Player.Armor.Arms}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
-                                <ComboBox x:Name="cmbLegs" SelectionChanged="cmbLegs_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
-                                        <ComboBoxItem Content="Stealth" Tag="stealth"/>
-                                        <ComboBoxItem Content="Renegade" Tag="renegade"/>
-                                        <ComboBoxItem Content="Nihard" Tag="nihard"/>
-                                        <ComboBoxItem Content="Gladiator" Tag="gladiator"/>
-                                        <ComboBoxItem Content="Mac" Tag="mac"/>
-                                        <ComboBoxItem Content="Shark" Tag="shark"/>
-                                        <ComboBoxItem Content="Juggernaut" Tag="juggernaut"/>
-                                        <ComboBoxItem Content="Dutch" Tag="dutch"/>
-                                        <ComboBoxItem Content="Chameleon" Tag="chameleon"/>
-                                        <ComboBoxItem Content="Halberd" Tag="halberd"/>
-                                        <ComboBoxItem Content="Cyclops" Tag="cyclops"/>
-                                        <ComboBoxItem Content="Scanner" Tag="scanner"/>
-                                        <ComboBoxItem Content="Mercenary" Tag="mercenary"/>
-                                        <ComboBoxItem Content="Hoplite" Tag="hoplite"/>
-                                        <ComboBoxItem Content="Ballista" Tag="ballista"/>
-                                        <ComboBoxItem Content="Strider" Tag="strider"/>
-                                        <ComboBoxItem Content="Demo" Tag="demo"/>
-                                        <ComboBoxItem Content="Orbital" Tag="orbital"/>
-                                        <ComboBoxItem Content="Spectrum" Tag="spectrum"/>
-                                        <ComboBoxItem Content="Gungnir" Tag="gungnir"/>
-                                        <ComboBoxItem Content="Hammerhead" Tag="hammerhead"/>
-                                        <ComboBoxItem Content="Omni" Tag="omni"/>
-                                        <ComboBoxItem Content="Oracle" Tag="oracle"/>
-                                        <ComboBoxItem Content="Silverback" Tag="silverback"/>
-                                        <ComboBoxItem Content="Widow Maker" Tag="widow_maker"/>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                <ComboBox x:Name="cmbLegs" ItemsSource="{Binding Player.Armor.LegChoices}"
+                                          SelectedItem="{Binding Player.Armor.Legs}" DisplayMemberPath="DisplayName"
+                                          MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" />
                             </Grid>
                         </StackPanel>
                         <StackPanel Margin="10,20,20,5" VerticalAlignment="Top">
@@ -1590,8 +1451,8 @@
                             </TextBlock>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Primary:</TextBlock>
-                                <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="#000000"
-                                                  FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140" SelectedColorChanged="clrPrimary_OnSelectedColorChanged">
+                                <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="{Binding Player.Colors.Primary}"
+                                                  FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </xctk:ColorPicker.Background>
@@ -1599,8 +1460,8 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
-                                <xctk:ColorPicker x:Name="clrSecondary" SelectedColor="#000000" FontSize="16"
-                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140" SelectedColorChanged="clrSecondary_OnSelectedColorChanged">
+                                <xctk:ColorPicker x:Name="clrSecondary" SelectedColor="{Binding Player.Colors.Secondary}" FontSize="16"
+                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </xctk:ColorPicker.Background>
@@ -1608,8 +1469,8 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
-                                <xctk:ColorPicker x:Name="clrVisor" SelectedColor="#000000" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140" SelectedColorChanged="clrVisor_OnSelectedColorChanged">
+                                <xctk:ColorPicker x:Name="clrVisor" SelectedColor="{Binding Player.Colors.Visor}" FontSize="16"
+                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </xctk:ColorPicker.Background>
@@ -1617,8 +1478,8 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
-                                <xctk:ColorPicker x:Name="clrLights" SelectedColor="#000000" FontSize="16"
-                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140" SelectedColorChanged="clrLights_OnSelectedColorChanged">
+                                <xctk:ColorPicker x:Name="clrLights" SelectedColor="{Binding Player.Colors.Lights}" FontSize="16"
+                                              FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </xctk:ColorPicker.Background>
@@ -1626,8 +1487,8 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
-                                <xctk:ColorPicker x:Name="clrHolo" SelectedColor="#000000" FontSize="16"
-                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140" SelectedColorChanged="clrHolo_OnSelectedColorChanged">
+                                <xctk:ColorPicker x:Name="clrHolo" SelectedColor="{Binding Player.Colors.Holo}" FontSize="16"
+                                                  FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Width="140">
                                     <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
                                     </xctk:ColorPicker.Background>
@@ -1643,7 +1504,7 @@
                                     Style="{StaticResource Hover}" />
                     </Border>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
-
+                        
                         <Border BorderBrush="White" BorderThickness="1" Width="75" Height="30"
                                 HorizontalAlignment="Right">
                             <Border.Background>
