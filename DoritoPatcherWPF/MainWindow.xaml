@@ -1299,7 +1299,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1"
-                    Margin="10,20,20,20" Visibility="Visible">
+                    Margin="10,20,20,20" Visibility="Hidden">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1708,7 +1708,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" Margin="10,20,20,20"
-                    BorderThickness="1" Visibility="Hidden">
+                    BorderThickness="1" Visibility="Visible">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1819,14 +1819,14 @@
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Resolution:</TextBlock>
                                 <DockPanel>
                                     <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,2,5">W:</TextBlock>
-                                    <TextBox    Name="setWidth" Text="{Binding LaunchParams.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="60"
+                                    <TextBox    Name="setWidth" Text="" Width="60"  SelectionChanged="setWidth_OnSelectionChanged"
                                                 TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
                                         </TextBox.Background>
                                     </TextBox>
                                     <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="7,5,2,5">H:</TextBlock>
-                                    <TextBox    Name="setHeight" Text="{Binding LaunchParams.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="60"
+                                    <TextBox    Name="setHeight" Text="" Width="60" SelectionChanged="setHeight_OnSelectionChanged"
                                                 TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1840,9 +1840,9 @@
 
                                     <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150"
                                                 TickFrequency="5" IsSnapToTickEnabled="True"
-                                                Value="{Binding Video.FieldOfView}" Background="{x:Null}"
-                                                BorderBrush="{x:Null}" Foreground="White" Width="90" />
-                                    <TextBox DockPanel.Dock="Right" Text="{Binding Video.FieldOfView}" Width="60"
+                                                Value="90" Background="{x:Null}"
+                                                BorderBrush="{x:Null}" Foreground="White" Width="90"/>
+                                    <TextBox DockPanel.Dock="Right" Text="{Binding ElementName=sldFov,Path=Value}" Width="60"
                                                  TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1851,7 +1851,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox Name="chkCenter" Grid.ColumnSpan="2"
-                                          IsChecked="{Binding Video.CrosshairCentered}"
+                                          IsChecked="" Checked="chkCenter_Changed" Unchecked="chkCenter_Changed"
                                           Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                           FontFamily="/Resources/#Aero Matics Light">
                                 Centered Crosshair
@@ -1861,7 +1861,8 @@
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Input Settings
                             </TextBlock>
-                            <CheckBox Name="chkRaw" Grid.ColumnSpan="2" IsChecked="{Binding Input.RawMouse}"
+                            <CheckBox Name="chkRaw" Grid.ColumnSpan="2" 
+                                      IsChecked="" Checked="chkRaw_Changed" Unchecked="chkRaw_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
@@ -1887,10 +1888,10 @@
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Start Timer:</TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <Slider Name="sldTimer" Minimum="0" Maximum="20"
-                                        TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.Countdown}"
+                                        TickFrequency="1" IsSnapToTickEnabled="True" Value="5"
                                         Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"
                                         FontFamily="/Resources/#Aero Matics Light" Width="95" />
-                                    <TextBox Text="{Binding Host.Countdown}" Width="60"
+                                    <TextBox Text="{Binding ElementName=sldTimer,Path=Value}" Width="60"
                                          TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />
@@ -1904,8 +1905,8 @@
                             <StackPanel Orientation="Horizontal" Visibility="Visible">
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Max Players:</TextBlock>
                                 <StackPanel Orientation="Horizontal">
-                                    <Slider Name="sldMax" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding Host.MaxPlayer}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light" Width="90"/>
-                                    <TextBox Text="{Binding Host.MaxPlayer}" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                    <Slider Name="sldMax" Minimum="1" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" Value="16" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="/Resources/#Aero Matics Light" Width="90"/>
+                                    <TextBox Text="16" Width="60" TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" Margin="5,5,0,5" HorizontalAlignment="Right">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07"/>
                                         </TextBox.Background>
@@ -1916,32 +1917,32 @@
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Launch Options
                             </TextBlock>
-                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.WindowedMode}"
+                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="" Checked="chkWin_Changed" Unchecked="chkWin_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Windowed Mode
                             </CheckBox>
-                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.Fullscreen}"
+                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" IsChecked="" Checked="chkFull_Changed" Unchecked="chkFull_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Fullscreen Mode
                             </CheckBox>
-                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.NoVSync}"
+                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="" Checked="chkVSync_Changed" Unchecked="chkVSync_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Disable Vertical Sync (VSync)
                             </CheckBox>
-                            <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.DX9Ex}"
+                            <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="" Checked="chkDX9Ex_Changed" Unchecked="chkDX9Ex_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Enable DirectX 9.0 Extensions
                             </CheckBox>
-                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="{Binding LaunchParams.FPSCounter}"
+                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="" Checked="chkFPS_Changed" Unchecked="chkFPS_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Show FPS Counter
                             </CheckBox>
-                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" IsChecked="{Binding Video.IntroVideo}"
+                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" IsChecked="" Checked="chkIntro_Changed" Unchecked="chkIntro_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Disable Intro Videos

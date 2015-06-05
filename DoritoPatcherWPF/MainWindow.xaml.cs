@@ -254,23 +254,36 @@ namespace DoritoPatcherWPF
 
             Initial();
 
+            //Customization
             clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
             clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
             clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
             clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
             clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-
             cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
             cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
             cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
             cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
             cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-
             plrName.Text = configFile["Player.Name"];
 
-            
+            //Settings
+            sldFov.Value = Convert.ToInt32(Convert.ToDouble(configFile["Camera.FOV"]));
+            chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
+            chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
-            
+            //sldTimer.Value = Convert.ToInt32(Convert.ToDouble(configFile["Server.Countdown"]));
+
+            chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
+            chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
+            chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
+            chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
+            chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
+            chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+
+
+            setWidth.Text = configFile["Video.Width"];
+            setHeight.Text = configFile["Video.Height"];
 
             /*
             LoadSettings();
@@ -773,11 +786,11 @@ namespace DoritoPatcherWPF
                 var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
 
-                if (settingsViewModel.LaunchParams.WindowedMode)
+                if (chkWin.IsChecked ?? true)
                 {
                     sInfo.Arguments += " -window";
                 }
-                if (settingsViewModel.LaunchParams.Fullscreen)
+                if (chkFull.IsChecked ?? true)
                 {
                     sInfo.Arguments += " -fullscreen";
                 }
@@ -798,8 +811,8 @@ namespace DoritoPatcherWPF
                     sInfo.Arguments += " -show_fps";
                 }
 
-                sInfo.Arguments += " -width " + settingsViewModel.LaunchParams.Width;
-                sInfo.Arguments += " -height " + settingsViewModel.LaunchParams.Height;
+                sInfo.Arguments += " -width " + configFile["Video.Width"];
+                sInfo.Arguments += " -height " + configFile["Video.Height"];
 
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
@@ -976,7 +989,7 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }*/
 
-        private static void Initial()
+        private void Initial()
         {
             var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
             if (!cfgFileExists)
@@ -1006,6 +1019,15 @@ namespace DoritoPatcherWPF
                 SetVariable("Camera.FOV", "90.000000", ref configFile);
                 SetVariable("Camera.HideHUD", "0", ref configFile);
                 SetVariable("Input.RawInput", "1", ref configFile);
+                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)), ref configFile);
+                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)), ref configFile);
+                SetVariable("Video.Window", "0", ref configFile);
+                SetVariable("Video.FullScreen", "1", ref configFile);
+                SetVariable("Video.VSync", "0", ref configFile);
+                SetVariable("Video.DX9Ex", "1", ref configFile);
+                SetVariable("Video.FPSCounter", "0", ref configFile);
+                SetVariable("Video.IntroSkip", "0", ref configFile);
+
             }
             
             //var armorShoulders = configFile["Player.Armor.Shoulders"];
@@ -1077,6 +1099,81 @@ namespace DoritoPatcherWPF
             SetVariable("Player.Armor.Legs", cmbLegs.SelectedValue.ToString(), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
+
+        private void chkCenter_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Camera.Crosshair", Convert.ToString(Convert.ToInt32(chkCenter.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkRaw_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Input.RawInput", Convert.ToString(Convert.ToInt32(chkRaw.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void setWidth_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.Width", setWidth.Text, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void setHeight_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.Height", setHeight.Text, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkWin_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.Window", Convert.ToString(Convert.ToInt32(chkWin.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkFull_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.FullScreen", Convert.ToString(Convert.ToInt32(chkFull.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkVSync_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.VSync", Convert.ToString(Convert.ToInt32(chkVSync.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkDX9Ex_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.DX9Ex", Convert.ToString(Convert.ToInt32(chkDX9Ex.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkFPS_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.FPSCounter", Convert.ToString(Convert.ToInt32(chkFPS.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkIntro_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        /*
+        private void sldTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SetVariable("Server.Countdown", Convert.ToString(sldTimer), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        
+        private void sldFov_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SetVariable("Camera.FOV", Convert.ToString(Convert.ToInt32(sldFov.Value)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+         */
 
         private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
         {
@@ -1169,7 +1266,7 @@ namespace DoritoPatcherWPF
             settingsViewModel.Host.PropertyChanged += SettingsChanged;
             settingsViewModel.Input.PropertyChanged += SettingsChanged;
             //settingsViewModel.Beta.PropertyChanged += SettingsChanged;
-            settingsViewModel.LaunchParams.PropertyChanged += SettingsChanged;
+            
 
             // Set the data context for the settings tabs
             Customization.DataContext = settingsViewModel;
@@ -1194,7 +1291,6 @@ namespace DoritoPatcherWPF
             chkFPS.IsChecked = false;
             chkIntro.IsChecked = false;
         }
-
 
         
     }
