@@ -1840,9 +1840,9 @@
 
                                     <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150"
                                                 TickFrequency="5" IsSnapToTickEnabled="True"
-                                                Value="90" Background="{x:Null}"
+                                                Background="{x:Null}" Value="90"
                                                 BorderBrush="{x:Null}" Foreground="White" Width="90"/>
-                                    <TextBox DockPanel.Dock="Right" Text="{Binding ElementName=sldFov,Path=Value}" Width="60"
+                                    <TextBox Name="txtSld" DockPanel.Dock="Right" Text="{Binding ElementName=sldFov,Path=Value}" Width="60"
                                                  TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5">
                                         <TextBox.Background>
                                             <SolidColorBrush Color="White" Opacity="0.07" />

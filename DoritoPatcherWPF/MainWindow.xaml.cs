@@ -268,7 +268,7 @@ namespace DoritoPatcherWPF
             plrName.Text = configFile["Player.Name"];
 
             //Settings
-            sldFov.Value = Convert.ToInt32(Convert.ToDouble(configFile["Camera.FOV"]));
+            //sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
             chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
             chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
@@ -1016,7 +1016,7 @@ namespace DoritoPatcherWPF
                 SetVariable("Server.MaxPlayers", "16", ref configFile);
                 SetVariable("Server.Port", "11775", ref configFile);
                 SetVariable("Camera.Crosshair", "0", ref configFile);
-                SetVariable("Camera.FOV", "90.000000", ref configFile);
+                SetVariable("Camera.FOV", "90", ref configFile);
                 SetVariable("Camera.HideHUD", "0", ref configFile);
                 SetVariable("Input.RawInput", "1", ref configFile);
                 SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)), ref configFile);
@@ -1161,19 +1161,20 @@ namespace DoritoPatcherWPF
         }
 
         /*
+        private void txtSld_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        
         private void sldTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SetVariable("Server.Countdown", Convert.ToString(sldTimer), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-
+        */
         
-        private void sldFov_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            SetVariable("Camera.FOV", Convert.ToString(Convert.ToInt32(sldFov.Value)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-         */
 
         private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
         {
@@ -1291,6 +1292,7 @@ namespace DoritoPatcherWPF
             chkFPS.IsChecked = false;
             chkIntro.IsChecked = false;
         }
+
 
         
     }
