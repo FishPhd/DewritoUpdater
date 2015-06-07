@@ -15,6 +15,7 @@
         FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18" BorderThickness="1"
         Loaded="Window_Loaded">
     <Window.Resources>
+        <!--
         <osm:WebSessionProvider x:Key="session">
             <core:WebPreferences
                 SmoothScrolling="True"
@@ -187,6 +188,7 @@
                     background: rgba(255, 255, 255, 0.77) !important;
                 }" />
         </osm:WebSessionProvider>
+        -->
         <Storyboard x:Key="fade" RepeatBehavior="Forever">
             <DoubleAnimation Storyboard.TargetName="btnAction"
                              Storyboard.TargetProperty="Opacity" From="0.20" To="1"
@@ -1235,6 +1237,7 @@
                             </Border>
                         </StackPanel>
                     </Border>
+                    <!--
                     <osm:WebControl x:Name="embeddedBrowser" Margin="0,36,0,0"
                                     WebSession="{Binding Source={StaticResource session}}" Foreground="{x:Null}"
                                     IsTransparent="True">
@@ -1242,6 +1245,7 @@
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </osm:WebControl.Background>
                     </osm:WebControl>
+                    -->
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45"
                           Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2" />
                 </Grid>
@@ -1411,7 +1415,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
                                 <ComboBox x:Name="cmbHelmet" DropDownClosed="helmetClose" DropDownOpened="helmetOpen" SelectionChanged="cmbHelmet_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
+                                          MaxDropDownHeight="393" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
                                         <ComboBoxItem Content="Stealth" Tag="stealth"/>
@@ -1449,7 +1453,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light" Grid.ColumnSpan="2" Margin="5,7">Chest:</TextBlock>
                                 <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen" SelectionChanged="cmbChest_OnSelectionChanged"
-                                          SelectedValue="" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="0,5" Width="140" Grid.ColumnSpan="2" SelectedValuePath="Tag">
+                                          FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="0,5" Width="140" Grid.ColumnSpan="2" SelectedValuePath="Tag">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
                                         <ComboBoxItem Content="Stealth" Tag="stealth"/>
@@ -1483,7 +1487,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
                                 <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose" DropDownOpened="shouldersOpen" SelectionChanged="cmbShoulders_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
+                                          MaxDropDownHeight="325" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
                                         <ComboBoxItem Content="Stealth" Tag="stealth"/>
@@ -1517,7 +1521,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
                                 <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen" SelectionChanged="cmbArms_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
+                                          MaxDropDownHeight="293" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
                                         <ComboBoxItem Content="Stealth" Tag="stealth"/>
@@ -1551,7 +1555,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
                                 <ComboBox x:Name="cmbLegs" SelectionChanged="cmbLegs_OnSelectionChanged"
-                                          SelectedValue="" MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
+                                          MaxDropDownHeight="260" FontSize="16" FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right" Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Air Assault" Tag="air_assault"/>
                                         <ComboBoxItem Content="Stealth" Tag="stealth"/>
