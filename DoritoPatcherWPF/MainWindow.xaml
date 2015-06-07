@@ -1653,7 +1653,7 @@
                             <Border.Background>
                                 <SolidColorBrush Color="White" Opacity="0.07" />
                             </Border.Background>
-                            <Button x:Name="btnApply" Click="btnApply_Click" Content="OK"
+                            <Button x:Name="btnApply" Click="btnApply_Click" Content="APPLY"
                                     Style="{StaticResource Hover}" />
                         </Border>
                     </st:AutoGrid>
@@ -1966,7 +1966,7 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="White" Opacity="0.07" />
                                 </Border.Background>
-                                <Button x:Name="btnApply2" Content="OK" Click="btnApply2_Click"
+                                <Button x:Name="btnApply2" Content="APPLY" Click="btnApply2_Click"
                                         Style="{StaticResource Hover}" />
                             </Border>
                         </StackPanel>

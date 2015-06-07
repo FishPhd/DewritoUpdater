@@ -172,10 +172,7 @@ namespace DoritoPatcherWPF
             switchPanel("custom", false);
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-            switchPanel("main", false);
-        }
+        
 
         private void helmetOpen(object sender, EventArgs e)
         {
@@ -255,11 +252,11 @@ namespace DoritoPatcherWPF
             clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
             clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
             clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedIndex = Convert.ToInt32(configFile["Player.Armor.Legs"]);
-            cmbArms.SelectedIndex = Convert.ToInt32(configFile["Player.Armor.Arms"]);
-            cmbHelmet.SelectedIndex = Convert.ToInt32(configFile["Player.Armor.Helmet"]);
-            cmbChest.SelectedIndex = Convert.ToInt32(configFile["Player.Armor.Chest"]);
-            cmbShoulders.SelectedIndex = Convert.ToInt32(configFile["Player.Armor.Shoulders"]);
+            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
             plrName.Text = configFile["Player.Name"];
 
             //Settings
@@ -1007,12 +1004,12 @@ namespace DoritoPatcherWPF
                 SetVariable("Game.LanguageID", "0", ref configFile);
                 SetVariable("Game.SkipLauncher", "0", ref configFile);
                 SetVariable("Game.BetaFiles", "0", ref configFile);
-                SetVariable("Player.Armor.Accessory", "", ref configFile);
-                SetVariable("Player.Armor.Arms", "0", ref configFile);
-                SetVariable("Player.Armor.Chest", "0", ref configFile);
-                SetVariable("Player.Armor.Helmet", "0", ref configFile);
-                SetVariable("Player.Armor.Legs", "0", ref configFile);
-                SetVariable("Player.Armor.Shoulders", "0", ref configFile);
+                SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
                 SetVariable("Player.Colors.Primary", "#000000", ref configFile);
                 SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
                 SetVariable("Player.Colors.Lights", "#000000", ref configFile);
@@ -1099,35 +1096,45 @@ namespace DoritoPatcherWPF
             SetVariable("Player.Colors.Visor", clrVisor.SelectedColorText, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-
+        
         private void cmbHelmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedIndex), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+             * */
         }
 
         private void cmbChest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedIndex), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+             * */
         }
 
         private void cmbShoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedIndex), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+             */
         }
 
         private void cmbArms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedIndex), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+             * */
         }
 
         private void cmbLegs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
             SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedIndex), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+             */
         }
 
         private void chkCenter_Changed(object sender, RoutedEventArgs e)
@@ -1201,6 +1208,17 @@ namespace DoritoPatcherWPF
             SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
             SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
             SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
+            switchPanel("main", false);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             switchPanel("main", false);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
