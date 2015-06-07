@@ -1930,7 +1930,7 @@
                             <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="" Checked="chkVSync_Changed" Unchecked="chkVSync_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
-                                Disable Vertical Sync (VSync)
+                                Enable VSync
                             </CheckBox>
                             <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="" Checked="chkDX9Ex_Changed" Unchecked="chkDX9Ex_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"

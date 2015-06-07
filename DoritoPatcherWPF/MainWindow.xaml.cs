@@ -268,7 +268,7 @@ namespace DoritoPatcherWPF
             plrName.Text = configFile["Player.Name"];
 
             //Settings
-            //sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
+            sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
             chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
             chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
@@ -786,27 +786,27 @@ namespace DoritoPatcherWPF
                 var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
 
-                if (chkWin.IsChecked ?? true)
+                if (configFile["Video.Window"] == "1")
                 {
                     sInfo.Arguments += " -window";
                 }
-                if (chkFull.IsChecked ?? true)
+                if (configFile["Video.FullScreen"] == "1")
                 {
                     sInfo.Arguments += " -fullscreen";
                 }
-                if (settingsViewModel.LaunchParams.NoVSync)
+                if (configFile["Video.VSync"] == "1")
                 {
                     sInfo.Arguments += " -no_vsync";
                 }
-                if (settingsViewModel.LaunchParams.DX9Ex)
+                if (configFile["Video.DX9Ex"] == "1")
                 {
                     sInfo.Arguments += " -3d9ex";
                 }
-                else
+                else if (configFile["Video.DX9Ex"] == "0")
                 {
                     sInfo.Arguments += " -nod3d9ex";
                 }
-                if (settingsViewModel.LaunchParams.FPSCounter)
+                if (configFile["Video.FPSCounter"] == "1")
                 {
                     sInfo.Arguments += " -show_fps";
                 }
@@ -1023,7 +1023,7 @@ namespace DoritoPatcherWPF
                 SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)), ref configFile);
                 SetVariable("Video.Window", "0", ref configFile);
                 SetVariable("Video.FullScreen", "1", ref configFile);
-                SetVariable("Video.VSync", "0", ref configFile);
+                SetVariable("Video.VSync", "1", ref configFile);
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
@@ -1161,7 +1161,7 @@ namespace DoritoPatcherWPF
         }
 
         /*
-        private void txtSld_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldFov_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
