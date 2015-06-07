@@ -570,7 +570,7 @@
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Visible">
+            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
                 <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                     <Grid Grid.Row="1" Margin="0,0,0,5" VerticalAlignment="Top">
                         <Grid.Style>
@@ -1708,7 +1708,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Settings" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" Margin="10,20,20,20"
-                    BorderThickness="1" Visibility="Hidden">
+                    BorderThickness="1" Visibility="Visible">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1867,17 +1867,15 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
                             </CheckBox>
-                            <!--
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Download Settings
                             </TextBlock>
-                            <CheckBox Name="chkBeta" Grid.ColumnSpan="2" IsChecked="{Binding Beta.Beta}"
+                            <CheckBox Name="chkBeta" Checked="chkBeta_Changed" Unchecked="chkBeta_Changed" Grid.ColumnSpan="2" IsChecked=""
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Download Beta Files
                             </CheckBox>
-                            -->
                         </StackPanel>
                         <StackPanel Margin="10,20,20,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"

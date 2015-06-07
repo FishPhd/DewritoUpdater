@@ -279,6 +279,7 @@ namespace DoritoPatcherWPF
             chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
             chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
             chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+            chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
 
             setWidth.Text = configFile["Video.Width"];
@@ -293,11 +294,11 @@ namespace DoritoPatcherWPF
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
                 /*
-                if (chkBeta.IsChecked == true)
+                if (configFile["Game.BetaFiles"] == "1")
                 {
                     settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update_publicbeta.json";
                 }
-                */
+                 */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     lblVersion.Text = "Error";
@@ -996,6 +997,7 @@ namespace DoritoPatcherWPF
                 SetVariable("Game.MedalsZip", "halo3", ref configFile);
                 SetVariable("Game.LanguageID", "0", ref configFile);
                 SetVariable("Game.SkipLauncher", "0", ref configFile);
+                SetVariable("Game.BetaFiles", "0", ref configFile);
                 SetVariable("Player.Armor.Accessory", "", ref configFile);
                 SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
                 SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
@@ -1156,6 +1158,12 @@ namespace DoritoPatcherWPF
         private void chkIntro_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkBeta_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Game.BetaFiles", Convert.ToString(Convert.ToInt32(chkBeta.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
