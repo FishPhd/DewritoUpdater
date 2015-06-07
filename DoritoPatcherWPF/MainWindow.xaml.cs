@@ -167,10 +167,7 @@ namespace DoritoPatcherWPF
             switchPanel("settings", false);
         }
 
-        private void btnApply2_Click(object sender, EventArgs e)
-        {
-            switchPanel("main", false);
-        }
+        
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
@@ -269,6 +266,8 @@ namespace DoritoPatcherWPF
 
             //Settings
             sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
+            sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
+            sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
             chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
             chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
@@ -1157,6 +1156,15 @@ namespace DoritoPatcherWPF
         private void chkIntro_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void btnApply2_Click(object sender, EventArgs e)
+        {
+            SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
+            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
+            SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
+            switchPanel("main", false);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
