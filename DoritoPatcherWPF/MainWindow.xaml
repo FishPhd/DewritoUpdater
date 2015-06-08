@@ -258,12 +258,6 @@
             </Button>
         </StackPanel>
         <Grid Grid.Row="1" Grid.Column="0" Margin="20,20,10,20">
-            <Canvas HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="370"
-                    SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,52,0,253">
-                <Canvas.Background>
-                    <ImageBrush ImageSource="Resources/LOGO_Launcher.png" Stretch="Uniform" />
-                </Canvas.Background>
-            </Canvas>
             <ItemsControl ItemsSource="{Binding Text, ElementName=run}"
                               Foreground="White" FontFamily="/Resources/#Aero Matics" FontSize="42" 
                               Margin="65,0,65,185" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -275,15 +269,22 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" 
-            					Margin="2.5,0,2.5,0"/>
+                    		Margin="2.5,0,2.5,0"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <Button Margin="122,303,224,197" Background="Black" BorderBrush="{x:Null}" Opacity="0" Click="D_click"/>
+            <Canvas HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="370"
+                    SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Margin="0,52,0,253">
+                <Canvas.Background>
+                    <ImageBrush ImageSource="Resources/LOGO_Launcher.png" Stretch="Uniform" />
+                </Canvas.Background>
+            </Canvas>
             <Grid Height="118" VerticalAlignment="Bottom">
                 <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0,0,0,0" Height="54"
                         VerticalAlignment="Top">
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style TargetType="{x:Type Border}">
                             <Setter Property="BorderBrush" Value="#FF47A6FF" />
                             <Setter Property="Background">
                                 <Setter.Value>
@@ -301,26 +302,16 @@
                     <Border.Clip>
                         <GeometryGroup>
                             <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
-                            <PathGeometry>
-                                <PathGeometry.Figures>
-                                    <PathFigure x:Name="BorderClipFigure" StartPoint="0,0">
-                                        <LineSegment Point="195,0" />
-                                        <LineSegment Point="215,20" />
-                                        <LineSegment Point="215,55" />
-                                        <LineSegment Point="0,55" />
-                                    </PathFigure>
-                                </PathGeometry.Figures>
-                            </PathGeometry>
+                            <PathGeometry Figures="M0,0 L195,0 L215,20 L215,55 L0,55"/>
                         </GeometryGroup>
                     </Border.Clip>
-                    <Grid Name="gridAction">
+                    <Grid x:Name="gridAction">
                         <Grid.Resources>
                             <Style TargetType="{x:Type Line}">
                                 <Setter Property="Stroke" Value="#FF47A6FF" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
-                                               Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
                                         Value="True">
                                         <Setter Property="Stroke" Value="#FFB3DAFF" />
                                     </DataTrigger>
@@ -330,13 +321,10 @@
                         <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False"
                                 Click="btnAction_Click" Template="{DynamicResource BackgroundButton}"
                                 BorderBrush="White" FontSize="30" Width="215" FontFamily="/Resources/#Aero Matics"
-                                Cursor="Hand">
-                            <Button.Background>
-                                <SolidColorBrush Color="#00FF0000" />
-                            </Button.Background>
+                                Cursor="Hand" Background="#00FF0000">
                             <Button.Resources>
-                                <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                    <Border Name="border" Background="{TemplateBinding Background}">
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}">
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                 </ControlTemplate>
@@ -356,7 +344,7 @@
                                     </Setter>
                                     <Style.Triggers>
                                         <DataTrigger
-                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}"
+                                            Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type Border}}}"
                                             Value="True">
                                             <Setter Property="Background" Value="White" />
                                         </DataTrigger>
@@ -370,14 +358,14 @@
                 </Border>
                 <StackPanel HorizontalAlignment="Left" Height="54" Margin="222,0,-7,0" VerticalAlignment="Top"
                             Width="155" Orientation="Horizontal">
-                    <Button Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}"
+                    <Button x:Name="btnSettings" Click="btnSettings_Click" BorderBrush="{x:Null}"
                             VerticalAlignment="Bottom" Background="#00000000"
                             Template="{DynamicResource BackgroundButton}" Margin="0" Height="54" Width="51.6"
                             UseLayoutRounding="False" IsHitTestVisible="True" Cursor="Hand"
                             ToolTip="Change game or launcher settings">
                         <Button.Resources>
-                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                <Border Name="border" Background="{TemplateBinding Background}">
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -388,7 +376,7 @@
                                 <Setter Property="Source" Value="Resources/BTN_Settings.png" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
                                         <Setter Property="Source" Value="Resources/BTN_Settings_Blue.png" />
                                     </DataTrigger>
@@ -397,13 +385,13 @@
                         </Button.Resources>
                         <Image Height="26" HorizontalAlignment="Center" Width="26" />
                     </Button>
-                    <Button Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
+                    <Button x:Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand"
                             ToolTip="Open the reddit page in your browser">
                         <Button.Resources>
-                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                <Border Name="border" Background="{TemplateBinding Background}">
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -414,7 +402,7 @@
                                 <Setter Property="Source" Value="Resources/BTN_Reddit.png" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
                                         <Setter Property="Source" Value="Resources/BTN_Reddit_Blue.png" />
                                     </DataTrigger>
@@ -449,13 +437,13 @@
                         </Button.Resources>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Height="26" Width="26" />
                     </Button>-->
-                    <Button Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
+                    <Button x:Name="btnDebug" Click="btnDebug_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand"
                             ToolTip="View the debug logs for debugging purposes.">
                         <Button.Resources>
-                            <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                                <Border Name="border" Background="{TemplateBinding Background}">
+                            <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                                <Border x:Name="border" Background="{TemplateBinding Background}">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -466,7 +454,7 @@
                                 <Setter Property="Source" Value="Resources/BTN_Debug.png" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
                                         <Setter Property="Source" Value="Resources/BTN_Debug_Blue.png" />
                                     </DataTrigger>
@@ -477,12 +465,12 @@
                                Opacity="0.9" />
                     </Button>
                 </StackPanel>
-                <Button Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Center"
+                <Button x:Name="btnChangelog" Click="btnChangelog_Click" BorderBrush="{x:Null}" VerticalAlignment="Center"
                         Background="#00000000" Template="{DynamicResource BackgroundButton}" Width="370"
                         HorizontalAlignment="Left" Margin="0,45,0,0" Cursor="Hand" ToolTip="View the changelist">
                     <Button.Resources>
-                        <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
-                            <Border Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
+                        <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderThickness="0" Background="{TemplateBinding Background}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -496,7 +484,7 @@
                                 <Setter Property="Source" Value="Resources/BTN_Changelog.png" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
                                         <Setter Property="Source" Value="Resources/BTN_Changelog_Blue.png" />
                                     </DataTrigger>
@@ -507,8 +495,7 @@
                                 <Setter Property="Foreground" Value="#ffffffff" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Button},
-                                                   Path=IsMouseOver}"
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
                                         <Setter Property="Foreground" Value="#FF47A6FF" />
                                     </DataTrigger>
@@ -517,11 +504,8 @@
                         </StackPanel.Resources>
                         <Image Height="18" HorizontalAlignment="Left" Margin="0" Width="20" />
                         <TextBlock TextWrapping="Wrap" Margin="10,-8,580,-7" Grid.ColumnSpan="2" FontSize="21"
-                                   TextOptions.TextFormattingMode="Display" VerticalAlignment="Center" Width="350">
-                            <Run Text="CURRENT VERSION: " BaselineAlignment="Center" />
-                            <Run x:Name="lblVersion" Text="Verifying " FontFamily="/Resources/#Aero Matics"
-                                 BaselineAlignment="Center" />
-                        </TextBlock>
+                                   TextOptions.TextFormattingMode="Display" VerticalAlignment="Center" Width="350"><Run Text="CURRENT VERSION: " BaselineAlignment="Center" /><Run Text=" "/><Run x:Name="lblVersion" Text="Verifying " FontFamily="/Resources/#Aero Matics"
+                                 BaselineAlignment="Center" /></TextBlock>
                     </StackPanel>
                 </Button>
                 <!-- Do not remove this, Fish, I'm looking at you -->
@@ -539,8 +523,7 @@
                         <Setter Property="FontSize" Value="18" />
                         <Style.Triggers>
                             <DataTrigger
-                                Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid},
-                                                   Path=IsMouseOver}"
+                                Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
                                 Value="True">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>

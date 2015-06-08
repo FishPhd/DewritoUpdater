@@ -869,7 +869,7 @@ namespace DoritoPatcherWPF
 
         private void btnIRC_Click(object sender, RoutedEventArgs e)
         {
-            var sInfo = new ProcessStartInfo("http://irc.lc/gamesurge/eldorito");
+            var sInfo = new ProcessStartInfo("http://irc.lc/snoonet/eldorito/");
             Process.Start(sInfo);
         }
         
@@ -1221,6 +1221,12 @@ namespace DoritoPatcherWPF
             SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             switchPanel("main", false);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void D_click(object sender, EventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("http://i.4cdn.org/wsg/1433551639678.gif");
+            Process.Start(sInfo);
         }
 
         /*
