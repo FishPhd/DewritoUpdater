@@ -1064,6 +1064,10 @@ namespace DoritoPatcherWPF
         private void plrName_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             SetVariable("Player.Name", plrName.Text, ref configFile);
+            if (configFile["Player.Name"] == "Swarm")
+            {
+                SetVariable("Player.Name", "Faggot", ref configFile);
+            }
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
