@@ -1064,7 +1064,7 @@ namespace DoritoPatcherWPF
         private void plrName_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             SetVariable("Player.Name", plrName.Text, ref configFile);
-            if (configFile["Player.Name"] == "Swarm")
+            if (configFile["Player.Name"].ToLower() == "swarm")
             {
                 SetVariable("Player.Name", "Faggot", ref configFile);
             }
