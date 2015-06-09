@@ -1060,17 +1060,28 @@ namespace DoritoPatcherWPF
             //var armorShoulders = configFile["Player.Armor.Shoulders"];
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-
         private void plrName_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             SetVariable("Player.Name", plrName.Text, ref configFile);
-            if (configFile["Player.Name"] == "Swarm")
+            if (configFile["Player.Name"].ToLower() == "swarm")
             {
                 SetVariable("Player.Name", "Faggot", ref configFile);
             }
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+            plrName.Text = configFile["Player.Name"];
         }
-
+        /*
+        private void plrName_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Player.Name", plrName.Text, ref configFile);
+            if (configFile["Player.Name"].ToLower() == "swarm")
+            {
+                SetVariable("Player.Name", "Faggot", ref configFile);
+            }
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            plrName.Text = configFile["Player.Name"];
+        }
+        */
         private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             SetVariable("Player.Colors.Primary", clrPrimary.SelectedColorText, ref configFile);
