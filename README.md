@@ -1,6 +1,6 @@
 Copyright 2015, Sam Fish, All rights reserved.
 
-Because of some recent events I need to clamp down on some rules. First this code cannot be disttributed without my full go ahead. This code can be altered privately but distributing modified versions without my consent is not allowed. No commercial use allowed. Read license for more information.
+Because of some recent events I need to clamp down on some rules. First this code cannot be disttributed without my full go ahead. This code can be altered privately but distributing modified versions without my consent is not allowed. No commercial use allowed. Read license for additional information.
 
 
 # DewritoLauncher
