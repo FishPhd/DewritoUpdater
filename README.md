@@ -12,6 +12,8 @@ Halo Online Launcher with auto updating features
 
 &nbsp;
 
+Contact: Samuel.fish@live.com
+
 #### Changelog
 
 0.4.6 (Message FishPhd for all visual issues)
