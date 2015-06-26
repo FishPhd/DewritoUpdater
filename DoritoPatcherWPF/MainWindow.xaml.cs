@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -76,6 +77,34 @@ namespace DoritoPatcherWPF
             var fade = (Storyboard) TryFindResource("fade");
             fade.Begin(); // Start animation
         }
+
+        //RCON
+        public static string dewCmd(string cmd)
+        {
+            byte[] data = new byte[1024];
+            string stringData;
+            TcpClient server;
+            try
+            {
+                server = new TcpClient("127.0.0.1", 2448);
+            }
+            catch (SocketException)
+            {
+                return "Unable to talk to Eldewrito, is it running?";
+            }
+            NetworkStream ns = server.GetStream();
+
+            int recv = ns.Read(data, 0, data.Length);
+            stringData = Encoding.ASCII.GetString(data, 0, recv);
+
+            ns.Write(Encoding.ASCII.GetBytes(cmd), 0, cmd.Length);
+            ns.Flush();
+
+            ns.Close();
+            server.Close();
+            return "Done";
+        }
+
 
         /* --- Titlebar Control --- */
 
@@ -272,7 +301,7 @@ namespace DoritoPatcherWPF
             chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
             chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
             chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-            chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+            //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
 
             setWidth.Text = configFile["Video.Width"];
@@ -1096,45 +1125,35 @@ namespace DoritoPatcherWPF
             SetVariable("Player.Colors.Visor", clrVisor.SelectedColorText, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-        
-        private void cmbHelmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void CmbHelmet_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            /*
-            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedIndex), ref configFile);
+            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-             * */
         }
 
-        private void cmbChest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbChest_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            /*
-            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedIndex), ref configFile);
+            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-             * */
         }
 
-        private void cmbShoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbShoulders_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            /*
-            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedIndex), ref configFile);
+            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-             */
         }
 
-        private void cmbArms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbArms_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            /*
-            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedIndex), ref configFile);
+            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-             * */
         }
 
-        private void cmbLegs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbLegs_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            /*
-            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedIndex), ref configFile);
+            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-             */
         }
 
         private void chkCenter_Changed(object sender, RoutedEventArgs e)
@@ -1197,30 +1216,41 @@ namespace DoritoPatcherWPF
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
+        /*
         private void chkBeta_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Game.BetaFiles", Convert.ToString(Convert.ToInt32(chkBeta.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-
+        */
+       
         private void btnApply2_Click(object sender, EventArgs e)
         {
-            SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
-            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
-            SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
             switchPanel("main", false);
+        }
+
+        private void SldMax_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void SldFov_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void SldTimer_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             switchPanel("main", false);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            
         }
 
         private void D_click(object sender, EventArgs e)
@@ -1277,6 +1307,12 @@ namespace DoritoPatcherWPF
                 configDict[varName] = varValue;
             else
                 configDict.Add(varName, varValue);
+        
+        }
+
+        static bool CheckIfProcessIsRunning(string nameSubstring)
+        {
+            return Process.GetProcesses().Any(p => p.ProcessName.Contains(nameSubstring));
         }
 
         private static bool SaveConfigFile(string cfgFileName, Dictionary<string, string> configDict)
@@ -1292,10 +1328,12 @@ namespace DoritoPatcherWPF
 
                 File.WriteAllLines(cfgFileName, lines.ToArray());
 
-                // live update of config
-                // could skip the GameIsRunning bit and just try connecting, if it fails to connect game isn't running
-                // if(GameIsRunning())
-                //     RconSendCommand("Execute dewrito_prefs.cfg");
+
+                bool running = CheckIfProcessIsRunning("eldorado");
+                if (running)
+                {
+                    dewCmd("Execute dewrito_prefs.cfg");
+                }
                 return true;
             }
             catch
@@ -1361,7 +1399,6 @@ namespace DoritoPatcherWPF
             chkFPS.IsChecked = false;
             chkIntro.IsChecked = false;
         }
-
 
         
     }
