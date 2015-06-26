@@ -1,5 +1,7 @@
 Because of some recent events I need to clamp down on some rules. First this code should not be disttributed without my full go ahead. This code can be altered privately but distributing modified versions without my consent is not allowed. No commercial use allowed.
 
+Halo Maps Username: FishPhdOfficial
+
 
 # DewritoLauncher
 
