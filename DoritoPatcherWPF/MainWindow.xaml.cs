@@ -983,6 +983,12 @@ namespace DoritoPatcherWPF
             clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
             clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
 
+            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
+            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
@@ -1033,7 +1039,7 @@ namespace DoritoPatcherWPF
         {
             var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
             
-            if (!cfgFileExists || Error)
+            if (!cfgFileExists)
             {
                 SetVariable("Game.MedalsZip", "halo3", ref configFile);
                 SetVariable("Game.LanguageID", "0", ref configFile);
@@ -1069,6 +1075,18 @@ namespace DoritoPatcherWPF
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
+            }
+            else if (Error)
+            {
+                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)), ref configFile);
+                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)), ref configFile);
+                SetVariable("Video.Window", "0", ref configFile);
+                SetVariable("Video.FullScreen", "1", ref configFile);
+                SetVariable("Video.VSync", "1", ref configFile);
+                SetVariable("Video.DX9Ex", "1", ref configFile);
+                SetVariable("Video.FPSCounter", "0", ref configFile);
+                SetVariable("Video.IntroSkip", "0", ref configFile);
+                SaveConfigFile("dewrito_prefs.bak", configFile);
             }
    
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1239,7 +1257,6 @@ namespace DoritoPatcherWPF
         private void btnApply_Click(object sender, EventArgs e)
         {
             switchPanel("main", false);
-            
         }
 
         private void D_click(object sender, EventArgs e)
