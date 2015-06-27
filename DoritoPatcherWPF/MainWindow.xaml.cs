@@ -105,7 +105,6 @@ namespace DoritoPatcherWPF
             return "Done";
         }
 
-
         /* --- Titlebar Control --- */
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -1098,31 +1097,36 @@ namespace DoritoPatcherWPF
 
         private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            SetVariable("Player.Colors.Primary", clrPrimary.SelectedColorText, ref configFile);
+            String String = Convert.ToString(clrPrimary.SelectedColor).Remove(1, 2);
+            SetVariable("Player.Colors.Primary", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrSecondary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            SetVariable("Player.Colors.Secondary", clrSecondary.SelectedColorText, ref configFile);
+            String String = Convert.ToString(clrSecondary.SelectedColor).Remove(1, 2);
+            SetVariable("Player.Colors.Secondary", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrLights_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            SetVariable("Player.Colors.Lights", clrLights.SelectedColorText, ref configFile);
+            String String = Convert.ToString(clrLights.SelectedColor).Remove(1, 2);
+            SetVariable("Player.Colors.Lights", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrHolo_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            SetVariable("Player.Colors.Holo", clrHolo.SelectedColorText, ref configFile);
+            String String = Convert.ToString(clrHolo.SelectedColor).Remove(1, 2);
+            SetVariable("Player.Colors.Holo", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrVisor_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            SetVariable("Player.Colors.Visor", clrVisor.SelectedColorText, ref configFile);
+            String String = Convert.ToString(clrVisor.SelectedColor).Remove(1, 2);
+            SetVariable("Player.Colors.Visor", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
