@@ -26,12 +26,12 @@ before_build:
 
 # scripts to run after build
 after_build:
-  - cd C:\projects\DewritoLauncher\bin\Release\
-  - 7z a C:\projects\DewritoLauncher\bin\Release\DewritoLauncher.zip * -tzip
-  - cd c:\projects\DewritoLauncher
+  - cd C:\projects\DewritoLauncher\DoritoPatcherWPF\bin\Release\
+  - 7z a C:\projects\DewritoLauncher\DoritoPatcherWPF\bin\Release\DewritoLauncher.zip * -tzip
+  - cd C:\projects\DewritoLauncher
 
 artifacts:
-  - path: DewritoLauncher.zip
+  - path: C:\projects\DewritoLauncher\DoritoPatcherWPF\bin\Release\DewritoLauncher.zip
     name: DewritoLauncher.zip
 
 #deploy_script:
