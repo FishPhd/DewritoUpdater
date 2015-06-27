@@ -272,40 +272,47 @@ namespace DoritoPatcherWPF
                 }
             }
 
-            Initial();
+            try
+            {
+                Initial(false);
 
-            //Customization
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-            plrName.Text = configFile["Player.Name"];
+                //Customization
+                clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+                clrSecondary.SelectedColor =
+                    (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+                clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+                clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+                clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+                cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+                cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+                cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+                cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+                cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+                plrName.Text = configFile["Player.Name"];
 
-            //Settings
-            sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
-            sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
-            sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
-            chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
-            chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
+                //Settings
+                sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
+                sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
+                sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
+                chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
+                chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
-            chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
-            chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
-            chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
-            chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
-            chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
-            chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-            //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+                chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
+                chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
+                chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
+                chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
+                chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
+                chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
 
-            setWidth.Text = configFile["Video.Width"];
-            setHeight.Text = configFile["Video.Height"];
-
+                setWidth.Text = configFile["Video.Width"];
+                setHeight.Text = configFile["Video.Height"];
+            }
+            catch
+            {
+                Initial(true);
+            }
             /*
             LoadSettings();
             SaveSettings();
@@ -1022,11 +1029,11 @@ namespace DoritoPatcherWPF
             Process.Start(sInfo);
         }*/
 
-        private void Initial()
+        private void Initial(bool Error)
         {
             var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
             
-            if (!cfgFileExists)
+            if (!cfgFileExists || Error)
             {
                 SetVariable("Game.MedalsZip", "halo3", ref configFile);
                 SetVariable("Game.LanguageID", "0", ref configFile);
@@ -1063,29 +1070,7 @@ namespace DoritoPatcherWPF
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
             }
-            /*
-            if (configFile["Player.Armor.Arms"] == "")
-            {
-                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
-            }
-            if (configFile["Player.Armor.Chest"] == "")
-            {
-                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
-            }
-            if (configFile["Player.Armor.Helmet"] == "")
-            {
-                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
-            }
-            if (configFile["Player.Armor.Legs"] == "")
-            {
-                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
-            }
-            if (configFile["Player.Armor.Shoulders"] == "")
-            {
-                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
-            }
-             * */
-            //var armorShoulders = configFile["Player.Armor.Shoulders"];
+   
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
