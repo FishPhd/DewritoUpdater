@@ -1854,7 +1854,6 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
                             </CheckBox>
-                            <!--
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Download Settings
@@ -1865,7 +1864,6 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Download Beta Files
                             </CheckBox>
-                            -->
                         </StackPanel>
                         <StackPanel Margin="10,20,20,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"

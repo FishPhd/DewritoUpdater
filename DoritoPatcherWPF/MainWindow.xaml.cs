@@ -303,7 +303,7 @@ namespace DoritoPatcherWPF
                 chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
                 chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
                 chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+                chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
 
                 setWidth.Text = configFile["Video.Width"];
@@ -321,12 +321,15 @@ namespace DoritoPatcherWPF
             try
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
-                /*
                 if (configFile["Game.BetaFiles"] == "1")
                 {
                     settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update_publicbeta.json";
                 }
-                 */
+                else
+                {
+                    settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
+                }
+
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     lblVersion.Text = "Error";
@@ -386,7 +389,7 @@ namespace DoritoPatcherWPF
 
                 AppendDebugLine("Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"].ToString(), Color.FromRgb(255, 0, 0));
 
-                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json")
+                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json" || settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update_publicbeta.json")
                 {
                     AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
@@ -1223,13 +1226,11 @@ namespace DoritoPatcherWPF
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        /*
         private void chkBeta_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Game.BetaFiles", Convert.ToString(Convert.ToInt32(chkBeta.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-        */
        
         private void btnApply2_Click(object sender, EventArgs e)
         {
@@ -1348,46 +1349,6 @@ namespace DoritoPatcherWPF
             }
         }
 
-        /*
-        private void LoadSettings()
-        {
-            // Load settings from the YAML file
-            settings = null;
-            try
-            {
-                using (var stream = File.OpenText(SettingsFileName))
-                {
-                    var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
-                    settings = deserializer.Deserialize<DewritoSettings>(stream);
-                }
-            }
-            catch (IOException)
-            {
-            }
-            catch (YamlException)
-            {
-            }
-            if (settings == null)
-                settings = new DewritoSettings(); // Use defaults if an error occurred
-
-            // Create the view model and listen for changes
-            settingsViewModel = new SettingsViewModel(settings);
-            settingsViewModel.PropertyChanged += SettingsChanged;
-            settingsViewModel.Player.PropertyChanged += SettingsChanged;
-            settingsViewModel.Player.Armor.PropertyChanged += SettingsChanged;
-            settingsViewModel.Player.Colors.PropertyChanged += SettingsChanged;
-            settingsViewModel.Video.PropertyChanged += SettingsChanged;
-            settingsViewModel.Host.PropertyChanged += SettingsChanged;
-            settingsViewModel.Input.PropertyChanged += SettingsChanged;
-            //settingsViewModel.Beta.PropertyChanged += SettingsChanged;
-            
-
-            // Set the data context for the settings tabs
-            Customization.DataContext = settingsViewModel;
-            Settings.DataContext = settingsViewModel;
-        }
-        */
-
         private void btnReset_Click(object sender, EventArgs e)
         {
             setWidth.Text = SystemParameters.PrimaryScreenWidth.ToString();
@@ -1395,9 +1356,9 @@ namespace DoritoPatcherWPF
             sldFov.Value = 90;
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
-            //chkBeta.IsChecked = false;
+            chkBeta.IsChecked = false;
             sldTimer.Value = 5;
-            //sldMax.Value = 16;
+            sldMax.Value = 16;
             chkWin.IsChecked = false;
             chkFull.IsChecked = true;
             chkVSync.IsChecked = false;
