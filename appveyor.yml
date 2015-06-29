@@ -9,7 +9,7 @@ init:
 
 
 # clone directory
-clone_folder: c:\projects\DewritoLauncher
+clone_folder: c:\projects\DewritoUpdater
 
 platform: x86
 configuration: Release
@@ -18,7 +18,7 @@ install:
   # by default, all script lines are interpreted as batch
 
 build:
-  project: DoritoPatcher.sln      # path to Visual Studio solution or project
+  project: DewritoUpdater.sln      # path to Visual Studio solution or project
 
 # scripts to run before build
 before_build:
@@ -26,13 +26,13 @@ before_build:
 
 # scripts to run after build
 after_build:
-  - cd C:\projects\DewritoLauncher\DoritoPatcherWPF\bin\x86\Release\
-  - 7z a C:\projects\DewritoLauncher\DoritoPatcherWPF.zip *.exe -tzip
-  - cd C:\projects\DewritoLauncher
+  - cd C:\projects\DewritoUpdater\DewritoUpdater\bin\x86\Release\
+  - 7z a C:\projects\DewritoUpdater\DewritoUpdater.zip *.exe -tzip
+  - cd C:\projects\DewritoUpdater
   
 artifacts:
-  - path: DoritoPatcherWPF.zip
-    name: DoritoPatcherWPF.zip
+  - path: DewritoUpdater.zip
+    name: DewritoUpdater.zip
 
 #deploy_script:
 #  - cd c:\projects\sqlite
