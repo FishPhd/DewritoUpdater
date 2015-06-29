@@ -280,6 +280,81 @@
                     <ImageBrush ImageSource="Resources/LOGO_Launcher.png" Stretch="Uniform" />
                 </Canvas.Background>
             </Canvas>
+            <Grid Name="GridSkip" Margin="0,364,0,123">
+                <Border BorderThickness="2" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" Height="40"
+                        VerticalAlignment="Top">
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="BorderBrush" Value="#FF47A6FF" />
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FF214D75" Opacity="1" />
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="#FFB3DAFF" />
+                                    <Setter Property="Background" Value="#FF567EA2" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Border.Clip>
+                        <GeometryGroup>
+                            <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                            <PathGeometry Figures="M0,0 L200,0 L200,25 L210,55 L0,55"/>
+                        </GeometryGroup>
+                    </Border.Clip>
+                    <Grid x:Name="gridSkip">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Line}">
+                                <Setter Property="Stroke" Value="#FF47A6FF" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                        Value="True">
+                                        <Setter Property="Stroke" Value="#FFB3DAFF" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+                        <Button x:Name="btnSkip" Content="SKIP" HorizontalAlignment="Center" IsEnabled="True"
+                                Click="BtnSkip_OnClick" Template="{DynamicResource BackgroundButton}"
+                                BorderBrush="White" FontSize="20" Width="100" FontFamily="/Resources/#Aero Matics"
+                                Cursor="Hand" Background="#00FF0000" Margin="-2,1,-2,-1">
+                            <Button.Resources>
+                                <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Resources>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorLevel=1, AncestorType={x:Type Border}}}"
+                                            Value="True">
+                                            <Setter Property="Background" Value="White" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
             <Grid Height="118" VerticalAlignment="Bottom">
                 <Border BorderThickness="2" Width="215" HorizontalAlignment="Left" Margin="0,0,0,0" Height="54"
                         VerticalAlignment="Top">
@@ -321,7 +396,7 @@
                         <Button x:Name="btnAction" Content="VERIFYING" HorizontalAlignment="Center" IsEnabled="False"
                                 Click="btnAction_Click" Template="{DynamicResource BackgroundButton}"
                                 BorderBrush="White" FontSize="30" Width="215" FontFamily="/Resources/#Aero Matics"
-                                Cursor="Hand" Background="#00FF0000">
+                                Cursor="Hand" Background="#00FF0000" Margin="-2,1,-2,-1">
                             <Button.Resources>
                                 <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
                                     <Border x:Name="border" Background="{TemplateBinding Background}">

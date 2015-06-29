@@ -1358,5 +1358,22 @@ namespace DewritoUpdater
         }
 
 
+        private void BtnSkip_OnClick(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
+            sInfo.Arguments = "-launcher";
+
+            try
+            {
+                Process.Start(sInfo);
+            }
+            catch
+            {
+                var AlertWindow = new MsgBoxOk("Game executable not found.");
+
+                AlertWindow.Show();
+                AlertWindow.Focus();
+            }
+        }
     }
 }
