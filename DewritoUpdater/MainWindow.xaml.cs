@@ -66,11 +66,6 @@ namespace DewritoUpdater
                 }
             }
 
-            /*
-            AppDomain.CurrentDomain.AssemblyResolve +=
-                ResolveAssembly;
-             * */
-
             // proceed starting app...
 
             InitializeComponent();
@@ -277,6 +272,7 @@ namespace DewritoUpdater
             {
                 Initial(false);
 
+                /*
                 if (configFile["Game.Protocol"] == "0")
                 {
                     SetVariable("Game.Protocol", "1", ref configFile);
@@ -286,7 +282,7 @@ namespace DewritoUpdater
                     string[] array = { };
                     Skeet.Start(array);   
                 }
-
+                */
                 //Customization
                 clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
                 clrSecondary.SelectedColor =
@@ -328,6 +324,7 @@ namespace DewritoUpdater
             try
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
+                /*
                 if (configFile["Game.BetaFiles"] == "1")
                 {
                     settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update_publicbeta.json";
@@ -336,7 +333,7 @@ namespace DewritoUpdater
                 {
                     settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
                 }
-
+                */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     lblVersion.Text = "Error";
@@ -364,24 +361,6 @@ namespace DewritoUpdater
             validateThread = new Thread(BackgroundThread);
             validateThread.Start();
         }
-
-        /*
-        private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-        {
-            var parentAssembly = Assembly.GetExecutingAssembly();
-
-            var name = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";
-            var resourceName = parentAssembly.GetManifestResourceNames()
-                .First(s => s.EndsWith(name));
-
-            using (var stream = parentAssembly.GetManifestResourceStream(resourceName))
-            {
-                var block = new byte[stream.Length];
-                stream.Read(block, 0, block.Length);
-                return Assembly.Load(block);
-            }
-        }
-         */
 
         private void BackgroundThread()
         {
@@ -1057,7 +1036,7 @@ namespace DewritoUpdater
                 SetVariable("Game.LanguageID", "0", ref configFile);
                 SetVariable("Game.SkipLauncher", "0", ref configFile);
                 SetVariable("Game.BetaFiles", "0", ref configFile);
-                SetVariable("Game.Protocol", "0", ref configFile);
+                //SetVariable("Game.Protocol", "0", ref configFile);
                 SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
                 SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
                 SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
