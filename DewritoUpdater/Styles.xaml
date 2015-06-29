@@ -171,7 +171,7 @@
 
     <Style x:Key="Hover" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="White" />
-        <Setter Property="FontFamily" Value="/DoritoPatcherWPF;component/Resources/#Aero Matics" />
+        <Setter Property="FontFamily" Value="/DoritoUpdater;component/Resources/#Aero Matics" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
@@ -207,7 +207,7 @@
 
     <Style x:Key="HoverTab" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="White" />
-        <Setter Property="FontFamily" Value="/DoritoPatcherWPF;component/Resources/#Aero Matics" />
+        <Setter Property="FontFamily" Value="/DoritoUpdater;component/Resources/#Aero Matics" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
