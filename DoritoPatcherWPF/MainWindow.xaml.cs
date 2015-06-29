@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -15,9 +15,10 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+﻿using Newtonsoft.Json.Linq;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -26,10 +27,10 @@ namespace DoritoPatcherWPF
     {
         private const string SettingsFileName = "dewrito_prefs.yaml";
         private static Dictionary<string, string> configFile;
-        private readonly bool embedded = true;
+        //private readonly bool embedded = true;
         private readonly SHA1 hasher = SHA1.Create();
         private readonly bool silentStart;
-        private readonly string[] skipFileExtensions = {".bik"};
+        private readonly string[] skipFileExtensions = { ".bik" };
 
         private readonly string[] skipFiles =
         {
@@ -37,16 +38,14 @@ namespace DoritoPatcherWPF
             "crash_reporter.exe", "game_local.cfg"
         };
 
-        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink"};
+        private readonly string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink" };
         public string BasePath = Directory.GetCurrentDirectory();
         private Dictionary<string, string> fileHashes;
         private List<string> filesToDownload;
         private bool isPlayEnabled;
         private JToken latestUpdate;
         private string latestUpdateVersion;
-        private DewritoSettings settings;
         private JObject settingsJson;
-        private SettingsViewModel settingsViewModel;
         private JObject updateJson;
         private Thread validateThread;
 
@@ -67,14 +66,16 @@ namespace DoritoPatcherWPF
                 }
             }
 
+            /*
             AppDomain.CurrentDomain.AssemblyResolve +=
                 ResolveAssembly;
+             * */
 
             // proceed starting app...
 
             InitializeComponent();
 
-            var fade = (Storyboard) TryFindResource("fade");
+            var fade = (Storyboard)TryFindResource("fade");
             fade.Begin(); // Start animation
         }
 
@@ -123,7 +124,7 @@ namespace DoritoPatcherWPF
         {
             if (!animationComplete)
             {
-                var fadePanels = (Storyboard) TryFindResource("fadePanels");
+                var fadePanels = (Storyboard)TryFindResource("fadePanels");
                 fadePanels.Completed += (sender, e) => switchPanelAnimationComplete(sender, e, panel);
                 fadePanels.Begin(); // Start fadeout
             }
@@ -160,7 +161,7 @@ namespace DoritoPatcherWPF
                         mainButtons.Visibility = Visibility.Visible;
                         break;
                 }
-                var showPanels = (Storyboard) TryFindResource("showPanels");
+                var showPanels = (Storyboard)TryFindResource("showPanels");
                 showPanels.Begin(); // Start fadein
             }
         }
@@ -200,7 +201,7 @@ namespace DoritoPatcherWPF
             switchPanel("custom", false);
         }
 
-        
+
 
         private void helmetOpen(object sender, EventArgs e)
         {
@@ -276,13 +277,23 @@ namespace DoritoPatcherWPF
             {
                 Initial(false);
 
+                if (configFile["Game.Protocol"] == "0")
+                {
+                    SetVariable("Game.Protocol", "1", ref configFile);
+                    SaveConfigFile("dewrito_prefs.cfg", configFile);
+
+                    //Registry.CurrentUser.DeleteSubKey(@"HKEY_CLASSES_ROOT\dorito");
+                    string[] array = { };
+                    Skeet.Start(array);   
+                }
+
                 //Customization
-                clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+                clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
                 clrSecondary.SelectedColor =
-                    (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-                clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-                clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-                clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+                    (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+                clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+                clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+                clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
                 cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
                 cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
                 cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
@@ -303,7 +314,7 @@ namespace DoritoPatcherWPF
                 chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
                 chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
                 chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-                chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
 
                 setWidth.Text = configFile["Video.Width"];
@@ -313,10 +324,6 @@ namespace DoritoPatcherWPF
             {
                 Initial(true);
             }
-            /*
-            LoadSettings();
-            SaveSettings();
-             */
 
             try
             {
@@ -358,6 +365,7 @@ namespace DoritoPatcherWPF
             validateThread.Start();
         }
 
+        /*
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
         {
             var parentAssembly = Assembly.GetExecutingAssembly();
@@ -373,6 +381,7 @@ namespace DoritoPatcherWPF
                 return Assembly.Load(block);
             }
         }
+         */
 
         private void BackgroundThread()
         {
@@ -394,7 +403,7 @@ namespace DoritoPatcherWPF
                     AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
 
-                    Application.Current.Dispatcher.Invoke((Action) delegate
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         var confirmWindow =
                             new MsgBoxConfirm(
@@ -451,7 +460,7 @@ namespace DoritoPatcherWPF
                 }
                 else
                 {
-                    Application.Current.Dispatcher.Invoke((Action) delegate
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         AppendDebugLine("Failed to retrieve update information from the default update server.", Color.FromRgb(255, 0, 0));
                         btnAction.Content = "PLAY";
@@ -488,7 +497,7 @@ namespace DoritoPatcherWPF
 
                             isPlayEnabled = true;
 
-                            var fade = (Storyboard) TryFindResource("fade");
+                            var fade = (Storyboard)TryFindResource("fade");
                             fade.Stop(); // Start animation
                             btnAction.IsEnabled = true;
                         }));
@@ -508,7 +517,7 @@ namespace DoritoPatcherWPF
                     {
                         btnAction.Content = "UPDATE";
 
-                        var fade = (Storyboard) TryFindResource("fade");
+                        var fade = (Storyboard)TryFindResource("fade");
                         fade.Stop(); // Stop
                         /*
                             Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
@@ -580,10 +589,10 @@ namespace DoritoPatcherWPF
 
                 var patchFiles = new List<string>();
                 foreach (var file in latestUpdate["patchFiles"])
-                    // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
+                // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
                 {
-                    var fileName = (string) file;
-                    var fileHash = (string) settingsJson["gameFiles"][fileName];
+                    var fileName = (string)file;
+                    var fileHash = (string)settingsJson["gameFiles"][fileName];
                     if (!fileHashes.ContainsKey(fileName) &&
                         !fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)))
                     {
@@ -627,7 +636,7 @@ namespace DoritoPatcherWPF
                     patchFiles.Add(fileName);
                 }
 
-                IDictionary<string, JToken> files = (JObject) latestUpdate["files"];
+                IDictionary<string, JToken> files = (JObject)latestUpdate["files"];
 
                 filesToDownload = new List<string>();
                 foreach (var x in files)
@@ -667,7 +676,7 @@ namespace DoritoPatcherWPF
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
 
-            IDictionary<string, JToken> files = (JObject) settingsJson["gameFiles"];
+            IDictionary<string, JToken> files = (JObject)settingsJson["gameFiles"];
 
             foreach (var x in files)
             {
@@ -685,7 +694,7 @@ namespace DoritoPatcherWPF
                     AppendDebugLine("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
                     SetButtonText("Error", true);
 
-                    var fade = (Storyboard) TryFindResource("fade");
+                    var fade = (Storyboard)TryFindResource("fade");
                     fade.Stop(); // Stop animation
                     SetButtonText("Error", true);
 
@@ -772,7 +781,7 @@ namespace DoritoPatcherWPF
             if (DebugLogger.Dispatcher.CheckAccess())
             {
                 DebugLogger.Document.Blocks.Add(
-                    new Paragraph(new Run(status) {Foreground = new SolidColorBrush(color)}));
+                    new Paragraph(new Run(status) { Foreground = new SolidColorBrush(color) }));
             }
             else
             {
@@ -910,7 +919,7 @@ namespace DoritoPatcherWPF
             var sInfo = new ProcessStartInfo("http://irc.lc/snoonet/eldorito/");
             Process.Start(sInfo);
         }
-        
+
         private void browserServer_Click(object sender, RoutedEventArgs e)
         {
             /*
@@ -939,18 +948,18 @@ namespace DoritoPatcherWPF
 
         private void btnServer_Click(object sender, RoutedEventArgs e)
         {
-         /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-                Process.Start(sInfo);
-            }
-         */
+            /*
+               if (embedded)
+               {
+                   embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
+                   switchPanel("browser", false);
+               }
+               else
+               {
+                   var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
+                   Process.Start(sInfo);
+               }
+            */
         }
 
         private void btnRandom_Click(object sender, RoutedEventArgs e)
@@ -975,11 +984,11 @@ namespace DoritoPatcherWPF
             cmbArms.SelectedIndex = arms;
             cmbLegs.SelectedIndex = legs;
 
-            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
-            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
-            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
-            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
-            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
             clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
             clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
             clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
@@ -1011,20 +1020,20 @@ namespace DoritoPatcherWPF
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
-         /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://haloshare.net/");
-                Process.Start(sInfo);
-            }
-         * */
+            /*
+               if (embedded)
+               {
+                   embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
+                   switchPanel("browser", false);
+               }
+               else
+               {
+                   var sInfo = new ProcessStartInfo("https://haloshare.net/");
+                   Process.Start(sInfo);
+               }
+            * */
         }
-         
+
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
@@ -1041,13 +1050,14 @@ namespace DoritoPatcherWPF
         private void Initial(bool Error)
         {
             var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
-            
+
             if (!cfgFileExists)
             {
                 SetVariable("Game.MedalsZip", "halo3", ref configFile);
                 SetVariable("Game.LanguageID", "0", ref configFile);
                 SetVariable("Game.SkipLauncher", "0", ref configFile);
                 SetVariable("Game.BetaFiles", "0", ref configFile);
+                SetVariable("Game.Protocol", "0", ref configFile);
                 SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
                 SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
                 SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
@@ -1089,9 +1099,8 @@ namespace DoritoPatcherWPF
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
-                SaveConfigFile("dewrito_prefs.bak", configFile);
             }
-   
+
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
@@ -1226,12 +1235,14 @@ namespace DoritoPatcherWPF
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
+        /*
         private void chkBeta_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Game.BetaFiles", Convert.ToString(Convert.ToInt32(chkBeta.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-       
+         * */
+
         private void btnApply2_Click(object sender, EventArgs e)
         {
             switchPanel("main", false);
@@ -1280,7 +1291,7 @@ namespace DoritoPatcherWPF
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
         */
-        
+
 
         private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
         {
@@ -1314,7 +1325,7 @@ namespace DoritoPatcherWPF
                 configDict[varName] = varValue;
             else
                 configDict.Add(varName, varValue);
-        
+
         }
 
         static bool CheckIfProcessIsRunning(string nameSubstring)
@@ -1356,7 +1367,7 @@ namespace DoritoPatcherWPF
             sldFov.Value = 90;
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
-            chkBeta.IsChecked = false;
+            //chkBeta.IsChecked = false;
             sldTimer.Value = 5;
             sldMax.Value = 16;
             chkWin.IsChecked = false;
@@ -1367,6 +1378,6 @@ namespace DoritoPatcherWPF
             chkIntro.IsChecked = false;
         }
 
-        
+
     }
 }

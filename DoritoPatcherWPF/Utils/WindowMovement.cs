@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace DoritoPatcherWPF.Utils
+namespace DewritoUpdater.Utils
 {
     public static class WindowMovement
     {

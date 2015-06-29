@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoritoPatcherWPF", "DoritoPatcherWPF\DoritoPatcherWPF.csproj", "{70683C0E-6BB2-44AB-80B9-396BC3B7EBA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DewritoUpdater", "DoritoPatcherWPF\DewritoUpdater.csproj", "{70683C0E-6BB2-44AB-80B9-396BC3B7EBA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CB786BC4-F5B6-4494-A79A-5235F7A8017E}"
 	ProjectSection(SolutionItems) = preProject

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     /// <summary>
     ///     Base class for view models.

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Threading;
 using DoritoPatcher;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     /// <summary>
     ///     Interaction logic for FileDownloadDialog.xaml

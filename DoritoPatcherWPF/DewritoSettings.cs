@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using System.Windows;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     public class DewritoSettings
     {

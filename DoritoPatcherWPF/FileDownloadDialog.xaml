@@ -1,4 +1,4 @@
-﻿<Window x:Class="DoritoPatcherWPF.FileDownloadDialog"
+﻿<Window x:Class="DewritoUpdater.FileDownloadDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Updating..." Height="120" Width="400" WindowStyle="None" Icon="Resources/launcher.ico"

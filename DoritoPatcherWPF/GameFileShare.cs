@@ -5,10 +5,10 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
-using DoritoPatcherWPF.Utils;
+using DewritoUpdater.Utils;
 using Microsoft.Win32;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     public static class GameFileShare
     {

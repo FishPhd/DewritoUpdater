@@ -2,7 +2,7 @@
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace DoritoPatcherWPF.Utils
+namespace DewritoUpdater.Utils
 {
     public static class JSONSerializer<TType> where TType : class
     {

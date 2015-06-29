@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace DoritoPatcherWPF.Utils
+namespace DewritoUpdater.Utils
 {
     public static class Extensions
     {

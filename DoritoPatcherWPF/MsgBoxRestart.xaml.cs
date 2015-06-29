@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
-namespace DoritoPatcherWPF
+namespace DewritoUpdater
 {
     /// <summary>
     ///     Interaction logic for MsgBox.xaml

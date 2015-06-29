@@ -1,11 +1,11 @@
-﻿<Window x:Class="DoritoPatcherWPF.MainWindow"
+﻿<Window x:Class="DewritoUpdater.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:st="http://schemas.spicytaco.io/"
-        xmlns:utils="clr-namespace:DoritoPatcherWPF.Utils"
+        xmlns:utils="clr-namespace:DewritoUpdater.Utils"
         xmlns:osm="http://schemas.awesomium.com/winfx"
         xmlns:core="http://schemas.awesomium.com/core"
         mc:Ignorable="d"
@@ -511,7 +511,7 @@
                 <!-- Do not remove this, Fish, I'm looking at you -->
                 <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Foreground="White" FontSize="10" TextOptions.TextFormattingMode="Display"
                            VerticalAlignment="Bottom" Opacity="0.25"
-                           FontFamily="/DoritoPatcherWPF;component/Resources/#Aero Matics" 
+                           FontFamily="/DewritoUpdater;component/Resources/#Aero Matics" 
                            Text="IN NO WAY AFFILIATED WITH INNOVA CO., 343 INDUSTRIES, MICROSOFT OR BUNGIE STUDIOS" HorizontalAlignment="Left"/>
             </Grid>
             <Label x:Name="minecraft" Content="NOW WITH MORE ANIMATIONS" HorizontalAlignment="Left"
@@ -1854,6 +1854,7 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
                             </CheckBox>
+                            <!--
                             <TextBlock Style="{StaticResource Header}" Margin="5,20,5,5"
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Download Settings
@@ -1864,6 +1865,7 @@
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Download Beta Files
                             </CheckBox>
+                            -->
                         </StackPanel>
                         <StackPanel Margin="10,20,20,5">
                             <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
