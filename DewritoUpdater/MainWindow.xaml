@@ -463,7 +463,7 @@
                     <Button x:Name="btnVoip" Click="BtnVoip_OnClick" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand"
-                            ToolTip="Open the reddit page in your browser">
+                            ToolTip="Settings for Voice Over IP">
                         <Button.Resources>
                             <ControlTemplate x:Key="BackgroundButton" TargetType="{x:Type Button}">
                                 <Border x:Name="border" Background="{TemplateBinding Background}">
