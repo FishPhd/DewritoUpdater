@@ -460,7 +460,7 @@
                         </Button.Resources>
                         <Image Height="26" HorizontalAlignment="Center" Width="26" />
                     </Button>
-                    <Button x:Name="btnReddit" Click="btnReddit_Click" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
+                    <Button x:Name="btnVoip" Click="BtnVoip_OnClick" BorderBrush="{x:Null}" VerticalAlignment="Bottom"
                             Background="#00000000" Template="{DynamicResource BackgroundButton}" Margin="0" Height="54"
                             UseLayoutRounding="False" Width="51.6" Cursor="Hand"
                             ToolTip="Open the reddit page in your browser">
@@ -474,12 +474,12 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/BTN_Reddit.png" />
+                                <Setter Property="Source" Value="Resources/BTN_Voip.png" />
                                 <Style.Triggers>
                                     <DataTrigger
                                         Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                         Value="True">
-                                        <Setter Property="Source" Value="Resources/BTN_Reddit_Blue.png" />
+                                        <Setter Property="Source" Value="Resources/BTN_Voip_Blue.png" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -626,7 +626,6 @@
                 </Label.RenderTransform>
             </Label>
         </Grid>
-
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
@@ -1702,7 +1701,7 @@
                             <SolidColorBrush Color="White" Opacity="0.07" />
                         </Border.Background>
                         <Button Click="btnRandom_Click" Content="RANDOM"
-                                    Style="{StaticResource Hover}" />
+                                    Style="{StaticResource Hover}" FontSize="16" />
                     </Border>
                     <st:AutoGrid Columns="*" RowHeight="*" Margin="0,20,20,20" Height="30" VerticalAlignment="Bottom">
 
@@ -1712,7 +1711,7 @@
                                 <SolidColorBrush Color="White" Opacity="0.07" />
                             </Border.Background>
                             <Button x:Name="btnApply" Click="btnApply_Click" Content="APPLY"
-                                    Style="{StaticResource Hover}" />
+                                    Style="{StaticResource Hover}" FontSize="16" />
                         </Border>
                     </st:AutoGrid>
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45"
@@ -2020,7 +2019,7 @@
                                     <SolidColorBrush Color="White" Opacity="0.07" />
                                 </Border.Background>
                                 <Button x:Name="btnReset" Content="RESET" Click="btnReset_Click"
-                                        Style="{StaticResource Hover}" />
+                                        Style="{StaticResource Hover}" FontSize="16" />
                             </Border>
                             <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75"
                                     Height="30" Margin="20,0,0,0" HorizontalAlignment="Right">
@@ -2028,10 +2027,198 @@
                                     <SolidColorBrush Color="White" Opacity="0.07" />
                                 </Border.Background>
                                 <Button x:Name="btnApply2" Content="APPLY" Click="btnApply2_Click"
-                                        Style="{StaticResource Hover}" />
+                                        Style="{StaticResource Hover}" FontSize="16" />
                             </Border>
                         </StackPanel>
                     </st:AutoGrid>
+                    <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45"
+                          Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2" />
+                </Grid>
+            </Border>
+
+
+            <Border x:Name="voipsettings" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" Margin="10,20,20,20"
+                    BorderThickness="1" Visibility="Hidden">
+                <Border.Clip>
+                    <GeometryGroup>
+                        <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure x:Name="BorderClipFigure11" StartPoint="0,0">
+                                    <LineSegment Point="534,0" />
+                                    <LineSegment Point="570,36" />
+                                    <LineSegment Point="570,530" />
+                                    <LineSegment Point="0,530" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </GeometryGroup>
+                </Border.Clip>
+                <Grid x:Name="VoipSettingsBox">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                        <Style x:Key="Header" TargetType="{x:Type TextBlock}"
+                               BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                        </Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderBrush" Value="White" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="CaretBrush" Value="White" />
+                        </Style>
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Style>
+                        <Style TargetType="{x:Type Slider}">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="TickPlacement" Value="BottomRight" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Style>
+                        <Style TargetType="{x:Type xctk:ColorPicker}">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="ColorMode" Value="ColorCanvas" />
+                            <Setter Property="UsingAlphaChannel" Value="False" />
+                            <Setter Property="ShowDropDownButton" Value="False" />
+                            <Setter Property="DisplayColorAndName" Value="True" />
+                            <Setter Property="Template" Value="{StaticResource ColorPickerControlTemplate}" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="BorderBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White" Opacity="0.7" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style TargetType="{x:Type CheckBox}">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="White" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Style>
+                    </Grid.Resources>
+                    <Border VerticalAlignment="Top" Height="36" Margin="0" BorderBrush="#FF47A6FF"
+                            BorderThickness="0,0,0,1">
+                        <Border.Background>
+                            <SolidColorBrush Color="#FF20304A" Opacity="0.8" />
+                        </Border.Background>
+                        <TextBlock Margin="20,0,0,0" Text="VOIP SETTINGS" Foreground="White" TextWrapping="WrapWithOverflow"
+                                   FontFamily="/Resources/#Aero Matics" FontSize="20" HorizontalAlignment="Left" />
+                    </Border>
+                    <Grid Margin="0,36,0,0">
+                        <Grid.Background>
+                            <SolidColorBrush Color="White" Opacity="0.07" />
+                        </Grid.Background>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
+                                       Margin="20,20,5,5" FontWeight="Normal">
+                                Audio Settings
+                            </TextBlock>
+                            <CheckBox Name="chkAGC" Grid.ColumnSpan="2" Margin="25,10,0,0"
+                                          IsChecked="" Checked="chkAGC_Changed" Unchecked="chkAGC_Changed"
+                                          Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                          FontFamily="/Resources/#Aero Matics Light">
+                                Automatic Gain Control
+                            </CheckBox>
+                            <CheckBox Name="chkEC" Grid.ColumnSpan="2" Margin="25,15,0,0"
+                                          IsChecked="" Checked="chkEC_Changed" Unchecked="chkEC_Changed"
+                                          Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                          FontFamily="/Resources/#Aero Matics Light">
+                                Echo Cancellation
+                            </CheckBox>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Label HorizontalAlignment="Left" Margin="25,5,0,0" FontSize="16" Foreground="White">Volume Modifier</Label>
+                                <Slider x:Name="sldModifier"  Maximum="30" Minimum="0" TickFrequency="1" Width="100" Value="6" IsSnapToTickEnabled="True" LostFocus="SldModifier_OnLostFocus"/>
+                                <TextBox Text="{Binding ElementName=sldModifier,Path=Value}" Width="50" HorizontalAlignment="Left"
+                                                 TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
+                                    <TextBox.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </TextBox.Background>
+                                </TextBox>
+                            </StackPanel>
+
+                            <TextBlock Style="{StaticResource Header}" FontFamily="/Resources/#Aero Matics"
+                                       Margin="20,10,5,5" FontWeight="Normal">
+                                Microphone settings
+                            </TextBlock>
+                            <CheckBox Name="chkPTT" Grid.ColumnSpan="2" Margin="25,10,0,0"
+                                          IsChecked="" Checked="chkPTT_Changed" Unchecked="chkPTT_Changed"
+                                          Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
+                                          FontFamily="/Resources/#Aero Matics Light">
+                                Push To Talk (Voice detection if disabled)
+                            </CheckBox>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Label HorizontalAlignment="Left" Margin="25,5,0,0" FontSize="16" Foreground="White">Voice Activition Level</Label>
+                                <Slider x:Name="sldAudio"  Maximum="50" Minimum="-50" TickFrequency="5" Width="100" Value="-45" IsSnapToTickEnabled="True" LostFocus="SldAudio_OnLostFocus"/>
+                                <TextBox Text="{Binding ElementName=sldAudio,Path=Value}" Width="50" HorizontalAlignment="Left"
+                                                 TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
+                                    <TextBox.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </TextBox.Background>
+                                </TextBox>
+                                
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Label HorizontalAlignment="Left" Margin="25,5,0,0" FontSize="16" Foreground="White">Talk Key:</Label>
+                                <TextBox x:Name="voipKey" MaxLength="1" Width="100" Text="" FontSize="16" KeyDown="VoipKey_OnKeyDown"
+                                         FontFamily="/Resources/#Aero Matics Light" Margin="5,7,0,5" HorizontalAlignment="Right">
+                                    <TextBox.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </TextBox.Background>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,130,20,0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75"
+                                    Height="30" HorizontalAlignment="Right">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </Border.Background>
+                                    <Button x:Name="btnReset2" Content="RESET" Click="BtnReset2_OnClick"
+                                        Style="{StaticResource Hover}" FontSize="16" />
+                                </Border>
+                                <Border Grid.Column="1" Grid.Row="1" BorderBrush="White" BorderThickness="1" Width="75"
+                                    Height="30" Margin="20,0,0,0" HorizontalAlignment="Right">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="White" Opacity="0.07" />
+                                    </Border.Background>
+                                    <Button x:Name="btnApply3" Content="APPLY" Click="btnApply2_Click"
+                                        Style="{StaticResource Hover}" FontSize="16" />
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
                     <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45"
                           Width="45" Fill="{x:Null}" X2="35" Margin="0,-6,-5,0" Stroke="#FF47A6FF" StrokeThickness="2" />
                 </Grid>

@@ -13,7 +13,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
+﻿using System.Windows.Input;
+﻿using System.Windows.Media;
 using System.Windows.Media.Animation;
 ﻿using Microsoft.Win32;
 ﻿using Newtonsoft.Json.Linq;
@@ -129,11 +130,13 @@ namespace DewritoUpdater
                 Settings.Visibility = Visibility.Hidden;
                 Customization.Visibility = Visibility.Hidden;
                 mainButtons.Visibility = Visibility.Hidden;
+                voipsettings.Visibility = Visibility.Hidden;
                 Debug.Visibility = Visibility.Hidden;
                 Browser.Visibility = Visibility.Hidden;
 
                 switch (panel)
                 {
+                    
                     case "main":
                         mainButtons.Visibility = Visibility.Visible;
                         break;
@@ -142,6 +145,9 @@ namespace DewritoUpdater
                         break;
                     case "settings":
                         Settings.Visibility = Visibility.Visible;
+                        break;
+                    case "voipsettings":
+                        voipsettings.Visibility = Visibility.Visible;
                         break;
                     case "custom":
                         Customization.Visibility = Visibility.Visible;
@@ -189,6 +195,11 @@ namespace DewritoUpdater
         private void btnSettings_Click(object sender, EventArgs e)
         {
             switchPanel("settings", false);
+        }
+
+        private void BtnVoip_OnClick(object sender, RoutedEventArgs e)
+        {
+            switchPanel("voipsettings", false);
         }
 
         private void btnCustomization_Click(object sender, EventArgs e)
@@ -312,7 +323,18 @@ namespace DewritoUpdater
                 chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
                 //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
+                //Voip
+                //Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
+                voipKey.Text = Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
+                sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
+                sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
+                chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
+                chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
+                chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
 
+
+
+                //Video
                 setWidth.Text = configFile["Video.Width"];
                 setHeight.Text = configFile["Video.Height"];
             }
@@ -1067,6 +1089,13 @@ namespace DewritoUpdater
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
+
+                SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
+                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
+                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
+                SetVariable("VoIP.PushToTalk", "1", ref configFile);
+                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
+                SetVariable("VoIP.AGC", "1", ref configFile);
             }
             else if (Error)
             {
@@ -1078,6 +1107,13 @@ namespace DewritoUpdater
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
+
+                SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
+                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
+                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
+                SetVariable("VoIP.PushToTalk", "1", ref configFile);
+                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
+                SetVariable("VoIP.AGC", "1", ref configFile);
             }
 
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1252,7 +1288,7 @@ namespace DewritoUpdater
 
         private void D_click(object sender, EventArgs e)
         {
-            var sInfo = new ProcessStartInfo("http://i.4cdn.org/wsg/1433551639678.gif");
+            var sInfo = new ProcessStartInfo("https://halo.click/8Znpho");
             Process.Start(sInfo);
         }
 
@@ -1374,6 +1410,61 @@ namespace DewritoUpdater
                 AlertWindow.Show();
                 AlertWindow.Focus();
             }
+        }
+
+        private void VoipKey_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            var key = KeyInterop.VirtualKeyFromKey(e.Key);
+            Console.WriteLine(key);
+            voipKey.Text = Convert.ToString(e.Key);
+            
+
+            SetVariable("VoIP.PushToTalkKey", Convert.ToString(key), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void SldAudio_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(sldAudio.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+        private void chkPTT_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("VoIP.PushToTalk", Convert.ToString(Convert.ToInt32(chkPTT.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkEC_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("VoIP.EchoCancellation", Convert.ToString(Convert.ToInt32(chkEC.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void chkAGC_Changed(object sender, RoutedEventArgs e)
+        {
+            SetVariable("VoIP.AGC", Convert.ToString(Convert.ToInt32(chkAGC.IsChecked)), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void SldModifier_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SetVariable("VoIP.VolumeModifier", Convert.ToString(sldModifier.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void BtnReset2_OnClick(object sender, RoutedEventArgs e)
+        {
+            voipKey.Text = Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(20)));
+            sldAudio.Value = -45;
+            sldModifier.Value = 6;
+            chkPTT.IsChecked = true;
+            chkEC.IsChecked = true;
+            chkAGC.IsChecked = true;
+
+            SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
+            SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
+            SetVariable("VoIP.VolumeModifier", "6", ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
     }
 }
