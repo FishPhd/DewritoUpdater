@@ -41,7 +41,8 @@
                 </Border>
                 <Border HorizontalAlignment="Right" BorderBrush="White" BorderThickness="1" Margin="0,0,140,20"
                         Width="100" Height="30" VerticalAlignment="Bottom">
-                    <Button x:Name="btnNo" Content="CANCEL" Click="Cancel_Click" Style="{StaticResource Hover}" Margin="0"
+                    <Button x:Name="btnNo" Content="CANCEL" Click="Cancel_Click" Style="{StaticResource Hover}"
+                            Margin="0"
                             FontSize="16" />
                 </Border>
                 <Line Stretch="Fill" Y2="35" HorizontalAlignment="Right" VerticalAlignment="Top" Height="31" Width="31"

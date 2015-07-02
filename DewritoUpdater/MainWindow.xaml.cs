@@ -1,23 +1,20 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-﻿using System.Windows.Input;
-﻿using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
-﻿using Microsoft.Win32;
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace DewritoUpdater
 {
@@ -31,7 +28,7 @@ namespace DewritoUpdater
         //private readonly bool embedded = true;
         private readonly SHA1 hasher = SHA1.Create();
         private readonly bool silentStart;
-        private readonly string[] skipFileExtensions = { ".bik" };
+        private readonly string[] skipFileExtensions = {".bik"};
 
         private readonly string[] skipFiles =
         {
@@ -39,7 +36,7 @@ namespace DewritoUpdater
             "crash_reporter.exe", "game_local.cfg"
         };
 
-        private readonly string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink" };
+        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink"};
         public string BasePath = Directory.GetCurrentDirectory();
         private Dictionary<string, string> fileHashes;
         private List<string> filesToDownload;
@@ -71,14 +68,14 @@ namespace DewritoUpdater
 
             InitializeComponent();
 
-            var fade = (Storyboard)TryFindResource("fade");
+            var fade = (Storyboard) TryFindResource("fade");
             fade.Begin(); // Start animation
         }
 
         //RCON
         public static string dewCmd(string cmd)
         {
-            byte[] data = new byte[1024];
+            var data = new byte[1024];
             string stringData;
             TcpClient server;
             try
@@ -89,9 +86,9 @@ namespace DewritoUpdater
             {
                 return "Unable to talk to Eldewrito, is it running?";
             }
-            NetworkStream ns = server.GetStream();
+            var ns = server.GetStream();
 
-            int recv = ns.Read(data, 0, data.Length);
+            var recv = ns.Read(data, 0, data.Length);
             stringData = Encoding.ASCII.GetString(data, 0, recv);
 
             ns.Write(Encoding.ASCII.GetBytes(cmd), 0, cmd.Length);
@@ -120,7 +117,7 @@ namespace DewritoUpdater
         {
             if (!animationComplete)
             {
-                var fadePanels = (Storyboard)TryFindResource("fadePanels");
+                var fadePanels = (Storyboard) TryFindResource("fadePanels");
                 fadePanels.Completed += (sender, e) => switchPanelAnimationComplete(sender, e, panel);
                 fadePanels.Begin(); // Start fadeout
             }
@@ -132,16 +129,11 @@ namespace DewritoUpdater
                 mainButtons.Visibility = Visibility.Hidden;
                 voipsettings.Visibility = Visibility.Hidden;
                 Debug.Visibility = Visibility.Hidden;
-                Browser.Visibility = Visibility.Hidden;
 
                 switch (panel)
                 {
-                    
                     case "main":
                         mainButtons.Visibility = Visibility.Visible;
-                        break;
-                    case "browser":
-                        Browser.Visibility = Visibility.Visible;
                         break;
                     case "settings":
                         Settings.Visibility = Visibility.Visible;
@@ -162,7 +154,7 @@ namespace DewritoUpdater
                         mainButtons.Visibility = Visibility.Visible;
                         break;
                 }
-                var showPanels = (Storyboard)TryFindResource("showPanels");
+                var showPanels = (Storyboard) TryFindResource("showPanels");
                 showPanels.Begin(); // Start fadein
             }
         }
@@ -206,8 +198,6 @@ namespace DewritoUpdater
         {
             switchPanel("custom", false);
         }
-
-
 
         private void helmetOpen(object sender, EventArgs e)
         {
@@ -298,12 +288,12 @@ namespace DewritoUpdater
                 }
                 */
                 //Customization
-                clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+                clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
                 clrSecondary.SelectedColor =
-                    (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-                clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-                clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-                clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+                    (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+                clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+                clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+                clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
                 cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
                 cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
                 cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
@@ -324,17 +314,19 @@ namespace DewritoUpdater
                 chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
                 chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
                 chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+                lblServerName.Text = configFile["Server.Name"];
+                lblServerPassword.Password = configFile["Server.Password"];
                 //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
                 //Voip
                 //Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
-                voipKey.Text = Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
+                voipKey.Text =
+                    Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
                 sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
                 sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
                 chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
                 chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
                 chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
-
 
 
                 //Video
@@ -362,7 +354,8 @@ namespace DewritoUpdater
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     lblVersion.Text = "Error";
-                    AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
+                    AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
+                        Color.FromRgb(255, 0, 0));
                     SetButtonText("ERROR", true);
 
                     var AlertWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
@@ -400,19 +393,25 @@ namespace DewritoUpdater
             {
                 var confirm = false;
 
-                AppendDebugLine("Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"].ToString(), Color.FromRgb(255, 0, 0));
+                AppendDebugLine(
+                    "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
+                    Color.FromRgb(255, 0, 0));
 
-                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json" || settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update_publicbeta.json")
+                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json" ||
+                    settingsJson["updateServiceUrl"].ToString() !=
+                    "http://167.114.156.21:81/honline/update_publicbeta.json")
                 {
                     AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
 
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action) delegate
                     {
                         var confirmWindow =
                             new MsgBoxConfirm(
                                 "Failed to retrieve update information. Do you want to try updating from the default server?");
-                        var ConfirmWindow = new MsgBoxConfirm("Failed to retrieve update information. Do you want to try updating from the default server?");
+                        var ConfirmWindow =
+                            new MsgBoxConfirm(
+                                "Failed to retrieve update information. Do you want to try updating from the default server?");
 
                         if (ConfirmWindow.ShowDialog() == false)
                         {
@@ -422,7 +421,8 @@ namespace DewritoUpdater
 
                                 if (!ProcessUpdateData())
                                 {
-                                    AppendDebugLine("Failed to connect to the default update server.", Color.FromRgb(255, 0, 0));
+                                    AppendDebugLine("Failed to connect to the default update server.",
+                                        Color.FromRgb(255, 0, 0));
                                     btnAction.Content = "PLAY";
                                     isPlayEnabled = true;
                                     btnAction.IsEnabled = true;
@@ -432,10 +432,11 @@ namespace DewritoUpdater
                                             "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
                                     MainWindow.Show();
                                     MainWindow.Focus();
-                                    var AlertWindow = new MsgBoxOk("Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
+                                    var AlertWindow =
+                                        new MsgBoxOk(
+                                            "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
                                     AlertWindow.Show();
                                     AlertWindow.Focus();
-                                    return;
                                 }
                                 else
                                 {
@@ -454,19 +455,21 @@ namespace DewritoUpdater
                                         "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
                                 MainWindow.Show();
                                 MainWindow.Focus();
-                                var AlertWindow = new MsgBoxOk("Update server connection manually canceled, you can still play the game if your files aren't invalid.");
+                                var AlertWindow =
+                                    new MsgBoxOk(
+                                        "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
                                 AlertWindow.Show();
                                 AlertWindow.Focus();
-                                return;
                             }
                         }
                     });
                 }
                 else
                 {
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-                        AppendDebugLine("Failed to retrieve update information from the default update server.", Color.FromRgb(255, 0, 0));
+                        AppendDebugLine("Failed to retrieve update information from the default update server.",
+                            Color.FromRgb(255, 0, 0));
                         btnAction.Content = "PLAY";
                         isPlayEnabled = true;
                         btnAction.IsEnabled = true;
@@ -476,7 +479,9 @@ namespace DewritoUpdater
                                 "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
                         MainWindow.Show();
                         MainWindow.Focus();
-                        var AlertWindow = new MsgBoxOk("Could not connect to the default update server, you can still play the game if your files aren't invalid.");
+                        var AlertWindow =
+                            new MsgBoxOk(
+                                "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
                         AlertWindow.Show();
                         AlertWindow.Focus();
                     });
@@ -501,7 +506,7 @@ namespace DewritoUpdater
 
                             isPlayEnabled = true;
 
-                            var fade = (Storyboard)TryFindResource("fade");
+                            var fade = (Storyboard) TryFindResource("fade");
                             fade.Stop(); // Start animation
                             btnAction.IsEnabled = true;
                         }));
@@ -521,7 +526,7 @@ namespace DewritoUpdater
                     {
                         btnAction.Content = "UPDATE";
 
-                        var fade = (Storyboard)TryFindResource("fade");
+                        var fade = (Storyboard) TryFindResource("fade");
                         fade.Stop(); // Stop
                         /*
                             Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
@@ -593,10 +598,10 @@ namespace DewritoUpdater
 
                 var patchFiles = new List<string>();
                 foreach (var file in latestUpdate["patchFiles"])
-                // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
+                    // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
                 {
-                    var fileName = (string)file;
-                    var fileHash = (string)settingsJson["gameFiles"][fileName];
+                    var fileName = (string) file;
+                    var fileHash = (string) settingsJson["gameFiles"][fileName];
                     if (!fileHashes.ContainsKey(fileName) &&
                         !fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)))
                     {
@@ -640,7 +645,7 @@ namespace DewritoUpdater
                     patchFiles.Add(fileName);
                 }
 
-                IDictionary<string, JToken> files = (JObject)latestUpdate["files"];
+                IDictionary<string, JToken> files = (JObject) latestUpdate["files"];
 
                 filesToDownload = new List<string>();
                 foreach (var x in files)
@@ -680,7 +685,7 @@ namespace DewritoUpdater
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
 
-            IDictionary<string, JToken> files = (JObject)settingsJson["gameFiles"];
+            IDictionary<string, JToken> files = (JObject) settingsJson["gameFiles"];
 
             foreach (var x in files)
             {
@@ -695,10 +700,11 @@ namespace DewritoUpdater
                         continue;
 
                     AppendDebugLine("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
-                    AppendDebugLine("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                    AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+                        Color.FromRgb(255, 0, 0), false);
                     SetButtonText("Error", true);
 
-                    var fade = (Storyboard)TryFindResource("fade");
+                    var fade = (Storyboard) TryFindResource("fade");
                     fade.Stop(); // Stop animation
                     SetButtonText("Error", true);
 
@@ -713,8 +719,10 @@ namespace DewritoUpdater
 
                     AppendDebugLine("Game file \"" + keyName + "\" data is invalid.", Color.FromRgb(255, 0, 0));
                     AppendDebugLine("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0), false);
-                    AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0), false);
-                    AppendDebugLine("Please redo your Halo Online installation with the original HO files.", Color.FromRgb(255, 0, 0), false);
+                    AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0),
+                        false);
+                    AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+                        Color.FromRgb(255, 0, 0), false);
                     return false;
                 }
             }
@@ -785,7 +793,7 @@ namespace DewritoUpdater
             if (DebugLogger.Dispatcher.CheckAccess())
             {
                 DebugLogger.Document.Blocks.Add(
-                    new Paragraph(new Run(status) { Foreground = new SolidColorBrush(color) }));
+                    new Paragraph(new Run(status) {Foreground = new SolidColorBrush(color)}));
             }
             else
             {
@@ -860,7 +868,9 @@ namespace DewritoUpdater
 
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
-                    AppendDebugLine("Your bink directory could not be found. Did you change the name manually or delete it?", Color.FromRgb(255, 255, 0));
+                    AppendDebugLine(
+                        "Your bink directory could not be found. Did you change the name manually or delete it?",
+                        Color.FromRgb(255, 255, 0));
                 }
 
                 try
@@ -895,7 +905,8 @@ namespace DewritoUpdater
                         AppendDebugLine("Error: " + dialog.Error.Message, Color.FromRgb(255, 0, 0), false);
                         SetButtonText("Error", true);
                         if (dialog.Error.InnerException != null)
-                            AppendDebugLine("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0), false);
+                            AppendDebugLine("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0),
+                                false);
                         return;
                     }
                 }
@@ -988,16 +999,16 @@ namespace DewritoUpdater
             cmbArms.SelectedIndex = arms;
             cmbLegs.SelectedIndex = legs;
 
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
-            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
-            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
 
             SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
             SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
@@ -1006,6 +1017,7 @@ namespace DewritoUpdater
             SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
+
         private void btnStats_Click(object sender, RoutedEventArgs e)
         {
             /*
@@ -1037,7 +1049,6 @@ namespace DewritoUpdater
                }
             * */
         }
-
 
         private void btnReddit_Click(object sender, RoutedEventArgs e)
         {
@@ -1084,8 +1095,10 @@ namespace DewritoUpdater
                 SetVariable("Camera.FOV", "90", ref configFile);
                 SetVariable("Camera.HideHUD", "0", ref configFile);
                 SetVariable("Input.RawInput", "1", ref configFile);
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)), ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)), ref configFile);
+                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
+                    ref configFile);
+                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
+                    ref configFile);
                 SetVariable("Video.Window", "0", ref configFile);
                 SetVariable("Video.FullScreen", "1", ref configFile);
                 SetVariable("Video.VSync", "1", ref configFile);
@@ -1102,8 +1115,10 @@ namespace DewritoUpdater
             }
             else if (Error)
             {
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)), ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)), ref configFile);
+                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
+                    ref configFile);
+                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
+                    ref configFile);
                 SetVariable("Video.Window", "0", ref configFile);
                 SetVariable("Video.FullScreen", "1", ref configFile);
                 SetVariable("Video.VSync", "1", ref configFile);
@@ -1130,35 +1145,35 @@ namespace DewritoUpdater
 
         private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            String String = Convert.ToString(clrPrimary.SelectedColor).Remove(1, 2);
+            var String = Convert.ToString(clrPrimary.SelectedColor).Remove(1, 2);
             SetVariable("Player.Colors.Primary", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrSecondary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            String String = Convert.ToString(clrSecondary.SelectedColor).Remove(1, 2);
+            var String = Convert.ToString(clrSecondary.SelectedColor).Remove(1, 2);
             SetVariable("Player.Colors.Secondary", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrLights_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            String String = Convert.ToString(clrLights.SelectedColor).Remove(1, 2);
+            var String = Convert.ToString(clrLights.SelectedColor).Remove(1, 2);
             SetVariable("Player.Colors.Lights", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrHolo_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            String String = Convert.ToString(clrHolo.SelectedColor).Remove(1, 2);
+            var String = Convert.ToString(clrHolo.SelectedColor).Remove(1, 2);
             SetVariable("Player.Colors.Holo", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
         private void clrVisor_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            String String = Convert.ToString(clrVisor.SelectedColor).Remove(1, 2);
+            var String = Convert.ToString(clrVisor.SelectedColor).Remove(1, 2);
             SetVariable("Player.Colors.Visor", String, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
@@ -1343,10 +1358,9 @@ namespace DewritoUpdater
                 configDict[varName] = varValue;
             else
                 configDict.Add(varName, varValue);
-
         }
 
-        static bool CheckIfProcessIsRunning(string nameSubstring)
+        private static bool CheckIfProcessIsRunning(string nameSubstring)
         {
             return Process.GetProcesses().Any(p => p.ProcessName.Contains(nameSubstring));
         }
@@ -1365,7 +1379,7 @@ namespace DewritoUpdater
                 File.WriteAllLines(cfgFileName, lines.ToArray());
 
 
-                bool running = CheckIfProcessIsRunning("eldorado");
+                var running = CheckIfProcessIsRunning("eldorado");
                 if (running)
                 {
                     dewCmd("Execute dewrito_prefs.cfg");
@@ -1396,7 +1410,6 @@ namespace DewritoUpdater
             chkIntro.IsChecked = false;
         }
 
-
         private void BtnSkip_OnClick(object sender, RoutedEventArgs e)
         {
             var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
@@ -1420,7 +1433,7 @@ namespace DewritoUpdater
             var key = KeyInterop.VirtualKeyFromKey(e.Key);
             Console.WriteLine(key);
             voipKey.Text = Convert.ToString(e.Key);
-            
+
 
             SetVariable("VoIP.PushToTalkKey", Convert.ToString(key), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1431,6 +1444,7 @@ namespace DewritoUpdater
             SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(sldAudio.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
+
         private void chkPTT_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("VoIP.PushToTalk", Convert.ToString(Convert.ToInt32(chkPTT.IsChecked)), ref configFile);
@@ -1467,6 +1481,36 @@ namespace DewritoUpdater
             SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
             SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
             SetVariable("VoIP.VolumeModifier", "6", ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void BtnReddit_OnClick(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
+            Process.Start(sInfo);
+        }
+
+        private void BtnGithub_OnClick(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://github.com/FishPhd/DewritoUpdater");
+            Process.Start(sInfo);
+        }
+
+        private void BtnTwitter_OnClick(object sender, RoutedEventArgs e)
+        {
+            var sInfo = new ProcessStartInfo("https://twitter.com/FishPhdOfficial");
+            Process.Start(sInfo);
+        }
+
+        private void LblServerName_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetVariable("Server.Name", lblServerName.Text, ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void LblServerPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            SetVariable("Server.Password", lblServerPassword.Password, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
     }
