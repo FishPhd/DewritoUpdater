@@ -279,6 +279,9 @@ namespace DewritoUpdater
                 }
             }
 
+            if (!Directory.Exists("mods/medals"))
+                Directory.CreateDirectory("mods/medals");
+
             try
             {
                 Initial(false);
