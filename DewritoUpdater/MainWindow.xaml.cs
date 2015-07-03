@@ -23,7 +23,6 @@ namespace DewritoUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string SettingsFileName = "dewrito_prefs.yaml";
         private static Dictionary<string, string> configFile;
         //private readonly bool embedded = true;
         private readonly SHA1 hasher = SHA1.Create();
@@ -32,11 +31,11 @@ namespace DewritoUpdater
 
         private readonly string[] skipFiles =
         {
-            "eldorado.exe", "game.cfg", "tags.dat", "font_package.bin", "binkw32.dll",
-            "crash_reporter.exe", "game_local.cfg"
+            "eldorado.exe", "game.cfg", "tags.dat", "binkw32.dll",
+            "crash_reporter.exe", "game.cfg_local.cfg"
         };
 
-        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink"};
+        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink", "logs"};
         public string BasePath = Directory.GetCurrentDirectory();
         private Dictionary<string, string> fileHashes;
         private List<string> filesToDownload;
@@ -67,9 +66,6 @@ namespace DewritoUpdater
             // proceed starting app...
 
             InitializeComponent();
-
-            var fade = (Storyboard) TryFindResource("fade");
-            fade.Begin(); // Start animation
         }
 
         //RCON
@@ -287,6 +283,7 @@ namespace DewritoUpdater
                     Skeet.Start(array);   
                 }
                 */
+
                 //Customization
                 clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
                 clrSecondary.SelectedColor =
@@ -341,16 +338,6 @@ namespace DewritoUpdater
             try
             {
                 settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
-                /*
-                if (configFile["Game.BetaFiles"] == "1")
-                {
-                    settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update_publicbeta.json";
-                }
-                else
-                {
-                    settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
-                }
-                */
                 if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
                     lblVersion.Text = "Error";
@@ -374,6 +361,9 @@ namespace DewritoUpdater
                 AlertWindow.Focus();
                 return;
             }
+
+            var fade = (Storyboard)TryFindResource("fade");
+            fade.Begin(); // Start animation
 
             // CreateHashJson();
             validateThread = new Thread(BackgroundThread);
@@ -417,7 +407,7 @@ namespace DewritoUpdater
                         {
                             if (ConfirmWindow.confirm)
                             {
-                                settingsJson["updateServiceUrl"] = "http://167.114.156.21:81/honline/update.json";
+                                settingsJson["updateServiceUrl"] = "http://167.114.156.21:80/honline/update.json";
 
                                 if (!ProcessUpdateData())
                                 {
@@ -429,12 +419,12 @@ namespace DewritoUpdater
 
                                     var MainWindow =
                                         new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
+                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
                                     MainWindow.Show();
                                     MainWindow.Focus();
                                     var AlertWindow =
                                         new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files aren't invalid.");
+                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
                                     AlertWindow.Show();
                                     AlertWindow.Focus();
                                 }
@@ -452,12 +442,12 @@ namespace DewritoUpdater
 
                                 var MainWindow =
                                     new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
+                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
                                 MainWindow.Show();
                                 MainWindow.Focus();
                                 var AlertWindow =
                                     new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files aren't invalid.");
+                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
                                 AlertWindow.Show();
                                 AlertWindow.Focus();
                             }
@@ -476,12 +466,12 @@ namespace DewritoUpdater
 
                         var MainWindow =
                             new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
+                                "Could not connect to the default update server, you can still play the game if your files are valid.");
                         MainWindow.Show();
                         MainWindow.Focus();
                         var AlertWindow =
                             new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files aren't invalid.");
+                                "Could not connect to the default update server, you can still play the game if your files are valid.");
                         AlertWindow.Show();
                         AlertWindow.Focus();
                     });
