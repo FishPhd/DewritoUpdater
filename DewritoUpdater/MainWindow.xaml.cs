@@ -866,6 +866,15 @@ namespace DewritoUpdater
                 sInfo.Arguments += " -width " + configFile["Video.Width"];
                 sInfo.Arguments += " -height " + configFile["Video.Height"];
 
+                if (configFile["Video.IntroSkip"] == "1")
+                {
+                    Directory.Move("bink", "bink_disabled");
+                }
+                else
+                {
+                    Directory.Move("bink_disabled", "bink");
+                }
+
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
                     AppendDebugLine(
@@ -1104,7 +1113,7 @@ namespace DewritoUpdater
                 SetVariable("Video.VSync", "1", ref configFile);
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
-                SetVariable("Video.IntroSkip", "0", ref configFile);
+                SetVariable("Video.IntroSkip", "1", ref configFile);
 
                 SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
                 SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
