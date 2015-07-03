@@ -866,14 +866,7 @@ namespace DewritoUpdater
                 sInfo.Arguments += " -width " + configFile["Video.Width"];
                 sInfo.Arguments += " -height " + configFile["Video.Height"];
 
-                if (configFile["Video.IntroSkip"] == "1")
-                {
-                    Directory.Move("bink", "bink_disabled");
-                }
-                else
-                {
-                    Directory.Move("bink_disabled", "bink");
-                }
+                
 
                 if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
                 {
@@ -936,54 +929,6 @@ namespace DewritoUpdater
                 AppendDebugLine("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
             }
-        }
-
-        private void btnIRC_Click(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("http://irc.lc/snoonet/eldorito/");
-            Process.Start(sInfo);
-        }
-
-        private void browserServer_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-             */
-        }
-
-        private void browserStat_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            embeddedBrowser.Source = new Uri("https://stats.halo.click/");
-             */
-        }
-
-        private void browserFile_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            embeddedBrowser.Source = new Uri("https://haloshare.net/");
-             */
-        }
-
-        private void browserHome_Click(object sender, RoutedEventArgs e)
-        {
-            switchPanel("main", false);
-        }
-
-        private void btnServer_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-               if (embedded)
-               {
-                   embeddedBrowser.Source = new Uri("https://stats.halo.click/servers");
-                   switchPanel("browser", false);
-               }
-               else
-               {
-                   var sInfo = new ProcessStartInfo("https://stats.halo.click/servers");
-                   Process.Start(sInfo);
-               }
-            */
         }
 
         private void btnRandom_Click(object sender, RoutedEventArgs e)
@@ -1275,6 +1220,14 @@ namespace DewritoUpdater
         {
             SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (configFile["Video.IntroSkip"] == "1")
+            {
+                Directory.Move("bink", "bink_disabled");
+            }
+            else
+            {
+                Directory.Move("bink_disabled", "bink");
+            }
         }
 
         /*
