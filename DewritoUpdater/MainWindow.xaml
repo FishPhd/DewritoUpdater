@@ -836,7 +836,7 @@
                             <Button x:Name="btnServer" Click="btnSettings_Click"
                                     Template="{DynamicResource BackgroundButton}" BorderThickness="0"
                                     BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand"
-                                    ToolTip="Launch the server browser to look for games">
+                                    ToolTip="Change various game settings">
                                 <Button.Resources>
                                     <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                         <Border Name="border" BorderThickness="0"
@@ -982,7 +982,7 @@
                             <Button x:Name="btnStats" Click="BtnVoip_OnClick"
                                     Template="{DynamicResource BackgroundButton}" BorderThickness="0"
                                     BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand"
-                                    ToolTip="View your gameplay statistics">
+                                    ToolTip="Change voice settings">
                                 <Button.Resources>
                                     <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                         <Border Name="border" BorderThickness="0"
@@ -1129,7 +1129,7 @@
                             <Button x:Name="btnFile" Click="btnDebug_Click"
                                     Template="{DynamicResource BackgroundButton}" BorderThickness="0"
                                     BorderBrush="{x:Null}" Margin="0" Background="{x:Null}" Cursor="Hand"
-                                    ToolTip="File sharing for forge maps and gametypes">
+                                    ToolTip="View debug information">
                                 <Button.Resources>
                                     <ControlTemplate x:Key="BackgroundButton" TargetType="Button">
                                         <Border Name="border" BorderThickness="0"
