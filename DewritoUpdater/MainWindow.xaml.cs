@@ -18,9 +18,6 @@ using Newtonsoft.Json.Linq;
 
 namespace DewritoUpdater
 {
-    /// <summary>
-    ///     Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private static Dictionary<string, string> configFile;
@@ -182,16 +179,60 @@ namespace DewritoUpdater
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            //Settings
+            sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
+            sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
+            sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
+            chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
+            chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
+
+            chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
+            chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
+            chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
+            chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
+            chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+            lblServerName.Text = configFile["Server.Name"];
+            lblServerPassword.Password = configFile["Server.Password"];
+            //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+
+            //Video
+            setWidth.Text = configFile["Video.Width"];
+            setHeight.Text = configFile["Video.Height"];
+
             switchPanel("settings", false);
         }
 
         private void BtnVoip_OnClick(object sender, RoutedEventArgs e)
         {
+            //Voip
+            //Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
+            voipKey.Text =
+                Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
+            sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
+            sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
+            chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
+            chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
+            chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
+
             switchPanel("voipsettings", false);
         }
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
+            //Customization
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+            clrSecondary.SelectedColor =
+                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+            plrName.Text = configFile["Player.Name"];
+
             switchPanel("custom", false);
         }
 
@@ -271,64 +312,6 @@ namespace DewritoUpdater
             try
             {
                 Initial(false);
-
-                /*
-                if (configFile["Game.Protocol"] == "0")
-                {
-                    SetVariable("Game.Protocol", "1", ref configFile);
-                    SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-                    //Registry.CurrentUser.DeleteSubKey(@"HKEY_CLASSES_ROOT\dorito");
-                    string[] array = { };
-                    Skeet.Start(array);   
-                }
-                */
-
-                //Customization
-                clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-                clrSecondary.SelectedColor =
-                    (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-                clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-                clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-                clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-                cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-                cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-                cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-                cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-                cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-                plrName.Text = configFile["Player.Name"];
-
-                //Settings
-                sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
-                sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
-                sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
-                chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
-                chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
-
-                chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
-                chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
-                chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
-                chkDX9Ex.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.DX9Ex"]));
-                chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
-                chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-                lblServerName.Text = configFile["Server.Name"];
-                lblServerPassword.Password = configFile["Server.Password"];
-                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
-
-                //Voip
-                //Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
-                voipKey.Text =
-                    Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
-                sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
-                sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
-                chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
-                chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
-                chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
-
-
-                //Video
-                setWidth.Text = configFile["Video.Width"];
-                setHeight.Text = configFile["Video.Height"];
             }
             catch
             {
@@ -840,14 +823,6 @@ namespace DewritoUpdater
                 {
                     sInfo.Arguments += " -no_vsync";
                 }
-                if (configFile["Video.DX9Ex"] == "1")
-                {
-                    sInfo.Arguments += " -3d9ex";
-                }
-                else if (configFile["Video.DX9Ex"] == "0")
-                {
-                    sInfo.Arguments += " -nod3d9ex";
-                }
                 if (configFile["Video.FPSCounter"] == "1")
                 {
                     sInfo.Arguments += " -show_fps";
@@ -962,50 +937,6 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void btnStats_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            if (embedded)
-            {
-                embeddedBrowser.Source = new Uri("https://stats.halo.click");
-                switchPanel("browser", false);
-            }
-            else
-            {
-                var sInfo = new ProcessStartInfo("https://stats.halo.click/");
-                Process.Start(sInfo);
-            }
-             * */
-        }
-
-        private void btnFile_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-               if (embedded)
-               {
-                   embeddedBrowser.Source = new Uri("blamfile://haloshare.net?type=forge&id=1");
-                   switchPanel("browser", false);
-               }
-               else
-               {
-                   var sInfo = new ProcessStartInfo("https://haloshare.net/");
-                   Process.Start(sInfo);
-               }
-            * */
-        }
-
-        private void btnReddit_Click(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
-            Process.Start(sInfo);
-        }
-
-        /*private void btnInfo_Click(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
-            Process.Start(sInfo);
-        }*/
-
         private void Initial(bool Error)
         {
             var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
@@ -1046,10 +977,8 @@ namespace DewritoUpdater
                 SetVariable("Video.Window", "0", ref configFile);
                 SetVariable("Video.FullScreen", "1", ref configFile);
                 SetVariable("Video.VSync", "1", ref configFile);
-                SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "1", ref configFile);
-
                 SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
                 SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
                 SetVariable("VoIP.VolumeModifier", "6", ref configFile);
@@ -1194,11 +1123,13 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
+        /*
         private void chkDX9Ex_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Video.DX9Ex", Convert.ToString(Convert.ToInt32(chkDX9Ex.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
+         */
 
         private void chkFPS_Changed(object sender, RoutedEventArgs e)
         {
@@ -1210,11 +1141,12 @@ namespace DewritoUpdater
         {
             SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
-            if (configFile["Video.IntroSkip"] == "1")
+
+            if (configFile["Video.IntroSkip"] == "1" && Directory.Exists("bink"))
             {
                 Directory.Move("bink", "bink_disabled");
             }
-            else
+            else if (configFile["Video.IntroSkip"] == "0" && Directory.Exists("bink_disabled"))
             {
                 Directory.Move("bink_disabled", "bink");
             }
@@ -1357,7 +1289,7 @@ namespace DewritoUpdater
             chkWin.IsChecked = false;
             chkFull.IsChecked = true;
             chkVSync.IsChecked = false;
-            chkDX9Ex.IsChecked = true;
+            //chkDX9Ex.IsChecked = true;
             chkFPS.IsChecked = false;
             chkIntro.IsChecked = false;
         }
@@ -1366,6 +1298,33 @@ namespace DewritoUpdater
         {
             var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
             sInfo.Arguments = "-launcher";
+
+            if (configFile["Video.Window"] == "1")
+            {
+                sInfo.Arguments += " -window";
+            }
+            if (configFile["Video.FullScreen"] == "1")
+            {
+                sInfo.Arguments += " -fullscreen";
+            }
+            if (configFile["Video.VSync"] == "1")
+            {
+                sInfo.Arguments += " -no_vsync";
+            }
+            if (configFile["Video.FPSCounter"] == "1")
+            {
+                sInfo.Arguments += " -show_fps";
+            }
+
+            sInfo.Arguments += " -width " + configFile["Video.Width"];
+            sInfo.Arguments += " -height " + configFile["Video.Height"];
+
+            if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
+            {
+                AppendDebugLine(
+                    "Your bink directory could not be found. Did you change the name manually or delete it?",
+                    Color.FromRgb(255, 255, 0));
+            }
 
             try
             {
