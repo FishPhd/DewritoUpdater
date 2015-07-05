@@ -651,7 +651,7 @@
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
+            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Visible">
                 <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                     <Grid Grid.Row="3" Margin="0" VerticalAlignment="Top">
                         <Grid.Style>
@@ -1294,7 +1294,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1"
-                    Margin="10,20,20,20" Visibility="Visible">
+                    Margin="10,20,20,20" Visibility="Hidden">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
