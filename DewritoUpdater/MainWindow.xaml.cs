@@ -1051,31 +1051,31 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void CmbHelmet_OnLostFocus(object sender, RoutedEventArgs e)
+        private void CmbHelmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void CmbChest_OnLostFocus(object sender, RoutedEventArgs e)
+        private void CmbChest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void CmbShoulders_OnLostFocus(object sender, RoutedEventArgs e)
+        private void CmbShoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void CmbArms_OnLostFocus(object sender, RoutedEventArgs e)
+        private void CmbArms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void CmbLegs_OnLostFocus(object sender, RoutedEventArgs e)
+        private void CmbLegs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1424,5 +1424,7 @@ namespace DewritoUpdater
             SetVariable("Server.Password", lblServerPassword.Password, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
+
+        
     }
 }

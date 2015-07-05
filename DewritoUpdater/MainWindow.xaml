@@ -651,7 +651,7 @@
 
         <!-- Right column starts here -->
         <Grid x:Name="contentPanels" Grid.Column="1" Grid.Row="1">
-            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Visible">
+            <Grid x:Name="mainButtons" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
                 <st:AutoGrid Grid.Row="0" Grid.Column="0" Rows="*,*,*,*" Columns="*" Margin="10,20,20,20">
                     <Grid Grid.Row="3" Margin="0" VerticalAlignment="Top">
                         <Grid.Style>
@@ -1294,7 +1294,7 @@
                 </Grid>
             </Border>
             <Border x:Name="Customization" Grid.Column="1" Grid.Row="1" BorderBrush="#FF47A6FF" BorderThickness="1"
-                    Margin="10,20,20,20" Visibility="Hidden">
+                    Margin="10,20,20,20" Visibility="Visible">
                 <Border.Clip>
                     <GeometryGroup>
                         <!--This PathGeometry will cut RectangleGeometry, cut-off right top-->
@@ -1409,7 +1409,7 @@
                             </TextBlock>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Helmet:</TextBlock>
-                                <ComboBox x:Name="cmbHelmet" LostFocus="CmbHelmet_OnLostFocus"
+                                <ComboBox x:Name="cmbHelmet" SelectionChanged="CmbHelmet_OnSelectionChanged"
                                           DropDownClosed="helmetClose" DropDownOpened="helmetOpen"
                                           MaxDropDownHeight="393" FontSize="16"
                                           FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right"
@@ -1454,7 +1454,7 @@
                                     Chest:
                                 </TextBlock>
                                 <ComboBox x:Name="cmbChest" DropDownClosed="chestClose" DropDownOpened="chestOpen"
-                                          LostFocus="CmbChest_OnLostFocus"
+                                          SelectionChanged="CmbChest_OnSelectionChanged"
                                           FontSize="16" FontFamily="/Resources/#Aero Matics Light"
                                           HorizontalAlignment="Right" Margin="0,5" Width="140" Grid.ColumnSpan="2"
                                           SelectedValuePath="Tag">
@@ -1491,7 +1491,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Shoulders:</TextBlock>
                                 <ComboBox x:Name="cmbShoulders" DropDownClosed="shouldersClose"
-                                          DropDownOpened="shouldersOpen" LostFocus="CmbShoulders_OnLostFocus"
+                                          DropDownOpened="shouldersOpen" SelectionChanged="CmbShoulders_OnSelectionChanged"
                                           MaxDropDownHeight="325" FontSize="16"
                                           FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right"
                                           Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
@@ -1528,7 +1528,7 @@
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Arms:</TextBlock>
                                 <ComboBox x:Name="cmbArms" DropDownClosed="armsClose" DropDownOpened="armsOpen"
-                                          LostFocus="CmbArms_OnLostFocus"
+                                          SelectionChanged="CmbArms_OnSelectionChanged "
                                           MaxDropDownHeight="293" FontSize="16"
                                           FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right"
                                           Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
@@ -1564,7 +1564,7 @@
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Legs:</TextBlock>
-                                <ComboBox x:Name="cmbLegs" LostFocus="CmbLegs_OnLostFocus"
+                                <ComboBox x:Name="cmbLegs" SelectionChanged="CmbLegs_OnSelectionChanged"
                                           MaxDropDownHeight="260" FontSize="16"
                                           FontFamily="/Resources/#Aero Matics Light" HorizontalAlignment="Right"
                                           Margin="5,5,0,5" Width="140" SelectedValuePath="Tag">
