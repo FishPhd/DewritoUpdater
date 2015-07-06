@@ -179,6 +179,7 @@ namespace DewritoUpdater
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            try {
             //Settings
             sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
             sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
@@ -198,14 +199,39 @@ namespace DewritoUpdater
             //Video
             setWidth.Text = configFile["Video.Width"];
             setHeight.Text = configFile["Video.Height"];
+            }
+            catch
+            {
+                Initial(true);
+                //Settings
+                sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
+                sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
+                sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
+                chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
+                chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
 
+                chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
+                chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
+                chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
+                chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
+                chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
+                lblServerName.Text = configFile["Server.Name"];
+                lblServerPassword.Password = configFile["Server.Password"];
+                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+
+                //Video
+                setWidth.Text = configFile["Video.Width"];
+                setHeight.Text = configFile["Video.Height"];
+            }
             switchPanel("settings", false);
         }
 
         private void BtnVoip_OnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
             //Voip
-            //Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
+            Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
             voipKey.Text =
                 Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
             sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
@@ -213,26 +239,56 @@ namespace DewritoUpdater
             chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
             chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
             chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
-
+            }
+            catch
+            {
+                Initial(true);
+                Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
+                voipKey.Text =
+                    Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
+                sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
+                sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
+                chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
+                chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
+                chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
+            }
             switchPanel("voipsettings", false);
         }
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
-            //Customization
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-            clrSecondary.SelectedColor =
-                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-            plrName.Text = configFile["Player.Name"];
-
+            try
+            {
+                //Customization
+                clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+                clrSecondary.SelectedColor =
+                    (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+                clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+                clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+                clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+                cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+                cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+                cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+                cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+                cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+                plrName.Text = configFile["Player.Name"];
+            }
+            catch
+            {
+                Initial(true);
+                clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+                clrSecondary.SelectedColor =
+                    (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+                clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+                clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+                clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+                cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+                cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+                cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+                cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+                cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+                plrName.Text = configFile["Player.Name"];
+            }
             switchPanel("custom", false);
         }
 
@@ -396,7 +452,8 @@ namespace DewritoUpdater
                                 {
                                     AppendDebugLine("Failed to connect to the default update server.",
                                         Color.FromRgb(255, 0, 0));
-                                    btnAction.Content = "PLAY";
+                                    btnAction.Content = "PLAY GAME";
+                                    GridSkip.Visibility = Visibility.Hidden;
                                     isPlayEnabled = true;
                                     btnAction.IsEnabled = true;
 
@@ -419,7 +476,8 @@ namespace DewritoUpdater
                             else
                             {
                                 AppendDebugLine("Update server connection manually canceled.", Color.FromRgb(255, 0, 0));
-                                btnAction.Content = "PLAY";
+                                btnAction.Content = "PLAY GAME";
+                                GridSkip.Visibility = Visibility.Hidden;
                                 isPlayEnabled = true;
                                 btnAction.IsEnabled = true;
 
@@ -476,7 +534,7 @@ namespace DewritoUpdater
                         () =>
                         {
                             btnAction.Content = "PLAY GAME";
-
+                            GridSkip.Visibility = Visibility.Hidden;
                             isPlayEnabled = true;
 
                             var fade = (Storyboard) TryFindResource("fade");
@@ -890,6 +948,7 @@ namespace DewritoUpdater
 
                 btnAction.Content = "PLAY GAME";
                 isPlayEnabled = true;
+                GridSkip.Visibility = Visibility.Hidden;
                 //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
                 AppendDebugLine("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
@@ -998,7 +1057,6 @@ namespace DewritoUpdater
                 SetVariable("Video.DX9Ex", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "0", ref configFile);
-
                 SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
                 SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
                 SetVariable("VoIP.VolumeModifier", "6", ref configFile);
@@ -1152,32 +1210,30 @@ namespace DewritoUpdater
             }
         }
 
-        /*
-        private void chkBeta_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Game.BetaFiles", Convert.ToString(Convert.ToInt32(chkBeta.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-         * */
-
         private void btnApply2_Click(object sender, EventArgs e)
         {
             switchPanel("main", false);
         }
 
-        private void SldMax_OnLostFocus(object sender, RoutedEventArgs e)
+        private void sldMax_LostMouseCapture(object sender, MouseEventArgs e)
         {
             SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void SldFov_OnLostFocus(object sender, RoutedEventArgs e)
+        private void sldFov_LostMouseCapture(object sender, MouseEventArgs e)
         {
             SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void SldTimer_OnLostFocus(object sender, RoutedEventArgs e)
+        private void txtSld_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
+        }
+
+        private void sldTimer_LostMouseCapture(object sender, MouseEventArgs e)
         {
             SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1296,47 +1352,14 @@ namespace DewritoUpdater
 
         private void BtnSkip_OnClick(object sender, RoutedEventArgs e)
         {
-            var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
-            sInfo.Arguments = "-launcher";
+            btnAction.Content = "PLAY GAME";
 
-            if (configFile["Video.Window"] == "1")
-            {
-                sInfo.Arguments += " -window";
-            }
-            if (configFile["Video.FullScreen"] == "1")
-            {
-                sInfo.Arguments += " -fullscreen";
-            }
-            if (configFile["Video.VSync"] == "1")
-            {
-                sInfo.Arguments += " -no_vsync";
-            }
-            if (configFile["Video.FPSCounter"] == "1")
-            {
-                sInfo.Arguments += " -show_fps";
-            }
+            isPlayEnabled = true;
 
-            sInfo.Arguments += " -width " + configFile["Video.Width"];
-            sInfo.Arguments += " -height " + configFile["Video.Height"];
-
-            if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
-            {
-                AppendDebugLine(
-                    "Your bink directory could not be found. Did you change the name manually or delete it?",
-                    Color.FromRgb(255, 255, 0));
-            }
-
-            try
-            {
-                Process.Start(sInfo);
-            }
-            catch
-            {
-                var AlertWindow = new MsgBoxOk("Game executable not found.");
-
-                AlertWindow.Show();
-                AlertWindow.Focus();
-            }
+            var fade = (Storyboard)TryFindResource("fade");
+            fade.Stop(); // Start animation
+            btnAction.IsEnabled = true;
+            GridSkip.Visibility = Visibility.Hidden;
         }
 
         private void VoipKey_OnKeyDown(object sender, KeyEventArgs e)
@@ -1350,7 +1373,7 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void SldAudio_OnLostFocus(object sender, RoutedEventArgs e)
+        private void sldAudio_LostMouseCapture(object sender, MouseEventArgs e)
         {
             SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(sldAudio.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1374,7 +1397,7 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void SldModifier_OnLostFocus(object sender, RoutedEventArgs e)
+        private void sldModifier_LostMouseCapture(object sender, MouseEventArgs e)
         {
             SetVariable("VoIP.VolumeModifier", Convert.ToString(sldModifier.Value), ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
@@ -1425,6 +1448,9 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

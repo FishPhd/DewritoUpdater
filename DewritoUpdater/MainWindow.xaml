@@ -245,7 +245,7 @@
             <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center" />
         </TextBlock>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Left" Background="Transparent"
-              Height="30" VerticalAlignment="Top" />
+              Height="30" VerticalAlignment="Top" MouseDown="Grid_MouseDown" />
         <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal"
                     HorizontalAlignment="Right" Width="114">
             <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click"
@@ -1091,7 +1091,7 @@
                         </Border>
                     </Grid>
 
-                    <Grid Grid.Row="4" Margin="0" VerticalAlignment="Bottom">
+                    <Grid Grid.Row="4" Margin="0" VerticalAlignment="Center">
                         <Grid.Style>
                             <Style TargetType="{x:Type Grid}">
                                 <Style.Resources>
@@ -1884,8 +1884,7 @@
                                 <StackPanel Orientation="Horizontal">
 
                                     <Slider Name="sldFov" DockPanel.Dock="Left" Minimum="30" Maximum="150"
-                                            LostFocus="SldFov_OnLostFocus"
-                                            TickFrequency="5" IsSnapToTickEnabled="True"
+                                            TickFrequency="5" IsSnapToTickEnabled="True" LostMouseCapture="sldFov_LostMouseCapture"
                                             Background="{x:Null}"
                                             BorderBrush="{x:Null}" Foreground="White" Width="90" />
                                     <TextBox Name="txtSld" DockPanel.Dock="Right"
@@ -1978,7 +1977,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Start Timer:</TextBlock>
                                 <StackPanel Orientation="Horizontal">
-                                    <Slider Name="sldTimer" Minimum="0" Maximum="20" LostFocus="SldTimer_OnLostFocus"
+                                    <Slider Name="sldTimer" Minimum="0" Maximum="20" LostMouseCapture="sldTimer_LostMouseCapture"
                                             TickFrequency="1" IsSnapToTickEnabled="True" Value="5"
                                             Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"
                                             FontFamily="/Resources/#Aero Matics Light" Width="95" />
@@ -1995,7 +1994,7 @@
                             <StackPanel Orientation="Horizontal" Visibility="Visible">
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Max Players:</TextBlock>
                                 <StackPanel Orientation="Horizontal">
-                                    <Slider Name="sldMax" Minimum="1" LostFocus="SldMax_OnLostFocus" Maximum="16"
+                                    <Slider Name="sldMax" Minimum="1" LostMouseCapture="sldMax_LostMouseCapture" Maximum="16"
                                             TickFrequency="1" IsSnapToTickEnabled="True" Value="16"
                                             Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"
                                             FontFamily="/Resources/#Aero Matics Light" Width="90" />
@@ -2189,7 +2188,7 @@
                                 <Label HorizontalAlignment="Left" Margin="25,5,0,0" FontSize="16" Foreground="White">Volume Modifier</Label>
                                 <Slider x:Name="sldModifier" Margin="15,0,0,0" Maximum="30" Minimum="0"
                                         TickFrequency="2" Width="150" Value="6" IsSnapToTickEnabled="True"
-                                        LostFocus="SldModifier_OnLostFocus" />
+                                        LostMouseCapture="sldModifier_LostMouseCapture" />
                                 <TextBox Text="{Binding ElementName=sldModifier,Path=Value}" Margin="15,0,0,0"
                                          Width="50" HorizontalAlignment="Left"
                                          TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
@@ -2213,7 +2212,7 @@
                                 <Label HorizontalAlignment="Left" Margin="25,5,0,0" FontSize="16" Foreground="White">Voice Activition Level</Label>
                                 <Slider x:Name="sldAudio" Maximum="50" Minimum="-50" Margin="15,0,0,0"
                                         TickFrequency="5" Width="175" Value="-45" IsSnapToTickEnabled="True"
-                                        LostFocus="SldAudio_OnLostFocus" />
+                                        LostMouseCapture="sldAudio_LostMouseCapture" />
                                 <TextBox Text="{Binding ElementName=sldAudio,Path=Value}" Margin="15,0,0,0" Width="50"
                                          HorizontalAlignment="Left"
                                          TextAlignment="Center" FontFamily="/Resources/#Aero Matics Light">
