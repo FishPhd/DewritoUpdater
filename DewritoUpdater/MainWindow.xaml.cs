@@ -203,7 +203,26 @@ namespace DewritoUpdater
             }
             catch
             {
-                Initial(true);
+                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
+                SetVariable("Server.Password", "", ref configFile);
+                SetVariable("Server.Countdown", "5", ref configFile);
+                SetVariable("Server.MaxPlayers", "16", ref configFile);
+                SetVariable("Server.Port", "11775", ref configFile);
+                SetVariable("Camera.Crosshair", "0", ref configFile);
+                SetVariable("Camera.FOV", "90", ref configFile);
+                SetVariable("Camera.HideHUD", "0", ref configFile);
+                SetVariable("Input.RawInput", "1", ref configFile);
+                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
+                    ref configFile);
+                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
+                    ref configFile);
+                SetVariable("Video.Window", "0", ref configFile);
+                SetVariable("Video.FullScreen", "1", ref configFile);
+                SetVariable("Video.VSync", "1", ref configFile);
+                SetVariable("Video.FPSCounter", "0", ref configFile);
+                SetVariable("Video.IntroSkip", "1", ref configFile);
+                SaveConfigFile("dewrito_prefs.cfg", configFile);
+
                 //Settings
                 sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
                 sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
@@ -348,7 +367,14 @@ namespace DewritoUpdater
             }
             catch
             {
-                Initial(true);
+                SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
+                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
+                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
+                SetVariable("VoIP.PushToTalk", "1", ref configFile);
+                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
+                SetVariable("VoIP.AGC", "1", ref configFile);
+                SaveConfigFile("dewrito_prefs.cfg", configFile);
+
                 Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
                 voipKey.Text =
                     Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
@@ -381,7 +407,20 @@ namespace DewritoUpdater
             }
             catch
             {
-                Initial(true);
+                SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
+                SetVariable("Player.Colors.Primary", "#000000", ref configFile);
+                SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
+                SetVariable("Player.Colors.Lights", "#000000", ref configFile);
+                SetVariable("Player.Colors.Holo", "#000000", ref configFile);
+                SetVariable("Player.Colors.Visor", "#000000", ref configFile);
+                SetVariable("Player.Name", "Forgot", ref configFile);
+                SaveConfigFile("dewrito_prefs.cfg", configFile);
+
                 clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
                 clrSecondary.SelectedColor =
                     (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
@@ -665,13 +704,8 @@ namespace DewritoUpdater
 
                         var fade = (Storyboard) TryFindResource("fade");
                         fade.Stop(); // Stop
-                        /*
-                            Storyboard fadeStat = (Storyboard)TryFindResource("fadeStat");
-                            fadeStat.Stop();	// Start
-                            Storyboard fadeServer = (Storyboard)TryFindResource("fadeServer");
-                            fadeServer.Stop();	// Start 
-                             */
                         btnAction.IsEnabled = true;
+                        GridSkip.Visibility = Visibility.Visible;
                     }));
             if (silentStart)
             {
