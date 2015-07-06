@@ -389,22 +389,20 @@ namespace DewritoUpdater
 
         private void btnCustomization_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Customization
-                clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-                clrSecondary.SelectedColor =
-                    (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-                clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-                clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-                clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-                cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-                cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-                cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-                cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-                cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-                plrName.Text = configFile["Player.Name"];
-            }
+            //Customization
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+            clrSecondary.SelectedColor =
+                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+            plrName.Text = configFile["Player.Name"];
+            /*
             catch
             {
                 SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
@@ -434,6 +432,7 @@ namespace DewritoUpdater
                 cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
                 plrName.Text = configFile["Player.Name"];
             }
+            */
             switchPanel("custom", false);
         }
 
@@ -1565,7 +1564,7 @@ namespace DewritoUpdater
             chkEC.IsChecked = true;
             chkAGC.IsChecked = true;
 
-            SetVariable("VoIP.PushToTalkKey", "20", ref configFile);
+            SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
             SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
             SetVariable("VoIP.VolumeModifier", "6", ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
