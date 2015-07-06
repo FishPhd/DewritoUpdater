@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Newtonsoft.Json.Linq;
+using Xceed.Wpf.Toolkit;
+
 
 namespace DewritoUpdater
 {
@@ -42,6 +44,8 @@ namespace DewritoUpdater
         private JObject settingsJson;
         private JObject updateJson;
         private Thread validateThread;
+
+        public System.Windows.WindowState Minimized { get; private set; }
 
         public MainWindow()
         {
@@ -101,7 +105,7 @@ namespace DewritoUpdater
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            WindowState = Minimized;
         }
 
         /* --- Content Panel Control --- */
@@ -292,7 +296,7 @@ namespace DewritoUpdater
         {
             if (silentStart)
             {
-                WindowState = WindowState.Minimized;
+                WindowState = Minimized;
             }
             using (var wc = new WebClient())
             {
@@ -1296,47 +1300,13 @@ namespace DewritoUpdater
 
         private void BtnSkip_OnClick(object sender, RoutedEventArgs e)
         {
-            var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
-            sInfo.Arguments = "-launcher";
+            btnAction.Content = "PLAY GAME";
 
-            if (configFile["Video.Window"] == "1")
-            {
-                sInfo.Arguments += " -window";
-            }
-            if (configFile["Video.FullScreen"] == "1")
-            {
-                sInfo.Arguments += " -fullscreen";
-            }
-            if (configFile["Video.VSync"] == "1")
-            {
-                sInfo.Arguments += " -no_vsync";
-            }
-            if (configFile["Video.FPSCounter"] == "1")
-            {
-                sInfo.Arguments += " -show_fps";
-            }
+            isPlayEnabled = true;
 
-            sInfo.Arguments += " -width " + configFile["Video.Width"];
-            sInfo.Arguments += " -height " + configFile["Video.Height"];
-
-            if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
-            {
-                AppendDebugLine(
-                    "Your bink directory could not be found. Did you change the name manually or delete it?",
-                    Color.FromRgb(255, 255, 0));
-            }
-
-            try
-            {
-                Process.Start(sInfo);
-            }
-            catch
-            {
-                var AlertWindow = new MsgBoxOk("Game executable not found.");
-
-                AlertWindow.Show();
-                AlertWindow.Focus();
-            }
+            var fade = (Storyboard)TryFindResource("fade");
+            fade.Stop(); // Start animation
+            btnAction.IsEnabled = true;
         }
 
         private void VoipKey_OnKeyDown(object sender, KeyEventArgs e)
@@ -1424,7 +1394,5 @@ namespace DewritoUpdater
             SetVariable("Server.Password", lblServerPassword.Password, ref configFile);
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
-
-        
     }
 }
