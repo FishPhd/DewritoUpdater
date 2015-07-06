@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:st="http://schemas.spicytaco.io/"
-        xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:utils="clr-namespace:DewritoUpdater.Utils"
         xmlns:osm="http://schemas.awesomium.com/winfx"
         xmlns:core="http://schemas.awesomium.com/core"
@@ -1353,7 +1353,7 @@
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Style>
-                        <Style TargetType="{x:Type toolkit:ColorPicker}">
+                        <Style TargetType="{x:Type xctk:ColorPicker}">
                             <Setter Property="Height" Value="23" />
                             <Setter Property="Background" Value="Black" />
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -1606,59 +1606,58 @@
                             </TextBlock>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Primary:</TextBlock>
-                                <toolkit:ColorPicker x:Name="clrPrimary" SelectedColor="#000000"
+                                <xctk:ColorPicker x:Name="clrPrimary" SelectedColor="#000000"
                                                   FontSize="16" FontFamily="/Resources/#Aero Matics Light"
                                                   HorizontalAlignment="Right" Width="140"
-                                                  SelectedColorChanged="clrPrimary_SelectedColorChanged"
-                                                  >
-                                    <toolkit:ColorPicker.Background>
+                                                  SelectedColorChanged="clrPrimary_OnSelectedColorChanged">
+                                    <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </toolkit:ColorPicker.Background>
-                                </toolkit:ColorPicker>
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Secondary:</TextBlock>
-                                <toolkit:ColorPicker x:Name="clrSecondary" SelectedColor="#000000" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrSecondary" SelectedColor="#000000" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light"
                                                   HorizontalAlignment="Right" Width="140"
                                                   SelectedColorChanged="clrSecondary_OnSelectedColorChanged">
-                                    <toolkit:ColorPicker.Background>
+                                    <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </toolkit:ColorPicker.Background>
-                                </toolkit:ColorPicker>
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Visor:</TextBlock>
-                                <toolkit:ColorPicker x:Name="clrVisor" SelectedColor="#000000" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrVisor" SelectedColor="#000000" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light"
                                                   HorizontalAlignment="Right" Width="140"
                                                   SelectedColorChanged="clrVisor_OnSelectedColorChanged">
-                                    <toolkit:ColorPicker.Background>
+                                    <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </toolkit:ColorPicker.Background>
-                                </toolkit:ColorPicker>
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Lights:</TextBlock>
-                                <toolkit:ColorPicker x:Name="clrLights" SelectedColor="#000000" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrLights" SelectedColor="#000000" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light"
                                                   HorizontalAlignment="Right" Width="140"
                                                   SelectedColorChanged="clrLights_OnSelectedColorChanged">
-                                    <toolkit:ColorPicker.Background>
+                                    <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </toolkit:ColorPicker.Background>
-                                </toolkit:ColorPicker>
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
                             </Grid>
                             <Grid>
                                 <TextBlock FontSize="16" FontFamily="/Resources/#Aero Matics Light">Holo:</TextBlock>
-                                <toolkit:ColorPicker x:Name="clrHolo" SelectedColor="#000000" FontSize="16"
+                                <xctk:ColorPicker x:Name="clrHolo" SelectedColor="#000000" FontSize="16"
                                                   FontFamily="/Resources/#Aero Matics Light"
                                                   HorizontalAlignment="Right" Width="140"
                                                   SelectedColorChanged="clrHolo_OnSelectedColorChanged">
-                                    <toolkit:ColorPicker.Background>
+                                    <xctk:ColorPicker.Background>
                                         <SolidColorBrush Color="White" Opacity="0.07" />
-                                    </toolkit:ColorPicker.Background>
-                                </toolkit:ColorPicker>
+                                    </xctk:ColorPicker.Background>
+                                </xctk:ColorPicker>
                             </Grid>
                         </StackPanel>
                     </st:AutoGrid>
@@ -1804,7 +1803,7 @@
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Style>
-                        <Style TargetType="{x:Type toolkit:ColorPicker}">
+                        <Style TargetType="{x:Type xctk:ColorPicker}">
                             <Setter Property="Height" Value="23" />
                             <Setter Property="Foreground" Value="White" />
                             <Setter Property="Background" Value="Transparent" />
@@ -1901,7 +1900,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox Name="chkCenter" Grid.ColumnSpan="2"
-                                      Checked="chkCenter_Changed" Unchecked="chkCenter_Changed"
+                                      IsChecked="" Checked="chkCenter_Changed" Unchecked="chkCenter_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Centered Crosshair
@@ -1912,7 +1911,7 @@
                                 Input Settings
                             </TextBlock>
                             <CheckBox Name="chkRaw" Grid.ColumnSpan="2"
-                                      Checked="chkRaw_Changed" Unchecked="chkRaw_Changed"
+                                      IsChecked="" Checked="chkRaw_Changed" Unchecked="chkRaw_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
@@ -1921,19 +1920,19 @@
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Launch Options
                             </TextBlock>
-                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" Checked="chkWin_Changed"
+                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="" Checked="chkWin_Changed"
                                       Unchecked="chkWin_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Windowed Mode
                             </CheckBox>
-                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" Checked="chkFull_Changed"
+                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" IsChecked="" Checked="chkFull_Changed"
                                       Unchecked="chkFull_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Fullscreen Mode
                             </CheckBox>
-                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" Checked="chkVSync_Changed"
+                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="" Checked="chkVSync_Changed"
                                       Unchecked="chkVSync_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
@@ -1947,13 +1946,13 @@
                                 Enable DirectX 9.0 Extensions
                             </CheckBox>
                             -->
-                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" Checked="chkFPS_Changed"
+                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="" Checked="chkFPS_Changed"
                                       Unchecked="chkFPS_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Show FPS Counter
                             </CheckBox>
-                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" Checked="chkIntro_Changed"
+                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" IsChecked="" Checked="chkIntro_Changed"
                                       Unchecked="chkIntro_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
@@ -2126,7 +2125,7 @@
                             <Setter Property="HorizontalAlignment" Value="Stretch" />
                             <Setter Property="Cursor" Value="Hand" />
                         </Style>
-                        <Style TargetType="{x:Type toolkit:ColorPicker}">
+                        <Style TargetType="{x:Type xctk:ColorPicker}">
                             <Setter Property="Height" Value="23" />
                             <Setter Property="Foreground" Value="White" />
                             <Setter Property="Background" Value="Transparent" />
@@ -2176,13 +2175,13 @@
                                 Audio Settings
                             </TextBlock>
                             <CheckBox Name="chkAGC" Grid.ColumnSpan="2" Margin="25,10,0,0"
-                                      Checked="chkAGC_Changed" Unchecked="chkAGC_Changed"
+                                      IsChecked="" Checked="chkAGC_Changed" Unchecked="chkAGC_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Automatic Gain Control
                             </CheckBox>
                             <CheckBox Name="chkEC" Grid.ColumnSpan="2" Margin="25,15,0,0"
-                                      Checked="chkEC_Changed" Unchecked="chkEC_Changed"
+                                      IsChecked="" Checked="chkEC_Changed" Unchecked="chkEC_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Echo Cancellation
@@ -2206,7 +2205,7 @@
                                 Microphone settings
                             </TextBlock>
                             <CheckBox Name="chkPTT" Grid.ColumnSpan="2" Margin="25,10,0,0"
-                                      Checked="chkPTT_Changed" Unchecked="chkPTT_Changed"
+                                      IsChecked="" Checked="chkPTT_Changed" Unchecked="chkPTT_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Push To Talk (Voice detection if disabled)
