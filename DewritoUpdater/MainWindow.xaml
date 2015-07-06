@@ -11,7 +11,6 @@
         mc:Ignorable="d"
         Title="ElDewrito Launcher" Height="602" Width="1002" ResizeMode="CanMinimize" Icon="LOGO_icon.ico"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" UseLayoutRounding="True"
-        utils:WindowMovement.IsDraggable="True"
         FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="18"
         BorderThickness="1"
         Loaded="Window_Loaded">
@@ -246,7 +245,7 @@
             <Run Foreground="White" Text="- HALO ONLINE" BaselineAlignment="Center" />
         </TextBlock>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Left" Background="Transparent"
-              utils:WindowMovement.DragsWindow="True" Height="30" VerticalAlignment="Top" />
+              Height="30" VerticalAlignment="Top" />
         <StackPanel Grid.Row="0" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal"
                     HorizontalAlignment="Right" Width="114">
             <Button BorderBrush="#FF707070" BorderThickness="1" FontSize="20" Width="57" Click="MinButton_Click"
@@ -1900,7 +1899,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <CheckBox Name="chkCenter" Grid.ColumnSpan="2"
-                                      IsChecked="" Checked="chkCenter_Changed" Unchecked="chkCenter_Changed"
+                                      Checked="chkCenter_Changed" Unchecked="chkCenter_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Centered Crosshair
@@ -1911,7 +1910,7 @@
                                 Input Settings
                             </TextBlock>
                             <CheckBox Name="chkRaw" Grid.ColumnSpan="2"
-                                      IsChecked="" Checked="chkRaw_Changed" Unchecked="chkRaw_Changed"
+                                      Checked="chkRaw_Changed" Unchecked="chkRaw_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Use Raw Mouse Input
@@ -1920,39 +1919,39 @@
                                        FontFamily="/Resources/#Aero Matics" FontWeight="Normal">
                                 Launch Options
                             </TextBlock>
-                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" IsChecked="" Checked="chkWin_Changed"
+                            <CheckBox Name="chkWin" Grid.ColumnSpan="2" Checked="chkWin_Changed"
                                       Unchecked="chkWin_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Windowed Mode
                             </CheckBox>
-                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" IsChecked="" Checked="chkFull_Changed"
+                            <CheckBox Name="chkFull" Grid.ColumnSpan="2" Checked="chkFull_Changed"
                                       Unchecked="chkFull_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Fullscreen Mode
                             </CheckBox>
-                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" IsChecked="" Checked="chkVSync_Changed"
+                            <CheckBox Name="chkVSync" Grid.ColumnSpan="2" Checked="chkVSync_Changed"
                                       Unchecked="chkVSync_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Enable VSync
                             </CheckBox>
                             <!--
-                            <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" IsChecked="" Checked="chkDX9Ex_Changed"
+                            <CheckBox Name="chkDX9Ex" Grid.ColumnSpan="2" Checked="chkDX9Ex_Changed"
                                       Unchecked="chkDX9Ex_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Enable DirectX 9.0 Extensions
                             </CheckBox>
                             -->
-                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" IsChecked="" Checked="chkFPS_Changed"
+                            <CheckBox Name="chkFPS" Grid.ColumnSpan="2" Checked="chkFPS_Changed"
                                       Unchecked="chkFPS_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Show FPS Counter
                             </CheckBox>
-                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" IsChecked="" Checked="chkIntro_Changed"
+                            <CheckBox Name="chkIntro" Grid.ColumnSpan="2" Checked="chkIntro_Changed"
                                       Unchecked="chkIntro_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
@@ -2175,13 +2174,13 @@
                                 Audio Settings
                             </TextBlock>
                             <CheckBox Name="chkAGC" Grid.ColumnSpan="2" Margin="25,10,0,0"
-                                      IsChecked="" Checked="chkAGC_Changed" Unchecked="chkAGC_Changed"
+                                      Checked="chkAGC_Changed" Unchecked="chkAGC_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Automatic Gain Control
                             </CheckBox>
                             <CheckBox Name="chkEC" Grid.ColumnSpan="2" Margin="25,15,0,0"
-                                      IsChecked="" Checked="chkEC_Changed" Unchecked="chkEC_Changed"
+                                      Checked="chkEC_Changed" Unchecked="chkEC_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Echo Cancellation
@@ -2205,7 +2204,7 @@
                                 Microphone settings
                             </TextBlock>
                             <CheckBox Name="chkPTT" Grid.ColumnSpan="2" Margin="25,10,0,0"
-                                      IsChecked="" Checked="chkPTT_Changed" Unchecked="chkPTT_Changed"
+                                      Checked="chkPTT_Changed" Unchecked="chkPTT_Changed"
                                       Template="{DynamicResource CheckBoxControlTemplate1}" FontSize="16"
                                       FontFamily="/Resources/#Aero Matics Light">
                                 Push To Talk (Voice detection if disabled)
