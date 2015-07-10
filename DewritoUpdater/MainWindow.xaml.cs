@@ -470,7 +470,7 @@ namespace DewritoUpdater
             {
                 try
                 {
-                    ChangelogContent.Text = wc.DownloadString("http://167.114.156.21:81/honline/changelog.data");
+                    ChangelogContent.Text = wc.DownloadString("http://167.114.156.21/update_server/changelog.data");
                 }
                 catch
                 {
@@ -542,9 +542,9 @@ namespace DewritoUpdater
                     "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
                     Color.FromRgb(255, 0, 0));
 
-                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json" ||
+                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21/update_server/update.json" ||
                     settingsJson["updateServiceUrl"].ToString() !=
-                    "http://167.114.156.21:81/honline/update_publicbeta.json")
+                    "http://167.114.156.21/update_server/update_publicbeta.json")
                 {
                     AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
@@ -553,20 +553,20 @@ namespace DewritoUpdater
                     {
                         var confirmWindow =
                             new MsgBoxConfirm(
-                                "Failed to retrieve update information. Do you want to try updating from the default server?");
+                                "Failed to retrieve update information. Do you want to try updating from GitHub?");
                         var ConfirmWindow =
                             new MsgBoxConfirm(
-                                "Failed to retrieve update information. Do you want to try updating from the default server?");
+                                "Failed to retrieve update information. Do you want to try updating from GitHub?");
 
                         if (ConfirmWindow.ShowDialog() == false)
                         {
                             if (ConfirmWindow.confirm)
                             {
-                                settingsJson["updateServiceUrl"] = "http://167.114.156.21:80/honline/update.json";
+                                settingsJson["updateServiceUrl"] = "https://raw.githubusercontent.com/Woovie/dorito-master-update-json/master/update.json";
 
                                 if (!ProcessUpdateData())
                                 {
-                                    AppendDebugLine("Failed to connect to the default update server.",
+                                    AppendDebugLine("Failed to connect to GitHub.",
                                         Color.FromRgb(255, 0, 0));
                                     btnAction.Content = "PLAY GAME";
                                     GridSkip.Visibility = Visibility.Hidden;
@@ -575,12 +575,12 @@ namespace DewritoUpdater
 
                                     var MainWindow =
                                         new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
+                                            "Failed to connect to GitHub, you can still play the game if your files are valid.");
                                     MainWindow.Show();
                                     MainWindow.Focus();
                                     var AlertWindow =
                                         new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
+                                            "Failed to connect to GitHub, you can still play the game if your files are valid.");
                                     AlertWindow.Show();
                                     AlertWindow.Focus();
                                 }
@@ -591,7 +591,7 @@ namespace DewritoUpdater
                             }
                             else
                             {
-                                AppendDebugLine("Update server connection manually canceled.", Color.FromRgb(255, 0, 0));
+                                AppendDebugLine("GitHub connection manually canceled.", Color.FromRgb(255, 0, 0));
                                 btnAction.Content = "PLAY GAME";
                                 GridSkip.Visibility = Visibility.Hidden;
                                 isPlayEnabled = true;
@@ -599,12 +599,12 @@ namespace DewritoUpdater
 
                                 var MainWindow =
                                     new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
+                                        "GitHub connection manually canceled, you can still play the game if your files are valid.");
                                 MainWindow.Show();
                                 MainWindow.Focus();
                                 var AlertWindow =
                                     new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
+                                        "GitHub connection manually canceled, you can still play the game if your files are valid.");
                                 AlertWindow.Show();
                                 AlertWindow.Focus();
                             }
@@ -615,7 +615,7 @@ namespace DewritoUpdater
                 {
                     Application.Current.Dispatcher.Invoke((Action) delegate
                     {
-                        AppendDebugLine("Failed to retrieve update information from the default update server.",
+                        AppendDebugLine("Failed to retrieve update information from GitHub.",
                             Color.FromRgb(255, 0, 0));
                         btnAction.Content = "PLAY";
                         isPlayEnabled = true;
@@ -623,12 +623,12 @@ namespace DewritoUpdater
 
                         var MainWindow =
                             new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files are valid.");
+                                "Could not connect to GitHub, you can still play the game if your files are valid.");
                         MainWindow.Show();
                         MainWindow.Focus();
                         var AlertWindow =
                             new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files are valid.");
+                                "Could not connect to GitHub, you can still play the game if your files are valid.");
                         AlertWindow.Show();
                         AlertWindow.Focus();
                     });
