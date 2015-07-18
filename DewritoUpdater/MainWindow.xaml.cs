@@ -97,6 +97,7 @@ namespace DewritoUpdater
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveConfigFile("dewrito_prefs.cfg", configFile);
             Application.Current.Shutdown();
         }
 
