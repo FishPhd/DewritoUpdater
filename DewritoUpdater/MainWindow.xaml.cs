@@ -97,7 +97,20 @@ namespace DewritoUpdater
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+            clrSecondary.SelectedColor =
+                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
+            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
+            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
+            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
+            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
+            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
+            plrName.Text = configFile["Player.Name"];
             SaveConfigFile("dewrito_prefs.cfg", configFile);
+
             Application.Current.Shutdown();
         }
 
