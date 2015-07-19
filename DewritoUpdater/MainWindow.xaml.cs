@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace DewritoUpdater
 {
@@ -985,8 +986,25 @@ namespace DewritoUpdater
         {
             if (isPlayEnabled)
             {
-                var sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
+                ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
                 sInfo.Arguments = "-launcher";
+
+                Process process = new Process();
+                process.StartInfo = sInfo;
+
+                if (!process.Start())
+                {
+                    SetVariable("Video.Window", "0", ref configFile);
+                    SetVariable("Video.FullScreen", "1", ref configFile);
+                    SetVariable("Video.VSync", "1", ref configFile);
+                    SetVariable("Video.FPSCounter", "0", ref configFile);
+                    SaveConfigFile("dewrito_prefs.cfg", configFile);
+
+                    var AlertWindow = new MsgBoxOk("Your game crashed. Your launch settings have been reset please try again");
+
+                    AlertWindow.Show();
+                    AlertWindow.Focus();
+                }
 
                 if (configFile["Video.Window"] == "1")
                 {
@@ -1003,19 +1021,6 @@ namespace DewritoUpdater
                 if (configFile["Video.FPSCounter"] == "1")
                 {
                     sInfo.Arguments += " -show_fps";
-                }
-
-                try
-                {
-                    Process.Start(sInfo);
-                }
-                catch
-                {
-                    //MessageBox.Show("Game executable not found.");
-                    var AlertWindow = new MsgBoxOk("Game executable not found.");
-
-                    AlertWindow.Show();
-                    AlertWindow.Focus();
                 }
             }
             else if (btnAction.Content.ToString() == "UPDATE")
