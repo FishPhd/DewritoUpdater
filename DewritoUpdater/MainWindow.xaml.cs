@@ -212,8 +212,6 @@ namespace DewritoUpdater
             //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
 
             //Video
-            setWidth.Text = configFile["Video.Width"];
-            setHeight.Text = configFile["Video.Height"];
             SaveConfigFile("dewrito_prefs.cfg", configFile);
             }
             catch
@@ -253,10 +251,6 @@ namespace DewritoUpdater
                 lblServerName.Text = configFile["Server.Name"];
                 lblServerPassword.Password = configFile["Server.Password"];
                 //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
-
-                //Video
-                setWidth.Text = configFile["Video.Width"];
-                setHeight.Text = configFile["Video.Height"];
             }
             switchPanel("settings", false);
         }
@@ -1011,18 +1005,6 @@ namespace DewritoUpdater
                     sInfo.Arguments += " -show_fps";
                 }
 
-                sInfo.Arguments += " -width " + configFile["Video.Width"];
-                sInfo.Arguments += " -height " + configFile["Video.Height"];
-
-                
-
-                if (!Directory.Exists("bink_disabled") || !Directory.Exists("bink"))
-                {
-                    AppendDebugLine(
-                        "Your bink directory could not be found. Did you change the name manually or delete it?",
-                        Color.FromRgb(255, 255, 0));
-                }
-
                 try
                 {
                     Process.Start(sInfo);
@@ -1285,18 +1267,6 @@ namespace DewritoUpdater
             SaveConfigFile("dewrito_prefs.cfg", configFile);
         }
 
-        private void setWidth_OnSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.Width", setWidth.Text, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void setHeight_OnSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.Height", setHeight.Text, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
         private void chkWin_Changed(object sender, RoutedEventArgs e)
         {
             SetVariable("Video.Window", Convert.ToString(Convert.ToInt32(chkWin.IsChecked)), ref configFile);
@@ -1482,8 +1452,6 @@ namespace DewritoUpdater
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            setWidth.Text = SystemParameters.PrimaryScreenWidth.ToString();
-            setHeight.Text = SystemParameters.PrimaryScreenHeight.ToString();
             sldFov.Value = 90;
             chkCenter.IsChecked = false;
             chkRaw.IsChecked = true;
