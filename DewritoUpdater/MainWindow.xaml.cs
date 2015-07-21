@@ -479,7 +479,7 @@ namespace DewritoUpdater
             {
                 try
                 {
-                    ChangelogContent.Text = wc.DownloadString("http://167.114.156.21:81/honline/changelog.data");
+                    ChangelogContent.Text = wc.DownloadString("http://dew.halo.click/honline/changelog.data");
                 }
                 catch
                 {
@@ -551,9 +551,9 @@ namespace DewritoUpdater
                     "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
                     Color.FromRgb(255, 0, 0));
 
-                if (settingsJson["updateServiceUrl"].ToString() != "http://167.114.156.21:81/honline/update.json" ||
+                if (settingsJson["updateServiceUrl"].ToString() != "http://dew.halo.click/honline/update.json" ||
                     settingsJson["updateServiceUrl"].ToString() !=
-                    "http://167.114.156.21:81/honline/update_publicbeta.json")
+                    "http://dew.halo.click/honline/update_publicbeta.json")
                 {
                     AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
                     AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
@@ -571,7 +571,7 @@ namespace DewritoUpdater
                         {
                             if (ConfirmWindow.confirm)
                             {
-                                settingsJson["updateServiceUrl"] = "http://167.114.156.21:80/honline/update.json";
+                                settingsJson["updateServiceUrl"] = "http://dew.halo.click/honline/update.json";
 
                                 if (!ProcessUpdateData())
                                 {
