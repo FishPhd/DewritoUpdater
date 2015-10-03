@@ -7,12 +7,12 @@ using System.Windows;
 using System.Windows.Threading;
 using DoritoPatcher;
 
-namespace DewritoUpdater
+namespace Dewritwo
 {
     /// <summary>
     ///     Interaction logic for FileDownloadDialog.xaml
     /// </summary>
-    public partial class FileDownloadDialog : Window
+    public partial class FileDownloadDialog
     {
         private readonly WebClient wc = new WebClient();
         public Exception Error;

@@ -86,7 +86,7 @@ namespace DoritoPatcher
             var dblen = 0;
             var eblen = 0;
 
-            using (var bz2Stream = new BZip2OutputStream(output) {IsStreamOwner = false})
+            using (var bz2Stream = new BZip2OutputStream(output) { IsStreamOwner = false })
             {
                 // compute the differences, writing ctrl as we go
                 var scan = 0;
@@ -126,7 +126,7 @@ namespace DoritoPatcher
                             if (oldData[lastpos + i] == newData[lastscan + i])
                                 s++;
                             i++;
-                            if (s*2 - i > sf*2 - lenf)
+                            if (s * 2 - i > sf * 2 - lenf)
                             {
                                 sf = s;
                                 lenf = i;
@@ -142,7 +142,7 @@ namespace DoritoPatcher
                             {
                                 if (oldData[pos - i] == newData[scan - i])
                                     s++;
-                                if (s*2 - i > sb*2 - lenb)
+                                if (s * 2 - i > sb * 2 - lenb)
                                 {
                                     sb = s;
                                     lenb = i;
@@ -174,7 +174,7 @@ namespace DoritoPatcher
                         }
 
                         for (var i = 0; i < lenf; i++)
-                            db[dblen + i] = (byte) (newData[lastscan + i] - oldData[lastpos + i]);
+                            db[dblen + i] = (byte)(newData[lastscan + i] - oldData[lastpos + i]);
                         for (var i = 0; i < (scan - lenb) - (lastscan + lenf); i++)
                             eb[eblen + i] = newData[lastscan + lenf + i];
 
@@ -203,7 +203,7 @@ namespace DoritoPatcher
             WriteInt64(controlEndPosition - startPosition - c_headerSize, header, 8);
 
             // write compressed diff data
-            using (var bz2Stream = new BZip2OutputStream(output) {IsStreamOwner = false})
+            using (var bz2Stream = new BZip2OutputStream(output) { IsStreamOwner = false })
             {
                 bz2Stream.Write(db, 0, dblen);
             }
@@ -213,7 +213,7 @@ namespace DoritoPatcher
             WriteInt64(diffEndPosition - controlEndPosition, header, 16);
 
             // write compressed extra data
-            using (var bz2Stream = new BZip2OutputStream(output) {IsStreamOwner = false})
+            using (var bz2Stream = new BZip2OutputStream(output) { IsStreamOwner = false })
             {
                 bz2Stream.Write(eb, 0, eblen);
             }
@@ -326,7 +326,7 @@ namespace DoritoPatcher
                         // seek old file to the position that the new data is diffed against
                         input.Position = oldPosition;
 
-                        var bytesToCopy = (int) control[0];
+                        var bytesToCopy = (int)control[0];
                         while (bytesToCopy > 0)
                         {
                             var actualBytesToCopy = Math.Min(bytesToCopy, c_bufferSize);
@@ -335,7 +335,7 @@ namespace DoritoPatcher
                             ReadExactly(diffStream, newData, 0, actualBytesToCopy);
 
                             // add old data to diff string
-                            var availableInputBytes = Math.Min(actualBytesToCopy, (int) (input.Length - input.Position));
+                            var availableInputBytes = Math.Min(actualBytesToCopy, (int)(input.Length - input.Position));
                             ReadExactly(input, oldData, 0, availableInputBytes);
 
                             for (var index = 0; index < availableInputBytes; index++)
@@ -354,7 +354,7 @@ namespace DoritoPatcher
                             throw new InvalidOperationException("Corrupt patch.");
 
                         // read extra string
-                        bytesToCopy = (int) control[1];
+                        bytesToCopy = (int)control[1];
                         while (bytesToCopy > 0)
                         {
                             var actualBytesToCopy = Math.Min(bytesToCopy, c_bufferSize);
@@ -367,7 +367,7 @@ namespace DoritoPatcher
                         }
 
                         // adjust position
-                        oldPosition = (int) (oldPosition + control[2]);
+                        oldPosition = (int)(oldPosition + control[2]);
                     }
                 }
             }
@@ -411,7 +411,7 @@ namespace DoritoPatcher
                 pos = I[end];
                 return endLength;
             }
-            var midPoint = start + (end - start)/2;
+            var midPoint = start + (end - start) / 2;
             return CompareBytes(oldData, I[midPoint], newData, newOffset) < 0
                 ? Search(I, oldData, newData, newOffset, midPoint, end, out pos)
                 : Search(I, oldData, newData, newOffset, start, midPoint, out pos);
@@ -447,7 +447,7 @@ namespace DoritoPatcher
             }
             else
             {
-                var x = v[I[start + len/2] + h];
+                var x = v[I[start + len / 2] + h];
                 var jj = 0;
                 var kk = 0;
                 for (var i2 = start; i2 < start + len; i2++)
@@ -595,7 +595,7 @@ namespace DoritoPatcher
 
             for (var byteIndex = 0; byteIndex < 8; byteIndex++)
             {
-                buf[offset + byteIndex] = unchecked((byte) valueToWrite);
+                buf[offset + byteIndex] = unchecked((byte)valueToWrite);
                 valueToWrite >>= 8;
             }
 

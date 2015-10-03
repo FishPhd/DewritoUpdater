@@ -1,42 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using Dewritwo.Resources;
+using MahApps.Metro;
+using MahApps.Metro.Controls;
+using Crc32C;
+using MahApps.Metro.Controls.Dialogs;
+using System.Threading.Tasks;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
+using DoritoPatcher;
 using Newtonsoft.Json.Linq;
-using System.Reflection;
 
-namespace DewritoUpdater
+namespace Dewritwo
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private static Dictionary<string, string> configFile;
-        //private readonly bool embedded = true;
-        private readonly SHA1 hasher = SHA1.Create();
-        private readonly bool silentStart;
-        private readonly string[] skipFileExtensions = {".bik"};
 
+        #region Variables/Dictionaries
+        private Dictionary<int, string> doritoKey;
+        private bool updateText = true;
+        private string keyValue;
+        private string bindDelete;
+        private string eldoritoLatestVersion;
+        private FileVersionInfo eldoritoVersion = null;
+        private string localEldoritoVersion;
+
+        private readonly SHA1 hasher = SHA1.Create();
+        private readonly string[] skipFileExtensions = { ".bik" };
         private readonly string[] skipFiles =
         {
             "eldorado.exe", "game.cfg", "tags.dat", "binkw32.dll",
             "crash_reporter.exe", "game.cfg_local.cfg"
         };
-
-        private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink", "logs"};
+        private readonly string[] skipFolders = { ".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink", "logs" };
         public string BasePath = Directory.GetCurrentDirectory();
         private Dictionary<string, string> fileHashes;
-        private Dictionary<int, string> doritoKey;
         private List<string> filesToDownload;
         private bool isPlayEnabled;
         private JToken latestUpdate;
@@ -44,437 +56,47 @@ namespace DewritoUpdater
         private JObject settingsJson;
         private JObject updateJson;
         private Thread validateThread;
-        
+        #endregion
+
+        #region Main
         public MainWindow()
         {
-            var e = Environment.GetCommandLineArgs();
-
-            foreach (var entry in e)
-            {
-                if (entry.StartsWith("-"))
-                {
-                    switch (entry)
-                    {
-                        case "-silent":
-                            silentStart = true;
-                            break;
-                    }
-                }
-            }
-
-            // proceed starting app...
-
             InitializeComponent();
-        }
-
-        //RCON
-        public static string dewCmd(string cmd)
-        {
-            var data = new byte[1024];
-            string stringData;
-            TcpClient server;
+            
             try
             {
-                server = new TcpClient("127.0.0.1", 2448);
+                Cfg.Initial(false);
+                Load();
+                AppendDebugLine("Cfg Load Complete", Color.FromRgb(0, 255, 0));
             }
-            catch (SocketException)
+            catch
             {
-                return "Unable to talk to Eldewrito, is it running?";
+                AppendDebugLine("Cfg Load Error: Resetting Launcher Specific Settings", Color.FromRgb(255, 0, 0));
+                Cfg.Initial(true);
+                Load();
+
+                AppendDebugLine("Cfg Reload Complete", Color.FromRgb(0, 255, 0));
             }
-            var ns = server.GetStream();
 
-            var recv = ns.Read(data, 0, data.Length);
-            stringData = Encoding.ASCII.GetString(data, 0, recv);
-
-            ns.Write(Encoding.ASCII.GetBytes(cmd), 0, cmd.Length);
-            ns.Flush();
-
-            ns.Close();
-            server.Close();
-            return "Done";
-        }
-
-        /* --- Titlebar Control --- */
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-            clrSecondary.SelectedColor =
-                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-            plrName.Text = configFile["Player.Name"];
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-            Application.Current.Shutdown();
-        }
-
-        private void MinButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        /* --- Content Panel Control --- */
-
-        private void switchPanel(string panel, bool animationComplete)
-        {
-            if (!animationComplete)
+            try
             {
-                var fadePanels = (Storyboard) TryFindResource("fadePanels");
-                fadePanels.Completed += (sender, e) => switchPanelAnimationComplete(sender, e, panel);
-                fadePanels.Begin(); // Start fadeout
-            }
-            else
-            {
-                ChangelogGrid.Visibility = Visibility.Hidden;
-                Settings.Visibility = Visibility.Hidden;
-                Customization.Visibility = Visibility.Hidden;
-                mainButtons.Visibility = Visibility.Hidden;
-                voipsettings.Visibility = Visibility.Hidden;
-                Debug.Visibility = Visibility.Hidden;
-
-                switch (panel)
+                settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
+                if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                 {
-                    case "main":
-                        mainButtons.Visibility = Visibility.Visible;
-                        break;
-                    case "settings":
-                        Settings.Visibility = Visibility.Visible;
-                        break;
-                    case "voipsettings":
-                        voipsettings.Visibility = Visibility.Visible;
-                        break;
-                    case "custom":
-                        Customization.Visibility = Visibility.Visible;
-                        break;
-                    case "changelog":
-                        ChangelogGrid.Visibility = Visibility.Visible;
-                        break;
-                    case "debug":
-                        Debug.Visibility = Visibility.Visible;
-                        break;
-                    default:
-                        mainButtons.Visibility = Visibility.Visible;
-                        break;
+                    AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
+                        Color.FromRgb(255, 0, 0));
+                    return;
                 }
-                var showPanels = (Storyboard) TryFindResource("showPanels");
-                showPanels.Begin(); // Start fadein
-            }
-        }
-
-        private void switchPanelAnimationComplete(object sender, EventArgs e, string panel)
-        {
-            switchPanel(panel, true);
-        }
-
-        private void btnChangelog_Click(object sender, EventArgs e)
-        {
-            switchPanel("changelog", false);
-        }
-
-        private void btnDebug_Click(object sender, EventArgs e)
-        {
-            switchPanel("debug", false);
-        }
-
-        private void btnOkDebug_Click(object sender, EventArgs e)
-        {
-            switchPanel("main", false);
-        }
-
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            switchPanel("main", false);
-        }
-
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            try {
-            //Settings
-            sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
-            sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
-            sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
-            chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
-            chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
-
-            chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
-            chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
-            chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
-            chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
-            chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-            lblServerName.Text = configFile["Server.Name"];
-            lblServerPassword.Password = configFile["Server.Password"];
-            //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
-
-            //Video
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
             }
             catch
             {
-                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
-                SetVariable("Server.Password", "", ref configFile);
-                SetVariable("Server.Countdown", "5", ref configFile);
-                SetVariable("Server.MaxPlayers", "16", ref configFile);
-                SetVariable("Server.Port", "11775", ref configFile);
-                SetVariable("Camera.Crosshair", "0", ref configFile);
-                SetVariable("Camera.FOV", "90", ref configFile);
-                SetVariable("Camera.HideHUD", "0", ref configFile);
-                SetVariable("Input.RawInput", "1", ref configFile);
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
-                    ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
-                    ref configFile);
-                SetVariable("Video.Window", "0", ref configFile);
-                SetVariable("Video.FullScreen", "1", ref configFile);
-                SetVariable("Video.VSync", "1", ref configFile);
-                SetVariable("Video.FPSCounter", "0", ref configFile);
-                SetVariable("Video.IntroSkip", "1", ref configFile);
-                SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-                //Settings
-                sldFov.Value = Convert.ToDouble(configFile["Camera.FOV"]);
-                sldMax.Value = Convert.ToDouble(configFile["Server.MaxPlayers"]);
-                sldTimer.Value = Convert.ToDouble(configFile["Server.Countdown"]);
-                chkCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Camera.Crosshair"]));
-                chkRaw.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Input.RawInput"]));
-
-                chkFull.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FullScreen"]));
-                chkFPS.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.FPSCounter"]));
-                chkIntro.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.IntroSkip"]));
-                chkVSync.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.VSync"]));
-                chkWin.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Video.Window"]));
-                lblServerName.Text = configFile["Server.Name"];
-                lblServerPassword.Password = configFile["Server.Password"];
-                //chkBeta.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["Game.BetaFiles"]));
+                AppendDebugLine("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
+                return;
             }
-            switchPanel("settings", false);
-        }
 
-        private void BtnVoip_OnClick(object sender, RoutedEventArgs e)
-        {
-            doritoKey = new Dictionary<int, string>()
-            {
-                { 0x1B, "escape" },
-                { 0x70, "f1" },
-                { 0x71, "f2" },
-                { 0x72, "f3" },
-                { 0x73, "f4" },
-                { 0x74, "f5" },
-                { 0x75, "f6" },
-                { 0x76, "f7" },
-                { 0x77, "f8" },
-                { 0x78, "f9" },
-                { 0x79, "f10" },
-                { 0x7A, "f11" },
-                { 0x7B, "f12" },
-                { 0x2C, "printscreen" },
-                { 0x7D, "f14" },
-                { 0x7E, "f15" },
-                { 0xC0, "tilde" },
-                { 0x31, "1" },
-                { 0x32, "2" },
-                { 0x33, "3" },
-                { 0x34, "4" },
-                { 0x35, "5" },
-                { 0x36, "6" },
-                { 0x37, "7" },
-                { 0x38, "8" },
-                { 0x39, "9" },
-                { 0x30, "0" },
-                { 0xBD, "minus" },
-                { 0xBB, "plus" },
-                { 0x8, "back" },
-                { 0x9, "tab" },
-                { 0x51, "Q" },
-                { 0x57, "W" },
-                { 0x45, "E" },
-                { 0x52, "R" },
-                { 0x54, "T" },
-                { 0x59, "Y" },
-                { 0x55, "U" },
-                { 0x49, "I" },
-                { 0x4F, "O" },
-                { 0x50, "P" },
-                { 0xDB, "lbracket" },
-                { 0xDD, "rbracket" },
-                { 0xDC, "pipe" },
-                { 0x14, "capital" },
-                { 0x41, "A" },
-                { 0x53, "S" },
-                { 0x44, "D" },
-                { 0x46, "F" },
-                { 0x47, "G" },
-                { 0x48, "H" },
-                { 0x4A, "J" },
-                { 0x4B, "K" },
-                { 0x4C, "L" },
-                { 0xBA, "colon" },
-                { 0xDE, "quote" },
-                { 0xD, "enter" },
-                { 0xA0, "lshift" },
-                { 0x5A, "Z" },
-                { 0x58, "X" },
-                { 0x43, "C" },
-                { 0x56, "V" },
-                { 0x42, "B" },
-                { 0x4E, "N" },
-                { 0x4D, "M" },
-                { 0xBC, "comma" },
-                { 0xBE, "period" },
-                { 0xBF, "question" },
-                { 0xA1, "rshift" },
-                { 0xA2, "lcontrol" },
-                { 0xA4, "lmenu" },
-                { 0x20, "space" },
-                { 0xA5, "rmenu" },
-                { 0x5D, "apps" },
-                { 0xA3, "rcontrol" },
-                { 0x26, "up" },
-                { 0x28, "down" },
-                { 0x25, "left" },
-                { 0x27, "right" },
-                { 0x2D, "insert" },
-                { 0x24, "home" },
-                { 0x21, "pageup" },
-                { 0x2E, "delete" },
-                { 0x23, "end" },
-                { 0x22, "pagedown" },
-                { 0x90, "numlock" },
-                { 0x6F, "divide" },
-                { 0x6A, "multiply" },
-                { 0x60, "numpad0" },
-                { 0x61, "numpad1" },
-                { 0x62, "numpad2" },
-                { 0x63, "numpad3" },
-                { 0x64, "numpad4" },
-                { 0x65, "numpad5" },
-                { 0x66, "numpad6" },
-                { 0x67, "numpad7" },
-                { 0x68, "numpad8" },
-                { 0x69, "numpad9" },
-                { 0x6D, "subtract" },
-                { 0x6B, "add" },
-                { 0x6E, "decimal" },
-            };
+            var fade = (Storyboard)TryFindResource("fade");
+            fade.Begin(); // Start animation
 
-            try
-            {
-                //Voip
-                string capital = configFile["VoIP.PushToTalkKey"].First().ToString().ToUpper() + configFile["VoIP.PushToTalkKey"].Remove(0, 1).ToLower();
-
-                voipKey.Text = capital;
-                sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
-                sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
-                chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
-                chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
-                chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
-                SaveConfigFile("dewrito_prefs.cfg", configFile);
-            }
-            catch
-            {
-                SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
-                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
-                SetVariable("VoIP.PushToTalk", "1", ref configFile);
-                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
-                SetVariable("VoIP.AGC", "1", ref configFile);
-                SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-                Console.WriteLine(Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"]))));
-                voipKey.Text =
-                    Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(configFile["VoIP.PushToTalkKey"])));
-                sldAudio.Value = Convert.ToDouble(configFile["VoIP.VoiceActivationLevel"]);
-                sldModifier.Value = Convert.ToDouble(configFile["VoIP.VolumeModifier"]);
-                chkPTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.PushToTalk"]));
-                chkEC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.EchoCancellation"]));
-                chkAGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(configFile["VoIP.AGC"]));
-            }
-            switchPanel("voipsettings", false);
-        }
-
-        private void btnCustomization_Click(object sender, EventArgs e)
-        {
-            //Customization
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
-            clrSecondary.SelectedColor =
-                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-            plrName.Text = configFile["Player.Name"];
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-            switchPanel("custom", false);
-        }
-
-        private void helmetOpen(object sender, EventArgs e)
-        {
-            cmbChest.Visibility = Visibility.Hidden;
-            cmbShoulders.Visibility = Visibility.Hidden;
-            cmbArms.Visibility = Visibility.Hidden;
-            cmbLegs.Visibility = Visibility.Hidden;
-        }
-
-        private void helmetClose(object sender, EventArgs e)
-        {
-            cmbChest.Visibility = Visibility.Visible;
-            cmbShoulders.Visibility = Visibility.Visible;
-            cmbArms.Visibility = Visibility.Visible;
-            cmbLegs.Visibility = Visibility.Visible;
-        }
-
-        private void chestOpen(object sender, EventArgs e)
-        {
-            cmbShoulders.Visibility = Visibility.Hidden;
-            cmbArms.Visibility = Visibility.Hidden;
-            cmbLegs.Visibility = Visibility.Hidden;
-        }
-
-        private void chestClose(object sender, EventArgs e)
-        {
-            cmbShoulders.Visibility = Visibility.Visible;
-            cmbArms.Visibility = Visibility.Visible;
-            cmbLegs.Visibility = Visibility.Visible;
-        }
-
-        private void shouldersOpen(object sender, EventArgs e)
-        {
-            cmbArms.Visibility = Visibility.Hidden;
-            cmbLegs.Visibility = Visibility.Hidden;
-        }
-
-        private void shouldersClose(object sender, EventArgs e)
-        {
-            cmbArms.Visibility = Visibility.Visible;
-            cmbLegs.Visibility = Visibility.Visible;
-        }
-
-        private void armsOpen(object sender, EventArgs e)
-        {
-            cmbLegs.Visibility = Visibility.Hidden;
-        }
-
-        private void armsClose(object sender, EventArgs e)
-        {
-            cmbLegs.Visibility = Visibility.Visible;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (silentStart)
-            {
-                WindowState = WindowState.Minimized;
-            }
             using (var wc = new WebClient())
             {
                 try
@@ -487,51 +109,75 @@ namespace DewritoUpdater
                 }
             }
 
-            if (!Directory.Exists("mods/medals"))
-                Directory.CreateDirectory("mods/medals");
+            if (VersionCheck())
+            {
+                BTNSkip.Visibility = Visibility.Hidden;
+                BTNAction.Content = "Play Game";
 
-            try
-            {
-                Initial(false);
-            }
-            catch
-            {
-                Initial(true);
-            }
+                fade.Stop(); // Start animation
 
-            try
+                AppendDebugLine(
+                    "You have the latest version: " + eldoritoVersion.ProductVersion,
+                    Color.FromRgb(0, 255, 0));
+
+                lblVersion.Content = "Your Version: " + localEldoritoVersion + "    Latest Version: " + eldoritoLatestVersion;
+            }
+            else
             {
-                settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
-                if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
+                validateThread = new Thread(BackgroundThread);
+                validateThread.Start();
+
+                if (localEldoritoVersion == null)
                 {
-                    lblVersion.Text = "Error";
-                    AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
-                        Color.FromRgb(255, 0, 0));
-                    SetButtonText("ERROR", true);
+                    AppendDebugLine(
+                        "Your version: Unknown",
+                        Color.FromRgb(255, 255, 0));
 
-                    var AlertWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
-                    AlertWindow.Show();
-                    AlertWindow.Focus();
-                    return;
+                    AppendDebugLine(
+                        "Latest Version: " + eldoritoLatestVersion,
+                        Color.FromRgb(255, 255, 0));
+                    lblVersion.Content = "Your Version: Unknown" + "    Latest Version: " + eldoritoLatestVersion;
                 }
+                else
+                {
+                    lblVersion.Content = "Your Version: " + localEldoritoVersion + "    Latest Version: " + eldoritoLatestVersion;
+
+                    AppendDebugLine(
+                        "Your version: " + localEldoritoVersion,
+                        Color.FromRgb(255, 255, 0));
+
+                    AppendDebugLine(
+                        "Latest Version: " + eldoritoLatestVersion,
+                        Color.FromRgb(255, 255, 0));
+                }
+                
             }
-            catch
+        }
+
+        private bool VersionCheck()
+        {
+            if (File.Exists(Environment.CurrentDirectory + "\\mtndew.dll"))
             {
-                AppendDebugLine("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
-                SetButtonText("ERROR", true);
-
-                var AlertWindow = new MsgBoxOk("Could not read the dewrito.json updater configuration.");
-                AlertWindow.Show();
-                AlertWindow.Focus();
-                return;
+                eldoritoVersion = FileVersionInfo.GetVersionInfo(Environment.CurrentDirectory + "\\mtndew.dll");
+                localEldoritoVersion = eldoritoVersion.ProductVersion;
+            }
+            else
+            {
+                eldoritoVersion = null;
             }
 
-            var fade = (Storyboard)TryFindResource("fade");
-            fade.Begin(); // Start animation
+            WebClient c = new WebClient();
+            var data = c.DownloadString("https://dew.halo.click/update_server/update.json");
+            JObject o = JObject.Parse(data);
+            foreach (var pair in o)
+            {
+                eldoritoLatestVersion = pair.Key;
+            }
 
-            // CreateHashJson();
-            validateThread = new Thread(BackgroundThread);
-            validateThread.Start();
+            if (localEldoritoVersion == eldoritoLatestVersion)
+                return true;
+            else
+                return false;
         }
 
         private void BackgroundThread()
@@ -550,151 +196,34 @@ namespace DewritoUpdater
                 AppendDebugLine(
                     "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
                     Color.FromRgb(255, 0, 0));
-
-                if (settingsJson["updateServiceUrl"].ToString() != "http://dew.halo.click/honline/update.json" ||
-                    settingsJson["updateServiceUrl"].ToString() !=
-                    "http://dew.halo.click/honline/update_publicbeta.json")
-                {
-                    AppendDebugLine("Set update server is not default server...", Color.FromRgb(255, 255, 255));
-                    AppendDebugLine("Attempting to contact the default update server...", Color.FromRgb(255, 255, 255));
-
-                    Application.Current.Dispatcher.Invoke((Action) delegate
-                    {
-                        var confirmWindow =
-                            new MsgBoxConfirm(
-                                "Failed to retrieve update information. Do you want to try updating from the default server?");
-                        var ConfirmWindow =
-                            new MsgBoxConfirm(
-                                "Failed to retrieve update information. Do you want to try updating from the default server?");
-
-                        if (ConfirmWindow.ShowDialog() == false)
-                        {
-                            if (ConfirmWindow.confirm)
-                            {
-                                settingsJson["updateServiceUrl"] = "http://dew.halo.click/honline/update.json";
-
-                                if (!ProcessUpdateData())
-                                {
-                                    AppendDebugLine("Failed to connect to the default update server.",
-                                        Color.FromRgb(255, 0, 0));
-                                    btnAction.Content = "PLAY GAME";
-                                    GridSkip.Visibility = Visibility.Hidden;
-                                    isPlayEnabled = true;
-                                    btnAction.IsEnabled = true;
-
-                                    var MainWindow =
-                                        new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
-                                    MainWindow.Show();
-                                    MainWindow.Focus();
-                                    var AlertWindow =
-                                        new MsgBoxOk(
-                                            "Failed to connect to the default update server, you can still play the game if your files are valid.");
-                                    AlertWindow.Show();
-                                    AlertWindow.Focus();
-                                }
-                                else
-                                {
-                                    confirm = true;
-                                }
-                            }
-                            else
-                            {
-                                AppendDebugLine("Update server connection manually canceled.", Color.FromRgb(255, 0, 0));
-                                btnAction.Content = "PLAY GAME";
-                                GridSkip.Visibility = Visibility.Hidden;
-                                isPlayEnabled = true;
-                                btnAction.IsEnabled = true;
-
-                                var MainWindow =
-                                    new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
-                                MainWindow.Show();
-                                MainWindow.Focus();
-                                var AlertWindow =
-                                    new MsgBoxOk(
-                                        "Update server connection manually canceled, you can still play the game if your files are valid.");
-                                AlertWindow.Show();
-                                AlertWindow.Focus();
-                            }
-                        }
-                    });
-                }
-                else
-                {
-                    Application.Current.Dispatcher.Invoke((Action) delegate
-                    {
-                        AppendDebugLine("Failed to retrieve update information from the default update server.",
-                            Color.FromRgb(255, 0, 0));
-                        btnAction.Content = "PLAY";
-                        isPlayEnabled = true;
-                        btnAction.IsEnabled = true;
-
-                        var MainWindow =
-                            new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files are valid.");
-                        MainWindow.Show();
-                        MainWindow.Focus();
-                        var AlertWindow =
-                            new MsgBoxOk(
-                                "Could not connect to the default update server, you can still play the game if your files are valid.");
-                        AlertWindow.Show();
-                        AlertWindow.Focus();
-                    });
-                }
-
-                if (!confirm)
-                {
-                    return;
-                }
             }
 
             if (filesToDownload.Count <= 0)
             {
                 AppendDebugLine("You have the latest version! (" + latestUpdateVersion + ")", Color.FromRgb(0, 255, 0));
 
-
-                btnAction.Dispatcher.Invoke(
+                BTNAction.Dispatcher.Invoke(
                     new Action(
                         () =>
                         {
-                            btnAction.Content = "PLAY GAME";
-                            GridSkip.Visibility = Visibility.Hidden;
-                            isPlayEnabled = true;
-
-                            var fade = (Storyboard) TryFindResource("fade");
+                            BTNAction.Content = "Play Game";
+                            BTNSkip.Visibility = Visibility.Hidden;
+                            var fade = (Storyboard)TryFindResource("fade");
                             fade.Stop(); // Start animation
-                            btnAction.IsEnabled = true;
                         }));
-
-                if (silentStart)
-                {
-                    btnAction_Click(new object(), new RoutedEventArgs());
-                }
                 return;
             }
 
             AppendDebugLine("An update is available. (" + latestUpdateVersion + ")", Color.FromRgb(255, 255, 0));
 
-            btnAction.Dispatcher.Invoke(
+            BTNAction.Dispatcher.Invoke(
                 new Action(
                     () =>
                     {
-                        btnAction.Content = "UPDATE";
-
-                        var fade = (Storyboard) TryFindResource("fade");
-                        fade.Stop(); // Stop
-                        btnAction.IsEnabled = true;
-                        GridSkip.Visibility = Visibility.Visible;
+                        BTNAction.Content = "Update";
+                        var fade = (Storyboard)TryFindResource("fade");
+                        fade.Stop(); // Start animation
                     }));
-            if (silentStart)
-            {
-                //MessageBox.Show("Sorry, you need to update before the game can be started silently.", "ElDewrito Launcher");
-                var AlertWindow = new MsgBoxOk("Sorry, you need to update before the game can be started silently.");
-
-                AlertWindow.Show();
-                AlertWindow.Focus();
-            }
         }
 
         private bool ProcessUpdateData()
@@ -749,10 +278,10 @@ namespace DewritoUpdater
 
                 var patchFiles = new List<string>();
                 foreach (var file in latestUpdate["patchFiles"])
-                    // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
+                // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
                 {
-                    var fileName = (string) file;
-                    var fileHash = (string) settingsJson["gameFiles"][fileName];
+                    var fileName = (string)file;
+                    var fileHash = (string)settingsJson["gameFiles"][fileName];
                     if (!fileHashes.ContainsKey(fileName) &&
                         !fileHashes.ContainsKey(Path.Combine("_dewbackup", fileName)))
                     {
@@ -796,7 +325,7 @@ namespace DewritoUpdater
                     patchFiles.Add(fileName);
                 }
 
-                IDictionary<string, JToken> files = (JObject) latestUpdate["files"];
+                IDictionary<string, JToken> files = (JObject)latestUpdate["files"];
 
                 filesToDownload = new List<string>();
                 foreach (var x in files)
@@ -817,8 +346,6 @@ namespace DewritoUpdater
                     }
                 }
 
-                SetVersionLabel(latestUpdateVersion);
-
                 return true;
             }
             catch (WebException)
@@ -831,12 +358,47 @@ namespace DewritoUpdater
             }
         }
 
+        private void InitialHash()
+        {
+            var watch = Stopwatch.StartNew();
+            AppendDebugLine("CRC32 of tags.dat: " + Append("maps/tags.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of audio.dat: " + Append("maps/audio.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of textures.dat: " + Append("maps/textures.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of textures_b.dat: " + Append("maps/textures_b.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of resources.dat: " + Append("maps/resources.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of string_ids.dat: " + Append("maps/string_ids.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of video.dat: " + Append("maps/video.dat"), Color.FromRgb(255, 255, 0));
+            AppendDebugLine("CRC32 of halo3.zip: " + Append("mods/medals/halo3.zip"), Color.FromRgb(255, 255, 0));
+            watch.Stop();
+            double seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
+            AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
+            BTNAction.Content = "Update";
+        }
+
+        public static uint Append(string filePath)
+        {
+            byte[] fileSize = BitConverter.GetBytes(new FileInfo(filePath).Length);
+            uint initialHash = Crc32CAlgorithm.Compute(ReadFile(filePath));
+            uint append = Crc32CAlgorithm.Append(initialHash, fileSize);
+            return append;
+        }
+
+        public static byte[] ReadFile(string path)
+        {
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                byte[] buffer = new byte[1024 * 512];
+                stream.Read(buffer, 0, buffer.Length);
+                return buffer;
+            }
+        }
+
         private bool CompareHashesWithJson()
         {
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
 
-            IDictionary<string, JToken> files = (JObject) settingsJson["gameFiles"];
+            IDictionary<string, JToken> files = (JObject)settingsJson["gameFiles"];
 
             foreach (var x in files)
             {
@@ -853,11 +415,6 @@ namespace DewritoUpdater
                     AppendDebugLine("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
                     AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
                         Color.FromRgb(255, 0, 0), false);
-                    SetButtonText("Error", true);
-
-                    var fade = (Storyboard) TryFindResource("fade");
-                    fade.Stop(); // Stop animation
-                    SetButtonText("Error", true);
 
                     return false;
                 }
@@ -939,99 +496,139 @@ namespace DewritoUpdater
             }
         }
 
-        private void AppendDebugLine(string status, Color color, bool updateLabel = true)
+        #endregion
+
+        #region Flyout Controls
+
+        private void FlyoutHandler(Grid sender, string header)
         {
-            if (DebugLogger.Dispatcher.CheckAccess())
+            Flyout.IsOpen = true;
+            SettingsGrid.Visibility = Visibility.Hidden;
+            ChangelogGrid.Visibility = Visibility.Hidden;
+            CustomGrid.Visibility = Visibility.Hidden;
+            VOIPSettingsGrid.Visibility = Visibility.Hidden;
+            AutoExecGrid.Visibility = Visibility.Hidden;
+            DebugGrid.Visibility = Visibility.Hidden;
+            LauncherSettingsGrid.Visibility = Visibility.Hidden;
+            sender.Visibility = Visibility.Visible;
+            Flyout.Header = header;
+        }
+
+        private void LauncherSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (LauncherSettingsGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
             {
-                DebugLogger.Document.Blocks.Add(
-                    new Paragraph(new Run(status) {Foreground = new SolidColorBrush(color)}));
+                Flyout.IsOpen = false;
+            }
+            else if (LauncherSettingsGrid.Visibility == Visibility.Hidden)
+            {
+                Flyout.IsOpen = false;
+                FlyoutHandler(LauncherSettingsGrid, "Launcher Settings");
             }
             else
             {
-                DebugLogger.Dispatcher.Invoke(new Action(() => AppendDebugLine(status, color, updateLabel)));
+                FlyoutHandler(LauncherSettingsGrid, "Launcher Settings");
             }
         }
 
-        private void SetButtonText(string status, bool error, bool updateLabel = true)
+        private void d_Click(object sender, RoutedEventArgs e)
         {
-            if (btnAction.Dispatcher.CheckAccess())
-            {
-                btnAction.Content = status.ToUpper();
+            Process.Start("http://i.imgur.com/cc9ZcIO.gif");
+        }
 
-                if (error)
-                {
-                    btnAction.Foreground = Brushes.Gray;
-                    SetVersionLabel("Error");
-                }
+        private void forceUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            validateThread = new Thread(BackgroundThread);
+            validateThread.Start();
+        }
+
+        private void Custom_Click(object sender, RoutedEventArgs e)
+        {
+            FlyoutHandler(CustomGrid, "Player Customization");
+        }
+
+        private void Changelog_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ChangelogGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
+            {
+                Flyout.IsOpen = false;
+            }
+            else if (ChangelogGrid.Visibility == Visibility.Hidden)
+            {
+                Flyout.IsOpen = false;
+                FlyoutHandler(ChangelogGrid, "Changelog");
             }
             else
             {
-                btnAction.Dispatcher.Invoke(new Action(() => SetButtonText(status, true, updateLabel)));
+                FlyoutHandler(ChangelogGrid, "Changelog");
             }
         }
 
-        private void SetVersionLabel(string version)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            if (lblVersion.Dispatcher.CheckAccess())
+            FlyoutHandler(SettingsGrid, "Settings");
+        }
+
+        private void Voip_Click(object sender, RoutedEventArgs e)
+        {
+            FlyoutHandler(VOIPSettingsGrid, "VOIP Settings");
+        }
+
+        private void AutoExec_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> Dict = Dictionaries.GetCommandLine();
+            CommandLine.SetValue(TextBoxHelper.WatermarkProperty, Dict[Convert.ToString(Command.SelectedValue)]);
+            FlyoutHandler(AutoExecGrid, "Auto Exec");
+            Preview.Text = File.ReadAllText("autoexec.cfg");
+        }
+
+        private void Debug_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DebugGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
             {
-                lblVersion.Text = version;
+                Flyout.IsOpen = false;
+            }
+            else if (DebugGrid.Visibility != Visibility.Visible)
+            {
+                Flyout.IsOpen = false;
+                FlyoutHandler(DebugGrid, "Debug Log");
             }
             else
             {
-                lblVersion.Dispatcher.Invoke(new Action(() => SetVersionLabel(version)));
+                FlyoutHandler(DebugGrid, "Debug Log");
             }
         }
 
-        private void btnAction_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Controls
+
+        #region Menu
+        private void Action_OnClick(object sender, RoutedEventArgs e)
         {
-            if (isPlayEnabled)
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "eldorado.exe";
+            startInfo.Arguments = "-launcher";
+
+            if (BTNAction.Content == "Play Game")
             {
-                ProcessStartInfo sInfo = new ProcessStartInfo(BasePath + "/eldorado.exe");
-                sInfo.Arguments = "-launcher";
-
-                Process process = new Process();
-                process.StartInfo = sInfo;
-
-                if (!process.Start())
-                {
-                    SetVariable("Video.Window", "0", ref configFile);
-                    SetVariable("Video.FullScreen", "1", ref configFile);
-                    SetVariable("Video.VSync", "1", ref configFile);
-                    SetVariable("Video.FPSCounter", "0", ref configFile);
-                    SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-                    var AlertWindow = new MsgBoxOk("Your game crashed. Your launch settings have been reset please try again");
-
-                    AlertWindow.Show();
-                    AlertWindow.Focus();
-                }
-
-                if (configFile["Video.Window"] == "1")
-                {
-                    sInfo.Arguments += " -window";
-                }
-                if (configFile["Video.FullScreen"] == "1")
-                {
-                    sInfo.Arguments += " -fullscreen";
-                }
-                if (configFile["Video.VSync"] == "1")
-                {
-                    sInfo.Arguments += " -no_vsync";
-                }
-                if (configFile["Video.FPSCounter"] == "1")
-                {
-                    sInfo.Arguments += " -show_fps";
-                }
+                Process.Start(startInfo);
+                if (Cfg.launcherConfigFile["Launcher.Random"] == "1")
+                    RandomArmor();
+                if (Cfg.launcherConfigFile["Launcher.Close"] == "1")
+                    Application.Current.Shutdown();
             }
-            else if (btnAction.Content.ToString() == "UPDATE")
+            else if (BTNAction.Content == "Update")
             {
                 foreach (var file in filesToDownload)
                 {
                     AppendDebugLine("Downloading file \"" + file + "\"...", Color.FromRgb(255, 255, 0));
-                    var url = latestUpdate["baseUrl"].ToString().Replace("\"", "") + file;
+                    var url = "https://dew.halo.click/update_server/" + eldoritoLatestVersion + "/" + file;
                     var destPath = Path.Combine(BasePath, file);
                     var dialog = new FileDownloadDialog(this, url, destPath);
                     var result = dialog.ShowDialog();
+                    //Update(destPath, url, file);
+
                     if (result.HasValue && result.Value)
                     {
                         // TOD: Refactor this. It's hacky
@@ -1040,7 +637,7 @@ namespace DewritoUpdater
                     {
                         AppendDebugLine("Download for file \"" + file + "\" failed.", Color.FromRgb(255, 0, 0));
                         AppendDebugLine("Error: " + dialog.Error.Message, Color.FromRgb(255, 0, 0), false);
-                        SetButtonText("Error", true);
+                        BTNAction.Content = "Error";
                         if (dialog.Error.InnerException != null)
                             AppendDebugLine("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0),
                                 false);
@@ -1050,24 +647,314 @@ namespace DewritoUpdater
 
                 if (filesToDownload.Contains("DewritoUpdater.exe"))
                 {
-                    //MessageBox.Show("Update complete! Please restart the launcher.", "ElDewrito Launcher");
-                    //Application.Current.Shutdown();
                     var RestartWindow = new MsgBoxRestart("Update complete! Please restart the launcher.");
 
                     RestartWindow.Show();
                     RestartWindow.Focus();
                 }
 
-                btnAction.Content = "PLAY GAME";
-                isPlayEnabled = true;
-                GridSkip.Visibility = Visibility.Hidden;
-                //imgAction.Source = new BitmapImage(new Uri(@"/Resourves/playEnabled.png", UriKind.Relative));
+                BTNAction.Content = "Play Game";
+                BTNSkip.Visibility = Visibility.Hidden;
                 AppendDebugLine("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
             }
         }
 
+        private void BTNSkip_OnClick(object sender, RoutedEventArgs e)
+        {
+            BTNAction.Content = "Play Game";
+            BTNSkip.Visibility = Visibility.Hidden;
+        }
+
+        private void Reddit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://www.reddit.com/r/HaloOnline/");
+        }
+
+        private void Twitter_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://twitter.com/FishPhdOfficial");
+        }
+
+        private void Github_OnClick(object sender, RoutedEventArgs e)
+        {
+           Process.Start("https://github.com/fishphd");
+        }
+
+        #endregion
+
+        #region AutoExec
+
+        private void BindButton_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            BindButton.Text = "Press Key";
+        }
+
+        private void BindButton_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (BindButton.Text == "Press Key")
+            {
+                BindButton.Text = "Unbound";
+            }
+        }
+
+        private void BindButton_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            var keyPressed = KeyInterop.VirtualKeyFromKey(e.Key);
+            BindButton.Text = Convert.ToString(e.Key);
+            keyValue = doritoKey.FirstOrDefault(x => x.Key == keyPressed).Value;
+            if (!doritoKey.ContainsKey(keyPressed))
+            {
+                BindButton.Text = "Invalid Key";
+            }
+
+            if (BindButton.Text != "Invalid Key" && BindButton.Text != "Unbound")
+            {
+                AutoExecWrite("bind " + keyValue + " " + Command.SelectedValue + (CommandLine.IsEnabled ? " " + CommandLine.Text : ""),
+                    new Regex("^\\s*bind\\s+[a-z0-9]+\\s+" + Regex.Escape(Convert.ToString(Command.SelectedValue))
+                        + "(\\s+.*)?$", RegexOptions.IgnoreCase | RegexOptions.Multiline));
+            }
+        }
+
+        private void AutoExecWrite(string write, Regex replace)
+        {
+            if (replace != null && replace.IsMatch(Preview.Text))
+            {
+                Preview.Text = replace.Replace(Preview.Text, write);
+            }
+            else
+            {
+                if (Preview.Text != "") Preview.AppendText(Environment.NewLine);
+                Preview.AppendText(write);
+            }
+            File.WriteAllText("autoexec.cfg", Preview.Text);
+        }
+
+        private void Preview_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            File.WriteAllText("autoexec.cfg", Preview.Text);
+        }
+
+        private void Action_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Action.SelectedValue == "command")
+            {
+                keyValue = "Unbound";
+                BindButton.Text = keyValue;
+                updateText = false;
+                CommandLine.Text = "";
+                updateText = true;
+                To.Visibility = Visibility.Hidden;
+                BindButton.Visibility = Visibility.Hidden;
+                CommandLine.Visibility = Visibility.Visible;
+                Command.Width = 258;
+                PreviewPanel.Margin = new Thickness(-3, 0, 0, 0);
+                PreviewLabel.Margin = new Thickness(4, 5, 0, 0);
+                Console.WriteLine("Command");
+            }
+            if (Action.SelectedValue == "bind")
+            {
+                Command.ItemsSource = Dictionaries.GetCommand();
+                updateText = false;
+                CommandLine.Text = "";
+                updateText = true;
+                To.Visibility = Visibility.Visible;
+                BindButton.Visibility = Visibility.Visible;
+                CommandLine.Visibility = Visibility.Visible;
+                Command.Width = 150;
+                PreviewPanel.Margin = new Thickness(5, 0, 0, 0);
+                PreviewLabel.Margin = new Thickness(-4, 5, 0, 0);
+                Console.WriteLine("Bind");
+            }
+        }
+
+        private void CommandLine_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (updateText && Action.SelectedValue == "command")
+            {
+                AutoExecWrite(Command.SelectedValue + " " + CommandLine.Text,
+                    new Regex("^\\s*" + Regex.Escape(Convert.ToString(Command.SelectedValue))
+                        + "(\\s+.*)?$", RegexOptions.IgnoreCase | RegexOptions.Multiline));
+                Console.WriteLine("command complete");
+            }
+            else if(updateText && BindButton.Text != "Invalid Key" && BindButton.Text != "Unbound")
+            {
+                AutoExecWrite(
+                    "bind " + keyValue + " " + Command.SelectedValue + " " + CommandLine.Text,
+                    new Regex("^\\s*bind\\s+[a-z0-9]+\\s+" + Regex.Escape(Convert.ToString(Command.SelectedValue))
+                        + "(\\s+.*)?$", RegexOptions.IgnoreCase | RegexOptions.Multiline));
+                Console.WriteLine("write complete");
+            }
+        }
+
+        private void Command_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Dictionary<string, string> Selection = Dictionaries.GetCommandLine();
+            if (Selection[Convert.ToString(Command.SelectedValue)].Contains("[No Value]"))
+            {
+                BindButton.Text = "Unbound";
+                CommandLine.IsEnabled = false;
+                CommandLine.Text = string.Empty;
+            }
+            else
+            {
+                BindButton.Text = "Unbound";
+                updateText = false;
+                CommandLine.Text = string.Empty;
+                updateText = true;
+                CommandLine.IsEnabled = true;
+            }
+            CommandLine.SetValue(TextBoxHelper.WatermarkProperty, Selection[Convert.ToString(Command.SelectedValue)]);
+        }
+
+        #endregion
+
+        #region Debug
+        public void AppendDebugLine(string status, Color color, bool updateLabel = true)
+        {
+            if (DebugLogger.Dispatcher.CheckAccess())
+            {
+                TextRange tr = new TextRange(DebugLogger.Document.ContentEnd , DebugLogger.Document.ContentEnd);
+                tr.Text = status + "\u2028";
+                tr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
+            }
+            else
+            {
+                DebugLogger.Dispatcher.Invoke(new Action(() => AppendDebugLine(status, color, updateLabel)));
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region Saving/Loading
+
+        #region Customization
+
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Name", Name.Text, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void Helmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Armor.Helmet", Convert.ToString(Helmet.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void Chest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Armor.Chest", Convert.ToString(Chest.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void Shoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Armor.Shoulders", Convert.ToString(Shoulders.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void Arms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Armor.Arms", Convert.ToString(Arms.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void Legs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Player.Armor.Legs", Convert.ToString(Legs.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            var color = Convert.ToString(clrPrimary.SelectedColor).Remove(1, 2);
+            Cfg.SetVariable("Player.Colors.Primary", color, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void clrSecondary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            var color = Convert.ToString(clrSecondary.SelectedColor).Remove(1, 2);
+            Cfg.SetVariable("Player.Colors.Secondary", color, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void clrVisor_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            var color = Convert.ToString(clrVisor.SelectedColor).Remove(1, 2);
+            Cfg.SetVariable("Player.Colors.Visor", color, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void clrLights_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            var color = Convert.ToString(clrLights.SelectedColor).Remove(1, 2);
+            Cfg.SetVariable("Player.Colors.Lights", color, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void clrHolo_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            var color = Convert.ToString(clrHolo.SelectedColor).Remove(1, 2);
+            Cfg.SetVariable("Player.Colors.Holo", color, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
         private void btnRandom_Click(object sender, RoutedEventArgs e)
+        {
+            RandomArmor();
+        }
+        private void RandomArmor()
         {
             var r = new Random();
             var helmet = r.Next(0, 25);
@@ -1077,505 +964,520 @@ namespace DewritoUpdater
             var legs = r.Next(0, 25);
 
             var randomColor = new Random();
-            var primary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-            var secondary = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-            var visor = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-            var lights = String.Format("#{0:X6}", randomColor.Next(0x1000000));
-            var holo = String.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var primary = string.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var secondary = string.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var visor = string.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var lights = string.Format("#{0:X6}", randomColor.Next(0x1000000));
+            var holo = string.Format("#{0:X6}", randomColor.Next(0x1000000));
 
-            cmbHelmet.SelectedIndex = helmet;
-            cmbChest.SelectedIndex = chest;
-            cmbShoulders.SelectedIndex = shoulders;
-            cmbArms.SelectedIndex = arms;
-            cmbLegs.SelectedIndex = legs;
+            Helmet.SelectedIndex = helmet;
+            Chest.SelectedIndex = chest;
+            Shoulders.SelectedIndex = shoulders;
+            Arms.SelectedIndex = arms;
+            Legs.SelectedIndex = legs;
 
-            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
-            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
-            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
-            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
-            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
-            clrPrimary.SelectedColor = (Color) ColorConverter.ConvertFromString(primary);
-            clrSecondary.SelectedColor = (Color) ColorConverter.ConvertFromString(secondary);
-            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(visor);
-            clrLights.SelectedColor = (Color) ColorConverter.ConvertFromString(lights);
-            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
+            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(primary);
+            clrSecondary.SelectedColor = (Color)ColorConverter.ConvertFromString(secondary);
+            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(visor);
+            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(lights);
+            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(holo);
 
-            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
-            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            Cfg.SetVariable("Player.Armor.Chest", Convert.ToString(Chest.SelectedValue), ref Cfg.configFile);
+            Cfg.SetVariable("Player.Armor.Shoulders", Convert.ToString(Shoulders.SelectedValue), ref Cfg.configFile);
+            Cfg.SetVariable("Player.Armor.Helmet", Convert.ToString(Helmet.SelectedValue), ref Cfg.configFile);
+            Cfg.SetVariable("Player.Armor.Arms", Convert.ToString(Arms.SelectedValue), ref Cfg.configFile);
+            Cfg.SetVariable("Player.Armor.Legs", Convert.ToString(Legs.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void Initial(bool Error)
+        private void RandomCheck_Changed(object sender, RoutedEventArgs e)
         {
-            var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
-
-            if (!cfgFileExists)
+            if (!IsLoaded)
             {
-                SetVariable("Game.MedalsZip", "halo3", ref configFile);
-                SetVariable("Game.LanguageID", "0", ref configFile);
-                SetVariable("Game.SkipLauncher", "0", ref configFile);
-                //SetVariable("Game.BetaFiles", "0", ref configFile);
-                //SetVariable("Game.Protocol", "0", ref configFile);
-                SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
-                SetVariable("Player.Colors.Primary", "#000000", ref configFile);
-                SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
-                SetVariable("Player.Colors.Lights", "#000000", ref configFile);
-                SetVariable("Player.Colors.Holo", "#000000", ref configFile);
-                SetVariable("Player.Colors.Visor", "#000000", ref configFile);
-                SetVariable("Player.Name", "Forgot", ref configFile);
-                SetVariable("Player.UserID", "0", ref configFile);
-                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
-                SetVariable("Server.Password", "", ref configFile);
-                SetVariable("Server.Countdown", "5", ref configFile);
-                SetVariable("Server.MaxPlayers", "16", ref configFile);
-                SetVariable("Server.Port", "11775", ref configFile);
-                SetVariable("Camera.Crosshair", "0", ref configFile);
-                SetVariable("Camera.FOV", "90", ref configFile);
-                SetVariable("Camera.HideHUD", "0", ref configFile);
-                SetVariable("Input.RawInput", "1", ref configFile);
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
-                    ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
-                    ref configFile);
-                SetVariable("Video.Window", "0", ref configFile);
-                SetVariable("Video.FullScreen", "1", ref configFile);
-                SetVariable("Video.VSync", "1", ref configFile);
-                SetVariable("Video.FPSCounter", "0", ref configFile);
-                SetVariable("Video.IntroSkip", "1", ref configFile);
-                SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
-                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
-                SetVariable("VoIP.PushToTalk", "1", ref configFile);
-                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
-                SetVariable("VoIP.AGC", "1", ref configFile);
+                return;
             }
-            else if (Error)
+            Cfg.SetVariable("Launcher.Random", Convert.ToString(Convert.ToInt32(RandomCheck.IsChecked)), ref Cfg.launcherConfigFile);
+            Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+        }
+
+        #endregion
+
+        #region Settings
+        private void Fov_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!IsLoaded)
             {
-                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
-                SetVariable("Server.Password", "", ref configFile);
-                SetVariable("Server.Countdown", "5", ref configFile);
-                SetVariable("Server.MaxPlayers", "16", ref configFile);
-                SetVariable("Server.Port", "11775", ref configFile);
-                SetVariable("Camera.Crosshair", "0", ref configFile);
-                SetVariable("Camera.FOV", "90", ref configFile);
-                SetVariable("Camera.HideHUD", "0", ref configFile);
-                SetVariable("Input.RawInput", "1", ref configFile);
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
-                    ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
-                    ref configFile);
-                SetVariable("Video.Window", "0", ref configFile);
-                SetVariable("Video.FullScreen", "1", ref configFile);
-                SetVariable("Video.VSync", "1", ref configFile);
-                SetVariable("Video.DX9Ex", "1", ref configFile);
-                SetVariable("Video.FPSCounter", "0", ref configFile);
-                SetVariable("Video.IntroSkip", "0", ref configFile);
-                SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
-                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
-                SetVariable("VoIP.PushToTalk", "1", ref configFile);
-                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
-                SetVariable("VoIP.AGC", "1", ref configFile);
+                return;
             }
-
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            Cfg.SetVariable("Camera.FOV", Convert.ToString(Fov.Value), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void plrName_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void CrosshairCenter_Changed(object sender, RoutedEventArgs e)
         {
-            SetVariable("Player.Name", plrName.Text, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Camera.Crosshair", Convert.ToString(Convert.ToInt32(CrosshairCenter.IsChecked)),
+                ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void clrPrimary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void RawInput_Changed(object sender, RoutedEventArgs e)
         {
-            var String = Convert.ToString(clrPrimary.SelectedColor).Remove(1, 2);
-            SetVariable("Player.Colors.Primary", String, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Input.RawInput", Convert.ToString(Convert.ToInt32(RawInput.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void clrSecondary_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ServerName_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var String = Convert.ToString(clrSecondary.SelectedColor).Remove(1, 2);
-            SetVariable("Player.Colors.Secondary", String, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Server.Name", ServerName.Text, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void clrLights_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ServerPassword_OnTextChanged(object sender, RoutedEventArgs args)
         {
-            var String = Convert.ToString(clrLights.SelectedColor).Remove(1, 2);
-            SetVariable("Player.Colors.Lights", String, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Server.Password", ServerPassword.Password, ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void clrHolo_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void MaxPlayer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            var String = Convert.ToString(clrHolo.SelectedColor).Remove(1, 2);
-            SetVariable("Player.Colors.Holo", String, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Server.MaxPlayers", Convert.ToString(MaxPlayer.Value), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void clrVisor_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void StartTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            var String = Convert.ToString(clrVisor.SelectedColor).Remove(1, 2);
-            SetVariable("Player.Colors.Visor", String, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Server.Countdown", Convert.ToString(StartTimer.Value), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void CmbHelmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
-            SetVariable("Player.Armor.Helmet", Convert.ToString(cmbHelmet.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void CmbChest_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetVariable("Player.Armor.Chest", Convert.ToString(cmbChest.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void CmbShoulders_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetVariable("Player.Armor.Shoulders", Convert.ToString(cmbShoulders.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void CmbArms_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetVariable("Player.Armor.Arms", Convert.ToString(cmbArms.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void CmbLegs_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetVariable("Player.Armor.Legs", Convert.ToString(cmbLegs.SelectedValue), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkCenter_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Camera.Crosshair", Convert.ToString(Convert.ToInt32(chkCenter.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkRaw_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Input.RawInput", Convert.ToString(Convert.ToInt32(chkRaw.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkWin_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.Window", Convert.ToString(Convert.ToInt32(chkWin.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkFull_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.FullScreen", Convert.ToString(Convert.ToInt32(chkFull.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkVSync_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.VSync", Convert.ToString(Convert.ToInt32(chkVSync.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        /*
-        private void chkDX9Ex_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.DX9Ex", Convert.ToString(Convert.ToInt32(chkDX9Ex.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-         */
-
-        private void chkFPS_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Video.FPSCounter", Convert.ToString(Convert.ToInt32(chkFPS.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            Fov.Value = 90;
+            CrosshairCenter.IsChecked = false;
+            RawInput.IsChecked = true;
+            ServerName.Text = "HaloOnline Server";
+            MaxPlayer.Value = 16;
+            StartTimer.Value = 5;
+            chkIntro.IsChecked = true;
         }
 
         private void chkIntro_Changed(object sender, RoutedEventArgs e)
         {
-            SetVariable("Video.IntroSkip", Convert.ToString(Convert.ToInt32(chkIntro.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-
-            if (configFile["Video.IntroSkip"] == "1" && Directory.Exists("bink"))
+            if (chkIntro.IsChecked == true && Directory.Exists("bink"))
             {
                 Directory.Move("bink", "bink_disabled");
             }
-            else if (configFile["Video.IntroSkip"] == "0" && Directory.Exists("bink_disabled"))
+            else if (chkIntro.IsChecked == false && Directory.Exists("bink_disabled"))
             {
                 Directory.Move("bink_disabled", "bink");
             }
         }
 
-        private void btnApply2_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Launcher Settings
+
+        private void Color_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switchPanel("main", false);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Colors.SelectedValue.ToString()), ThemeManager.GetAppTheme(Cfg.launcherConfigFile["Launcher.Theme"]));
+            Cfg.launcherConfigFile["Launcher.Color"] = Colors.SelectedValue.ToString();
+            Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+
+            if (Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
+            {
+                Color Dark = (Color)ColorConverter.ConvertFromString("#252525");
+                CustomIcon.Fill = new SolidColorBrush(Dark);
+                SettingsIcon.Fill = new SolidColorBrush(Dark);
+                VOIPIcon.Fill = new SolidColorBrush(Dark);
+                AutoExecIcon.Fill = new SolidColorBrush(Dark);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Dark);
+                E.Fill = new SolidColorBrush(Dark);
+                Title.Content = "ELDEWRITO";
+            }
+            else
+            {
+                Color Light = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                CustomIcon.Fill = new SolidColorBrush(Light);
+                SettingsIcon.Fill = new SolidColorBrush(Light);
+                Title.Foreground = new SolidColorBrush(Light);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                VOIPIcon.Fill = new SolidColorBrush(Light);
+                AutoExecIcon.Fill = new SolidColorBrush(Light);
+                Title.Content = "ELDEWRITO";
+            }
+
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" && Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
+            {
+                Color Light = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                CustomIcon.Fill = new SolidColorBrush(Light);
+                SettingsIcon.Fill = new SolidColorBrush(Light);
+                VOIPIcon.Fill = new SolidColorBrush(Light);
+                AutoExecIcon.Fill = new SolidColorBrush(Light);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Light);
+                E.Fill = new SolidColorBrush(Light);
+                Title.Content = "Where is your god now";
+            }
         }
 
-        private void sldMax_LostMouseCapture(object sender, MouseEventArgs e)
+        private void Theme_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetVariable("Server.MaxPlayers", Convert.ToString(sldMax.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(Cfg.launcherConfigFile["Launcher.Color"]), ThemeManager.GetAppTheme(Themes.SelectedValue.ToString()));
+            Cfg.launcherConfigFile["Launcher.Theme"] = Themes.SelectedValue.ToString();
+            Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight")
+            {
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+            }
+            else
+            {
+                Color Light = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                Title.Foreground = new SolidColorBrush(Light);
+            }
+
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" && Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
+            {
+                Color Light = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                CustomIcon.Fill = new SolidColorBrush(Light);
+                SettingsIcon.Fill = new SolidColorBrush(Light);
+                VOIPIcon.Fill = new SolidColorBrush(Light);
+                AutoExecIcon.Fill = new SolidColorBrush(Light);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Light);
+                E.Fill = new SolidColorBrush(Light);
+                Title.Content = "Where is your god now";
+            }
+
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseDark" && Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
+            {
+                Color Dark = (Color)ColorConverter.ConvertFromString("#252525");
+                CustomIcon.Fill = new SolidColorBrush(Dark);
+                SettingsIcon.Fill = new SolidColorBrush(Dark);
+                VOIPIcon.Fill = new SolidColorBrush(Dark);
+                AutoExecIcon.Fill = new SolidColorBrush(Dark);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Dark);
+                E.Fill = new SolidColorBrush(Dark);
+                Title.Content = "ELDEWRITO";
+            }
         }
 
-        private void sldFov_LostMouseCapture(object sender, MouseEventArgs e)
+        private void Launch_Changed(object sender, RoutedEventArgs e)
         {
-            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Launcher.Close", Convert.ToString(Convert.ToInt32(Launch.IsChecked)), ref Cfg.launcherConfigFile);
+            Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
         }
 
-        private void txtSld_TextChanged(object sender, TextChangedEventArgs e)
+        #endregion
+
+        #region VOIP Settings
+        private void AGC_Changed(object sender, RoutedEventArgs e)
         {
-            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.AGC", Convert.ToString(Convert.ToInt32(AGC.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void sldTimer_LostMouseCapture(object sender, MouseEventArgs e)
+        private void Echo_Changed(object sender, RoutedEventArgs e)
         {
-            SetVariable("Server.Countdown", Convert.ToString(sldTimer.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.EchoCancellation", Convert.ToString(Convert.ToInt32(Echo.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+        private void VolumeModifier_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.VolumeModifier", Convert.ToString(VolumeModifier.Value), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void PTT_Changed(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.PushToTalk", Convert.ToString(Convert.ToInt32(PTT.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void VAL_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(VAL.Value), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        private void btnReset2_Click(object sender, EventArgs e)
+        {
+            AGC.IsChecked = true;
+            Echo.IsChecked = true;
+            VolumeModifier.Value = 6;
+            PTT.IsChecked = true;
+            VAL.Value = -45;
+        }
+
+        #endregion
+
+        #region Extra
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
+        #endregion
+
+        #region Loading
+
+        private void Load()
         {
             //Customization
-            clrPrimary.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Primary"]);
+            if (Cfg.configFile["Player.Name"] == "Forgot")
+                Cfg.SetVariable("Player.Name", "", ref Cfg.configFile);
+            Name.Text = Cfg.configFile["Player.Name"];
+            Helmet.SelectedValue = Cfg.configFile["Player.Armor.Helmet"];
+            Chest.SelectedValue = Cfg.configFile["Player.Armor.Chest"];
+            Shoulders.SelectedValue = Cfg.configFile["Player.Armor.Shoulders"];
+            Arms.SelectedValue = Cfg.configFile["Player.Armor.Arms"];
+            Legs.SelectedValue = Cfg.configFile["Player.Armor.Legs"];
+            clrPrimary.SelectedColor =
+                (Color) ColorConverter.ConvertFromString(Cfg.configFile["Player.Colors.Primary"]);
             clrSecondary.SelectedColor =
-                (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Secondary"]);
-            clrLights.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Lights"]);
-            clrHolo.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Holo"]);
-            clrVisor.SelectedColor = (Color)ColorConverter.ConvertFromString(configFile["Player.Colors.Visor"]);
-            cmbLegs.SelectedValue = configFile["Player.Armor.Legs"];
-            cmbArms.SelectedValue = configFile["Player.Armor.Arms"];
-            cmbHelmet.SelectedValue = configFile["Player.Armor.Helmet"];
-            cmbChest.SelectedValue = configFile["Player.Armor.Chest"];
-            cmbShoulders.SelectedValue = configFile["Player.Armor.Shoulders"];
-            plrName.Text = configFile["Player.Name"];
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-            switchPanel("main", false);
-        }
+                (Color) ColorConverter.ConvertFromString(Cfg.configFile["Player.Colors.Secondary"]);
+            clrVisor.SelectedColor = (Color) ColorConverter.ConvertFromString(Cfg.configFile["Player.Colors.Visor"]);
+            clrLights.SelectedColor =
+                (Color) ColorConverter.ConvertFromString(Cfg.configFile["Player.Colors.Lights"]);
+            clrHolo.SelectedColor = (Color) ColorConverter.ConvertFromString(Cfg.configFile["Player.Colors.Holo"]);
+            //Settings
+            Fov.Value = Convert.ToDouble(Cfg.configFile["Camera.FOV"]);
+            CrosshairCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["Camera.Crosshair"]));
+            RawInput.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["Input.RawInput"]));
+            ServerName.Text = Cfg.configFile["Server.Name"];
+            ServerPassword.Password = Cfg.configFile["Server.Password"];
+            MaxPlayer.Value = Convert.ToDouble(Cfg.configFile["Server.MaxPlayers"]);
+            StartTimer.Value = Convert.ToDouble(Cfg.configFile["Server.Countdown"]);
+            //Launcher Settings
+            Colors.SelectedValue = Cfg.launcherConfigFile["Launcher.Color"];
+            Themes.SelectedValue = Cfg.launcherConfigFile["Launcher.Theme"];
+            Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.launcherConfigFile["Launcher.Close"]));
+            RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.launcherConfigFile["Launcher.Random"]));
+            //VoIP Settings
+            AGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.AGC"]));
+            Echo.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.EchoCancellation"]));
+            VolumeModifier.Value = Convert.ToDouble(Cfg.configFile["VoIP.VolumeModifier"]);
+            PTT.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.PushToTalk"]));
+            VAL.Value = Convert.ToDouble(Cfg.configFile["VoIP.VoiceActivationLevel"]);
+            //Auto Exec
+            if (!File.Exists("autoexec.cfg"))
+                File.Create("autoexec.cfg");
+            if (!Directory.Exists("mods/medals"))
+                Directory.CreateDirectory("mods/medals");
+            if (!Directory.Exists("mods/maps"))
+                Directory.CreateDirectory("mods/maps");
+            if (!Directory.Exists("mods/variants"))
+                Directory.CreateDirectory("mods/variants");
+            if (Directory.Exists("bink_disabled"))
+                chkIntro.IsChecked = true;
 
-        private void D_click(object sender, EventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://halo.click/8Znpho");
-            Process.Start(sInfo);
-        }
-
-        /*
-        private void sldFov_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            SetVariable("Camera.FOV", Convert.ToString(sldFov.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        
-        private void sldTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            SetVariable("Server.Countdown", Convert.ToString(sldTimer), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-        */
-
-
-        private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
-        {
-            returnDict = new Dictionary<string, string>();
-            if (!File.Exists(cfgFileName))
-                return false;
-
-            var lines = File.ReadAllLines(cfgFileName);
-            foreach (var line in lines)
+            doritoKey = new Dictionary<int, string>()
             {
-                var splitIdx = line.IndexOf(" ");
-                if (splitIdx < 0 || splitIdx + 1 >= line.Length)
-                    continue; // line isn't valid?
-                var varName = line.Substring(0, splitIdx);
-                var varValue = line.Substring(splitIdx + 1);
-
-                // remove quotes from variable values
-                if (varValue.StartsWith("\""))
-                    varValue = varValue.Substring(1);
-                if (varValue.EndsWith("\""))
-                    varValue = varValue.Substring(0, varValue.Length - 1);
-
-                SetVariable(varName, varValue, ref returnDict);
-            }
-            return true;
-        }
-
-        private static void SetVariable(string varName, string varValue, ref Dictionary<string, string> configDict)
-        {
-            if (configDict.ContainsKey(varName))
-                configDict[varName] = varValue;
-            else
-                configDict.Add(varName, varValue);
-        }
-
-        private static bool CheckIfProcessIsRunning(string nameSubstring)
-        {
-            return Process.GetProcesses().Any(p => p.ProcessName.Contains(nameSubstring));
-        }
-
-        private static bool SaveConfigFile(string cfgFileName, Dictionary<string, string> configDict)
-        {
-            try
+                {0x1B, "escape"},
+                {0x70, "f1"},
+                {0x71, "f2"},
+                {0x72, "f3"},
+                {0x73, "f4"},
+                {0x74, "f5"},
+                {0x75, "f6"},
+                {0x76, "f7"},
+                {0x77, "f8"},
+                {0x78, "f9"},
+                {0x79, "f10"},
+                {0x7A, "f11"},
+                {0x7B, "f12"},
+                {0x2C, "printscreen"},
+                {0x7D, "f14"},
+                {0x7E, "f15"},
+                {0xC0, "tilde"},
+                {0x31, "1"},
+                {0x32, "2"},
+                {0x33, "3"},
+                {0x34, "4"},
+                {0x35, "5"},
+                {0x36, "6"},
+                {0x37, "7"},
+                {0x38, "8"},
+                {0x39, "9"},
+                {0x30, "0"},
+                {0xBD, "minus"},
+                {0xBB, "plus"},
+                {0x8, "back"},
+                {0x9, "tab"},
+                {0x51, "Q"},
+                {0x57, "W"},
+                {0x45, "E"},
+                {0x52, "R"},
+                {0x54, "T"},
+                {0x59, "Y"},
+                {0x55, "U"},
+                {0x49, "I"},
+                {0x4F, "O"},
+                {0x50, "P"},
+                {0xDB, "lbracket"},
+                {0xDD, "rbracket"},
+                {0xDC, "pipe"},
+                {0x14, "capital"},
+                {0x41, "A"},
+                {0x53, "S"},
+                {0x44, "D"},
+                {0x46, "F"},
+                {0x47, "G"},
+                {0x48, "H"},
+                {0x4A, "J"},
+                {0x4B, "K"},
+                {0x4C, "L"},
+                {0xBA, "colon"},
+                {0xDE, "quote"},
+                {0xD, "enter"},
+                {0xA0, "lshift"},
+                {0x5A, "Z"},
+                {0x58, "X"},
+                {0x43, "C"},
+                {0x56, "V"},
+                {0x42, "B"},
+                {0x4E, "N"},
+                {0x4D, "M"},
+                {0xBC, "comma"},
+                {0xBE, "period"},
+                {0xBF, "question"},
+                {0xA1, "rshift"},
+                {0xA2, "lcontrol"},
+                {0xA4, "lmenu"},
+                {0x20, "space"},
+                {0xA5, "rmenu"},
+                {0x5D, "apps"},
+                {0xA3, "rcontrol"},
+                {0x26, "up"},
+                {0x28, "down"},
+                {0x25, "left"},
+                {0x27, "right"},
+                {0x2D, "insert"},
+                {0x24, "home"},
+                {0x21, "pageup"},
+                {0x2E, "delete"},
+                {0x23, "end"},
+                {0x22, "pagedown"},
+                {0x90, "numlock"},
+                {0x6F, "divide"},
+                {0x6A, "multiply"},
+                {0x60, "numpad0"},
+                {0x61, "numpad1"},
+                {0x62, "numpad2"},
+                {0x63, "numpad3"},
+                {0x64, "numpad4"},
+                {0x65, "numpad5"},
+                {0x66, "numpad6"},
+                {0x67, "numpad7"},
+                {0x68, "numpad8"},
+                {0x69, "numpad9"},
+                {0x6D, "subtract"},
+                {0x6B, "add"},
+                {0x6E, "decimal"},
+            };
+            
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(Cfg.launcherConfigFile["Launcher.Color"]),
+                ThemeManager.GetAppTheme(Cfg.launcherConfigFile["Launcher.Theme"]));
+            
+            if (Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
             {
-                if (File.Exists(cfgFileName))
-                    File.Delete(cfgFileName);
-
-                var lines = new List<string>();
-                foreach (var kvp in configDict)
-                    lines.Add(kvp.Key + " \"" + kvp.Value + "\"");
-
-                File.WriteAllLines(cfgFileName, lines.ToArray());
-
-
-                var running = CheckIfProcessIsRunning("eldorado");
-                if (running)
-                {
-                    dewCmd("Execute dewrito_prefs.cfg");
-                }
-                return true;
+                Color Dark = (Color) ColorConverter.ConvertFromString("#252525");
+                CustomIcon.Fill = new SolidColorBrush(Dark);
+                SettingsIcon.Fill = new SolidColorBrush(Dark);
+                VOIPIcon.Fill = new SolidColorBrush(Dark);
+                AutoExecIcon.Fill = new SolidColorBrush(Dark);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Dark);
+                E.Fill = new SolidColorBrush(Dark);
             }
-            catch
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight")
             {
-                return false;
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+            }
+            if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" &&
+                Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
+            {
+                Color Light = (Color) ColorConverter.ConvertFromString("#FFFFFF");
+                CustomIcon.Fill = new SolidColorBrush(Light);
+                SettingsIcon.Fill = new SolidColorBrush(Light);
+                VOIPIcon.Fill = new SolidColorBrush(Light);
+                AutoExecIcon.Fill = new SolidColorBrush(Light);
+                Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+                L.Fill = new SolidColorBrush(Light);
+                E.Fill = new SolidColorBrush(Light);
+                Title.Content = "Where is your god now";
             }
         }
+        #endregion
 
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            sldFov.Value = 90;
-            chkCenter.IsChecked = false;
-            chkRaw.IsChecked = true;
-            //chkBeta.IsChecked = false;
-            sldTimer.Value = 5;
-            sldMax.Value = 16;
-            chkWin.IsChecked = false;
-            chkFull.IsChecked = true;
-            chkVSync.IsChecked = false;
-            //chkDX9Ex.IsChecked = true;
-            chkFPS.IsChecked = false;
-            chkIntro.IsChecked = false;
-        }
-
-        private void BtnSkip_OnClick(object sender, RoutedEventArgs e)
-        {
-            btnAction.Content = "PLAY GAME";
-
-            isPlayEnabled = true;
-
-            var fade = (Storyboard)TryFindResource("fade");
-            fade.Stop(); // Start animation
-            btnAction.IsEnabled = true;
-            GridSkip.Visibility = Visibility.Hidden;
-        }
-
-        private void VoipKey_OnKeyDown(object sender, KeyEventArgs e)
-        {
-
-            var keyPressed = KeyInterop.VirtualKeyFromKey(e.Key);
-            //Console.WriteLine(keyPressed);
-            voipKey.Text = Convert.ToString(e.Key);
-
-            var hex = keyPressed.ToString("X4");
-            var myValue = doritoKey.FirstOrDefault(x => x.Key == keyPressed).Value;
-            //Console.WriteLine(myValue);
-
-            SetVariable("VoIP.PushToTalkKey", myValue, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void sldAudio_LostMouseCapture(object sender, MouseEventArgs e)
-        {
-            SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(sldAudio.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkPTT_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("VoIP.PushToTalk", Convert.ToString(Convert.ToInt32(chkPTT.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkEC_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("VoIP.EchoCancellation", Convert.ToString(Convert.ToInt32(chkEC.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void chkAGC_Changed(object sender, RoutedEventArgs e)
-        {
-            SetVariable("VoIP.AGC", Convert.ToString(Convert.ToInt32(chkAGC.IsChecked)), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void sldModifier_LostMouseCapture(object sender, MouseEventArgs e)
-        {
-            SetVariable("VoIP.VolumeModifier", Convert.ToString(sldModifier.Value), ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void BtnReset2_OnClick(object sender, RoutedEventArgs e)
-        {
-            voipKey.Text = Convert.ToString(KeyInterop.KeyFromVirtualKey(Convert.ToInt32(20)));
-            sldAudio.Value = -45;
-            sldModifier.Value = 6;
-            chkPTT.IsChecked = true;
-            chkEC.IsChecked = true;
-            chkAGC.IsChecked = true;
-
-            SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-            SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
-            SetVariable("VoIP.VolumeModifier", "6", ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void BtnReddit_OnClick(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://www.reddit.com/r/HaloOnline/");
-            Process.Start(sInfo);
-        }
-
-        private void BtnGithub_OnClick(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://github.com/FishPhd/DewritoUpdater");
-            Process.Start(sInfo);
-        }
-
-        private void BtnTwitter_OnClick(object sender, RoutedEventArgs e)
-        {
-            var sInfo = new ProcessStartInfo("https://twitter.com/FishPhdOfficial");
-            Process.Start(sInfo);
-        }
-
-        private void LblServerName_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SetVariable("Server.Name", lblServerName.Text, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void LblServerPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
-        {
-            SetVariable("Server.Password", lblServerPassword.Password, ref configFile);
-            SaveConfigFile("dewrito_prefs.cfg", configFile);
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        #endregion
     }
 }
+
+
+
