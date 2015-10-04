@@ -657,6 +657,7 @@ namespace Dewritwo
                 BTNSkip.Visibility = Visibility.Hidden;
                 AppendDebugLine("Update successful. You have the latest version! (" + latestUpdateVersion + ")",
                     Color.FromRgb(0, 255, 0));
+                lblVersion.Content = "Your Version: " + eldoritoLatestVersion + "    Latest Version: " + eldoritoLatestVersion;
             }
         }
 
