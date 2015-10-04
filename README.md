@@ -1,4 +1,6 @@
-# Dewritwo AKA DewritoUpdater 2.0
+# Dewrito Launcher 2.0
+
+## This will be available as soon as the next eldorito update comes out
 
 A Complete recode of the original ElDewrito launcher with insane performance increases and clean theme.
 
