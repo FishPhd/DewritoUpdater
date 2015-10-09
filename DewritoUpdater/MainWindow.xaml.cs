@@ -1138,6 +1138,8 @@ namespace Dewritwo
                 Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
                 VOIPIcon.Fill = new SolidColorBrush(Light);
                 AutoExecIcon.Fill = new SolidColorBrush(Light);
+                L.Fill = new SolidColorBrush(Light);
+                E.Fill = new SolidColorBrush(Light);
                 Title.Content = "ELDEWRITO";
             }
 
