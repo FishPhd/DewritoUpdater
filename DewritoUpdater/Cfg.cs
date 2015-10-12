@@ -144,6 +144,7 @@ namespace Dewritwo.Resources
                 SetVariable("Server.Password", "", ref configFile);
                 SetVariable("Server.Countdown", "5", ref configFile);
                 SetVariable("Server.MaxPlayers", "16", ref configFile);
+                SetVariable("Server.SprintEnabled", "0", ref configFile);
                 SetVariable("Server.Port", "11775", ref configFile);
                 SetVariable("Camera.Crosshair", "0", ref configFile);
                 SetVariable("Camera.FOV", "90", ref configFile);
@@ -158,6 +159,7 @@ namespace Dewritwo.Resources
                 SetVariable("Video.VSync", "1", ref configFile);
                 SetVariable("Video.FPSCounter", "0", ref configFile);
                 SetVariable("Video.IntroSkip", "1", ref configFile);
+                SetVariable("VoIP.Enabled", "1", ref configFile);
                 SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
                 SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
                 SetVariable("VoIP.VolumeModifier", "6", ref configFile);
@@ -168,6 +170,8 @@ namespace Dewritwo.Resources
             }
             else if (error)
             {
+                SetVariable("Server.SprintEnabled", "0", ref configFile);
+                SetVariable("VoIP.Enabled", "1", ref configFile);
                 SetVariable("Video.IntroSkip", "1", ref configFile);
             }
 

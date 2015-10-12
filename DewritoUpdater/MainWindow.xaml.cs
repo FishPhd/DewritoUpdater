@@ -34,7 +34,6 @@ namespace Dewritwo
         private Dictionary<int, string> doritoKey;
         private bool updateText = true;
         private string keyValue;
-        private string bindDelete;
         private string eldoritoLatestVersion;
         private FileVersionInfo eldoritoVersion = null;
         private string localEldoritoVersion;
@@ -50,7 +49,6 @@ namespace Dewritwo
         public string BasePath = Directory.GetCurrentDirectory();
         private Dictionary<string, string> fileHashes;
         private List<string> filesToDownload;
-        private bool isPlayEnabled;
         private JToken latestUpdate;
         private string latestUpdateVersion;
         private JObject settingsJson;
@@ -191,7 +189,7 @@ namespace Dewritwo
 
             if (!ProcessUpdateData())
             {
-                var confirm = false;
+                //var confirm = false;
 
                 AppendDebugLine(
                     "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
@@ -1070,6 +1068,16 @@ namespace Dewritwo
             Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
+        private void chkSprint_Changed(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("Server.SprintEnabled", Convert.ToString(Convert.ToInt32(chkSprint.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
         private void StartTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!IsLoaded)
@@ -1236,6 +1244,17 @@ namespace Dewritwo
             Cfg.SetVariable("VoIP.EchoCancellation", Convert.ToString(Convert.ToInt32(Echo.IsChecked)), ref Cfg.configFile);
             Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
+
+        private void chkVoIPEnabled_Changed(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+            Cfg.SetVariable("VoIP.Enabled", Convert.ToString(Convert.ToInt32(chkVoIPEnabled.IsChecked)), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
         private void VolumeModifier_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (!IsLoaded)
@@ -1315,12 +1334,14 @@ namespace Dewritwo
             ServerPassword.Password = Cfg.configFile["Server.Password"];
             MaxPlayer.Value = Convert.ToDouble(Cfg.configFile["Server.MaxPlayers"]);
             StartTimer.Value = Convert.ToDouble(Cfg.configFile["Server.Countdown"]);
+            chkSprint.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["Server.SprintEnabled"]));
             //Launcher Settings
             Colors.SelectedValue = Cfg.launcherConfigFile["Launcher.Color"];
             Themes.SelectedValue = Cfg.launcherConfigFile["Launcher.Theme"];
             Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.launcherConfigFile["Launcher.Close"]));
             RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.launcherConfigFile["Launcher.Random"]));
             //VoIP Settings
+            chkVoIPEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.Enabled"]));
             AGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.AGC"]));
             Echo.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.EchoCancellation"]));
             VolumeModifier.Value = Convert.ToDouble(Cfg.configFile["VoIP.VolumeModifier"]);

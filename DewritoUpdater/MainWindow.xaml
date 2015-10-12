@@ -235,6 +235,10 @@
                                 <TextBox x:Name="txtStartTimer" Margin="25,0,0,0" Height="20"
                                          Text="{Binding ElementName=StartTimer,Path=Value}" Width="60" />
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <Label FontSize="14">Sprint Enabled:</Label>
+                                <CheckBox x:Name="chkSprint" Unchecked="chkSprint_Changed" Checked="chkSprint_Changed" Margin="5,0,0,0"></CheckBox>
+                            </StackPanel>
                             <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Game Settings</Label>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                                 <Label FontSize="14">Disable Intro Videos:</Label>
@@ -267,6 +271,11 @@
                     </Grid>
                     <Grid x:Name="VOIPSettingsGrid" Margin="5,0,5,5" Visibility="Hidden">
                         <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">General Settings</Label>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                <Label FontSize="14">VoIp Enabled:</Label>
+                                <CheckBox x:Name="chkVoIPEnabled" Margin="17,0,0,0" Checked="chkVoIPEnabled_Changed" Unchecked="chkVoIPEnabled_Changed" />
+                            </StackPanel>
                             <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Audio Settings</Label>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                                 <Label FontSize="14">Automatic Gain Control:</Label>
