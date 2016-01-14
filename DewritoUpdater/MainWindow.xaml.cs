@@ -87,7 +87,7 @@ namespace Dewritwo
                     {
                         eldoritoLatestVersion = pair.Key;
                     }
-                    var data = wc.DownloadString("https://eldewrito.github.io/update/"+eldoritoLatestVersion+"/dewrito.json");
+                    var data = wc.DownloadString("http://eldewrito.anvilonline.net/" + eldoritoLatestVersion+"/dewrito.json");
                     //Console.WriteLine(update["baseUrl"]);
                     settingsJson = JObject.Parse(data);
                     
@@ -113,7 +113,7 @@ namespace Dewritwo
             {
                 try
                 {
-                    ChangelogContent.Text = wc.DownloadString("https://eldewrito.github.io/update/changelog.data");
+                    ChangelogContent.Text = wc.DownloadString("http://eldewrito.anvilonline.net/changelog.data");
                 }
                 catch
                 {
