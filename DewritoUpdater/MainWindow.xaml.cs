@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,11 +19,7 @@ using Dewritwo.Resources;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using Crc32C;
-using MahApps.Metro.Controls.Dialogs;
-using System.Threading.Tasks;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
-using DoritoPatcher;
 using Newtonsoft.Json.Linq;
 
 namespace Dewritwo
@@ -60,35 +57,52 @@ namespace Dewritwo
         public MainWindow()
         {
             InitializeComponent();
-            
+        }
+        
+        private void MainWindow_OnLoaded(object sender, EventArgs e)
+        {
             try
             {
                 Cfg.Initial(false);
                 Load();
                 AppendDebugLine("Cfg Load Complete", Color.FromRgb(0, 255, 0));
+                Console.WriteLine("Cfg Load Complete");
             }
             catch
             {
                 AppendDebugLine("Cfg Load Error: Resetting Launcher Specific Settings", Color.FromRgb(255, 0, 0));
                 Cfg.Initial(true);
                 Load();
-
                 AppendDebugLine("Cfg Reload Complete", Color.FromRgb(0, 255, 0));
             }
 
             try
             {
-                settingsJson = JObject.Parse(File.ReadAllText("dewrito.json"));
-                if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
+                Console.WriteLine("json start");
+                using (WebClient wc = new WebClient())
                 {
-                    AppendDebugLine("Error reading dewrito.json: gameFiles or updateServiceUrl is missing.",
-                        Color.FromRgb(255, 0, 0));
-                    return;
+                    var url = wc.DownloadString("http://eldewrito.anvilonline.net/update.json");
+                    JObject update = JObject.Parse(url);
+                    foreach (var pair in update)
+                    {
+                        eldoritoLatestVersion = pair.Key;
+                    }
+                    var data = wc.DownloadString("https://eldewrito.github.io/update/"+eldoritoLatestVersion+"/dewrito.json");
+                    //Console.WriteLine(update["baseUrl"]);
+                    settingsJson = JObject.Parse(data);
+                    
+                    if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
+                    {
+                        AppendDebugLine("Error reading json: gameFiles or updateServiceUrl is missing.",
+                            Color.FromRgb(255, 0, 0));
+                        return;
+                    }
                 }
+                Console.WriteLine("json complete");
             }
             catch
             {
-                AppendDebugLine("Failed to read dewrito.json updater configuration.", Color.FromRgb(255, 0, 0));
+                AppendDebugLine("Failed to read json", Color.FromRgb(255, 0, 0));
                 return;
             }
 
@@ -99,7 +113,7 @@ namespace Dewritwo
             {
                 try
                 {
-                    ChangelogContent.Text = wc.DownloadString("http://dew.halo.click/honline/changelog.data");
+                    ChangelogContent.Text = wc.DownloadString("https://eldewrito.github.io/update/changelog.data");
                 }
                 catch
                 {
@@ -148,8 +162,7 @@ namespace Dewritwo
                         "Latest Version: " + eldoritoLatestVersion,
                         Color.FromRgb(255, 255, 0));
                 }
-                
-            }
+            } 
         }
 
         private bool VersionCheck()
@@ -163,19 +176,9 @@ namespace Dewritwo
             {
                 eldoritoVersion = null;
             }
-
-            WebClient c = new WebClient();
-            var data = c.DownloadString("https://dew.halo.click/update_server/update.json");
-            JObject o = JObject.Parse(data);
-            foreach (var pair in o)
-            {
-                eldoritoLatestVersion = pair.Key;
-            }
-
             if (localEldoritoVersion == eldoritoLatestVersion)
                 return true;
-            else
-                return false;
+            return false;
         }
 
         private void BackgroundThread()
@@ -190,7 +193,6 @@ namespace Dewritwo
             if (!ProcessUpdateData())
             {
                 //var confirm = false;
-
                 AppendDebugLine(
                     "Failed to retrieve update information from set update server: " + settingsJson["updateServiceUrl"],
                     Color.FromRgb(255, 0, 0));
@@ -229,6 +231,7 @@ namespace Dewritwo
             try
             {
                 var updateData = settingsJson["updateServiceUrl"].ToString().Replace("\"", "");
+                Console.WriteLine(updateData);
                 if (updateData.StartsWith("http"))
                 {
                     using (var wc = new WebClient())
@@ -356,6 +359,7 @@ namespace Dewritwo
             }
         }
 
+        /*
         private void InitialHash()
         {
             var watch = Stopwatch.StartNew();
@@ -366,12 +370,13 @@ namespace Dewritwo
             AppendDebugLine("CRC32 of resources.dat: " + Append("maps/resources.dat"), Color.FromRgb(255, 255, 0));
             AppendDebugLine("CRC32 of string_ids.dat: " + Append("maps/string_ids.dat"), Color.FromRgb(255, 255, 0));
             AppendDebugLine("CRC32 of video.dat: " + Append("maps/video.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of halo3.zip: " + Append("mods/medals/halo3.zip"), Color.FromRgb(255, 255, 0));
+            //AppendDebugLine("CRC32 of halo3.zip: " + Append("mods/medals/halo3.zip"), Color.FromRgb(255, 255, 0));
             watch.Stop();
             double seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
             AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
             BTNAction.Content = "Update";
         }
+        */
 
         public static uint Append(string filePath)
         {
@@ -393,8 +398,12 @@ namespace Dewritwo
 
         private bool CompareHashesWithJson()
         {
+            var watch = Stopwatch.StartNew();
             if (fileHashes == null)
                 HashFilesInFolder(BasePath);
+            watch.Stop();
+            double seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
+            AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
 
             IDictionary<string, JToken> files = (JObject)settingsJson["gameFiles"];
 
@@ -455,6 +464,7 @@ namespace Dewritwo
 
         private void HashFilesInFolder(string basePath, string dirPath = "")
         {
+            
             if (fileHashes == null)
                 fileHashes = new Dictionary<string, string>();
 
@@ -490,6 +500,7 @@ namespace Dewritwo
                 }
                 catch
                 {
+                    AppendDebugLine("Game file validation Error", Color.FromRgb(255, 0, 0));
                 }
             }
         }
@@ -953,6 +964,7 @@ namespace Dewritwo
         {
             RandomArmor();
         }
+
         private void RandomArmor()
         {
             var r = new Random();
@@ -1500,6 +1512,7 @@ namespace Dewritwo
         #endregion
 
         #endregion
+
     }
 }
 
