@@ -632,7 +632,7 @@ namespace Dewritwo
                 foreach (var file in filesToDownload)
                 {
                     AppendDebugLine("Downloading file \"" + file + "\"...", Color.FromRgb(255, 255, 0));
-                    var url = "https://dew.halo.click/update_server/" + eldoritoLatestVersion + "/" + file;
+                    var url = "http://eldewrito.anvilonline.net/" + eldoritoLatestVersion + "/" + file;
                     var destPath = Path.Combine(BasePath, file);
                     var dialog = new FileDownloadDialog(this, url, destPath);
                     var result = dialog.ShowDialog();
@@ -640,7 +640,6 @@ namespace Dewritwo
 
                     if (result.HasValue && result.Value)
                     {
-                        // TOD: Refactor this. It's hacky
                     }
                     else
                     {
