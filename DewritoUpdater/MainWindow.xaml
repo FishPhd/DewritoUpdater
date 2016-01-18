@@ -4,7 +4,7 @@
                       xmlns:local="clr-namespace:Dewritwo"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="ElDewrito" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-                      Height="600" ResizeMode="CanMinimize" ShowIconOnTitleBar="False" Loaded="MainWindow_OnLoaded"
+                      Height="600" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
                       xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit" Closing="MainWindow_Closing"
                       Width="800">
     <Controls:MetroWindow.RightWindowCommands>

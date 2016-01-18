@@ -120,52 +120,52 @@ namespace Dewritwo.Resources
 
             if (!CfgFileExists)
             {
-                SetVariable("Launcher.Color", "blue", ref configFile);
-                SetVariable("Launcher.Theme", "BaseDark", ref configFile);
-                SetVariable("Launcher.Close", "0", ref configFile);
-                SetVariable("Launcher.Random", "0", ref configFile);
-                SetVariable("Game.MedalsZip", "halo3", ref configFile);
+                SetVariable("Game.MenuURL", "http://scooterpsu.github.io/", ref configFile);
                 SetVariable("Game.LanguageID", "0", ref configFile);
-                SetVariable("Game.SkipLauncher", "0", ref configFile);
-                SetVariable("Player.Name", "", ref configFile);
-                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
-                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
+                SetVariable("Game.LogName", "dorito.log", ref configFile);
                 SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
+                SetVariable("Player.Armor.Pelvis", "", ref configFile);
+                SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
                 SetVariable("Player.Colors.Primary", "#000000", ref configFile);
                 SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
+                SetVariable("Player.Colors.Visor", "#000000", ref configFile);
                 SetVariable("Player.Colors.Lights", "#000000", ref configFile);
                 SetVariable("Player.Colors.Holo", "#000000", ref configFile);
-                SetVariable("Player.Colors.Visor", "#000000", ref configFile);
-                SetVariable("Player.UserID", "0", ref configFile);
-                SetVariable("Server.Name", "HaloOnline Server", ref configFile);
+                SetVariable("Player.Name", "", ref configFile);
+                SetVariable("Player.PrivKeyNote", "The PrivKey below is used to keep your stats safe.Treat it like a password and don't share it with anyone!", ref configFile);
+                SetVariable("Player.PrivKey", "", ref configFile);
+                SetVariable("Player.PubKey", "", ref configFile);
+                SetVariable("Server.Name", "Halo Online Server", ref configFile);
                 SetVariable("Server.Password", "", ref configFile);
+                SetVariable("Game.MedalsZip", "halo3", ref configFile);
                 SetVariable("Server.Countdown", "5", ref configFile);
                 SetVariable("Server.MaxPlayers", "16", ref configFile);
-                SetVariable("Server.SprintEnabled", "0", ref configFile);
                 SetVariable("Server.Port", "11775", ref configFile);
+                SetVariable("Server.ShouldAnnounce", "1", ref configFile);
+                SetVariable("Server.SprintEnabled", "0", ref configFile);
+                SetVariable("Server.UnlimitedSprint", "0", ref configFile);
                 SetVariable("Camera.Crosshair", "0", ref configFile);
-                SetVariable("Camera.FOV", "90", ref configFile);
+                SetVariable("Camera.FOV", "90.000000", ref configFile);
                 SetVariable("Camera.HideHUD", "0", ref configFile);
+                SetVariable("Camera.Speed", "0.100000", ref configFile);
                 SetVariable("Input.RawInput", "1", ref configFile);
-                SetVariable("Video.Height", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenHeight)),
-                    ref configFile);
-                SetVariable("Video.Width", Convert.ToString(Convert.ToInt32(SystemParameters.PrimaryScreenWidth)),
-                    ref configFile);
-                SetVariable("Video.Window", "0", ref configFile);
-                SetVariable("Video.FullScreen", "1", ref configFile);
-                SetVariable("Video.VSync", "1", ref configFile);
-                SetVariable("Video.FPSCounter", "0", ref configFile);
-                SetVariable("Video.IntroSkip", "1", ref configFile);
-                SetVariable("VoIP.Enabled", "1", ref configFile);
+                SetVariable("IRC.Server", "crimson.fractalcore.net", ref configFile);
+                SetVariable("IRC.ServerPort", "6667", ref configFile);
+                SetVariable("IRC.GlobalChannel", "#haloonline", ref configFile);
                 SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-                SetVariable("VoIP.VoiceActivationLevel", "-45", ref configFile);
-                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
                 SetVariable("VoIP.PushToTalk", "1", ref configFile);
-                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
+                SetVariable("VoIP.VolumeModifier", "6", ref configFile);
                 SetVariable("VoIP.AGC", "1", ref configFile);
+                SetVariable("VoIP.EchoCancellation", "1", ref configFile);
+                SetVariable("VoIP.VoiceActivationLevel", "-45.000000", ref configFile);
+                SetVariable("VoIP.ServerEnabled", "1", ref configFile);
+                SetVariable("VoIP.Enabled", "1", ref configFile);
+                SetVariable("Graphics.Saturation", "1.000000", ref configFile);
+                SetVariable("Graphics.Bloom", "0.000000", ref configFile);
                 Console.WriteLine("New CFG Created");
             }
             else if (error)
@@ -182,7 +182,7 @@ namespace Dewritwo.Resources
                 SetVariable("Launcher.Close", "0", ref launcherConfigFile);
                 SetVariable("Launcher.Random", "0", ref launcherConfigFile);
                 SetVariable("Launcher.IntroSkip", "1", ref launcherConfigFile);
-                Console.WriteLine("Launcher.Added");
+                Console.WriteLine("New Launcher CFG Created");
             }
 
             SaveConfigFile("launcher_prefs.cfg", launcherConfigFile);

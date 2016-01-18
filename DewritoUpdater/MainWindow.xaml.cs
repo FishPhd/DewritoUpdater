@@ -57,10 +57,6 @@ namespace Dewritwo
         public MainWindow()
         {
             InitializeComponent();
-        }
-        
-        private void MainWindow_OnLoaded(object sender, EventArgs e)
-        {
             try
             {
                 Cfg.Initial(false);
@@ -87,10 +83,10 @@ namespace Dewritwo
                     {
                         eldoritoLatestVersion = pair.Key;
                     }
-                    var data = wc.DownloadString("http://eldewrito.anvilonline.net/" + eldoritoLatestVersion+"/dewrito.json");
+                    var data = wc.DownloadString("http://eldewrito.anvilonline.net/" + eldoritoLatestVersion + "/dewrito.json");
                     //Console.WriteLine(update["baseUrl"]);
                     settingsJson = JObject.Parse(data);
-                    
+
                     if (settingsJson["gameFiles"] == null || settingsJson["updateServiceUrl"] == null)
                     {
                         AppendDebugLine("Error reading json: gameFiles or updateServiceUrl is missing.",
@@ -162,7 +158,7 @@ namespace Dewritwo
                         "Latest Version: " + eldoritoLatestVersion,
                         Color.FromRgb(255, 255, 0));
                 }
-            } 
+            }
         }
 
         private bool VersionCheck()
