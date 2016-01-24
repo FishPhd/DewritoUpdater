@@ -850,6 +850,15 @@ namespace Dewritwo
             Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
         }
 
+        private void Weapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            Cfg.SetVariable("Player.RenderWeapon", Convert.ToString(Weapon.SelectedValue), ref Cfg.configFile);
+            Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
+        }
+
         private void Helmet_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!IsLoaded)
@@ -1320,6 +1329,9 @@ namespace Dewritwo
             if (Cfg.configFile["Player.Name"] == "Forgot")
                 Cfg.SetVariable("Player.Name", "", ref Cfg.configFile);
             Name.Text = Cfg.configFile["Player.Name"];
+            Weapon.SelectedValue = Cfg.configFile.ContainsKey("Player.RenderWeapon") ?
+                Cfg.configFile["Player.RenderWeapon"] :
+                Cfg.configFile["Player.RenderWeapon"] = "assault_rifle";
             Helmet.SelectedValue = Cfg.configFile["Player.Armor.Helmet"];
             Chest.SelectedValue = Cfg.configFile["Player.Armor.Chest"];
             Shoulders.SelectedValue = Cfg.configFile["Player.Armor.Shoulders"];
@@ -1507,7 +1519,6 @@ namespace Dewritwo
         #endregion
 
         #endregion
-
     }
 }
 

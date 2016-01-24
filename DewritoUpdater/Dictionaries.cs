@@ -7,6 +7,7 @@ namespace Dewritwo
         public static Dictionary<string, string> GetArmor()
         {
             var Armor = new Dictionary<string, string>();
+
             Armor.Add("Air Assault", "air_assault");
             Armor.Add("Stealth", "stealth");
             Armor.Add("Renegade", "renegade");
@@ -33,6 +34,7 @@ namespace Dewritwo
             Armor.Add("Oracle", "oracle");
             Armor.Add("Silverback", "silverback");
             Armor.Add("Widow Maker", "widow_maker");
+
             return Armor;
         }
 
@@ -64,13 +66,24 @@ namespace Dewritwo
             Colors.Add("Sienna", "sienna");
             return Colors;
         }
-        public static Dictionary<string, string> GetAction()
-        {
-            var Actions = new Dictionary<string, string>();
-            Actions.Add("Bind", "bind");
-            Actions.Add("Commands", "command");
-            return Actions;
-        }
+
+        public static Dictionary<string, string> GetWeapons() =>
+            new Dictionary<string, string>
+            {
+                ["Assault Rifle"] = "assault_rifle",
+                ["Battle Rifle"] = "battle_rifle",
+                ["Covenant Carbine"] = "covenant_carbine",
+                ["DMR"] = "dmr",
+                ["Plasma Rifle"] = "plasma_rifle",
+                ["SMG"] = "smg"
+            };
+
+        public static Dictionary<string, string> GetAction() =>
+            new Dictionary<string, string>
+            {
+                ["Bind"] = "bind",
+                ["Commands"] = "command"
+            };
 
         public static Dictionary<string, string> GetCommand()
         {
