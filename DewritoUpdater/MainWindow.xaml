@@ -4,7 +4,7 @@
                       xmlns:local="clr-namespace:Dewritwo"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="ElDewrito" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-                      Height="600" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
+                      Height="632" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
                       xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit" Closing="MainWindow_Closing"
                       Width="800">
     <Controls:MetroWindow.RightWindowCommands>
@@ -38,6 +38,7 @@
     <Controls:MetroWindow.Resources>
         <ObjectDataProvider x:Key="Armor" ObjectType="{x:Type local:Dictionaries}" MethodName="GetArmor" />
         <ObjectDataProvider x:Key="Color" ObjectType="{x:Type local:Dictionaries}" MethodName="GetColor" />
+        <ObjectDataProvider x:Key="Weapon" ObjectType="{x:Type local:Dictionaries}" MethodName="GetWeapons" />
         <ObjectDataProvider x:Key="Theme" ObjectType="{x:Type local:Dictionaries}" MethodName="GetTheme" />
         <ObjectDataProvider x:Key="Action" ObjectType="{x:Type local:Dictionaries}" MethodName="GetAction" />
         <ObjectDataProvider x:Key="Command" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommand" />
@@ -53,7 +54,7 @@
             <Controls:Flyout Header="Flyout" Position="Right" Width="405" IsOpen="False" x:Name="Flyout" Theme="Adapt">
                 <Grid x:Name="MainGrid">
                     <Grid x:Name="CustomGrid" Margin="5,0,5,5" Visibility="Hidden">
-                        <StackPanel Orientation="Vertical" Margin="20,5,0,0" VerticalAlignment="Top"
+                        <StackPanel Orientation="Vertical" Margin="20,10,0,0" VerticalAlignment="Top"
                                     HorizontalAlignment="Left">
                             <Label FontSize="14" FontWeight="Bold">Player Settings</Label>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -61,8 +62,16 @@
                                 <TextBox x:Name="Name" Width="200" Height="10" Margin="54,0,0,0"
                                          Controls:TextBoxHelper.Watermark="No Username" MaxLength="15" TextChanged="Name_TextChanged" />
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                <Label FontSize="14">Weapon:</Label>
+                                <ComboBox x:Name="Weapon" Width="200" SelectedValue="assault_rifle"
+                                          SelectionChanged="Weapon_SelectionChanged"
+                                          ItemsSource="{Binding Source={StaticResource Weapon}}"
+                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                                          Margin="40,0,0,0" />
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="20,70,0,0" VerticalAlignment="Top"
+                        <StackPanel Orientation="Vertical" Margin="20,106,0,0" VerticalAlignment="Top"
                                     HorizontalAlignment="Left">
                             <Label FontSize="14" FontWeight="Bold">Armor Customization</Label>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -171,12 +180,12 @@
                                     </wpfTool:ColorPicker.Background>
                                 </wpfTool:ColorPicker>
                             </StackPanel>
-                            <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed" VerticalAlignment="Bottom" Margin="5,10,0,0">Randomize Armor on Launch</CheckBox>
+                            <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed" VerticalAlignment="Bottom" Margin="5,30,0,0">Randomize Armor on Launch</CheckBox>
                         </StackPanel>
 
                         <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="btnRandom_Click"
                                 Content="Random" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
-                                Margin="0,20,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                Margin="0,40,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
                     </Grid>
                     <Grid x:Name="SettingsGrid" Margin="5,0,5,5" Visibility="Hidden">
