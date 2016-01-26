@@ -120,6 +120,7 @@ namespace Dewritwo.Resources
       {
         SetVariable("Game.MenuURL", "http://scooterpsu.github.io/", ref configFile);
         SetVariable("Game.LanguageID", "0", ref configFile);
+        SetVariable("Game.SkipLauncher", "0", ref configFile);
         SetVariable("Game.LogName", "dorito.log", ref configFile);
         SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
         SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
@@ -141,7 +142,6 @@ namespace Dewritwo.Resources
         SetVariable("Player.PubKey", "", ref configFile);
         SetVariable("Server.Name", "Halo Online Server", ref configFile);
         SetVariable("Server.Password", "", ref configFile);
-        SetVariable("Game.MedalsZip", "halo3", ref configFile);
         SetVariable("Server.Countdown", "5", ref configFile);
         SetVariable("Server.MaxPlayers", "16", ref configFile);
         SetVariable("Server.Port", "11775", ref configFile);

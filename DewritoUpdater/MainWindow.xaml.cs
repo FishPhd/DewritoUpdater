@@ -15,7 +15,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Crc32C;
 using Dewritwo.Resources;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
@@ -109,6 +108,7 @@ namespace Dewritwo
             Dispatcher.Invoke(() =>
               {
                 BTNAction.Content = "Error";
+                BTNSkip.Content = "Ignore";
                 if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
@@ -126,6 +126,7 @@ namespace Dewritwo
         Dispatcher.Invoke(() =>
         {
           BTNAction.Content = "Error";
+          BTNSkip.Content = "Ignore";
           if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
             Flyout.IsOpen = false;
@@ -228,6 +229,7 @@ namespace Dewritwo
         Dispatcher.Invoke(() =>
         {
           BTNAction.Content = "Error";
+          BTNSkip.Content = "Ignore";
           if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
             Flyout.IsOpen = false;
@@ -324,11 +326,12 @@ namespace Dewritwo
           {
             AppendDebugLine("Original file data for file \"" + fileName + "\" not found.",
               Color.FromRgb(255, 0, 0));
-            AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+            AppendDebugLine("Please redo your ElDorito installation",
               Color.FromRgb(255, 0, 0), false);
             Dispatcher.Invoke(() =>
             {
               BTNAction.Content = "Error";
+              BTNSkip.Content = "Ignore";
               if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
@@ -348,11 +351,12 @@ namespace Dewritwo
                 "File \"" + fileName +
                 "\" was found but isn't original, and a valid backup of the original data wasn't found.",
                 Color.FromRgb(255, 0, 0));
-              AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+              AppendDebugLine("Please redo your ElDorito installation",
                 Color.FromRgb(255, 0, 0), false);
               Dispatcher.Invoke(() =>
               {
                 BTNAction.Content = "Error";
+                BTNSkip.Content = "Ignore";
                 if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
@@ -371,11 +375,12 @@ namespace Dewritwo
             {
               AppendDebugLine("Original file data for file \"" + fileName + "\" not found.",
                 Color.FromRgb(255, 0, 0));
-              AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+              AppendDebugLine("Please redo your ElDorito installation",
                 Color.FromRgb(255, 0, 0), false);
               Dispatcher.Invoke(() =>
               {
                 BTNAction.Content = "Error";
+                BTNSkip.Content = "Ignore";
                 if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
@@ -406,6 +411,7 @@ namespace Dewritwo
             Dispatcher.Invoke(() =>
             {
               BTNAction.Content = "Error";
+              BTNSkip.Content = "Ignore";
               if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
@@ -432,23 +438,22 @@ namespace Dewritwo
     }
 
     /*
-        private void InitialHash()
-        {
-            var watch = Stopwatch.StartNew();
-            AppendDebugLine("CRC32 of tags.dat: " + Append("maps/tags.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of audio.dat: " + Append("maps/audio.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of textures.dat: " + Append("maps/textures.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of textures_b.dat: " + Append("maps/textures_b.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of resources.dat: " + Append("maps/resources.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of string_ids.dat: " + Append("maps/string_ids.dat"), Color.FromRgb(255, 255, 0));
-            AppendDebugLine("CRC32 of video.dat: " + Append("maps/video.dat"), Color.FromRgb(255, 255, 0));
-            //AppendDebugLine("CRC32 of halo3.zip: " + Append("mods/medals/halo3.zip"), Color.FromRgb(255, 255, 0));
-            watch.Stop();
-            double seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
-            AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
-            BTNAction.Content = "Update";
-        }
-        */
+    private void InitialHash()
+    {
+        var watch = Stopwatch.StartNew();
+        AppendDebugLine("CRC32 of tags.dat: " + Append("maps/tags.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of audio.dat: " + Append("maps/audio.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of textures.dat: " + Append("maps/textures.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of textures_b.dat: " + Append("maps/textures_b.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of resources.dat: " + Append("maps/resources.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of string_ids.dat: " + Append("maps/string_ids.dat"), Color.FromRgb(255, 255, 0));
+        AppendDebugLine("CRC32 of video.dat: " + Append("maps/video.dat"), Color.FromRgb(255, 255, 0));
+        //AppendDebugLine("CRC32 of halo3.zip: " + Append("mods/medals/halo3.zip"), Color.FromRgb(255, 255, 0));
+        watch.Stop();
+        double seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
+        AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
+        BTNAction.Content = "Update";
+    }
 
     public static uint Append(string filePath)
     {
@@ -457,6 +462,7 @@ namespace Dewritwo
       var append = Crc32CAlgorithm.Append(initialHash, fileSize);
       return append;
     }
+    */
 
     public static byte[] ReadFile(string path)
     {
@@ -492,11 +498,12 @@ namespace Dewritwo
             continue;
 
           AppendDebugLine("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
-          AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+          AppendDebugLine("Please redo your ElDorito installation",
             Color.FromRgb(255, 0, 0), false);
           Dispatcher.Invoke(() =>
           {
             BTNAction.Content = "Error";
+            BTNSkip.Content = "Ignore";
             if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
@@ -516,11 +523,12 @@ namespace Dewritwo
           AppendDebugLine("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0), false);
           AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0),
             false);
-          AppendDebugLine("Please redo your Halo Online installation with the original HO files.",
+          AppendDebugLine("Please redo your ElDorito installation",
             Color.FromRgb(255, 0, 0), false);
           Dispatcher.Invoke(() =>
           {
             BTNAction.Content = "Error";
+            BTNSkip.Content = "Ignore";
             if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
@@ -594,6 +602,7 @@ namespace Dewritwo
           Dispatcher.Invoke(() =>
           {
             BTNAction.Content = "Error";
+            BTNSkip.Content = "Ignore";
             if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
@@ -721,7 +730,23 @@ namespace Dewritwo
 
       if (BTNAction.Content == "Play Game")
       {
-        Process.Start(startInfo);
+        try
+        {
+          Process.Start(startInfo);
+        }
+        catch
+        {
+          Dispatcher.Invoke(() =>
+          {
+            AppendDebugLine("Cannot locate eldorado.exe. Are you running in the right location?", Color.FromRgb(255, 0, 0));
+            if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            {
+              Flyout.IsOpen = false;
+              FlyoutHandler(DebugGrid, "Debug Log");
+            }
+          });
+        }
+        
         if (Cfg.launcherConfigFile["Launcher.Random"] == "1")
           RandomArmor();
         if (Cfg.launcherConfigFile["Launcher.Close"] == "1")
@@ -748,6 +773,7 @@ namespace Dewritwo
             Dispatcher.Invoke(() =>
             {
               BTNAction.Content = "Error";
+              BTNSkip.Content = "Ignore";
               if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
@@ -778,6 +804,10 @@ namespace Dewritwo
 
     private void BTNSkip_OnClick(object sender, RoutedEventArgs e)
     {
+      if(BTNSkip.Content == "Ignore")
+        AppendDebugLine("Error ignored. You may now play (with possibility of problems)",Color.FromRgb(255, 255, 255));
+      else if(BTNSkip.Content == "Skip")
+        AppendDebugLine("Validating skipped. You may now play (with possibility of problems)", Color.FromRgb(255, 255, 255));
       var fade = (Storyboard)TryFindResource("fade");
       fade.Stop();
       BTNAction.Content = "Play Game";
@@ -1360,7 +1390,7 @@ namespace Dewritwo
       Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
     }
 
-    private void autoDebug_Changed(object sender, RoutedEventArgs e)
+    private void AutoDebug_Changed(object sender, RoutedEventArgs e)
     {
       if (!IsLoaded)
       {
@@ -1368,6 +1398,16 @@ namespace Dewritwo
       }
       Cfg.SetVariable("Launcher.AutoDebug", Convert.ToString(Convert.ToInt32(autoDebug.IsChecked)), ref Cfg.launcherConfigFile);
       Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+    }
+
+    private void SkipLauncher_Changed(object sender, RoutedEventArgs e)
+    {
+      if (!IsLoaded)
+      {
+        return;
+      }
+      Cfg.SetVariable("Game.SkipLauncher", Convert.ToString(Convert.ToInt32(skipLauncher.IsChecked)), ref Cfg.configFile);
+      Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
 
