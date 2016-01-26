@@ -4,7 +4,7 @@
                       xmlns:local="clr-namespace:Dewritwo"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="ElDewrito" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-                      Height="600" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
+                      Height="632" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
                       xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit" Closing="MainWindow_Closing"
                       Width="800">
     <Controls:MetroWindow.RightWindowCommands>
@@ -276,6 +276,10 @@
                 <Label FontSize="14">Close on Launch:</Label>
                 <CheckBox x:Name="Launch" Margin="17,0,0,0" Checked="Launch_Changed" Unchecked="Launch_Changed" />
               </StackPanel>
+              <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                <Label FontSize="14">Disable Auto Debug:</Label>
+                <CheckBox x:Name="autoDebug" Margin="17,0,0,0" Checked="autoDebug_Changed" Unchecked="autoDebug_Changed" />
+              </StackPanel>
             </StackPanel>
           </Grid>
           <Grid x:Name="VOIPSettingsGrid" Margin="5,0,5,5" Visibility="Hidden">
@@ -336,7 +340,7 @@
               <StackPanel x:Name="PreviewPanel" Orientation="Vertical" Margin="5,0,0,0" Width="Auto">
                 <TextBox x:Name="CommandLine" Width="363" Margin="0,10,10,0" TextChanged="CommandLine_OnTextChanged" Controls:TextBoxHelper.Watermark="Command Value" Visibility="Visible"/>
                 <Label x:Name="PreviewLabel" FontSize="14" FontWeight="Bold" Margin="-4,5,0,0">Preview</Label>
-                <TextBox x:Name="Preview" TextChanged="Preview_OnTextChanged" Height="380" Width="363" Margin="-10,0,0,0" AcceptsReturn="True"/>
+                <TextBox x:Name="Preview" TextChanged="Preview_OnTextChanged" Height="400" Width="363" Margin="-10,0,0,0" AcceptsReturn="True"/>
               </StackPanel>
             </StackPanel>
           </Grid>
@@ -354,7 +358,7 @@
             <TextBox x:Name="ChangelogContent" Margin="0"
                                  BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow"
                                  VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."
-                                 FontSize="12" Padding="20" />
+                                 FontSize="14" Padding="10" />
           </Grid>
         </Grid>
       </Controls:Flyout>
@@ -477,7 +481,7 @@
                 VerticalAlignment="Bottom" Margin="16,20,45,5" Width="Auto" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" Background="{x:Null}" />
         <!-- Main Buttons -->
         <Grid Grid.Column="1">
-            <Controls:Tile Width="Auto" Height="125" Margin="0,20,20,0" VerticalAlignment="Top" ToolTip="Customize Your Spartan and Username"
+            <Controls:Tile Width="Auto" Height="135" Margin="0,15,20,0" VerticalAlignment="Top" ToolTip="Customize Your Spartan and Username"
                            Title="Player Customization" CountFontSize="18" Click="Custom_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
                 <Rectangle x:Name="CustomIcon" Width="64" Height="64" Fill="White">
                     <Rectangle.OpacityMask>
@@ -486,7 +490,7 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="125" Margin="0,155,20,0" VerticalAlignment="Top" Title="Settings" ToolTip="Change Game and Host Settings"
+            <Controls:Tile Width="Auto" Height="135" Margin="0,160,20,0" VerticalAlignment="Top" Title="Settings" ToolTip="Change Game and Host Settings"
                            CountFontSize="18" Click="Settings_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
                 <Rectangle x:Name="SettingsIcon" Width="64" Height="64" Fill="White">
                     <Rectangle.OpacityMask>
@@ -495,7 +499,7 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="125" Margin="0,290,20,0" VerticalAlignment="Top" Title="VOIP Settings" ToolTip="Adjust Voice Over IP Settings"
+            <Controls:Tile Width="Auto" Height="135" Margin="0,305,20,0" VerticalAlignment="Top" Title="VOIP Settings" ToolTip="Adjust Voice Over IP Settings"
                            CountFontSize="18" Click="Voip_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
                 <Rectangle x:Name="VOIPIcon" Width="64" Height="64" Fill="White">
                     <Rectangle.OpacityMask>
@@ -504,7 +508,7 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="125" Margin="0,425,20,0" VerticalAlignment="Top" Title="Auto Exec" ToolTip="Create an Auto Executing Script"
+            <Controls:Tile Width="Auto" Height="135" Margin="0,450,20,0" VerticalAlignment="Top" Title="Auto Exec" ToolTip="Create an Auto Executing Script"
                            CountFontSize="18" Click="AutoExec_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
                 <Rectangle x:Name="AutoExecIcon" Width="64" Height="64" Fill="White">
                     <Rectangle.OpacityMask>
