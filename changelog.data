@@ -1,0 +1,11 @@
+0.5.0.2
+* Fixed forge crashes
+
+0.5.0.1
+* Fixed AMD Shader Bugs, both NVIDIA and AMD users redownload the game.
+* Removed unused/duplicates tags.
+
+0.5.0.0
+* New maps - High Ground, Last Resort, Narrows, Standoff, The Pit and Sandtrap
+* IP Banning
+* Audio Channels are now at 1024 instead of 64.
