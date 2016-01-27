@@ -87,10 +87,9 @@ namespace Dewritwo
         AppendDebugLine("Cfg Reload Complete", Color.FromRgb(0, 255, 0));
       }
 
-      if (Directory.Exists("bink"))
+      if (Directory.Exists("bink") && Cfg.launcherConfigFile["Launcher.IntroSkip"] == "1")
       {
         Directory.Move("bink", "bink_disabled");
-        chkIntro.IsChecked = true;
       }
 
       try
