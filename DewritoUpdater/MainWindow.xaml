@@ -181,7 +181,7 @@
                   </wpfTool:ColorPicker.Background>
                 </wpfTool:ColorPicker>
               </StackPanel>
-              <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed" VerticalAlignment="Bottom" Margin="5,30,0,0">Randomize Armor on Launch</CheckBox>
+              <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed" VerticalAlignment="Bottom" Margin="5,20,0,0">Randomize Armor on Launch</CheckBox>
             </StackPanel>
 
             <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="btnRandom_Click"

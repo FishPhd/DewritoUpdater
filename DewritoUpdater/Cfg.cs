@@ -129,9 +129,9 @@ namespace Dewritwo.Resources
         SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
         SetVariable("Player.Armor.Pelvis", "", ref configFile);
         SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
-        SetVariable("Player.Colors.Primary", "#000000", ref configFile);
-        SetVariable("Player.Colors.Secondary", "#000000", ref configFile);
-        SetVariable("Player.Colors.Visor", "#000000", ref configFile);
+        SetVariable("Player.Colors.Primary", "#698029", ref configFile);
+        SetVariable("Player.Colors.Secondary", "#698029", ref configFile);
+        SetVariable("Player.Colors.Visor", "#FFA000", ref configFile);
         SetVariable("Player.Colors.Lights", "#000000", ref configFile);
         SetVariable("Player.Colors.Holo", "#000000", ref configFile);
         SetVariable("Player.Name", "", ref configFile);
