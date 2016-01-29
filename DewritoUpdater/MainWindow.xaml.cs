@@ -666,6 +666,36 @@ namespace Dewritwo
 
     private void Custom_Click(object sender, RoutedEventArgs e)
     {
+      try
+      {
+        if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
+        {
+          var MessageWindow =
+            new MsgBox("This will update your spartan live!", "Just edit settings in the launcher while the game is open.");
+
+          MessageWindow.Show();
+          MessageWindow.Focus();
+
+          Cfg.SetVariable("Launcher.PlayerMessage", "1", ref Cfg.launcherConfigFile);
+          Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+        }
+      }
+      catch
+      {
+        Cfg.SetVariable("Launcher.PlayerMessage", "0", ref Cfg.launcherConfigFile);
+        Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+        if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
+        {
+          var MessageWindow =
+            new MsgBox("This will update your spartan live!", "Just edit settings in the launcher while the game is open.");
+
+          MessageWindow.Show();
+          MessageWindow.Focus();
+
+          Cfg.SetVariable("Launcher.PlayerMessage", "1", ref Cfg.launcherConfigFile);
+          Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
+        }
+      }
       FlyoutHandler(CustomGrid, "Player Customization");
     }
 

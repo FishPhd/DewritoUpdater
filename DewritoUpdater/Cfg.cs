@@ -177,6 +177,7 @@ namespace Dewritwo.Resources
         SetVariable("Launcher.Random", "0", ref launcherConfigFile);
         SetVariable("Launcher.IntroSkip", "1", ref launcherConfigFile);
         SetVariable("Launcher.AutoDebug", "0", ref launcherConfigFile);
+        SetVariable("Launcher.PlayerMessage", "0", ref launcherConfigFile);
         Console.WriteLine("New Launcher CFG Created");
       }
 
