@@ -32,7 +32,7 @@ namespace Dewritwo
         ["Omni"] = "omni",
         ["Oracle"] = "oracle",
         ["Silverback"] = "silverback",
-        ["Widow Maker"] = "widow_maker"
+        ["Widow Maker"] = "widow_maker",
       };
 
     public static Dictionary<string, string> GetColor() =>
@@ -60,7 +60,7 @@ namespace Dewritwo
         ["Steel"] = "steel",
         ["Mauve"] = "mauve",
         ["Taupe"] = "taupe",
-        ["Sienna"] = "sienna"
+        ["Sienna"] = "sienna",
       };
 
     public static Dictionary<string, string> GetWeapons() =>
@@ -127,7 +127,7 @@ namespace Dewritwo
         ["Saturation Value"] = "Graphics.Saturation",
         ["Show Game Version"] = "Game.Version",
         ["Start/Restart Game"] = "Game.Start",
-        ["Write Config File"] = "WriteConfig"
+        ["Write Config File"] = "WriteConfig",
       };
 
     public static Dictionary<string, string> GetCommandLine() =>
@@ -176,7 +176,7 @@ namespace Dewritwo
         ["Server.Port"] = "HTTP Port that Servers Run on [Port]",
         ["Time.GameSpeed"] = "Adjusts Games Speed [Value]",
         ["WriteConfig"] = "Writes ElDewrito Settings to Cfg [FileName]",
-        ["Help"] = "Displays All Console Commands [No Value]"
+        ["Help"] = "Displays All Console Commands [No Value]",
       };
 
     public static Dictionary<string, string> GetTheme() =>
