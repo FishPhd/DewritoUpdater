@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -1212,7 +1213,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Camera.FOV", Convert.ToString(Fov.Value), ref Cfg.configFile);
+      Cfg.SetVariable("Camera.FOV", Convert.ToString(Fov.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1263,7 +1264,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Server.MaxPlayers", Convert.ToString(MaxPlayer.Value), ref Cfg.configFile);
+      Cfg.SetVariable("Server.MaxPlayers", Convert.ToString(MaxPlayer.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1283,7 +1284,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Server.Countdown", Convert.ToString(StartTimer.Value), ref Cfg.configFile);
+      Cfg.SetVariable("Server.Countdown", Convert.ToString(StartTimer.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1486,7 +1487,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("VoIP.VolumeModifier", Convert.ToString(VolumeModifier.Value), ref Cfg.configFile);
+      Cfg.SetVariable("VoIP.VolumeModifier", Convert.ToString(VolumeModifier.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1506,7 +1507,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(VAL.Value), ref Cfg.configFile);
+      Cfg.SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(VAL.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
