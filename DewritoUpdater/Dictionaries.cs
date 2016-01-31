@@ -127,6 +127,7 @@ namespace Dewritwo
         ["Saturation Value"] = "Graphics.Saturation",
         ["Show Game Version"] = "Game.Version",
         ["Start/Restart Game"] = "Game.Start",
+        ["Stop/Returns to Lobby"] = "Game.Stop",
         ["Write Config File"] = "WriteConfig"
       };
 
@@ -159,6 +160,7 @@ namespace Dewritwo
         ["Game.SetMenuEnabled"] = "Opens the HTML Menu [0 or 1]",
         ["Game.ShowUI"] = "Opens a Specific UI [UI Value]",
         ["Game.Start"] = "Starts a Game or Restarts Current Game [No Value]",
+        ["Game.Stop"] = "Stops a Game or Returns Current Game to Lobby [No Value]",
         ["Game.Version"] = "Displays the Current Game Version [No Value]",
         ["Graphics.RedHue"] = "Red Hue Value [Value]",
         ["Graphics.GreenHue"] = "Green Hue Value [Value]",
