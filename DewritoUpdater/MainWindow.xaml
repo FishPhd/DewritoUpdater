@@ -60,7 +60,7 @@
               <Label FontSize="14" FontWeight="Bold">Player Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Name:</Label>
-                <TextBox x:Name="Name" Width="200" Height="10" Margin="54,0,0,0"
+                <TextBox x:Name="NameBox" Width="200" Height="10" Margin="54,0,0,0"
                                          Controls:TextBoxHelper.Watermark="No Username" MaxLength="15" TextChanged="Name_TextChanged" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
@@ -326,7 +326,7 @@
           </Grid>
           <Grid x:Name="AutoExecGrid" Margin="5,0,5,5" Visibility="Hidden">
             <StackPanel Orientation="Vertical" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-              <Label x:Name="Focus" FontSize="14" FontWeight="Bold" Margin="0,5,0,0">AutoExec Settings</Label>
+              <Label x:Name="FocusLabel" FontSize="14" FontWeight="Bold" Margin="0,5,0,0">AutoExec Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <ComboBox x:Name="Action" Width="95" SelectedValue="bind"
                                           ItemsSource="{Binding Source={StaticResource Action}}"
@@ -428,7 +428,7 @@
             </Canvas>
         </Viewbox>
 
-        <Label x:Name="Title" Content="ELDEWRITO" Grid.Column="0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,150,0,0" FontSize="40" FontFamily="Lato Semibold" />
+        <Label x:Name="TitleLabel" Content="ELDEWRITO" Grid.Column="0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,150,0,0" FontSize="40" FontFamily="Lato Semibold" />
         <Button Click="d_Click" Margin="127,344,0,192" Background="Transparent" HorizontalAlignment="Left" Width="30" />
         <Button Style="{StaticResource AccentedSquareButtonStyle}" x:Name="BTNSkip" Content="Skip" Click="BTNSkip_OnClick" Controls:ButtonHelper.PreserveTextCase="True" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,0,0,100" Height="40" Width="100" BorderBrush="{x:Null}" FontSize="16" />
 
