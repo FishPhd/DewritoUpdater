@@ -115,7 +115,8 @@ namespace Dewritwo
               {
                 BTNAction.Content = "Error";
                 BTNSkip.Content = "Ignore";
-                if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+                if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                    Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
                   FlyoutHandler(DebugGrid, "Debug Log");
@@ -133,7 +134,8 @@ namespace Dewritwo
         {
           BTNAction.Content = "Error";
           BTNSkip.Content = "Ignore";
-          if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+          if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+              Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
             Flyout.IsOpen = false;
             FlyoutHandler(DebugGrid, "Debug Log");
@@ -236,7 +238,8 @@ namespace Dewritwo
         {
           BTNAction.Content = "Error";
           BTNSkip.Content = "Ignore";
-          if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+          if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+              Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
             Flyout.IsOpen = false;
             FlyoutHandler(DebugGrid, "Debug Log");
@@ -338,7 +341,8 @@ namespace Dewritwo
             {
               BTNAction.Content = "Error";
               BTNSkip.Content = "Ignore";
-              if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+              if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
                 FlyoutHandler(DebugGrid, "Debug Log");
@@ -363,7 +367,8 @@ namespace Dewritwo
               {
                 BTNAction.Content = "Error";
                 BTNSkip.Content = "Ignore";
-                if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+                if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                    Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
                   FlyoutHandler(DebugGrid, "Debug Log");
@@ -387,7 +392,8 @@ namespace Dewritwo
               {
                 BTNAction.Content = "Error";
                 BTNSkip.Content = "Ignore";
-                if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+                if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                    Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
                   Flyout.IsOpen = false;
                   FlyoutHandler(DebugGrid, "Debug Log");
@@ -418,7 +424,8 @@ namespace Dewritwo
             {
               BTNAction.Content = "Error";
               BTNSkip.Content = "Ignore";
-              if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+              if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
                 FlyoutHandler(DebugGrid, "Debug Log");
@@ -510,7 +517,8 @@ namespace Dewritwo
           {
             BTNAction.Content = "Error";
             BTNSkip.Content = "Ignore";
-            if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
               FlyoutHandler(DebugGrid, "Debug Log");
@@ -535,7 +543,8 @@ namespace Dewritwo
           {
             BTNAction.Content = "Error";
             BTNSkip.Content = "Ignore";
-            if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
               FlyoutHandler(DebugGrid, "Debug Log");
@@ -609,7 +618,8 @@ namespace Dewritwo
           {
             BTNAction.Content = "Error";
             BTNSkip.Content = "Ignore";
-            if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
               FlyoutHandler(DebugGrid, "Debug Log");
@@ -764,7 +774,7 @@ namespace Dewritwo
       startInfo.FileName = "eldorado.exe";
       startInfo.Arguments = "-launcher";
 
-      if (BTNAction.Content == "Play Game")
+      if (BTNAction.Content.Equals("Play Game"))
       {
         try
         {
@@ -775,7 +785,8 @@ namespace Dewritwo
           Dispatcher.Invoke(() =>
           {
             AppendDebugLine("Cannot locate eldorado.exe. Are you running in the right location?", Color.FromRgb(255, 0, 0));
-            if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
               Flyout.IsOpen = false;
               FlyoutHandler(DebugGrid, "Debug Log");
@@ -788,7 +799,7 @@ namespace Dewritwo
         if (Cfg.launcherConfigFile["Launcher.Close"] == "1")
           Application.Current.Shutdown();
       }
-      else if (BTNAction.Content == "Update")
+      else if (BTNAction.Content.Equals("Update"))
       {
         foreach (var file in filesToDownload)
         {
@@ -810,7 +821,8 @@ namespace Dewritwo
             {
               BTNAction.Content = "Error";
               BTNSkip.Content = "Ignore";
-              if (Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+              if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
                 Flyout.IsOpen = false;
                 FlyoutHandler(DebugGrid, "Debug Log");
@@ -840,9 +852,9 @@ namespace Dewritwo
 
     private void BTNSkip_OnClick(object sender, RoutedEventArgs e)
     {
-      if(BTNSkip.Content == "Ignore")
+      if(BTNSkip.Content.Equals("Ignore"))
         AppendDebugLine("Error ignored. You may now play (with possibility of problems)",Color.FromRgb(255, 255, 255));
-      else if(BTNSkip.Content == "Skip")
+      else if(BTNSkip.Content.Equals("Skip"))
         AppendDebugLine("Validating skipped. You may now play (with possibility of problems)", Color.FromRgb(255, 255, 255));
       var fade = (Storyboard)TryFindResource("fade");
       fade.Stop();
@@ -922,7 +934,7 @@ namespace Dewritwo
 
     private void Action_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      if (Action.SelectedValue == "command")
+      if (Action.SelectedValue.Equals("command"))
       {
         keyValue = "Unbound";
         BindButton.Text = keyValue;
@@ -937,7 +949,7 @@ namespace Dewritwo
         PreviewLabel.Margin = new Thickness(4, 5, 0, 0);
         Console.WriteLine("Command");
       }
-      if (Action.SelectedValue == "bind")
+      if (Action.SelectedValue.Equals("bind"))
       {
         Command.ItemsSource = Dictionaries.GetCommand();
         updateText = false;
@@ -955,7 +967,7 @@ namespace Dewritwo
 
     private void CommandLine_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-      if (updateText && Action.SelectedValue == "command")
+      if (updateText && Action.SelectedValue.Equals("command"))
       {
         AutoExecWrite(Command.SelectedValue + " " + CommandLine.Text,
           new Regex("^\\s*" + Regex.Escape(Convert.ToString(Command.SelectedValue))
@@ -1028,7 +1040,7 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Player.Name", Name.Text, ref Cfg.configFile);
+      Cfg.SetVariable("Player.Name", NameBox.Text, ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1333,23 +1345,23 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Dark);
         VOIPIcon.Fill = new SolidColorBrush(Dark);
         AutoExecIcon.Fill = new SolidColorBrush(Dark);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Dark);
         E.Fill = new SolidColorBrush(Dark);
-        Title.Content = "ELDEWRITO";
+        TitleLabel.Content = "ELDEWRITO";
       }
       else
       {
         var Light = (Color) ColorConverter.ConvertFromString("#FFFFFF");
         CustomIcon.Fill = new SolidColorBrush(Light);
         SettingsIcon.Fill = new SolidColorBrush(Light);
-        Title.Foreground = new SolidColorBrush(Light);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.Foreground = new SolidColorBrush(Light);
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         VOIPIcon.Fill = new SolidColorBrush(Light);
         AutoExecIcon.Fill = new SolidColorBrush(Light);
         L.Fill = new SolidColorBrush(Light);
         E.Fill = new SolidColorBrush(Light);
-        Title.Content = "ELDEWRITO";
+        TitleLabel.Content = "ELDEWRITO";
       }
 
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" &&
@@ -1360,10 +1372,10 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Light);
         VOIPIcon.Fill = new SolidColorBrush(Light);
         AutoExecIcon.Fill = new SolidColorBrush(Light);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Light);
         E.Fill = new SolidColorBrush(Light);
-        Title.Content = "Where is your god now";
+        TitleLabel.Content = "Where is your god now";
       }
     }
 
@@ -1380,12 +1392,12 @@ namespace Dewritwo
 
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight")
       {
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
       }
       else
       {
         var Light = (Color) ColorConverter.ConvertFromString("#FFFFFF");
-        Title.Foreground = new SolidColorBrush(Light);
+        TitleLabel.Foreground = new SolidColorBrush(Light);
       }
 
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" &&
@@ -1396,10 +1408,10 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Light);
         VOIPIcon.Fill = new SolidColorBrush(Light);
         AutoExecIcon.Fill = new SolidColorBrush(Light);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Light);
         E.Fill = new SolidColorBrush(Light);
-        Title.Content = "Where is your god now";
+        TitleLabel.Content = "Where is your god now";
       }
 
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseDark" && Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
@@ -1409,10 +1421,10 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Dark);
         VOIPIcon.Fill = new SolidColorBrush(Dark);
         AutoExecIcon.Fill = new SolidColorBrush(Dark);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Dark);
         E.Fill = new SolidColorBrush(Dark);
-        Title.Content = "ELDEWRITO";
+        TitleLabel.Content = "ELDEWRITO";
       }
     }
 
@@ -1538,7 +1550,7 @@ namespace Dewritwo
       //Customization
       if (Cfg.configFile["Player.Name"] == "Forgot")
         Cfg.SetVariable("Player.Name", "", ref Cfg.configFile);
-      Name.Text = Cfg.configFile["Player.Name"];
+      NameBox.Text = Cfg.configFile["Player.Name"];
       Weapon.SelectedValue = Cfg.configFile.ContainsKey("Player.RenderWeapon")
         ? Cfg.configFile["Player.RenderWeapon"]
         : Cfg.configFile["Player.RenderWeapon"] = "assault_rifle";
@@ -1713,13 +1725,13 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Dark);
         VOIPIcon.Fill = new SolidColorBrush(Dark);
         AutoExecIcon.Fill = new SolidColorBrush(Dark);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Dark);
         E.Fill = new SolidColorBrush(Dark);
       }
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight")
       {
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
       }
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" &&
           Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
@@ -1729,10 +1741,10 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(Light);
         VOIPIcon.Fill = new SolidColorBrush(Light);
         AutoExecIcon.Fill = new SolidColorBrush(Light);
-        Title.SetResourceReference(ForegroundProperty, "AccentColorBrush");
+        TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(Light);
         E.Fill = new SolidColorBrush(Light);
-        Title.Content = "Where is your god now";
+        TitleLabel.Content = "Where is your god now";
       }
     }
 
