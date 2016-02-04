@@ -5,125 +5,128 @@
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="ElDewrito" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
-                      Height="632" ResizeMode="CanMinimize" ShowIconOnTitleBar="False"
+                      Height="632" ResizeMode="CanMinimize" ShowIconOnTitleBar="False" Loaded="MainWindow_Loaded"
                       xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit" Closing="MainWindow_Closing"
                       Width="800">
-    <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button ToolTip="Debug Log" Click="Debug_OnClick">
-                <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_console}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Button>
-            <Button ToolTip="Changelog" Click="Changelog_OnClick">
-                <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_book_list}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Button>
-            <Button ToolTip="Launcher Settings" Click="LauncherSettings_Click">
-                <Rectangle Width="15" Height="15" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_settings}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Button>
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
-    <Controls:MetroWindow.Resources>
-        <ObjectDataProvider x:Key="Armor" ObjectType="{x:Type local:Dictionaries}" MethodName="GetArmor" />
-        <ObjectDataProvider x:Key="Color" ObjectType="{x:Type local:Dictionaries}" MethodName="GetColor" />
-        <ObjectDataProvider x:Key="Weapon" ObjectType="{x:Type local:Dictionaries}" MethodName="GetWeapons" />
-        <ObjectDataProvider x:Key="Theme" ObjectType="{x:Type local:Dictionaries}" MethodName="GetTheme" />
-        <ObjectDataProvider x:Key="Action" ObjectType="{x:Type local:Dictionaries}" MethodName="GetAction" />
-        <ObjectDataProvider x:Key="Command" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommand" />
-        <ObjectDataProvider x:Key="CommandLine" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommandLine" />
-        <Storyboard x:Key="fade" RepeatBehavior="Forever">
-            <DoubleAnimation Storyboard.TargetName="BTNAction"
-                             Storyboard.TargetProperty="Opacity" From="0.20" To="1"
-                             Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
-        </Storyboard>
-    </Controls:MetroWindow.Resources>
-    <Controls:MetroWindow.Flyouts>
-        <Controls:FlyoutsControl>
+  <Controls:MetroWindow.RightWindowCommands>
+    <Controls:WindowCommands>
+      <Button ToolTip="Debug Log" Click="Debug_OnClick">
+        <Rectangle Width="15" Height="15"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_console}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+      <Button ToolTip="Changelog" Click="Changelog_OnClick">
+        <Rectangle Width="15" Height="15"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_book_list}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+      <Button ToolTip="Launcher Settings" Click="LauncherSettings_Click">
+        <Rectangle Width="15" Height="15"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_settings}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Button>
+    </Controls:WindowCommands>
+  </Controls:MetroWindow.RightWindowCommands>
+  <Controls:MetroWindow.Resources>
+    <ObjectDataProvider x:Key="Armor" ObjectType="{x:Type local:Dictionaries}" MethodName="GetArmor" />
+    <ObjectDataProvider x:Key="Color" ObjectType="{x:Type local:Dictionaries}" MethodName="GetColor" />
+    <ObjectDataProvider x:Key="Weapon" ObjectType="{x:Type local:Dictionaries}" MethodName="GetWeapons" />
+    <ObjectDataProvider x:Key="Theme" ObjectType="{x:Type local:Dictionaries}" MethodName="GetTheme" />
+    <ObjectDataProvider x:Key="Action" ObjectType="{x:Type local:Dictionaries}" MethodName="GetAction" />
+    <ObjectDataProvider x:Key="Command" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommand" />
+    <ObjectDataProvider x:Key="CommandLine" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommandLine" />
+    <Storyboard x:Key="fade" RepeatBehavior="Forever">
+      <DoubleAnimation Storyboard.TargetName="BTNAction"
+                       Storyboard.TargetProperty="Opacity" From="0.20" To="1"
+                       Duration="0:0:1" BeginTime="0:0:0" AutoReverse="True" />
+    </Storyboard>
+  </Controls:MetroWindow.Resources>
+  <Controls:MetroWindow.Flyouts>
+    <Controls:FlyoutsControl>
       <Controls:Flyout Header="Flyout" Position="Right" Width="405" IsOpen="False" x:Name="Flyout" Theme="Adapt">
         <Grid x:Name="MainGrid">
           <Grid x:Name="CustomGrid" Margin="5,0,5,5" Visibility="Hidden">
             <StackPanel Orientation="Vertical" Margin="20,10,0,0" VerticalAlignment="Top"
-                                    HorizontalAlignment="Left">
+                        HorizontalAlignment="Left">
               <Label FontSize="14" FontWeight="Bold">Player Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Name:</Label>
                 <TextBox x:Name="NameBox" Width="200" Height="10" Margin="54,0,0,0"
-                                         Controls:TextBoxHelper.Watermark="No Username" MaxLength="15" TextChanged="Name_TextChanged" />
+                         Controls:TextBoxHelper.Watermark="No Username" MaxLength="15" TextChanged="Name_TextChanged" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
                 <Label FontSize="14">Weapon:</Label>
                 <ComboBox x:Name="Weapon" Width="200" SelectedValue="assault_rifle"
-                                          SelectionChanged="Weapon_SelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Weapon}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="40,0,0,0" />
+                          SelectionChanged="Weapon_SelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Weapon}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="40,0,0,0" />
               </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="20,106,0,0" VerticalAlignment="Top"
-                                    HorizontalAlignment="Left">
+                        HorizontalAlignment="Left">
               <Label FontSize="14" FontWeight="Bold">Armor Customization</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Helmet:</Label>
                 <ComboBox x:Name="Helmet" Width="200" SelectedValue="air_assault"
-                                          SelectionChanged="Helmet_OnSelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Armor}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="46,0,0,0" />
+                          SelectionChanged="Helmet_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Armor}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="46,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Chest:</Label>
                 <ComboBox x:Name="Chest" Width="200" Height="10" SelectedValue="air_assault"
-                                          SelectionChanged="Chest_OnSelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Armor}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Margin="56,0,0,0" />
+                          SelectionChanged="Chest_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Armor}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Margin="56,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Shoulders:</Label>
                 <ComboBox x:Name="Shoulders" Width="200" SelectedValue="air_assault"
-                                          SelectionChanged="Shoulders_OnSelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Armor}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="30,0,0,0" />
+                          SelectionChanged="Shoulders_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Armor}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="30,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Arms:</Label>
                 <ComboBox x:Name="Arms" Width="200" SelectedValue="air_assault"
-                                          SelectionChanged="Arms_OnSelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Armor}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="59,0,0,0" />
+                          SelectionChanged="Arms_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Armor}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="59,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Legs:</Label>
                 <ComboBox x:Name="Legs" Width="200" SelectedValue="air_assault"
-                                          SelectionChanged="Legs_OnSelectionChanged"
-                                          ItemsSource="{Binding Source={StaticResource Armor}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          SelectedIndex="0" Margin="63,0,0,0" />
+                          SelectionChanged="Legs_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Armor}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          SelectedIndex="0" Margin="63,0,0,0" />
               </StackPanel>
 
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Color Customization</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Primary:</Label>
                 <wpfTool:ColorPicker Width="200" Margin="44,0,0,0" SelectedColor="#000000"
-                                                     x:Name="clrPrimary"
-                                                     SelectedColorChanged="clrPrimary_OnSelectedColorChanged"
-                                                     ShowDropDownButton="False" ShowAdvancedButton="False"
-                                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
-                                                     Template="{DynamicResource ColorPickerControlTemplate1}">
+                                     x:Name="clrPrimary"
+                                     SelectedColorChanged="clrPrimary_OnSelectedColorChanged"
+                                     ShowDropDownButton="False" ShowAdvancedButton="False"
+                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
+                                     Template="{DynamicResource ColorPickerControlTemplate1}">
                   <wpfTool:ColorPicker.Background>
                     <SolidColorBrush Color="#252525" />
                   </wpfTool:ColorPicker.Background>
@@ -132,11 +135,11 @@
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Secondary:</Label>
                 <wpfTool:ColorPicker Width="200" Margin="27,0,0,0" SelectedColor="#000000"
-                                                     x:Name="clrSecondary"
-                                                     SelectedColorChanged="clrSecondary_OnSelectedColorChanged"
-                                                     ShowDropDownButton="False" ShowAdvancedButton="False"
-                                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
-                                                     Template="{DynamicResource ColorPickerControlTemplate1}">
+                                     x:Name="clrSecondary"
+                                     SelectedColorChanged="clrSecondary_OnSelectedColorChanged"
+                                     ShowDropDownButton="False" ShowAdvancedButton="False"
+                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
+                                     Template="{DynamicResource ColorPickerControlTemplate1}">
                   <wpfTool:ColorPicker.Background>
                     <SolidColorBrush Color="#252525" />
                   </wpfTool:ColorPicker.Background>
@@ -145,11 +148,11 @@
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Visor:</Label>
                 <wpfTool:ColorPicker Width="200" Margin="60,0,0,0" SelectedColor="#000000"
-                                                     x:Name="clrVisor"
-                                                     SelectedColorChanged="clrVisor_OnSelectedColorChanged"
-                                                     ShowDropDownButton="False" ShowAdvancedButton="False"
-                                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
-                                                     Template="{DynamicResource ColorPickerControlTemplate1}">
+                                     x:Name="clrVisor"
+                                     SelectedColorChanged="clrVisor_OnSelectedColorChanged"
+                                     ShowDropDownButton="False" ShowAdvancedButton="False"
+                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
+                                     Template="{DynamicResource ColorPickerControlTemplate1}">
                   <wpfTool:ColorPicker.Background>
                     <SolidColorBrush Color="#252525" />
                   </wpfTool:ColorPicker.Background>
@@ -158,11 +161,11 @@
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Lights:</Label>
                 <wpfTool:ColorPicker Width="200" Margin="54,0,0,0" SelectedColor="#000000"
-                                                     x:Name="clrLights"
-                                                     SelectedColorChanged="clrLights_OnSelectedColorChanged"
-                                                     ShowDropDownButton="False" ShowAdvancedButton="False"
-                                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
-                                                     Template="{DynamicResource ColorPickerControlTemplate1}">
+                                     x:Name="clrLights"
+                                     SelectedColorChanged="clrLights_OnSelectedColorChanged"
+                                     ShowDropDownButton="False" ShowAdvancedButton="False"
+                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
+                                     Template="{DynamicResource ColorPickerControlTemplate1}">
                   <wpfTool:ColorPicker.Background>
                     <SolidColorBrush Color="#252525" />
                   </wpfTool:ColorPicker.Background>
@@ -171,106 +174,114 @@
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Holo:</Label>
                 <wpfTool:ColorPicker Width="200" Margin="61,0,0,0" SelectedColor="#000000"
-                                                     x:Name="clrHolo"
-                                                     SelectedColorChanged="clrHolo_OnSelectedColorChanged"
-                                                     ShowDropDownButton="False" ShowAdvancedButton="False"
-                                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
-                                                     Template="{DynamicResource ColorPickerControlTemplate1}">
+                                     x:Name="clrHolo"
+                                     SelectedColorChanged="clrHolo_OnSelectedColorChanged"
+                                     ShowDropDownButton="False" ShowAdvancedButton="False"
+                                     UsingAlphaChannel="False" ColorMode="ColorCanvas"
+                                     Template="{DynamicResource ColorPickerControlTemplate1}">
                   <wpfTool:ColorPicker.Background>
                     <SolidColorBrush Color="#252525" />
                   </wpfTool:ColorPicker.Background>
                 </wpfTool:ColorPicker>
               </StackPanel>
-              <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed" VerticalAlignment="Bottom" Margin="5,20,0,0">Randomize Armor on Launch</CheckBox>
+              <CheckBox x:Name="RandomCheck" Checked="RandomCheck_Changed" Unchecked="RandomCheck_Changed"
+                        VerticalAlignment="Bottom" Margin="5,20,0,0">
+                Randomize Armor on Launch
+              </CheckBox>
             </StackPanel>
 
             <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="btnRandom_Click"
-                                Content="Random" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
-                                Margin="0,40,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
+                    Content="Random" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
+                    Margin="0,40,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
           <Grid x:Name="SettingsGrid" Margin="5,0,5,5" Visibility="Hidden">
             <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top"
-                                    HorizontalAlignment="Left">
+                        HorizontalAlignment="Left">
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Graphics Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Field of View:</Label>
                 <Slider x:Name="Fov" Width="150" Margin="20,5,0,0" Value="90"
-                                        ValueChanged="Fov_OnValueChanged" Maximum="150" Minimum="30"
-                                        IsSnapToTickEnabled="True" TickFrequency="5"
-                                        Style="{DynamicResource FlatSlider}" />
+                        ValueChanged="Fov_OnValueChanged" Maximum="150" Minimum="30"
+                        IsSnapToTickEnabled="True" TickFrequency="5"
+                        Style="{DynamicResource FlatSlider}" />
                 <TextBox x:Name="txtFov" Margin="25,0,0,0" Height="20"
-                                         Text="{Binding ElementName=Fov,Path=Value}" Width="60" />
+                         Text="{Binding ElementName=Fov,Path=Value}" Width="60" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Centered Crosshair:</Label>
                 <CheckBox x:Name="CrosshairCenter" Margin="10,0,0,0" Checked="CrosshairCenter_Changed"
-                                          Unchecked="CrosshairCenter_Changed" />
+                          Unchecked="CrosshairCenter_Changed" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Input Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Raw Input:</Label>
                 <CheckBox x:Name="RawInput" Margin="10,0,0,0" Checked="RawInput_Changed"
-                                          Unchecked="RawInput_Changed" />
+                          Unchecked="RawInput_Changed" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Host Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Server Name:</Label>
                 <TextBox x:Name="ServerName" Width="200" Height="10" MaxLength="50"
-                                         TextChanged="ServerName_OnTextChanged"
-                                         Controls:TextBoxHelper.Watermark="No Server Name" Margin="32,0,0,0" />
+                         TextChanged="ServerName_OnTextChanged"
+                         Controls:TextBoxHelper.Watermark="No Server Name" Margin="32,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Server Password:</Label>
                 <PasswordBox x:Name="ServerPassword" Width="200" Height="10"
-                                             PasswordChanged="ServerPassword_OnTextChanged"
-                                             Controls:TextBoxHelper.Watermark="No Password" MaxLength="50"
-                                             Margin="10,0,0,0" />
+                             PasswordChanged="ServerPassword_OnTextChanged"
+                             Controls:TextBoxHelper.Watermark="No Password" MaxLength="50"
+                             Margin="10,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Max Players:</Label>
                 <Slider x:Name="MaxPlayer" Width="150" Margin="20,5,0,0"
-                                        ValueChanged="MaxPlayer_OnValueChanged" Value="16" Maximum="16" Minimum="1"
-                                        IsSnapToTickEnabled="True" TickFrequency="1"
-                                        Style="{DynamicResource FlatSlider}" />
+                        ValueChanged="MaxPlayer_OnValueChanged" Value="16" Maximum="16" Minimum="1"
+                        IsSnapToTickEnabled="True" TickFrequency="1"
+                        Style="{DynamicResource FlatSlider}" />
                 <TextBox x:Name="txtMaxPlayer" Margin="25,0,0,0" Height="20"
-                                         Text="{Binding ElementName=MaxPlayer,Path=Value}" Width="60" />
+                         Text="{Binding ElementName=MaxPlayer,Path=Value}" Width="60" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Start Timer:</Label>
                 <Slider x:Name="StartTimer" Width="150" Margin="25,5,0,0"
-                                        ValueChanged="StartTimer_OnValueChanged" Value="5" Maximum="20" Minimum="0"
-                                        IsSnapToTickEnabled="True" TickFrequency="1"
-                                        Style="{DynamicResource FlatSlider}" />
+                        ValueChanged="StartTimer_OnValueChanged" Value="5" Maximum="20" Minimum="0"
+                        IsSnapToTickEnabled="True" TickFrequency="1"
+                        Style="{DynamicResource FlatSlider}" />
                 <TextBox x:Name="txtStartTimer" Margin="25,0,0,0" Height="20"
-                                         Text="{Binding ElementName=StartTimer,Path=Value}" Width="60" />
+                         Text="{Binding ElementName=StartTimer,Path=Value}" Width="60" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Sprint Enabled:</Label>
-                <CheckBox x:Name="chkSprint" Unchecked="chkSprint_Changed" Checked="chkSprint_Changed" Margin="5,0,0,0"></CheckBox>
+                <CheckBox x:Name="chkSprint" Unchecked="chkSprint_Changed" Checked="chkSprint_Changed" Margin="5,0,0,0" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Game Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Disable Intro Videos:</Label>
-                <CheckBox x:Name="chkIntro" Unchecked="chkIntro_Changed" Checked="chkIntro_Changed" Margin="5,0,0,0"></CheckBox>
+                <CheckBox x:Name="chkIntro" Unchecked="chkIntro_Changed" Checked="chkIntro_Changed" Margin="5,0,0,0" />
               </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="btnReset_Click"
-                                Content="Reset" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
-                                Margin="0,20,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
+                    Content="Reset" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
+                    Margin="0,20,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
           <Grid x:Name="LauncherSettingsGrid" Margin="5,0,5,5" Visibility="Hidden">
             <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top"
-                                    HorizontalAlignment="Left">
+                        HorizontalAlignment="Left">
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Visual Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Launcher Color:</Label>
-                <ComboBox x:Name="Colors" Width="200" SelectedValue="blue" SelectionChanged="Color_OnSelectionChanged"  ItemsSource="{Binding Source={StaticResource Color}}" SelectedValuePath="Value" DisplayMemberPath="Key" Height="10" Margin="25,0,0,0" />
+                <ComboBox x:Name="Colors" Width="200" SelectedValue="blue" SelectionChanged="Color_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Color}}" SelectedValuePath="Value"
+                          DisplayMemberPath="Key" Height="10" Margin="25,0,0,0" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label FontSize="14">Launcher Theme:</Label>
-                <ComboBox x:Name="Themes" Width="200" SelectedValue="BaseDark" SelectionChanged="Theme_OnSelectionChanged"  ItemsSource="{Binding Source={StaticResource Theme}}" SelectedValuePath="Value" DisplayMemberPath="Key" Height="10" Margin="16,0,0,0" />
+                <ComboBox x:Name="Themes" Width="200" SelectedValue="BaseDark"
+                          SelectionChanged="Theme_OnSelectionChanged"
+                          ItemsSource="{Binding Source={StaticResource Theme}}" SelectedValuePath="Value"
+                          DisplayMemberPath="Key" Height="10" Margin="16,0,0,0" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Launch Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -279,11 +290,13 @@
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Disable Auto Debug:</Label>
-                <CheckBox x:Name="autoDebug" Margin="10,0,0,0" Checked="AutoDebug_Changed" Unchecked="AutoDebug_Changed" />
+                <CheckBox x:Name="autoDebug" Margin="10,0,0,0" Checked="AutoDebug_Changed"
+                          Unchecked="AutoDebug_Changed" />
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Skip Launcher (eldorado.exe):</Label>
-                <CheckBox x:Name="skipLauncher" Margin="10,0,0,0" Checked="SkipLauncher_Changed" Unchecked="SkipLauncher_Changed" />
+                <CheckBox x:Name="skipLauncher" Margin="10,0,0,0" Checked="SkipLauncher_Changed"
+                          Unchecked="SkipLauncher_Changed" />
               </StackPanel>
             </StackPanel>
           </Grid>
@@ -292,7 +305,8 @@
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">General Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">VoIp Enabled:</Label>
-                <CheckBox x:Name="chkVoIPEnabled" Margin="17,0,0,0" Checked="chkVoIPEnabled_Changed" Unchecked="chkVoIPEnabled_Changed" />
+                <CheckBox x:Name="chkVoIPEnabled" Margin="17,0,0,0" Checked="chkVoIPEnabled_Changed"
+                          Unchecked="chkVoIPEnabled_Changed" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Audio Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -305,8 +319,11 @@
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Volume Modifier:</Label>
-                <Slider x:Name="VolumeModifier" Width="150" Margin="5,5,0,0" Value="6" ValueChanged="VolumeModifier_OnValueChanged" Maximum="30" Minimum="0" IsSnapToTickEnabled="True" TickFrequency="2" Style="{DynamicResource FlatSlider}" />
-                <TextBox x:Name="txtVolumeModifier" Margin="15,0,0,0" Height="20" Text="{Binding ElementName=VolumeModifier,Path=Value}" Width="40" />
+                <Slider x:Name="VolumeModifier" Width="150" Margin="5,5,0,0" Value="6"
+                        ValueChanged="VolumeModifier_OnValueChanged" Maximum="30" Minimum="0"
+                        IsSnapToTickEnabled="True" TickFrequency="2" Style="{DynamicResource FlatSlider}" />
+                <TextBox x:Name="txtVolumeModifier" Margin="15,0,0,0" Height="20"
+                         Text="{Binding ElementName=VolumeModifier,Path=Value}" Width="40" />
               </StackPanel>
               <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Microphone Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
@@ -315,213 +332,248 @@
               </StackPanel>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Label FontSize="14">Voice Activation Level:</Label>
-                <Slider x:Name="VAL" Width="150" Margin="5,5,0,0" Value="-45" ValueChanged="VAL_OnValueChanged" Maximum="50" Minimum="-50" IsSnapToTickEnabled="True" TickFrequency="5" Style="{DynamicResource FlatSlider}" />
-                <TextBox x:Name="txtVAL" Margin="15,0,0,0" Height="20" Text="{Binding ElementName=VAL,Path=Value}" Width="40" />
+                <Slider x:Name="VAL" Width="150" Margin="5,5,0,0" Value="-45" ValueChanged="VAL_OnValueChanged"
+                        Maximum="50" Minimum="-50" IsSnapToTickEnabled="True" TickFrequency="5"
+                        Style="{DynamicResource FlatSlider}" />
+                <TextBox x:Name="txtVAL" Margin="15,0,0,0" Height="20" Text="{Binding ElementName=VAL,Path=Value}"
+                         Width="40" />
               </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="btnReset2_Click"
-                                Content="Reset" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
-                                Margin="0,20,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
+                    Content="Reset" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="75"
+                    Margin="0,20,25,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
           <Grid x:Name="AutoExecGrid" Margin="5,0,5,5" Visibility="Hidden">
             <StackPanel Orientation="Vertical" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
               <Label x:Name="FocusLabel" FontSize="14" FontWeight="Bold" Margin="0,5,0,0">AutoExec Settings</Label>
               <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <ComboBox x:Name="Action" Width="95" SelectedValue="bind"
-                                          ItemsSource="{Binding Source={StaticResource Action}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="5,0,0,0" SelectionChanged="Action_OnSelectionChanged" />
+                          ItemsSource="{Binding Source={StaticResource Action}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="5,0,0,0" SelectionChanged="Action_OnSelectionChanged" />
 
                 <ComboBox x:Name="Command" Width="150" SelectedValue="Execute"
-                                          ItemsSource="{Binding Source={StaticResource Command}}"
-                                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
-                                          Margin="10,0,0,0" SelectionChanged="Command_OnSelectionChanged" Controls:TextBoxHelper.Watermark="Command" />
+                          ItemsSource="{Binding Source={StaticResource Command}}"
+                          SelectedValuePath="Value" DisplayMemberPath="Key" Height="10"
+                          Margin="10,0,0,0" SelectionChanged="Command_OnSelectionChanged"
+                          Controls:TextBoxHelper.Watermark="Command" />
 
                 <Label x:Name="To" FontSize="14" Margin="5,0,0,0">to</Label>
-                <TextBox Margin="5,0,0,0" Width="75" x:Name="BindButton" Height="10" LostFocus="BindButton_OnLostFocus" PreviewKeyDown="BindButton_OnKeyDown" Text="Unbound" Cursor="Hand" GotFocus="BindButton_OnGotFocus" IsReadOnly="True" BorderBrush="{DynamicResource AccentColorBrush}"  Background="{DynamicResource AccentColorBrush}" TextAlignment="Center" Padding="0,0,0,0" />
+                <TextBox Margin="5,0,0,0" Width="75" x:Name="BindButton" Height="10" LostFocus="BindButton_OnLostFocus"
+                         PreviewKeyDown="BindButton_OnKeyDown" Text="Unbound" Cursor="Hand"
+                         GotFocus="BindButton_OnGotFocus" IsReadOnly="True"
+                         BorderBrush="{DynamicResource AccentColorBrush}"
+                         Background="{DynamicResource AccentColorBrush}" TextAlignment="Center" Padding="0,0,0,0" />
               </StackPanel>
 
               <StackPanel x:Name="PreviewPanel" Orientation="Vertical" Margin="5,0,0,0" Width="Auto">
-                <TextBox x:Name="CommandLine" Width="363" Margin="0,10,10,0" TextChanged="CommandLine_OnTextChanged" Controls:TextBoxHelper.Watermark="Command Value" Visibility="Visible"/>
+                <TextBox x:Name="CommandLine" Width="363" Margin="0,10,10,0" TextChanged="CommandLine_OnTextChanged"
+                         Controls:TextBoxHelper.Watermark="Command Value" Visibility="Visible" />
                 <Label x:Name="PreviewLabel" FontSize="14" FontWeight="Bold" Margin="-4,5,0,0">Preview</Label>
-                <TextBox x:Name="Preview" TextChanged="Preview_OnTextChanged" Height="400" Width="363" Margin="-10,0,0,0" AcceptsReturn="True"/>
+                <TextBox x:Name="Preview" TextChanged="Preview_OnTextChanged" Height="400" Width="363"
+                         Margin="-10,0,0,0" AcceptsReturn="True" />
               </StackPanel>
             </StackPanel>
           </Grid>
           <Grid x:Name="DebugGrid" Margin="10,0,10,10" Visibility="Hidden">
             <RichTextBox x:Name="DebugLogger" IsReadOnly="True" BorderThickness="0"
-                                     VerticalScrollBarVisibility="Auto" Padding="5,5,5,0" Margin="0,0,0,40">
+                         VerticalScrollBarVisibility="Auto" Padding="5,5,5,0" Margin="0,0,0,40">
               <FlowDocument />
             </RichTextBox>
             <Button Style="{StaticResource AccentedSquareButtonStyle}" Click="forceUpdate_Click"
-                            Content="Force Update" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="100"
-                            Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                            HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
+                    Content="Force Update" Controls:ButtonHelper.PreserveTextCase="True" Height="32" Width="100"
+                    Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
           <Grid x:Name="ChangelogGrid" Margin="10,0,10,10" Visibility="Hidden">
             <TextBox x:Name="ChangelogContent" Margin="0"
-                                 BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow"
-                                 VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."
-                                 FontSize="14" Padding="10" />
+                     BorderThickness="0" IsReadOnly="True" TextWrapping="WrapWithOverflow"
+                     VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="Loading..."
+                     FontSize="14" Padding="10" />
           </Grid>
         </Grid>
       </Controls:Flyout>
     </Controls:FlyoutsControl>
-    </Controls:MetroWindow.Flyouts>
+  </Controls:MetroWindow.Flyouts>
 
-    <!-- BaseGrid -->
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <!-- Left Side -->
-        <!--This file is NOT compatible with Silverlight-->
-        <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="300" VerticalAlignment="Top" Margin="0,100,0,0" Stretch="None">
-            <Canvas Name="Layer_1" Width="258.84" Height="225.01" Canvas.Left="0" Canvas.Top="0">
-                <Canvas.RenderTransform>
-                    <TranslateTransform X="0" Y="0"/>
-                </Canvas.RenderTransform>
-                <Canvas.Resources/>
-                <!--Unknown tag: metadata-->
-                <!--Unknown tag: sodipodi:namedview-->
-                <Canvas Name="Dorito_Letters">
-                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="L" Fill="#FFFFFF" >
-                        <Path.Data>
-                            <PathGeometry Figures="M129.6 16.82c-4.7 8.12-9.37 16.26-14.02 24.4c27.01 46.87 53.83 93.815 80.891 140.665   c-19.848 0-39.754 0.016-59.617 0.016c-5.1 9.01-10.414 18.109-15.534 27.109c39.571 0 79.151 0 118.721 0   C203.23 144.939 166.439 80.87 129.6 16.82z" FillRule="NonZero"/>
-                        </Path.Data>
-                    </Path>
-                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="E" Fill="#FFFFFF" >
-                        <Path.Data>
-                            <PathGeometry Figures="M75.34 159.99c27.747 0 56.119 0.002 83.49 0.002c-18.619-32.311-37.12-64.612-55.87-96.833   C75.02 111.77 47.09 160.39 19.15 209c0.008 0 0.015 0 0.022 0l-0.022 0.039h76.68c5.29-9 10.43-18.1 15.65-27.139   c-14.4 0-30.109 0-48.69 0C66.85 174.52 71.13 167.279 75.34 159.99z M104.39 109.58c5.5 9.52 11.01 19.05 16.46 28.62   c-11 0.021-22 0.011-33 0C93.36 128.66 98.76 119.05 104.39 109.58z" FillRule="NonZero"/>
-                        </Path.Data>
-                    </Path>
-                </Canvas>
-                <Canvas Name="Dorito_Logo_Foreground_1_">
-                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path7" Fill="{DynamicResource AccentColorBrush}">
-                        <Path.Data>
-                            <PathGeometry Figures="M139.67 0c-6.74 0.01-13.47 0.02-20.2 0C79.6 69.4 39.94 138.91 0 208.27c3.07 5.641 6.35 11.16 9.53 16.74   c79.88-0.07 173.468 0 239.611 0c3.1-5.74 6.469-11.08 9.699-16.74C219.141 138.949 179.4 69.3 139.67 0z M95.83 209.039H19.15   L19.172 209c-0.007 0-0.014 0-0.022 0c27.94-48.61 55.87-97.23 83.81-145.84c18.75 32.22 37.251 64.522 55.87 96.833   c-27.371 0-55.743-0.002-83.49-0.002c-4.21 7.289-8.49 14.529-12.55 21.91c18.581 0 34.29 0 48.69 0   C106.26 190.939 101.12 200.039 95.83 209.039z M121.32 209.01c5.12-9 10.434-18.1 15.534-27.109   c19.863 0 39.77-0.016 59.617-0.016C169.41 135.035 142.59 88.09 115.58 41.22c4.65-8.14 9.32-16.28 14.02-24.4   c36.839 64.05 73.63 128.12 110.441 192.19C200.471 209.01 160.891 209.01 121.32 209.01z" FillRule="NonZero"/>
-                        </Path.Data>
-                    </Path>
-                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path9" Fill="{DynamicResource AccentColorBrush}">
-                        <Path.Data>
-                            <PathGeometry Figures="M104.39 109.58c-5.63 9.47-11.03 19.081-16.54 28.62c11 0.011 22 0.021 33 0   C115.4 128.63 109.89 119.1 104.39 109.58z" FillRule="NonZero"/>
-                        </Path.Data>
-                    </Path>
-                </Canvas>
-                <Canvas Name="g11"/>
-                <Canvas Name="g13"/>
-                <Canvas Name="g15"/>
-                <Canvas Name="g17"/>
-                <Canvas Name="g19"/>
-                <Canvas Name="g21"/>
-                <Canvas Name="g23"/>
-                <Canvas Name="g25"/>
-                <Canvas Name="g27"/>
-                <Canvas Name="g29"/>
-                <Canvas Name="g31"/>
-                <Canvas Name="g33"/>
-                <Canvas Name="g35"/>
-                <Canvas Name="g37"/>
-                <Canvas Name="g39"/>
-            </Canvas>
-        </Viewbox>
+  <!-- BaseGrid -->
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <!-- Left Side -->
+    <!--This file is NOT compatible with Silverlight-->
+    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="300" VerticalAlignment="Top"
+             Margin="0,100,0,0" Stretch="None">
+      <Canvas Name="Layer_1" Width="258.84" Height="225.01" Canvas.Left="0" Canvas.Top="0">
+        <Canvas.RenderTransform>
+          <TranslateTransform X="0" Y="0" />
+        </Canvas.RenderTransform>
+        <Canvas.Resources />
+        <!--Unknown tag: metadata-->
+        <!--Unknown tag: sodipodi:namedview-->
+        <Canvas Name="Dorito_Letters">
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="L" Fill="#FFFFFF">
+            <Path.Data>
+              <PathGeometry
+                Figures="M129.6 16.82c-4.7 8.12-9.37 16.26-14.02 24.4c27.01 46.87 53.83 93.815 80.891 140.665   c-19.848 0-39.754 0.016-59.617 0.016c-5.1 9.01-10.414 18.109-15.534 27.109c39.571 0 79.151 0 118.721 0   C203.23 144.939 166.439 80.87 129.6 16.82z"
+                FillRule="NonZero" />
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="E" Fill="#FFFFFF">
+            <Path.Data>
+              <PathGeometry
+                Figures="M75.34 159.99c27.747 0 56.119 0.002 83.49 0.002c-18.619-32.311-37.12-64.612-55.87-96.833   C75.02 111.77 47.09 160.39 19.15 209c0.008 0 0.015 0 0.022 0l-0.022 0.039h76.68c5.29-9 10.43-18.1 15.65-27.139   c-14.4 0-30.109 0-48.69 0C66.85 174.52 71.13 167.279 75.34 159.99z M104.39 109.58c5.5 9.52 11.01 19.05 16.46 28.62   c-11 0.021-22 0.011-33 0C93.36 128.66 98.76 119.05 104.39 109.58z"
+                FillRule="NonZero" />
+            </Path.Data>
+          </Path>
+        </Canvas>
+        <Canvas Name="Dorito_Logo_Foreground_1_">
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path7"
+                Fill="{DynamicResource AccentColorBrush}">
+            <Path.Data>
+              <PathGeometry
+                Figures="M139.67 0c-6.74 0.01-13.47 0.02-20.2 0C79.6 69.4 39.94 138.91 0 208.27c3.07 5.641 6.35 11.16 9.53 16.74   c79.88-0.07 173.468 0 239.611 0c3.1-5.74 6.469-11.08 9.699-16.74C219.141 138.949 179.4 69.3 139.67 0z M95.83 209.039H19.15   L19.172 209c-0.007 0-0.014 0-0.022 0c27.94-48.61 55.87-97.23 83.81-145.84c18.75 32.22 37.251 64.522 55.87 96.833   c-27.371 0-55.743-0.002-83.49-0.002c-4.21 7.289-8.49 14.529-12.55 21.91c18.581 0 34.29 0 48.69 0   C106.26 190.939 101.12 200.039 95.83 209.039z M121.32 209.01c5.12-9 10.434-18.1 15.534-27.109   c19.863 0 39.77-0.016 59.617-0.016C169.41 135.035 142.59 88.09 115.58 41.22c4.65-8.14 9.32-16.28 14.02-24.4   c36.839 64.05 73.63 128.12 110.441 192.19C200.471 209.01 160.891 209.01 121.32 209.01z"
+                FillRule="NonZero" />
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path9"
+                Fill="{DynamicResource AccentColorBrush}">
+            <Path.Data>
+              <PathGeometry
+                Figures="M104.39 109.58c-5.63 9.47-11.03 19.081-16.54 28.62c11 0.011 22 0.021 33 0   C115.4 128.63 109.89 119.1 104.39 109.58z"
+                FillRule="NonZero" />
+            </Path.Data>
+          </Path>
+        </Canvas>
+        <Canvas Name="g11" />
+        <Canvas Name="g13" />
+        <Canvas Name="g15" />
+        <Canvas Name="g17" />
+        <Canvas Name="g19" />
+        <Canvas Name="g21" />
+        <Canvas Name="g23" />
+        <Canvas Name="g25" />
+        <Canvas Name="g27" />
+        <Canvas Name="g29" />
+        <Canvas Name="g31" />
+        <Canvas Name="g33" />
+        <Canvas Name="g35" />
+        <Canvas Name="g37" />
+        <Canvas Name="g39" />
+      </Canvas>
+    </Viewbox>
 
-        <Label x:Name="TitleLabel" Content="ELDEWRITO" Grid.Column="0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,150,0,0" FontSize="40" FontFamily="Lato Semibold" />
-        <Button Click="d_Click" Margin="127,344,0,192" Background="Transparent" HorizontalAlignment="Left" Width="30" />
-        <Button Style="{StaticResource AccentedSquareButtonStyle}" x:Name="BTNSkip" Content="Skip" Click="BTNSkip_OnClick" Controls:ButtonHelper.PreserveTextCase="True" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,0,0,100" Height="40" Width="100" BorderBrush="{x:Null}" FontSize="16" />
+    <Label x:Name="TitleLabel" Content="ELDEWRITO" Grid.Column="0" Foreground="White" VerticalAlignment="Center"
+           HorizontalAlignment="Center" Margin="0,150,0,0" FontSize="40" FontFamily="Lato Semibold" />
+    <Button Click="d_Click" Margin="127,344,0,192" Background="Transparent" HorizontalAlignment="Left" Width="30" />
+    <Button Style="{StaticResource AccentedSquareButtonStyle}" x:Name="BTNSkip" Content="Skip" Click="BTNSkip_OnClick"
+            Controls:ButtonHelper.PreserveTextCase="True" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+            Margin="20,0,0,100" Height="40" Width="100" BorderBrush="{x:Null}" FontSize="16" />
 
-        <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Bottom" Margin="20,20,20,40">
-            <Button Style="{StaticResource AccentedSquareButtonStyle}" x:Name="BTNAction" Content="Validating" Click="Action_OnClick" Controls:ButtonHelper.PreserveTextCase="True" Height="50" Width="150" BorderBrush="{x:Null}" FontSize="16" />
-            <Rectangle x:Name="Reddit" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Reddit_OnClick" ToolTip="Halo Online Subreddit">
-                <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_social_reddit}" />
-                </Rectangle.OpacityMask>
-                <Rectangle.Style>
-                    <Style TargetType="{x:Type Rectangle}">
-                        <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
-            <Rectangle x:Name="Github" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Github_OnClick" ToolTip="Launcher Github">
-                <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_social_github_octocat_solid}" />
-                </Rectangle.OpacityMask>
-                <Rectangle.Style>
-                    <Style TargetType="{x:Type Rectangle}">
-                        <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
-            <Rectangle x:Name="Twitter" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Twitter_OnClick" ToolTip="Launcher Dev Twitter">
-                <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_twitter_bird}" />
-                </Rectangle.OpacityMask>
-                <Rectangle.Style>
-                    <Style TargetType="{x:Type Rectangle}">
-                        <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
-        </StackPanel>
-        <Label x:Name="lblVersion" Content="Current Version: Validating" Controls:ButtonHelper.PreserveTextCase="True"
-                FontWeight="Bold" FontSize="12" Height="30" Foreground="{DynamicResource AccentColorBrush}"
-                VerticalAlignment="Bottom" Margin="16,20,45,5" Width="Auto" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" Background="{x:Null}" />
-        <!-- Main Buttons -->
-        <Grid Grid.Column="1">
-            <Controls:Tile Width="Auto" Height="135" Margin="0,15,20,0" VerticalAlignment="Top" ToolTip="Customize Your Spartan and Username"
-                           Title="Player Customization" CountFontSize="18" Click="Custom_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
-                <Rectangle x:Name="CustomIcon" Width="64" Height="64" Fill="White">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_draw_paintbrush}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="135" Margin="0,160,20,0" VerticalAlignment="Top" Title="Settings" ToolTip="Change Game and Host Settings"
-                           CountFontSize="18" Click="Settings_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
-                <Rectangle x:Name="SettingsIcon" Width="64" Height="64" Fill="White">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_settings}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="135" Margin="0,305,20,0" VerticalAlignment="Top" Title="VOIP Settings" ToolTip="Adjust Voice Over IP Settings"
-                           CountFontSize="18" Click="Voip_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
-                <Rectangle x:Name="VOIPIcon" Width="64" Height="64" Fill="White">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_microphone}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Controls:Tile>
-            <Controls:Tile Width="Auto" Height="135" Margin="0,450,20,0" VerticalAlignment="Top" Title="Auto Exec" ToolTip="Create an Auto Executing Script"
-                           CountFontSize="18" Click="AutoExec_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
-                <Rectangle x:Name="AutoExecIcon" Width="64" Height="64" Fill="White">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Uniform"
-                                     Visual="{StaticResource appbar_page_code}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
-            </Controls:Tile>
-        </Grid>
+    <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Bottom" Margin="20,20,20,40">
+      <Button Style="{StaticResource AccentedSquareButtonStyle}" x:Name="BTNAction" Content="Validating"
+              Click="Action_OnClick" Controls:ButtonHelper.PreserveTextCase="True" Height="50" Width="150"
+              BorderBrush="{x:Null}" FontSize="16" />
+      <Rectangle x:Name="Reddit" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Reddit_OnClick"
+                 ToolTip="Halo Online Subreddit">
+        <Rectangle.OpacityMask>
+          <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_social_reddit}" />
+        </Rectangle.OpacityMask>
+        <Rectangle.Style>
+          <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}" />
+            <Style.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </Rectangle.Style>
+      </Rectangle>
+      <Rectangle x:Name="Github" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Github_OnClick"
+                 ToolTip="Launcher Github">
+        <Rectangle.OpacityMask>
+          <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_social_github_octocat_solid}" />
+        </Rectangle.OpacityMask>
+        <Rectangle.Style>
+          <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}" />
+            <Style.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </Rectangle.Style>
+      </Rectangle>
+      <Rectangle x:Name="Twitter" Width="30" Height="30" Margin="30,0,0,0" MouseDown="Twitter_OnClick"
+                 ToolTip="Launcher Dev Twitter">
+        <Rectangle.OpacityMask>
+          <VisualBrush Stretch="Uniform"
+                       Visual="{StaticResource appbar_twitter_bird}" />
+        </Rectangle.OpacityMask>
+        <Rectangle.Style>
+          <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="{DynamicResource AccentColorBrush2}" />
+            <Style.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="{DynamicResource AccentColorBrush}" />
+              </Trigger>
+            </Style.Triggers>
+          </Style>
+        </Rectangle.Style>
+      </Rectangle>
+    </StackPanel>
+    <Label x:Name="lblVersion" Content="Current Version: Validating" Controls:ButtonHelper.PreserveTextCase="True"
+           FontWeight="Bold" FontSize="12" Height="30" Foreground="{DynamicResource AccentColorBrush}"
+           VerticalAlignment="Bottom" Margin="16,20,45,5" Width="Auto" HorizontalContentAlignment="Left"
+           BorderBrush="{x:Null}" Background="{x:Null}" />
+    <!-- Main Buttons -->
+    <Grid Grid.Column="1">
+      <Controls:Tile Width="Auto" Height="135" Margin="0,15,20,0" VerticalAlignment="Top"
+                     ToolTip="Customize Your Spartan and Username"
+                     Title="Player Customization" CountFontSize="18" Click="Custom_Click"
+                     Foreground="{DynamicResource IdealForegroundColorBrush}">
+        <Rectangle x:Name="CustomIcon" Width="64" Height="64" Fill="White">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_draw_paintbrush}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Controls:Tile>
+      <Controls:Tile Width="Auto" Height="135" Margin="0,160,20,0" VerticalAlignment="Top" Title="Settings"
+                     ToolTip="Change Game and Host Settings"
+                     CountFontSize="18" Click="Settings_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
+        <Rectangle x:Name="SettingsIcon" Width="64" Height="64" Fill="White">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_settings}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Controls:Tile>
+      <Controls:Tile Width="Auto" Height="135" Margin="0,305,20,0" VerticalAlignment="Top" Title="VOIP Settings"
+                     ToolTip="Adjust Voice Over IP Settings"
+                     CountFontSize="18" Click="Voip_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
+        <Rectangle x:Name="VOIPIcon" Width="64" Height="64" Fill="White">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_microphone}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Controls:Tile>
+      <Controls:Tile Width="Auto" Height="135" Margin="0,450,20,0" VerticalAlignment="Top" Title="Auto Exec"
+                     ToolTip="Create an Auto Executing Script"
+                     CountFontSize="18" Click="AutoExec_Click" Foreground="{DynamicResource IdealForegroundColorBrush}">
+        <Rectangle x:Name="AutoExecIcon" Width="64" Height="64" Fill="White">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Uniform"
+                         Visual="{StaticResource appbar_page_code}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+      </Controls:Tile>
     </Grid>
+  </Grid>
 </Controls:MetroWindow>

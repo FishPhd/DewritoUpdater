@@ -9,7 +9,8 @@
   <Grid>
     <Border>
       <Grid>
-        <TextBlock TextWrapping="Wrap" Margin="18,15,19,0" Foreground="White" HorizontalAlignment="Center" TextAlignment="Center"
+        <TextBlock TextWrapping="Wrap" Margin="18,15,19,0" Foreground="White" HorizontalAlignment="Center"
+                   TextAlignment="Center"
                    VerticalAlignment="Top" IsHitTestVisible="True" TextOptions.TextFormattingMode="Display"
                    FontFamily="Segoe UI" FontSize="14" Width="361" Height="42" FontWeight="Bold">
           <Run x:Name="Header" Text="Header" />

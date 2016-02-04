@@ -153,7 +153,7 @@ namespace Dewritwo.Resources
         SetVariable("Camera.HideHUD", "0", ref configFile);
         SetVariable("Camera.Speed", "0.100000", ref configFile);
         SetVariable("Input.RawInput", "1", ref configFile);
-        SetVariable("IRC.Server", "crimson.fractalcore.net", ref configFile);
+        SetVariable("IRC.Server", "irc.snoonet.org", ref configFile);
         SetVariable("IRC.ServerPort", "6667", ref configFile);
         SetVariable("IRC.GlobalChannel", "#haloonline", ref configFile);
         SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
@@ -169,7 +169,7 @@ namespace Dewritwo.Resources
         Console.WriteLine("New CFG Created");
       }
 
-      if (!LauncherCfgFileExists || error=="launcher")
+      if (!LauncherCfgFileExists || error == "launcher")
       {
         SetVariable("Launcher.Color", "blue", ref launcherConfigFile);
         SetVariable("Launcher.Theme", "BaseDark", ref launcherConfigFile);

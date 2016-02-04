@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -30,7 +29,7 @@ namespace Dewritwo
     private Dictionary<int, string> doritoKey;
     private bool updateText = true;
     private string keyValue;
-    private readonly string eldoritoLatestVersion;
+    private string eldoritoLatestVersion;
     private FileVersionInfo eldoritoVersion;
     private string localEldoritoVersion;
 
@@ -49,7 +48,7 @@ namespace Dewritwo
     private List<string> filesToDownload;
     private JToken latestUpdate;
     private string latestUpdateVersion;
-    private readonly JObject settingsJson;
+    private JObject settingsJson;
     private JObject updateJson;
     private Thread validateThread;
 
@@ -68,7 +67,10 @@ namespace Dewritwo
         MessageBox.Show("Install latest .NET (4.5.2)");
         Application.Current.Shutdown();
       }
-      
+    }
+
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
       try
       {
         Cfg.Initial("No Error");
@@ -79,7 +81,7 @@ namespace Dewritwo
       catch
       {
         AppendDebugLine("Cfg Load Error: Resetting Launcher Specific Settings", Color.FromRgb(255, 0, 0));
-        if(File.Exists("~/dewrito_prefs.cfg"))
+        if (File.Exists("~/dewrito_prefs.cfg"))
           File.Delete("~/dewrito_prefs.cfg");
         if (File.Exists("~/launcher_prefs.cfg"))
           File.Delete("~/launcher_prefs.cfg");
@@ -112,15 +114,15 @@ namespace Dewritwo
           {
             AppendDebugLine("Error reading json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0));
             Dispatcher.Invoke(() =>
+            {
+              BTNAction.Content = "Error";
+              BTNSkip.Content = "Ignore";
+              if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                BTNAction.Content = "Error";
-                BTNSkip.Content = "Ignore";
-                if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
-                    Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
-                {
-                  Flyout.IsOpen = false;
-                  FlyoutHandler(DebugGrid, "Debug Log");
-                }
+                Flyout.IsOpen = false;
+                FlyoutHandler(DebugGrid, "Debug Log");
+              }
             });
             return;
           }
@@ -151,7 +153,8 @@ namespace Dewritwo
       {
         try
         {
-          ChangelogContent.Text = wc.DownloadString("https://raw.githubusercontent.com/FishPhd/DewritoUpdater/master/changelog.data");
+          ChangelogContent.Text =
+            wc.DownloadString("https://raw.githubusercontent.com/FishPhd/DewritoUpdater/master/changelog.data");
         }
         catch
         {
@@ -336,7 +339,7 @@ namespace Dewritwo
             AppendDebugLine("Original file data for file \"" + fileName + "\" not found.",
               Color.FromRgb(255, 0, 0));
             AppendDebugLine("Please redo your ElDorito installation",
-              Color.FromRgb(255, 0, 0), false);
+              Color.FromRgb(255, 0, 0));
             Dispatcher.Invoke(() =>
             {
               BTNAction.Content = "Error";
@@ -362,7 +365,7 @@ namespace Dewritwo
                 "\" was found but isn't original, and a valid backup of the original data wasn't found.",
                 Color.FromRgb(255, 0, 0));
               AppendDebugLine("Please redo your ElDorito installation",
-                Color.FromRgb(255, 0, 0), false);
+                Color.FromRgb(255, 0, 0));
               Dispatcher.Invoke(() =>
               {
                 BTNAction.Content = "Error";
@@ -387,7 +390,7 @@ namespace Dewritwo
               AppendDebugLine("Original file data for file \"" + fileName + "\" not found.",
                 Color.FromRgb(255, 0, 0));
               AppendDebugLine("Please redo your ElDorito installation",
-                Color.FromRgb(255, 0, 0), false);
+                Color.FromRgb(255, 0, 0));
               Dispatcher.Invoke(() =>
               {
                 BTNAction.Content = "Error";
@@ -511,8 +514,7 @@ namespace Dewritwo
             continue;
 
           AppendDebugLine("Failed to find required game file \"" + x.Key + "\"", Color.FromRgb(255, 0, 0));
-          AppendDebugLine("Please redo your ElDorito installation",
-            Color.FromRgb(255, 0, 0), false);
+          AppendDebugLine("Please redo your ElDorito installation", Color.FromRgb(255, 0, 0));
           Dispatcher.Invoke(() =>
           {
             BTNAction.Content = "Error";
@@ -534,11 +536,9 @@ namespace Dewritwo
             continue;
 
           AppendDebugLine("Game file \"" + keyName + "\" data is invalid.", Color.FromRgb(255, 0, 0));
-          AppendDebugLine("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0), false);
-          AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0),
-            false);
-          AppendDebugLine("Please redo your ElDorito installation",
-            Color.FromRgb(255, 0, 0), false);
+          AppendDebugLine("Your hash: " + fileHashes[keyName], Color.FromRgb(255, 0, 0));
+          AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0));
+          AppendDebugLine("Please redo your ElDorito installation", Color.FromRgb(255, 0, 0));
           Dispatcher.Invoke(() =>
           {
             BTNAction.Content = "Error";
@@ -682,7 +682,8 @@ namespace Dewritwo
         if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
         {
           var MessageWindow =
-            new MsgBox("This will update your spartan live!", "Just edit settings in the launcher while the game is open.");
+            new MsgBox("This will update your spartan live!",
+              "Just edit settings in the launcher while the game is open.");
 
           MessageWindow.Show();
           MessageWindow.Focus();
@@ -698,7 +699,8 @@ namespace Dewritwo
         if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
         {
           var MessageWindow =
-            new MsgBox("This will update your spartan live!", "Just edit settings in the launcher while the game is open.");
+            new MsgBox("This will update your spartan live!",
+              "Just edit settings in the launcher while the game is open.");
 
           MessageWindow.Show();
           MessageWindow.Focus();
@@ -739,8 +741,8 @@ namespace Dewritwo
 
     private void AutoExec_Click(object sender, RoutedEventArgs e)
     {
-      var Dict = Dictionaries.GetCommandLine();
-      CommandLine.SetValue(TextBoxHelper.WatermarkProperty, Dict[Convert.ToString(Command.SelectedValue)]);
+      var dict = Dictionaries.GetCommandLine();
+      CommandLine.SetValue(TextBoxHelper.WatermarkProperty, dict[Convert.ToString(Command.SelectedValue)]);
       FlyoutHandler(AutoExecGrid, "Auto Exec");
       Preview.Text = File.ReadAllText("autoexec.cfg");
     }
@@ -784,7 +786,8 @@ namespace Dewritwo
         {
           Dispatcher.Invoke(() =>
           {
-            AppendDebugLine("Cannot locate eldorado.exe. Are you running in the right location?", Color.FromRgb(255, 0, 0));
+            AppendDebugLine("Cannot locate eldorado.exe. Are you running in the right location?",
+              Color.FromRgb(255, 0, 0));
             if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
@@ -793,7 +796,7 @@ namespace Dewritwo
             }
           });
         }
-        
+
         if (Cfg.launcherConfigFile["Launcher.Random"] == "1")
           RandomArmor();
         if (Cfg.launcherConfigFile["Launcher.Close"] == "1")
@@ -816,7 +819,7 @@ namespace Dewritwo
           else
           {
             AppendDebugLine("Download for file \"" + file + "\" failed.", Color.FromRgb(255, 0, 0));
-            AppendDebugLine("Error: " + dialog.Error.Message, Color.FromRgb(255, 0, 0), false);
+            AppendDebugLine("Error: " + dialog.Error.Message, Color.FromRgb(255, 0, 0));
             Dispatcher.Invoke(() =>
             {
               BTNAction.Content = "Error";
@@ -829,8 +832,7 @@ namespace Dewritwo
               }
             });
             if (dialog.Error.InnerException != null)
-              AppendDebugLine("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0),
-                false);
+              AppendDebugLine("Error: " + dialog.Error.InnerException.Message, Color.FromRgb(255, 0, 0));
             return;
           }
         }
@@ -852,11 +854,12 @@ namespace Dewritwo
 
     private void BTNSkip_OnClick(object sender, RoutedEventArgs e)
     {
-      if(BTNSkip.Content.Equals("Ignore"))
-        AppendDebugLine("Error ignored. You may now play (with possibility of problems)",Color.FromRgb(255, 255, 255));
-      else if(BTNSkip.Content.Equals("Skip"))
-        AppendDebugLine("Validating skipped. You may now play (with possibility of problems)", Color.FromRgb(255, 255, 255));
-      var fade = (Storyboard)TryFindResource("fade");
+      if (BTNSkip.Content.Equals("Ignore"))
+        AppendDebugLine("Error ignored. You may now play (with possibility of problems)", Color.FromRgb(255, 255, 255));
+      else if (BTNSkip.Content.Equals("Skip"))
+        AppendDebugLine("Validating skipped. You may now play (with possibility of problems)",
+          Color.FromRgb(255, 255, 255));
+      var fade = (Storyboard) TryFindResource("fade");
       fade.Stop();
       BTNAction.Content = "Play Game";
       BTNSkip.Visibility = Visibility.Hidden;
@@ -934,6 +937,10 @@ namespace Dewritwo
 
     private void Action_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+      if (!IsLoaded)
+      {
+        return;
+      }
       if (Action.SelectedValue.Equals("command"))
       {
         keyValue = "Unbound";
@@ -949,6 +956,7 @@ namespace Dewritwo
         PreviewLabel.Margin = new Thickness(4, 5, 0, 0);
         Console.WriteLine("Command");
       }
+
       if (Action.SelectedValue.Equals("bind"))
       {
         Command.ItemsSource = Dictionaries.GetCommand();
@@ -1276,7 +1284,8 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Server.MaxPlayers", Convert.ToString(MaxPlayer.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
+      Cfg.SetVariable("Server.MaxPlayers", Convert.ToString(MaxPlayer.Value, CultureInfo.InvariantCulture),
+        ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1296,7 +1305,8 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Server.Countdown", Convert.ToString(StartTimer.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
+      Cfg.SetVariable("Server.Countdown", Convert.ToString(StartTimer.Value, CultureInfo.InvariantCulture),
+        ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1444,7 +1454,8 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("Launcher.AutoDebug", Convert.ToString(Convert.ToInt32(autoDebug.IsChecked)), ref Cfg.launcherConfigFile);
+      Cfg.SetVariable("Launcher.AutoDebug", Convert.ToString(Convert.ToInt32(autoDebug.IsChecked)),
+        ref Cfg.launcherConfigFile);
       Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
     }
 
@@ -1457,7 +1468,6 @@ namespace Dewritwo
       Cfg.SetVariable("Game.SkipLauncher", Convert.ToString(Convert.ToInt32(skipLauncher.IsChecked)), ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
-
 
     #endregion
 
@@ -1499,7 +1509,8 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("VoIP.VolumeModifier", Convert.ToString(VolumeModifier.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
+      Cfg.SetVariable("VoIP.VolumeModifier", Convert.ToString(VolumeModifier.Value, CultureInfo.InvariantCulture),
+        ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1519,7 +1530,8 @@ namespace Dewritwo
       {
         return;
       }
-      Cfg.SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(VAL.Value, CultureInfo.InvariantCulture), ref Cfg.configFile);
+      Cfg.SetVariable("VoIP.VoiceActivationLevel", Convert.ToString(VAL.Value, CultureInfo.InvariantCulture),
+        ref Cfg.configFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.configFile);
     }
 
@@ -1587,9 +1599,8 @@ namespace Dewritwo
       }
       catch
       {
-        
       }
-      
+
       //VoIP Settings
       chkVoIPEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.Enabled"]));
       AGC.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.configFile["VoIP.AGC"]));
@@ -1751,5 +1762,10 @@ namespace Dewritwo
     #endregion
 
     #endregion
+
+    private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+
+    }
   }
 }

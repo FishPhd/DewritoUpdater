@@ -152,7 +152,7 @@ namespace DoritoPatcher
 
             if (lastscan + lenf > scan - lenb)
             {
-              var overlap = (lastscan + lenf) - (scan - lenb);
+              var overlap = lastscan + lenf - (scan - lenb);
               s = 0;
               var ss = 0;
               var lens = 0;
@@ -175,20 +175,20 @@ namespace DoritoPatcher
 
             for (var i = 0; i < lenf; i++)
               db[dblen + i] = (byte) (newData[lastscan + i] - oldData[lastpos + i]);
-            for (var i = 0; i < (scan - lenb) - (lastscan + lenf); i++)
+            for (var i = 0; i < scan - lenb - (lastscan + lenf); i++)
               eb[eblen + i] = newData[lastscan + lenf + i];
 
             dblen += lenf;
-            eblen += (scan - lenb) - (lastscan + lenf);
+            eblen += scan - lenb - (lastscan + lenf);
 
             var buf = new byte[8];
             WriteInt64(lenf, buf, 0);
             bz2Stream.Write(buf, 0, 8);
 
-            WriteInt64((scan - lenb) - (lastscan + lenf), buf, 0);
+            WriteInt64(scan - lenb - (lastscan + lenf), buf, 0);
             bz2Stream.Write(buf, 0, 8);
 
-            WriteInt64((pos - lenb) - (lastpos + lenf), buf, 0);
+            WriteInt64(pos - lenb - (lastpos + lenf), buf, 0);
             bz2Stream.Write(buf, 0, 8);
 
             lastscan = scan - lenb;
