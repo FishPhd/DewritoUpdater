@@ -28,6 +28,7 @@ namespace Dewritwo
 
     private Dictionary<int, string> doritoKey;
     private bool updateText = true;
+    private bool flyoutClosed = true;
     private string keyValue;
     private string eldoritoLatestVersion;
     private FileVersionInfo eldoritoVersion;
@@ -633,16 +634,16 @@ namespace Dewritwo
 
     private void FlyoutHandler(Grid sender, string header)
     {
-      Flyout.IsOpen = true;
-      SettingsGrid.Visibility = Visibility.Hidden;
-      ChangelogGrid.Visibility = Visibility.Hidden;
-      CustomGrid.Visibility = Visibility.Hidden;
-      VOIPSettingsGrid.Visibility = Visibility.Hidden;
-      AutoExecGrid.Visibility = Visibility.Hidden;
-      DebugGrid.Visibility = Visibility.Hidden;
-      LauncherSettingsGrid.Visibility = Visibility.Hidden;
-      sender.Visibility = Visibility.Visible;
-      Flyout.Header = header;
+        SettingsGrid.Visibility = Visibility.Hidden;
+        ChangelogGrid.Visibility = Visibility.Hidden;
+        CustomGrid.Visibility = Visibility.Hidden;
+        VOIPSettingsGrid.Visibility = Visibility.Hidden;
+        AutoExecGrid.Visibility = Visibility.Hidden;
+        DebugGrid.Visibility = Visibility.Hidden;
+        LauncherSettingsGrid.Visibility = Visibility.Hidden;
+        sender.Visibility = Visibility.Visible;
+        Flyout.Header = header;
+        Flyout.IsOpen = true;
     }
 
     private void LauncherSettings_Click(object sender, RoutedEventArgs e)
@@ -1760,5 +1761,7 @@ namespace Dewritwo
     #endregion
 
     #endregion
+
+    
   }
 }
