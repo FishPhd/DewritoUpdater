@@ -43,7 +43,7 @@ namespace Dewritwo
     };
 
     private readonly string[] skipFolders = {".inn.meta.dir", ".inn.tmp.dir", "Frost", "tpi", "bink", "logs"};
-    public string BasePath = Directory.GetCurrentDirectory();
+    public readonly string BasePath = Directory.GetCurrentDirectory();
     private Dictionary<string, string> fileHashes;
     private List<string> filesToDownload;
     private JToken latestUpdate;
@@ -127,7 +127,6 @@ namespace Dewritwo
             return;
           }
         }
-        Console.WriteLine("json complete");
       }
       catch
       {
@@ -505,7 +504,6 @@ namespace Dewritwo
       {
         var keyName = x.Key;
         if (!fileHashes.ContainsKey(keyName) && fileHashes.ContainsKey(keyName.Replace(@"\", @"/")))
-          // linux system maybe?
           keyName = keyName.Replace(@"\", @"/");
 
         if (!fileHashes.ContainsKey(keyName))
@@ -681,12 +679,12 @@ namespace Dewritwo
       {
         if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
         {
-          var MessageWindow =
+          var messageWindow =
             new MsgBox("This will update your spartan live!",
               "Just edit settings in the launcher while the game is open.");
 
-          MessageWindow.Show();
-          MessageWindow.Focus();
+          messageWindow.Show();
+          messageWindow.Focus();
 
           Cfg.SetVariable("Launcher.PlayerMessage", "1", ref Cfg.launcherConfigFile);
           Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
@@ -698,12 +696,12 @@ namespace Dewritwo
         Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
         if (Cfg.launcherConfigFile["Launcher.PlayerMessage"] == "0")
         {
-          var MessageWindow =
+          var messageWindow =
             new MsgBox("This will update your spartan live!",
               "Just edit settings in the launcher while the game is open.");
 
-          MessageWindow.Show();
-          MessageWindow.Focus();
+          messageWindow.Show();
+          messageWindow.Focus();
 
           Cfg.SetVariable("Launcher.PlayerMessage", "1", ref Cfg.launcherConfigFile);
           Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
@@ -839,10 +837,10 @@ namespace Dewritwo
 
         if (filesToDownload.Contains("DewritoUpdater.exe"))
         {
-          var RestartWindow = new MsgBoxRestart("Update complete! Please restart the launcher.");
+          var restartWindow = new MsgBoxRestart("Update complete! Please restart the launcher.");
 
-          RestartWindow.Show();
-          RestartWindow.Focus();
+          restartWindow.Show();
+          restartWindow.Focus();
         }
         BTNAction.Content = "Play Game";
         BTNSkip.Visibility = Visibility.Hidden;
@@ -1731,14 +1729,14 @@ namespace Dewritwo
 
       if (Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
       {
-        var Dark = (Color) ColorConverter.ConvertFromString("#252525");
-        CustomIcon.Fill = new SolidColorBrush(Dark);
-        SettingsIcon.Fill = new SolidColorBrush(Dark);
-        VOIPIcon.Fill = new SolidColorBrush(Dark);
-        AutoExecIcon.Fill = new SolidColorBrush(Dark);
+        var dark = (Color) ColorConverter.ConvertFromString("#252525");
+        CustomIcon.Fill = new SolidColorBrush(dark);
+        SettingsIcon.Fill = new SolidColorBrush(dark);
+        VOIPIcon.Fill = new SolidColorBrush(dark);
+        AutoExecIcon.Fill = new SolidColorBrush(dark);
         TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
-        L.Fill = new SolidColorBrush(Dark);
-        E.Fill = new SolidColorBrush(Dark);
+        L.Fill = new SolidColorBrush(dark);
+        E.Fill = new SolidColorBrush(dark);
       }
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight")
       {
@@ -1747,14 +1745,14 @@ namespace Dewritwo
       if (Cfg.launcherConfigFile["Launcher.Theme"] == "BaseLight" &&
           Cfg.launcherConfigFile["Launcher.Color"] == "yellow")
       {
-        var Light = (Color) ColorConverter.ConvertFromString("#FFFFFF");
-        CustomIcon.Fill = new SolidColorBrush(Light);
-        SettingsIcon.Fill = new SolidColorBrush(Light);
-        VOIPIcon.Fill = new SolidColorBrush(Light);
-        AutoExecIcon.Fill = new SolidColorBrush(Light);
+        var light = (Color) ColorConverter.ConvertFromString("#FFFFFF");
+        CustomIcon.Fill = new SolidColorBrush(light);
+        SettingsIcon.Fill = new SolidColorBrush(light);
+        VOIPIcon.Fill = new SolidColorBrush(light);
+        AutoExecIcon.Fill = new SolidColorBrush(light);
         TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
-        L.Fill = new SolidColorBrush(Light);
-        E.Fill = new SolidColorBrush(Light);
+        L.Fill = new SolidColorBrush(light);
+        E.Fill = new SolidColorBrush(light);
         TitleLabel.Content = "Where is your god now";
       }
     }
@@ -1762,10 +1760,5 @@ namespace Dewritwo
     #endregion
 
     #endregion
-
-    private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-
-    }
   }
 }
