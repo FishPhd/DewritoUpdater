@@ -28,7 +28,6 @@ namespace Dewritwo
 
     private Dictionary<int, string> doritoKey;
     private bool updateText = true;
-    private bool flyoutClosed = true;
     private string keyValue;
     private string eldoritoLatestVersion;
     private FileVersionInfo eldoritoVersion;
@@ -121,8 +120,8 @@ namespace Dewritwo
               if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                Flyout.IsOpen = false;
-                FlyoutHandler(DebugGrid, "Debug Log");
+                FlyoutDebug.IsOpen = false;
+                FlyoutHandler(FlyoutDebug, "Debug Log");
               }
             });
             return;
@@ -139,8 +138,8 @@ namespace Dewritwo
           if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
               Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
-            Flyout.IsOpen = false;
-            FlyoutHandler(DebugGrid, "Debug Log");
+            FlyoutDebug.IsOpen = false;
+            FlyoutHandler(FlyoutDebug, "Debug Log");
           }
         });
         return;
@@ -244,8 +243,8 @@ namespace Dewritwo
           if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
               Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
           {
-            Flyout.IsOpen = false;
-            FlyoutHandler(DebugGrid, "Debug Log");
+            FlyoutDebug.IsOpen = false;
+            FlyoutHandler(FlyoutDebug, "Debug Log");
           }
         });
       }
@@ -347,8 +346,8 @@ namespace Dewritwo
               if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                Flyout.IsOpen = false;
-                FlyoutHandler(DebugGrid, "Debug Log");
+                FlyoutDebug.IsOpen = false;
+                FlyoutHandler(FlyoutDebug, "Debug Log");
               }
             });
             return false;
@@ -373,8 +372,8 @@ namespace Dewritwo
                 if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                     Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
-                  Flyout.IsOpen = false;
-                  FlyoutHandler(DebugGrid, "Debug Log");
+                  FlyoutDebug.IsOpen = false;
+                  FlyoutHandler(FlyoutDebug, "Debug Log");
                 }
               });
               return false;
@@ -398,8 +397,8 @@ namespace Dewritwo
                 if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                     Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
                 {
-                  Flyout.IsOpen = false;
-                  FlyoutHandler(DebugGrid, "Debug Log");
+                  FlyoutDebug.IsOpen = false;
+                  FlyoutHandler(FlyoutDebug, "Debug Log");
                 }
               });
               return false;
@@ -430,8 +429,8 @@ namespace Dewritwo
               if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                Flyout.IsOpen = false;
-                FlyoutHandler(DebugGrid, "Debug Log");
+                FlyoutDebug.IsOpen = false;
+                FlyoutHandler(FlyoutDebug, "Debug Log");
               }
             });
             var name = x.Key;
@@ -518,11 +517,10 @@ namespace Dewritwo
           {
             BTNAction.Content = "Error";
             BTNSkip.Content = "Ignore";
-            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
-                Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
+            if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") && Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              Flyout.IsOpen = false;
-              FlyoutHandler(DebugGrid, "Debug Log");
+              FlyoutDebug.IsOpen = false;
+              FlyoutHandler(FlyoutDebug, "Debug Log");
             }
           });
           return false;
@@ -545,8 +543,8 @@ namespace Dewritwo
             if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              Flyout.IsOpen = false;
-              FlyoutHandler(DebugGrid, "Debug Log");
+              FlyoutDebug.IsOpen = false;
+              FlyoutHandler(FlyoutDebug, "Debug Log");
             }
           });
           return false;
@@ -620,8 +618,8 @@ namespace Dewritwo
             if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              Flyout.IsOpen = false;
-              FlyoutHandler(DebugGrid, "Debug Log");
+              FlyoutDebug.IsOpen = false;
+              FlyoutHandler(FlyoutDebug, "Debug Log");
             }
           });
         }
@@ -632,34 +630,27 @@ namespace Dewritwo
 
     #region Flyout Controls
 
-    private void FlyoutHandler(Grid sender, string header)
+    private void FlyoutHandler(Flyout sender, string header)
     {
-        SettingsGrid.Visibility = Visibility.Hidden;
-        ChangelogGrid.Visibility = Visibility.Hidden;
-        CustomGrid.Visibility = Visibility.Hidden;
-        VOIPSettingsGrid.Visibility = Visibility.Hidden;
-        AutoExecGrid.Visibility = Visibility.Hidden;
-        DebugGrid.Visibility = Visibility.Hidden;
-        LauncherSettingsGrid.Visibility = Visibility.Hidden;
-        sender.Visibility = Visibility.Visible;
-        Flyout.Header = header;
-        Flyout.IsOpen = true;
+      FlyoutCustom.IsOpen = false;
+      FlyoutSettings.IsOpen = false;
+      FlyoutLauncherSettings.IsOpen = false;
+      FlyoutVOIPSettings.IsOpen = false;
+      FlyoutAutoExec.IsOpen = false;
+      FlyoutDebug.IsOpen = false;
+      FlyoutChangelog.IsOpen = false;
+
+      sender.Header = header;
+      sender.IsOpen = true;
     }
 
     private void LauncherSettings_Click(object sender, RoutedEventArgs e)
     {
-      if (LauncherSettingsGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
+      if (FlyoutLauncherSettings.IsOpen)
       {
-        Flyout.IsOpen = false;
-      }
-      else if (LauncherSettingsGrid.Visibility == Visibility.Hidden)
-      {
-        Flyout.IsOpen = false;
-        FlyoutHandler(LauncherSettingsGrid, "Launcher Settings");
-      }
-      else
-      {
-        FlyoutHandler(LauncherSettingsGrid, "Launcher Settings");
+        FlyoutLauncherSettings.IsOpen = false;
+      }else{
+        FlyoutHandler(FlyoutLauncherSettings, "Launcher Settings");
       }
     }
 
@@ -708,58 +699,44 @@ namespace Dewritwo
           Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.launcherConfigFile);
         }
       }
-      FlyoutHandler(CustomGrid, "Player Customization");
+      FlyoutHandler(FlyoutCustom, "Player Customization");
     }
 
     private void Changelog_OnClick(object sender, RoutedEventArgs e)
     {
-      if (ChangelogGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
+      if (FlyoutChangelog.IsOpen)
       {
-        Flyout.IsOpen = false;
-      }
-      else if (ChangelogGrid.Visibility == Visibility.Hidden)
-      {
-        Flyout.IsOpen = false;
-        FlyoutHandler(ChangelogGrid, "Changelog");
-      }
-      else
-      {
-        FlyoutHandler(ChangelogGrid, "Changelog");
+        FlyoutChangelog.IsOpen = false;
+      }else{
+        FlyoutHandler(FlyoutChangelog, "Changelog");
       }
     }
 
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
-      FlyoutHandler(SettingsGrid, "Settings");
+      FlyoutHandler(FlyoutSettings, "Settings");
     }
 
     private void Voip_Click(object sender, RoutedEventArgs e)
     {
-      FlyoutHandler(VOIPSettingsGrid, "VOIP Settings");
+      FlyoutHandler(FlyoutVOIPSettings, "VOIP Settings");
     }
 
     private void AutoExec_Click(object sender, RoutedEventArgs e)
     {
       var dict = Dictionaries.GetCommandLine();
       CommandLine.SetValue(TextBoxHelper.WatermarkProperty, dict[Convert.ToString(Command.SelectedValue)]);
-      FlyoutHandler(AutoExecGrid, "Auto Exec");
+      FlyoutHandler(FlyoutAutoExec, "Auto Exec");
       Preview.Text = File.ReadAllText("autoexec.cfg");
     }
 
     private void Debug_OnClick(object sender, RoutedEventArgs e)
     {
-      if (DebugGrid.Visibility == Visibility.Visible && Flyout.IsOpen)
+      if (FlyoutDebug.IsOpen)
       {
-        Flyout.IsOpen = false;
-      }
-      else if (DebugGrid.Visibility != Visibility.Visible)
-      {
-        Flyout.IsOpen = false;
-        FlyoutHandler(DebugGrid, "Debug Log");
-      }
-      else
-      {
-        FlyoutHandler(DebugGrid, "Debug Log");
+        FlyoutDebug.IsOpen = false;
+      }else{
+        FlyoutHandler(FlyoutDebug, "Debug Log");
       }
     }
 
@@ -790,8 +767,8 @@ namespace Dewritwo
             if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              Flyout.IsOpen = false;
-              FlyoutHandler(DebugGrid, "Debug Log");
+              FlyoutDebug.IsOpen = false;
+              FlyoutHandler(FlyoutDebug, "Debug Log");
             }
           });
         }
@@ -826,8 +803,8 @@ namespace Dewritwo
               if (Cfg.launcherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.launcherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                Flyout.IsOpen = false;
-                FlyoutHandler(DebugGrid, "Debug Log");
+                FlyoutDebug.IsOpen = false;
+                FlyoutHandler(FlyoutDebug, "Debug Log");
               }
             });
             if (dialog.Error.InnerException != null)
