@@ -6,14 +6,14 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Dewritwo.Resources
+namespace Dewritwo
 {
-  internal class Cfg
+  internal static class Cfg
   {
     #region Variables
 
-    public static Dictionary<string, string> configFile;
-    public static Dictionary<string, string> launcherConfigFile;
+    public static Dictionary<string, string> ConfigFile;
+    public static Dictionary<string, string> LauncherConfigFile;
 
     #endregion
 
@@ -32,24 +32,28 @@ namespace Dewritwo.Resources
       return Process.GetProcesses().Any(p => p.ProcessName.Contains(nameSubstring));
     }
 
-    public static bool SaveConfigFile(string CfgFileName, Dictionary<string, string> configDict)
+    public static bool SaveConfigFile(string cfgFileName, Dictionary<string, string> configDict)
     {
       try
       {
-        if (File.Exists(CfgFileName))
-          File.Delete(CfgFileName);
+        var lines = configDict.Select(kvp => kvp.Key + " \"" + kvp.Value + "\"").ToList();
+        
+        /*
+        if (File.Exists(cfgFileName))
+          File.Delete(cfgFileName);
+        */
 
-        var lines = new List<string>();
-        foreach (var kvp in configDict)
-          lines.Add(kvp.Key + " \"" + kvp.Value + "\"");
-
-        File.WriteAllLines(CfgFileName, lines.ToArray());
-
-
-        var running = CheckIfProcessIsRunning("eldorado");
-        if (running)
+        if (File.Exists(cfgFileName))
         {
-          dewCmd("Execute dewrito_prefs.cfg");
+          File.WriteAllLines(cfgFileName + ".temp", lines.ToArray());
+          File.Replace(cfgFileName + ".temp", cfgFileName, cfgFileName + ".bak");
+        }else{
+          File.WriteAllLines(cfgFileName, lines.ToArray());
+        }
+
+        if (CheckIfProcessIsRunning("eldorado"))
+        {
+          DewCmd("Execute dewrito_prefs.cfg");
         }
         return true;
       }
@@ -59,10 +63,9 @@ namespace Dewritwo.Resources
       }
     }
 
-    public static string dewCmd(string cmd)
+    private static string DewCmd(string cmd)
     {
       var data = new byte[1024];
-      string stringData;
       TcpClient server;
       try
       {
@@ -75,14 +78,14 @@ namespace Dewritwo.Resources
       var ns = server.GetStream();
 
       var recv = ns.Read(data, 0, data.Length);
-      stringData = Encoding.ASCII.GetString(data, 0, recv);
+      var stringData = Encoding.ASCII.GetString(data, 0, recv);
 
       ns.Write(Encoding.ASCII.GetBytes(cmd), 0, cmd.Length);
       ns.Flush();
 
       ns.Close();
       server.Close();
-      return "Done";
+      return stringData;
     }
 
     private static bool LoadConfigFile(string CfgFileName, ref Dictionary<string, string> returnDict)
@@ -94,7 +97,7 @@ namespace Dewritwo.Resources
       var lines = File.ReadAllLines(CfgFileName);
       foreach (var line in lines)
       {
-        var splitIdx = line.IndexOf(" ");
+        var splitIdx = line.IndexOf(" ", StringComparison.Ordinal);
         if (splitIdx < 0 || splitIdx + 1 >= line.Length)
           continue; // line isn't valid?
         var varName = line.Substring(0, splitIdx);
@@ -113,76 +116,76 @@ namespace Dewritwo.Resources
 
     public static void Initial(string error)
     {
-      var CfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref configFile);
-      var LauncherCfgFileExists = LoadConfigFile("launcher_prefs.cfg", ref launcherConfigFile);
+      var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref ConfigFile);
+      var launcherCfgFileExists = LoadConfigFile("launcher_prefs.cfg", ref LauncherConfigFile);
 
-      if (!CfgFileExists || error == "Cfg Error")
+      if (!cfgFileExists || error == "Cfg Error")
       {
-        SetVariable("Game.MenuURL", "http://scooterpsu.github.io/", ref configFile);
-        SetVariable("Game.LanguageID", "0", ref configFile);
-        SetVariable("Game.SkipLauncher", "0", ref configFile);
-        SetVariable("Game.LogName", "dorito.log", ref configFile);
-        SetVariable("Player.Armor.Accessory", "air_assault", ref configFile);
-        SetVariable("Player.Armor.Arms", "air_assault", ref configFile);
-        SetVariable("Player.Armor.Chest", "air_assault", ref configFile);
-        SetVariable("Player.Armor.Helmet", "air_assault", ref configFile);
-        SetVariable("Player.Armor.Legs", "air_assault", ref configFile);
-        SetVariable("Player.Armor.Pelvis", "", ref configFile);
-        SetVariable("Player.Armor.Shoulders", "air_assault", ref configFile);
-        SetVariable("Player.Colors.Primary", "#698029", ref configFile);
-        SetVariable("Player.Colors.Secondary", "#698029", ref configFile);
-        SetVariable("Player.Colors.Visor", "#FFA000", ref configFile);
-        SetVariable("Player.Colors.Lights", "#000000", ref configFile);
-        SetVariable("Player.Colors.Holo", "#000000", ref configFile);
-        SetVariable("Player.Name", "", ref configFile);
+        SetVariable("Game.MenuURL", "http://scooterpsu.github.io/", ref ConfigFile);
+        SetVariable("Game.LanguageID", "0", ref ConfigFile);
+        SetVariable("Game.SkipLauncher", "0", ref ConfigFile);
+        SetVariable("Game.LogName", "dorito.log", ref ConfigFile);
+        SetVariable("Player.Armor.Accessory", "air_assault", ref ConfigFile);
+        SetVariable("Player.Armor.Arms", "air_assault", ref ConfigFile);
+        SetVariable("Player.Armor.Chest", "air_assault", ref ConfigFile);
+        SetVariable("Player.Armor.Helmet", "air_assault", ref ConfigFile);
+        SetVariable("Player.Armor.Legs", "air_assault", ref ConfigFile);
+        SetVariable("Player.Armor.Pelvis", "", ref ConfigFile);
+        SetVariable("Player.Armor.Shoulders", "air_assault", ref ConfigFile);
+        SetVariable("Player.Colors.Primary", "#698029", ref ConfigFile);
+        SetVariable("Player.Colors.Secondary", "#698029", ref ConfigFile);
+        SetVariable("Player.Colors.Visor", "#FFA000", ref ConfigFile);
+        SetVariable("Player.Colors.Lights", "#000000", ref ConfigFile);
+        SetVariable("Player.Colors.Holo", "#000000", ref ConfigFile);
+        SetVariable("Player.Name", "", ref ConfigFile);
         SetVariable("Player.PrivKeyNote",
           "The PrivKey below is used to keep your stats safe.Treat it like a password and don't share it with anyone!",
-          ref configFile);
-        SetVariable("Player.PrivKey", "", ref configFile);
-        SetVariable("Player.PubKey", "", ref configFile);
-        SetVariable("Server.Name", "Halo Online Server", ref configFile);
-        SetVariable("Server.Password", "", ref configFile);
-        SetVariable("Server.Countdown", "5", ref configFile);
-        SetVariable("Server.MaxPlayers", "16", ref configFile);
-        SetVariable("Server.Port", "11775", ref configFile);
-        SetVariable("Server.ShouldAnnounce", "1", ref configFile);
-        SetVariable("Server.SprintEnabled", "0", ref configFile);
-        SetVariable("Server.UnlimitedSprint", "0", ref configFile);
-        SetVariable("Camera.Crosshair", "0", ref configFile);
-        SetVariable("Camera.FOV", "90.000000", ref configFile);
-        SetVariable("Camera.HideHUD", "0", ref configFile);
-        SetVariable("Camera.Speed", "0.100000", ref configFile);
-        SetVariable("Input.RawInput", "1", ref configFile);
-        SetVariable("IRC.Server", "irc.snoonet.org", ref configFile);
-        SetVariable("IRC.ServerPort", "6667", ref configFile);
-        SetVariable("IRC.GlobalChannel", "#haloonline", ref configFile);
-        SetVariable("VoIP.PushToTalkKey", "capital", ref configFile);
-        SetVariable("VoIP.PushToTalk", "1", ref configFile);
-        SetVariable("VoIP.VolumeModifier", "6", ref configFile);
-        SetVariable("VoIP.AGC", "1", ref configFile);
-        SetVariable("VoIP.EchoCancellation", "1", ref configFile);
-        SetVariable("VoIP.VoiceActivationLevel", "-45.000000", ref configFile);
-        SetVariable("VoIP.ServerEnabled", "1", ref configFile);
-        SetVariable("VoIP.Enabled", "1", ref configFile);
-        SetVariable("Graphics.Saturation", "1.000000", ref configFile);
-        SetVariable("Graphics.Bloom", "0.000000", ref configFile);
+          ref ConfigFile);
+        SetVariable("Player.PrivKey", "", ref ConfigFile);
+        SetVariable("Player.PubKey", "", ref ConfigFile);
+        SetVariable("Server.Name", "Halo Online Server", ref ConfigFile);
+        SetVariable("Server.Password", "", ref ConfigFile);
+        SetVariable("Server.Countdown", "5", ref ConfigFile);
+        SetVariable("Server.MaxPlayers", "16", ref ConfigFile);
+        SetVariable("Server.Port", "11775", ref ConfigFile);
+        SetVariable("Server.ShouldAnnounce", "1", ref ConfigFile);
+        SetVariable("Server.SprintEnabled", "0", ref ConfigFile);
+        SetVariable("Server.UnlimitedSprint", "0", ref ConfigFile);
+        SetVariable("Camera.Crosshair", "0", ref ConfigFile);
+        SetVariable("Camera.FOV", "90.000000", ref ConfigFile);
+        SetVariable("Camera.HideHUD", "0", ref ConfigFile);
+        SetVariable("Camera.Speed", "0.100000", ref ConfigFile);
+        SetVariable("Input.RawInput", "1", ref ConfigFile);
+        SetVariable("IRC.Server", "irc.snoonet.org", ref ConfigFile);
+        SetVariable("IRC.ServerPort", "6667", ref ConfigFile);
+        SetVariable("IRC.GlobalChannel", "#haloonline", ref ConfigFile);
+        SetVariable("VoIP.PushToTalkKey", "capital", ref ConfigFile);
+        SetVariable("VoIP.PushToTalk", "1", ref ConfigFile);
+        SetVariable("VoIP.VolumeModifier", "6", ref ConfigFile);
+        SetVariable("VoIP.AGC", "1", ref ConfigFile);
+        SetVariable("VoIP.EchoCancellation", "1", ref ConfigFile);
+        SetVariable("VoIP.VoiceActivationLevel", "-45.000000", ref ConfigFile);
+        SetVariable("VoIP.ServerEnabled", "1", ref ConfigFile);
+        SetVariable("VoIP.Enabled", "1", ref ConfigFile);
+        SetVariable("Graphics.Saturation", "1.000000", ref ConfigFile);
+        SetVariable("Graphics.Bloom", "0.000000", ref ConfigFile);
         Console.WriteLine("New CFG Created");
       }
 
-      if (!LauncherCfgFileExists || error == "launcher")
+      if (!launcherCfgFileExists || error == "launcher")
       {
-        SetVariable("Launcher.Color", "blue", ref launcherConfigFile);
-        SetVariable("Launcher.Theme", "BaseDark", ref launcherConfigFile);
-        SetVariable("Launcher.Close", "0", ref launcherConfigFile);
-        SetVariable("Launcher.Random", "0", ref launcherConfigFile);
-        SetVariable("Launcher.IntroSkip", "1", ref launcherConfigFile);
-        SetVariable("Launcher.AutoDebug", "0", ref launcherConfigFile);
-        SetVariable("Launcher.PlayerMessage", "0", ref launcherConfigFile);
+        SetVariable("Launcher.Color", "blue", ref LauncherConfigFile);
+        SetVariable("Launcher.Theme", "BaseDark", ref LauncherConfigFile);
+        SetVariable("Launcher.Close", "0", ref LauncherConfigFile);
+        SetVariable("Launcher.Random", "0", ref LauncherConfigFile);
+        SetVariable("Launcher.IntroSkip", "1", ref LauncherConfigFile);
+        SetVariable("Launcher.AutoDebug", "0", ref LauncherConfigFile);
+        SetVariable("Launcher.PlayerMessage", "0", ref LauncherConfigFile);
         Console.WriteLine("New Launcher CFG Created");
       }
 
-      SaveConfigFile("launcher_prefs.cfg", launcherConfigFile);
-      SaveConfigFile("dewrito_prefs.cfg", configFile);
+      SaveConfigFile("launcher_prefs.cfg", LauncherConfigFile);
+      SaveConfigFile("dewrito_prefs.cfg", ConfigFile);
     }
 
     #endregion
