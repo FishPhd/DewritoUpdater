@@ -67,11 +67,38 @@ namespace Dewritwo
       new Dictionary<string, string>
       {
         ["Assault Rifle"] = "assault_rifle",
+        ["DMG Assault Rifle"] = "ar_variant_2",
+        ["ROF Assault Rifle"] = "ar_variant_3",
+        ["ACC Assault Rifle"] = "ar_variant_5",
+        ["PWR Assault Rifle"] = "ar_variant_6",
         ["Battle Rifle"] = "battle_rifle",
+        ["ROF Battle Rifle"] = "br_variant_1",
+        ["ACC Battle Rifle"] = "br_variant_2",
+        ["MAG Battle Rifle"] = "br_variant_3",
+        ["DMG Battle Rifle"] = "br_variant_4",
+        ["RNG Battle Rifle"] = "br_variant_5",
+        ["PWR Battle Rifle"] = "br_variant_6",
         ["Covenant Carbine"] = "covenant_carbine",
-        ["DMR"] = "dmr",
-        ["Plasma Rifle"] = "plasma_rifle",
-        ["SMG"] = "smg"
+        ["MAG Covenant Carbine"] = "covenant_carbine_variant_1",
+        ["DMG Covenant Carbine"] = "covenant_carbine_variant_2",
+        ["ACC Covenant Carbine"] = "covenant_carbine_variant_3",
+        ["ROF Covenant Carbine"] = "covenant_carbine_variant_4",
+        ["RNG Covenant Carbine"] = "covenant_carbine_variant_5",
+        ["PWR Covenant Carbine"] = "covenant_carbine_variant_6",
+        ["DMR "] = "dmr",
+        ["MAG DMR"] = "dmr_variant_1",
+        ["ACC DMR"] = "dmr_variant_2",
+        ["ROF DMR"] = "dmr_variant_3",
+        ["DMG DMR"] = "dmr_variant_4",
+        ["RNG DMR"] = "dmr_variant_5",
+        ["PWR DMR"] = "dmr_variant_6",
+        ["Plasma Rifle"] = "plasma_rifle_variant_6",
+        ["PWR Plasma Rifle"] = "plasma_rifle_variant_6",
+        ["SMG"] = "smg",
+        ["ROF SMG"] = "smg_variant_1",
+        ["ACC SMG"] = "smg_variant_2",
+        ["DMG SMG"] = "smg_variant_4",
+        ["PWR SMG"] = "smg_variant_6"
       };
 
     public static Dictionary<string, string> GetAction() =>

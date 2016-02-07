@@ -226,6 +226,7 @@ namespace Dewritwo
       }
 
       AppendDebugLine("Game files validated, contacting update server...", Color.FromRgb(255, 255, 255));
+      var fade = (Storyboard)TryFindResource("Fade");
 
       if (!ProcessUpdateData())
       {
@@ -254,7 +255,6 @@ namespace Dewritwo
           {
             BtnAction.Content = "Play Game";
             BtnSkip.Visibility = Visibility.Hidden;
-            var fade = (Storyboard) TryFindResource("Fade");
             fade.Stop(); // Start animation
           });
         return;
@@ -266,7 +266,6 @@ namespace Dewritwo
         () =>
         {
           BtnAction.Content = "Update";
-          var fade = (Storyboard) TryFindResource("Fade");
           fade.Stop(); // Start animation
         });
     }
@@ -814,7 +813,7 @@ namespace Dewritwo
       else if (BtnSkip.Content.Equals("Skip"))
         AppendDebugLine("Validating skipped. You may now play (with possibility of problems)",
           Color.FromRgb(255, 255, 255));
-      var fade = (Storyboard) TryFindResource("fade");
+      var fade = (Storyboard) TryFindResource("Fade");
       fade.Stop();
       BtnAction.Content = "Play Game";
       BtnSkip.Visibility = Visibility.Hidden;
