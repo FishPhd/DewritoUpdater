@@ -9,6 +9,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -72,10 +73,9 @@ namespace Dewritwo
     {
       try
       {
-        Cfg.Initial("No Error");
+        Cfg.Initial("n/a");
         Load();
         AppendDebugLine("Cfg Load Complete", Color.FromRgb(0, 255, 0));
-        Console.WriteLine(@"Cfg Load Complete");
       }
       catch
       {
@@ -84,19 +84,16 @@ namespace Dewritwo
           File.Delete("~/dewrito_prefs.cfg");
         if (File.Exists("~/launcher_prefs.cfg"))
           File.Delete("~/launcher_prefs.cfg");
-        Cfg.Initial("Cfg Error");
+        Cfg.Initial("cfg");
         Load();
         AppendDebugLine("Cfg Reload Complete", Color.FromRgb(0, 255, 0));
       }
 
       if (Directory.Exists("bink") && Cfg.LauncherConfigFile["Launcher.IntroSkip"] == "1")
-      {
         Directory.Move("bink", "bink_disabled");
-      }
 
       try
       {
-        Console.WriteLine(@"Json start");
         using (var wc = new WebClient())
         {
           var url = wc.DownloadString("http://eldewrito.anvilonline.net/update.json");
@@ -119,7 +116,7 @@ namespace Dewritwo
               if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                FlyoutHandler(FlyoutDebug, "Debug Log");
+                FlyoutHandler(FlyoutDebug);
               }
             });
             return;
@@ -136,7 +133,7 @@ namespace Dewritwo
           if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
               Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
           {
-            FlyoutHandler(FlyoutDebug, "Debug Log");
+            FlyoutHandler(FlyoutDebug);
           }
         });
         return;
@@ -189,7 +186,8 @@ namespace Dewritwo
         }
         else
         {
-          LblVersion.Content = "Your Version: " + _localEldoritoVersion + "    Latest Version: " + _eldoritoLatestVersion;
+          LblVersion.Content = "Your Version: " + _localEldoritoVersion + "    Latest Version: " +
+                               _eldoritoLatestVersion;
 
           AppendDebugLine(
             "Your version: " + _localEldoritoVersion,
@@ -226,7 +224,7 @@ namespace Dewritwo
       }
 
       AppendDebugLine("Game files validated, contacting update server...", Color.FromRgb(255, 255, 255));
-      var fade = (Storyboard)TryFindResource("Fade");
+      var fade = (Storyboard) TryFindResource("Fade");
 
       if (!ProcessUpdateData())
       {
@@ -241,7 +239,7 @@ namespace Dewritwo
           if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
               Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
           {
-            FlyoutHandler(FlyoutDebug, "Debug Log");
+            FlyoutHandler(FlyoutDebug);
           }
         });
       }
@@ -275,7 +273,7 @@ namespace Dewritwo
       try
       {
         var updateData = _settingsJson["updateServiceUrl"].ToString().Replace("\"", "");
-        Console.WriteLine(updateData);
+        //Console.WriteLine(updateData);
         if (updateData.StartsWith("http"))
         {
           using (var wc = new WebClient())
@@ -322,8 +320,9 @@ namespace Dewritwo
           return false;
 
         var patchFiles = new List<string>();
+
+        // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
         foreach (var file in _latestUpdate["patchFiles"])
-          // each file mentioned here must match original hash or have a file in the _dewbackup folder that does
         {
           var fileName = (string) file;
           var fileHash = (string) _settingsJson["gameFiles"][fileName];
@@ -341,7 +340,7 @@ namespace Dewritwo
               if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                FlyoutHandler(FlyoutDebug, "Debug Log");
+                FlyoutHandler(FlyoutDebug);
               }
             });
             return false;
@@ -366,7 +365,7 @@ namespace Dewritwo
                 if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                     Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
                 {
-                  FlyoutHandler(FlyoutDebug, "Debug Log");
+                  FlyoutHandler(FlyoutDebug);
                 }
               });
               return false;
@@ -390,7 +389,7 @@ namespace Dewritwo
                 if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                     Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
                 {
-                  FlyoutHandler(FlyoutDebug, "Debug Log");
+                  FlyoutHandler(FlyoutDebug);
                 }
               });
               return false;
@@ -421,7 +420,7 @@ namespace Dewritwo
               if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                   Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                FlyoutHandler(FlyoutDebug, "Debug Log");
+                FlyoutHandler(FlyoutDebug);
               }
             });
             var name = x.Key;
@@ -491,12 +490,13 @@ namespace Dewritwo
         var seconds = TimeSpan.FromMilliseconds(watch.ElapsedMilliseconds).TotalSeconds;
         AppendDebugLine("Hash Complete in: " + seconds + " Seconds", Color.FromRgb(0, 255, 0));
 
-        IDictionary<string, JToken> files = (JObject)_settingsJson["gameFiles"];
+        IDictionary<string, JToken> files = (JObject) _settingsJson["gameFiles"];
 
         foreach (var x in files)
         {
           var keyName = x.Key;
-          if (_fileHashes != null && (!_fileHashes.ContainsKey(keyName) && _fileHashes.ContainsKey(keyName.Replace(@"\", @"/"))))
+          if (_fileHashes != null && !_fileHashes.ContainsKey(keyName) &&
+              _fileHashes.ContainsKey(keyName.Replace(@"\", @"/")))
             keyName = keyName.Replace(@"\", @"/");
 
           if (_fileHashes != null && !_fileHashes.ContainsKey(keyName))
@@ -510,9 +510,10 @@ namespace Dewritwo
             {
               BtnAction.Content = "Error";
               BtnSkip.Content = "Ignore";
-              if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") && Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
+              if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
               {
-                FlyoutHandler(FlyoutDebug, "Debug Log");
+                FlyoutHandler(FlyoutDebug);
               }
             });
             return false;
@@ -534,7 +535,7 @@ namespace Dewritwo
             if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              FlyoutHandler(FlyoutDebug, "Debug Log");
+              FlyoutHandler(FlyoutDebug);
             }
           });
           return false;
@@ -608,7 +609,7 @@ namespace Dewritwo
             if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              FlyoutHandler(FlyoutDebug, "Debug Log");
+              FlyoutHandler(FlyoutDebug);
             }
           });
         }
@@ -619,18 +620,22 @@ namespace Dewritwo
 
     #region Flyout Controls
 
-    private void FlyoutHandler(Flyout sender, string header)
+    private async void FlyoutHandler(Flyout sender)
     {
-      FlyoutCustom.IsOpen = false;
-      FlyoutSettings.IsOpen = false;
-      FlyoutLauncherSettings.IsOpen = false;
-      FlyoutVoipSettings.IsOpen = false;
-      FlyoutAutoExec.IsOpen = false;
-      FlyoutDebug.IsOpen = false;
-      FlyoutChangelog.IsOpen = false;
-
-      sender.Header = header;
       sender.IsOpen = true;
+      foreach (Flyout fly in allFlyouts.FindChildren<Flyout>())
+        if (fly.Header != sender.Header)
+          await Task.Run(() => AsyncFlyoutHandler(fly));
+
+      sender.IsOpen = true;
+    }
+
+    private void AsyncFlyoutHandler(Flyout fly)
+    {
+      Dispatcher.Invoke(() =>
+      {
+        fly.IsOpen = false;
+      });
     }
 
     private void LauncherSettings_Click(object sender, RoutedEventArgs e)
@@ -638,7 +643,7 @@ namespace Dewritwo
       if (FlyoutLauncherSettings.IsOpen)
         FlyoutLauncherSettings.IsOpen = false;
       else
-        FlyoutHandler(FlyoutLauncherSettings, "Launcher Settings");
+        FlyoutHandler(FlyoutLauncherSettings);
     }
 
     private void d_Click(object sender, RoutedEventArgs e)
@@ -686,7 +691,7 @@ namespace Dewritwo
           Cfg.SaveConfigFile("launcher_prefs.cfg", Cfg.LauncherConfigFile);
         }
       }
-      FlyoutHandler(FlyoutCustom, "Player Customization");
+      FlyoutHandler(FlyoutCustom);
     }
 
     private void Changelog_OnClick(object sender, RoutedEventArgs e)
@@ -694,24 +699,24 @@ namespace Dewritwo
       if (FlyoutChangelog.IsOpen)
         FlyoutChangelog.IsOpen = false;
       else
-        FlyoutHandler(FlyoutChangelog, "Changelog");
+        FlyoutHandler(FlyoutChangelog);
     }
 
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
-      FlyoutHandler(FlyoutSettings, "Settings");
+      FlyoutHandler(FlyoutSettings);
     }
 
     private void Voip_Click(object sender, RoutedEventArgs e)
     {
-      FlyoutHandler(FlyoutVoipSettings, "VOIP Settings");
+      FlyoutHandler(FlyoutVoipSettings);
     }
 
     private void AutoExec_Click(object sender, RoutedEventArgs e)
     {
       var dict = Dictionaries.GetCommandLine();
       CommandLine.SetValue(TextBoxHelper.WatermarkProperty, dict[Convert.ToString(Command.SelectedValue)]);
-      FlyoutHandler(FlyoutAutoExec, "Auto Exec");
+      FlyoutHandler(FlyoutAutoExec);
       Preview.Text = File.ReadAllText("autoexec.cfg");
     }
 
@@ -720,7 +725,7 @@ namespace Dewritwo
       if (FlyoutDebug.IsOpen)
         FlyoutDebug.IsOpen = false;
       else
-        FlyoutHandler(FlyoutDebug, "Debug Log");
+        FlyoutHandler(FlyoutDebug);
     }
 
     #endregion
@@ -752,7 +757,7 @@ namespace Dewritwo
             if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              FlyoutHandler(FlyoutDebug, "Debug Log");
+              FlyoutHandler(FlyoutDebug);
             }
           });
         }
@@ -782,7 +787,7 @@ namespace Dewritwo
             if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
                 Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
             {
-              FlyoutHandler(FlyoutDebug, "Debug Log");
+              FlyoutHandler(FlyoutDebug);
             }
           });
 
@@ -978,6 +983,7 @@ namespace Dewritwo
         {
           Text = status + "\u2028"
         };
+
         tr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
       });
     }
@@ -1595,7 +1601,9 @@ namespace Dewritwo
         Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Close"]));
         RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
         AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
-      }catch{
+      }
+      catch
+      {
         Console.WriteLine(@"Could not load launcher settings");
       }
 
@@ -1760,7 +1768,5 @@ namespace Dewritwo
     #endregion
 
     #endregion
-
-    
   }
 }
