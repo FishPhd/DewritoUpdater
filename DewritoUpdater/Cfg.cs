@@ -11,8 +11,8 @@ namespace Dewritwo
 {
   internal static class Cfg
   {
-    public static Dictionary<string, string> ConfigFile = new Dictionary<string, string>();
-    public static Dictionary<string, string> LauncherConfigFile = new Dictionary<string, string>();
+    public static Dictionary<string, string> ConfigFile;
+    public static Dictionary<string, string> LauncherConfigFile;
 
     public static void SetVariable(string varName, string varValue, ref Dictionary<string, string> configDict,
       bool rcon = true)
@@ -100,7 +100,7 @@ namespace Dewritwo
 
     private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
     {
-      if (returnDict == null) throw new ArgumentNullException(nameof(returnDict));
+      returnDict = new Dictionary<string, string>();
       if (!File.Exists(cfgFileName))
         return false;
 
@@ -190,11 +190,8 @@ namespace Dewritwo
         SetVariable("Launcher.PlayerMessage", "0", ref LauncherConfigFile, false);
       }
 
-      if (!SaveConfigFile("launcher_prefs.cfg", LauncherConfigFile))
-        Console.WriteLine(@"Failed to save dew_prefs.cfg");
-
-      if (!SaveConfigFile("launcher_prefs.cfg", LauncherConfigFile))
-        Console.WriteLine(@"Failed to save launcher_prefs.cfg");
+      SaveConfigFile("launcher_prefs.cfg", LauncherConfigFile);
+      SaveConfigFile("dewrito_prefs.cfg", ConfigFile);
     }
   }
 }
