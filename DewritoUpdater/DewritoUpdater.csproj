@@ -114,6 +114,29 @@
     </ApplicationDefinition>
     <Compile Include="BinaryPatchUtility.cs" />
     <Compile Include="Cfg.cs" />
+    <Compile Include="Xdelta\AddressMode.cs" />
+    <Compile Include="Xdelta\Adler32.cs" />
+    <Compile Include="Xdelta\Cache.cs" />
+    <Compile Include="Xdelta\CodeTable.cs" />
+    <Compile Include="Xdelta\Decoder\Decoder.cs" />
+    <Compile Include="Xdelta\Decoder\HeaderReader.cs" />
+    <Compile Include="Xdelta\Decoder\WindowDecoder.cs" />
+    <Compile Include="Xdelta\Decoder\WindowReader.cs" />
+    <Compile Include="Xdelta\Extensions.cs" />
+    <Compile Include="Xdelta\ProgressDelegates.cs" />
+    <Compile Include="Xdelta\Vcdiff\Header.cs" />
+    <Compile Include="Xdelta\Vcdiff\HeaderFields.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\Add.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\Copy.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\Instruction.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\InstructionType.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\Noop.cs" />
+    <Compile Include="Xdelta\Vcdiff\Instructions\Run.cs" />
+    <Compile Include="Xdelta\Vcdiff\SecondaryCompressor.cs" />
+    <Compile Include="Xdelta\Vcdiff\Window.cs" />
+    <Compile Include="Xdelta\Vcdiff\WindowCompressedFields.cs" />
+    <Compile Include="Xdelta\Vcdiff\WindowFields.cs" />
+    <Compile Include="Xdelta\VcdReader.cs" />
     <Page Include="FileDownloadDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,6 +216,7 @@
   <ItemGroup>
     <Resource Include="LOGO_Launcher.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
