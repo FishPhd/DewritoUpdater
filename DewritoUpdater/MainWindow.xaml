@@ -46,7 +46,6 @@
     <ObjectDataProvider x:Key="Theme" ObjectType="{x:Type local:Dictionaries}" MethodName="GetTheme" />
     <ObjectDataProvider x:Key="Action" ObjectType="{x:Type local:Dictionaries}" MethodName="GetAction" />
     <ObjectDataProvider x:Key="Command" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommand" />
-    <ObjectDataProvider x:Key="CommandLine" ObjectType="{x:Type local:Dictionaries}" MethodName="GetCommandLine" />
     <Storyboard x:Key="Fade" RepeatBehavior="Forever">
       <DoubleAnimation Storyboard.TargetName="BtnAction"
                        Storyboard.TargetProperty="Opacity" From="0.20" To="1"
@@ -54,8 +53,8 @@
     </Storyboard>
   </controls:MetroWindow.Resources >
   <controls:MetroWindow.Flyouts>
-    <controls:FlyoutsControl x:Name="allFlyouts">
-      <controls:Flyout Header="Player Customization" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutCustom"
+    <controls:FlyoutsControl x:Name="AllFlyouts">
+      <controls:Flyout Header="Player Customization" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutCustom"
                          Theme="Adapt">
           <Grid Margin="5,0,5,5">
             <StackPanel Orientation="Vertical" Margin="20,10,0,0" VerticalAlignment="Top"
@@ -196,7 +195,7 @@
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
         </controls:Flyout>
-        <controls:Flyout Header="Settings" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutSettings"
+        <controls:Flyout Header="Settings" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutSettings"
                          Theme="Adapt">
           <Grid Margin="5,0,5,5">
             <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top"
@@ -270,7 +269,7 @@
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
         </controls:Flyout>
-        <controls:Flyout Header="Launcher Settings" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutLauncherSettings"
+        <controls:Flyout Header="Launcher Settings" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutLauncherSettings"
                          Theme="Adapt">
           <Grid Margin="5,0,5,5">
             <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top"
@@ -307,7 +306,7 @@
             </StackPanel>
           </Grid>
         </controls:Flyout>
-        <controls:Flyout Header="VOIP Settings" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutVoipSettings"
+        <controls:Flyout Header="VOIP Settings" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutVoipSettings"
                          Theme="Adapt">
           <Grid Margin="5,0,5,5">
             <StackPanel Orientation="Vertical" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -354,7 +353,7 @@
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
         </controls:Flyout>
-        <controls:Flyout Header="Auto Exec" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutAutoExec"
+        <controls:Flyout Header="Auto Exec" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutAutoExec"
                          Theme="Adapt">
           <Grid Margin="5,0,5,5">
             <StackPanel Orientation="Vertical" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -389,7 +388,7 @@
             </StackPanel>
           </Grid>
         </controls:Flyout>
-        <controls:Flyout Header="Debug Log" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutDebug" Theme="Adapt">
+        <controls:Flyout Header="Debug Log" IsPinned="True" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutDebug" Theme="Adapt">
           <Grid Margin="10,0,10,10">
             <RichTextBox x:Name="DebugLogger" IsReadOnly="True" BorderThickness="0"
                          VerticalScrollBarVisibility="Auto" Padding="5,5,5,0" Margin="0,0,0,40">
@@ -401,7 +400,7 @@
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderBrush="{x:Null}" />
           </Grid>
         </controls:Flyout>
-      <controls:Flyout Header="Changelog" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutChangelog"
+      <controls:Flyout Header="Changelog" IsPinned="False" Position="Right" Width="405" IsOpen="False" x:Name="FlyoutChangelog"
                          Theme="Adapt">
         <Grid Margin="10,0,10,10">
           <TextBox x:Name="ChangelogContent" Margin="0"

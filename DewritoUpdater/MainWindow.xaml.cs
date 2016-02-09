@@ -578,19 +578,18 @@ namespace Dewritwo
 
         private async void FlyoutHandler(Flyout sender)
         {
-            sender.IsOpen = true;
-            foreach (Flyout fly in allFlyouts.FindChildren<Flyout>())
-                if (fly.Header != sender.Header)
-                    await Task.Run(() => AsyncFlyoutHandler(fly));
-
-            sender.IsOpen = true;
+          await Task.Run(() => AsyncFlyoutHandler(sender));
         }
 
-        private void AsyncFlyoutHandler(Flyout fly)
+        private void AsyncFlyoutHandler(Flyout sender)
         {
             Dispatcher.Invoke(() =>
             {
-                fly.IsOpen = false;
+              sender.IsOpen = true;
+              foreach (var fly in AllFlyouts.FindChildren<Flyout>())
+                if (fly.Header != sender.Header)
+                  fly.IsOpen = false;
+              sender.IsOpen = true;
             });
         }
 
@@ -663,25 +662,6 @@ namespace Dewritwo
             FlyoutHandler(FlyoutSettings);
         }
 
-<<<<<<< HEAD
-    private async void FlyoutHandler(Flyout sender)
-    {
-      sender.IsOpen = true;
-      foreach (Flyout fly in allFlyouts.FindChildren<Flyout>())
-        if (fly.Header != sender.Header)
-          await Task.Run(() => AsyncFlyoutHandler(fly));
-
-      sender.IsOpen = true;
-    }
-
-    private void AsyncFlyoutHandler(Flyout fly)
-    {
-      Dispatcher.Invoke(() =>
-      {
-        fly.IsOpen = false;
-      });
-    }
-=======
         private void Voip_Click(object sender, RoutedEventArgs e)
         {
             FlyoutHandler(FlyoutVoipSettings);
@@ -702,7 +682,6 @@ namespace Dewritwo
             else
                 FlyoutHandler(FlyoutDebug);
         }
->>>>>>> origin/master
 
         #endregion
 
@@ -974,14 +953,6 @@ namespace Dewritwo
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
-<<<<<<< HEAD
-          Text = status + "\u2028"
-        };
-
-        tr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
-      });
-    }
-=======
             if (!IsLoaded)
             {
                 return;
@@ -992,9 +963,8 @@ namespace Dewritwo
 
         private void Weapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!IsLoaded)
-                return;
->>>>>>> origin/master
+          if (!IsLoaded)
+            return;
 
             Cfg.SetVariable("Player.RenderWeapon", Convert.ToString(Weapon.SelectedValue), ref Cfg.ConfigFile);
             Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.ConfigFile);
