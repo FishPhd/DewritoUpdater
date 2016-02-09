@@ -160,6 +160,7 @@ namespace Dewritwo
         SetVariable("Server.Port", "11775", ref ConfigFile, false);
         SetVariable("Server.ShouldAnnounce", "1", ref ConfigFile, false);
         SetVariable("Server.SprintEnabled", "0", ref ConfigFile, false);
+        SetVariable("Server.AssassinationEnabled", "0", ref ConfigFile, false);
         SetVariable("Server.UnlimitedSprint", "0", ref ConfigFile, false);
         SetVariable("Camera.Crosshair", "0", ref ConfigFile, false);
         SetVariable("Camera.FOV", "90.000000", ref ConfigFile, false);
