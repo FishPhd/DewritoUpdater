@@ -622,19 +622,18 @@ namespace Dewritwo
 
     private async void FlyoutHandler(Flyout sender)
     {
-      sender.IsOpen = true;
-      foreach (Flyout fly in allFlyouts.FindChildren<Flyout>())
-        if (fly.Header != sender.Header)
-          await Task.Run(() => AsyncFlyoutHandler(fly));
-
-      sender.IsOpen = true;
+      await Task.Run(() => AsyncFlyoutHandler(sender));
     }
 
-    private void AsyncFlyoutHandler(Flyout fly)
+    private void AsyncFlyoutHandler(Flyout sender)
     {
       Dispatcher.Invoke(() =>
       {
-        fly.IsOpen = false;
+        sender.IsOpen = true;
+        foreach (var fly in AllFlyouts.FindChildren<Flyout>())
+          if (fly.Header != sender.Header)
+            fly.IsOpen = false;
+        sender.IsOpen = true;
       });
     }
 
@@ -983,7 +982,6 @@ namespace Dewritwo
         {
           Text = status + "\u2028"
         };
-
         tr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(color));
       });
     }
