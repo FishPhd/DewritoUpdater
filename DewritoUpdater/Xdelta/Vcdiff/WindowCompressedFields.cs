@@ -18,17 +18,18 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace Xdelta
 {
-    [Flags]
-    public enum WindowCompressedFields : byte {
-        None         = 0,
-        Data         = 1 << 0,
-        Instructions = 1 << 1,
-        Addresses    = 1 << 2,
-        Invalid      = 0xF8
-    }
+  [Flags]
+  public enum WindowCompressedFields : byte
+  {
+    None = 0,
+    Data = 1 << 0,
+    Instructions = 1 << 1,
+    Addresses = 1 << 2,
+    Invalid = 0xF8
+  }
 }
-

@@ -18,15 +18,14 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 namespace Xdelta
 {
-    public enum SecondaryCompressor : byte {
-        None,
-        Djw  = 1,   // Static Huffman
-        Lzma = 2,   // LZMA
-        Fgk  = 16,  // FGK Adaptive Huffman
-    }
+  public enum SecondaryCompressor : byte
+  {
+    None,
+    Djw = 1, // Static Huffman
+    Lzma = 2, // LZMA
+    Fgk = 16 // FGK Adaptive Huffman
+  }
 }
-

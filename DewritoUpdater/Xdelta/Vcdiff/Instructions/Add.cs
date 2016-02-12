@@ -18,34 +18,31 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 
 namespace Xdelta.Instructions
 {
-    public class Add : Instruction
+  public class Add : Instruction
+  {
+    public Add(byte sizeInTable)
+      : base(sizeInTable, InstructionType.Add)
     {
-        public Add(byte sizeInTable)
-            : base(sizeInTable, InstructionType.Add)
-        {
-			Data = new byte[0];
-        }
-
-        public byte[] Data {
-            get;
-            private set;
-        }
-
-        public override void DecodeInstruction(Window window, Stream input, Stream output)
-        {
-            Data = window.Data.ReadBytes(Size);
-            output.Write(Data, 0, Data.Length);
-        }
-
-        public override string ToString()
-        {
-            return string.Format("ADD {0:X4}, {1}", Size, BitConverter.ToString(Data));
-        }
+      Data = new byte[0];
     }
-}
 
+    public byte[] Data { get; private set; }
+
+    public override void DecodeInstruction(Window window, Stream input, Stream output)
+    {
+      Data = window.Data.ReadBytes(Size);
+      output.Write(Data, 0, Data.Length);
+    }
+
+    public override string ToString()
+    {
+      return string.Format("ADD {0:X4}, {1}", Size, BitConverter.ToString(Data));
+    }
+  }
+}

@@ -18,17 +18,18 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace Xdelta
 {
-    [FlagsAttribute]
-    public enum WindowFields : byte {
-        NotSupported = 0xF8,
+  [Flags]
+  public enum WindowFields : byte
+  {
+    NotSupported = 0xF8,
 
-        Source  = 1 << 0,   // Copy window in source file
-        Target  = 1 << 1,   // Copy window in target file
-        Adler32 = 1 << 2,   // Has adler32 checksum
-    }
+    Source = 1 << 0, // Copy window in source file
+    Target = 1 << 1, // Copy window in target file
+    Adler32 = 1 << 2 // Has adler32 checksum
+  }
 }
-

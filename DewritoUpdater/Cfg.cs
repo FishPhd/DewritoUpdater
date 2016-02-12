@@ -126,7 +126,7 @@ namespace Dewritwo
 
     public static void Initial(string error)
     {
-      bool cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref ConfigFile);
+      var cfgFileExists = LoadConfigFile("dewrito_prefs.cfg", ref ConfigFile);
       var launcherCfgFileExists = LoadConfigFile("launcher_prefs.cfg", ref LauncherConfigFile);
 
       if (!cfgFileExists || error == "cfg")

@@ -18,45 +18,34 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.IO;
-using Xdelta;
 
 namespace Xdelta.Instructions
 {
-    public abstract class Instruction
+  public abstract class Instruction
+  {
+    public Instruction(byte sizeInTable, InstructionType type)
     {
-        public Instruction(byte sizeInTable, InstructionType type)
-        {
-            Type = type;
-            SizeInTable = sizeInTable;
-            Size = sizeInTable;
-        }
-
-        public InstructionType Type {
-            get;
-            private set;
-        }
-
-        protected byte SizeInTable {
-            get;
-            private set;
-        }
-
-        public uint Size {
-            get;
-            private set;
-        }
-
-        public abstract void DecodeInstruction(Window window, Stream input, Stream output);
-
-        public void Decode(Window window, Stream input, Stream output)
-        {
-            if (Type != InstructionType.Noop && SizeInTable == 0)
-                Size = window.Instructions.ReadInteger();
-
-            DecodeInstruction(window, input, output);
-        }
+      Type = type;
+      SizeInTable = sizeInTable;
+      Size = sizeInTable;
     }
-}
 
+    public InstructionType Type { get; }
+
+    protected byte SizeInTable { get; }
+
+    public uint Size { get; private set; }
+
+    public abstract void DecodeInstruction(Window window, Stream input, Stream output);
+
+    public void Decode(Window window, Stream input, Stream output)
+    {
+      if (Type != InstructionType.Noop && SizeInTable == 0)
+        Size = window.Instructions.ReadInteger();
+
+      DecodeInstruction(window, input, output);
+    }
+  }
+}

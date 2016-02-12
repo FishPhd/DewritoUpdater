@@ -18,21 +18,13 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 namespace Xdelta
 {
-    public class Header
-    {
-        public SecondaryCompressor SecondaryCompressor {
-            get;
-            set;
-        }
+  public class Header
+  {
+    public SecondaryCompressor SecondaryCompressor { get; set; }
 
-        public string ApplicationData {
-            get;
-            set;
-        }
-    }
+    public string ApplicationData { get; set; }
+  }
 }
-

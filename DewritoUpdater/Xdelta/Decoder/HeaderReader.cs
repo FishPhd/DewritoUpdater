@@ -18,67 +18,69 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
+using System.Text;
 
 namespace Xdelta
 {
-    internal class HeaderReader
+  internal class HeaderReader
+  {
+    private const uint MagicStamp = 0xC4C3D6;
+    private const byte SupportedVersion = 0x00;
+    private static readonly Encoding Encoding = Encoding.ASCII;
+
+    private VcdReader vcdReader;
+
+    public Header Read(Stream patch)
     {
-        private const uint MagicStamp = 0xC4C3D6;
-        private const byte SupportedVersion = 0x00;
-        private static readonly System.Text.Encoding Encoding = System.Text.Encoding.ASCII;
+      vcdReader = new VcdReader(patch);
 
-        private VcdReader vcdReader;
+      // Checks the first four bytes of the patch
+      CheckStamp();
 
-        public Header Read(Stream patch)
-        {
-            vcdReader = new VcdReader(patch);
-
-            // Checks the first four bytes of the patch
-            CheckStamp();
-
-            // Now let's go to the header
-            return ReadHeader();
-        }
-
-        private void CheckStamp()
-        {
-            // Can't read as uint32 directly since a integer format is non-encoded
-            // in a standard format.
-            uint stamp = BitConverter.ToUInt32(vcdReader.ReadBytes(4), 0);
-            if ((stamp & 0xFFFFFF) != MagicStamp)
-                throw new FormatException("not a VCDIFF input");
-
-            if ((stamp >> 24) > SupportedVersion)
-                throw new FormatException("VCDIFF input version > 0 is not supported");
-        }
-
-        private Header ReadHeader()
-        {
-            Header header = new Header();
-
-            HeaderFields fields = (HeaderFields)vcdReader.ReadByte();
-            if (fields.Contains(HeaderFields.NotSupported))
-                throw new FormatException("unrecognized header indicator bits set");
-
-            header.SecondaryCompressor = SecondaryCompressor.None;
-            if (fields.Contains(HeaderFields.SecondaryCompression))
-                throw new NotSupportedException("unavailable secondary compressor");
-
-            if (fields.Contains(HeaderFields.CodeTable))
-                throw new NotSupportedException("compressed code table not implemented");
-
-            if (fields.Contains(HeaderFields.ApplicationData))
-                header.ApplicationData = ReadApplicationData();
-
-            return header;
-        }
-
-        private string ReadApplicationData()
-        {
-            uint length = vcdReader.ReadInteger();
-            return Encoding.GetString(vcdReader.ReadBytes(length));
-        }
+      // Now let's go to the header
+      return ReadHeader();
     }
+
+    private void CheckStamp()
+    {
+      // Can't read as uint32 directly since a integer format is non-encoded
+      // in a standard format.
+      var stamp = BitConverter.ToUInt32(vcdReader.ReadBytes(4), 0);
+      if ((stamp & 0xFFFFFF) != MagicStamp)
+        throw new FormatException("not a VCDIFF input");
+
+      if (stamp >> 24 > SupportedVersion)
+        throw new FormatException("VCDIFF input version > 0 is not supported");
+    }
+
+    private Header ReadHeader()
+    {
+      var header = new Header();
+
+      var fields = (HeaderFields) vcdReader.ReadByte();
+      if (fields.Contains(HeaderFields.NotSupported))
+        throw new FormatException("unrecognized header indicator bits set");
+
+      header.SecondaryCompressor = SecondaryCompressor.None;
+      if (fields.Contains(HeaderFields.SecondaryCompression))
+        throw new NotSupportedException("unavailable secondary compressor");
+
+      if (fields.Contains(HeaderFields.CodeTable))
+        throw new NotSupportedException("compressed code table not implemented");
+
+      if (fields.Contains(HeaderFields.ApplicationData))
+        header.ApplicationData = ReadApplicationData();
+
+      return header;
+    }
+
+    private string ReadApplicationData()
+    {
+      var length = vcdReader.ReadInteger();
+      return Encoding.GetString(vcdReader.ReadBytes(length));
+    }
+  }
 }

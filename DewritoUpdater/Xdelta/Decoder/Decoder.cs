@@ -18,118 +18,107 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 
 namespace Xdelta
 {
-    public class Decoder : IDisposable
-	{
-		public Decoder(Stream input, Stream patch, Stream output)
-		{
-			Input  = input;
-			Patch  = patch;
-			Output = output;
+  public class Decoder : IDisposable
+  {
+    public Decoder(Stream input, Stream patch, Stream output)
+    {
+      Input = input;
+      Patch = patch;
+      Output = output;
 
-            HeaderReader headerReader = new HeaderReader();
-            Header = headerReader.Read(patch);
-		}
+      var headerReader = new HeaderReader();
+      Header = headerReader.Read(patch);
+    }
 
-        ~Decoder()
-        {
-            Dispose(false);
-        }
-        
-		public Stream Input {
-			get;
-			private set;
-		}
+    public Stream Input { get; private set; }
 
-		public Stream Patch {
-			get;
-			private set;
-		}
+    public Stream Patch { get; private set; }
 
-		public Stream Output {
-			get;
-			private set;
-		}
+    public Stream Output { get; private set; }
 
-        public Header Header {
-            get;
-            private set;
-        }
+    public Header Header { get; private set; }
 
-        public Window LastWindow {
-            get;
-            private set;
-        }
+    public Window LastWindow { get; private set; }
 
-        public event ProgressChangedHandler ProgressChanged;
-        public event FinishedHandler Finished;
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
 
-        public void Run()
-        {
-            WindowReader windowReader = new WindowReader(Patch, Header);
-            WindowDecoder windowDecoder = new WindowDecoder(Input, Output);
+    ~Decoder()
+    {
+      Dispose(false);
+    }
 
-            // Decode windows until there are no more bytes to process
-            while (Patch.Position < Patch.Length) {
-                DisposeLastWindow();
+    public event ProgressChangedHandler ProgressChanged;
+    public event FinishedHandler Finished;
 
-                Window window = windowReader.Read();
-                LastWindow = window;
+    public void Run()
+    {
+      var windowReader = new WindowReader(Patch, Header);
+      var windowDecoder = new WindowDecoder(Input, Output);
 
-                windowDecoder.Decode(window);
-                OnProgressChanged(1.0 * Patch.Position / Patch.Length);
-            }
+      // Decode windows until there are no more bytes to process
+      while (Patch.Position < Patch.Length)
+      {
+        DisposeLastWindow();
 
-            OnFinished();
-        }
+        var window = windowReader.Read();
+        LastWindow = window;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        windowDecoder.Decode(window);
+        OnProgressChanged(1.0*Patch.Position/Patch.Length);
+      }
 
-        private void Dispose(bool disposing)
-        {
-            if (disposing) {
-                DisposeLastWindow();
-                Input  = null;
-                Output = null;
-                Patch  = null;
-                Header = null;
-            }
-        }
+      OnFinished();
+    }
 
-        private void DisposeLastWindow()
-        {
-            if (LastWindow != null) {
-                LastWindow.Data.BaseStream.Dispose();
-                LastWindow.Data = null;
+    private void Dispose(bool disposing)
+    {
+      if (disposing)
+      {
+        DisposeLastWindow();
+        Input = null;
+        Output = null;
+        Patch = null;
+        Header = null;
+      }
+    }
 
-                LastWindow.Instructions.BaseStream.Dispose();
-                LastWindow.Instructions = null;
+    private void DisposeLastWindow()
+    {
+      if (LastWindow != null)
+      {
+        LastWindow.Data.BaseStream.Dispose();
+        LastWindow.Data = null;
 
-                LastWindow.Addresses.BaseStream.Dispose();
-                LastWindow.Addresses = null;
+        LastWindow.Instructions.BaseStream.Dispose();
+        LastWindow.Instructions = null;
 
-                LastWindow = null;
-            }
-        }
+        LastWindow.Addresses.BaseStream.Dispose();
+        LastWindow.Addresses = null;
 
-        private void OnProgressChanged(double progress)
-        {
-            if (ProgressChanged != null)
-                ProgressChanged(progress);
-        }
+        LastWindow = null;
+      }
+    }
 
-        private void OnFinished()
-        {
-            if (Finished != null)
-                Finished();
-        }
-	}
+    private void OnProgressChanged(double progress)
+    {
+      if (ProgressChanged != null)
+        ProgressChanged(progress);
+    }
+
+    private void OnFinished()
+    {
+      if (Finished != null)
+        Finished();
+    }
+  }
 }

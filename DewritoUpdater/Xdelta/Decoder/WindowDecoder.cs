@@ -18,55 +18,57 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using Xdelta.Instructions;
 
 namespace Xdelta
 {
-    public class WindowDecoder
+  public class WindowDecoder
+  {
+    private readonly CodeTable codeTable;
+    private readonly Stream input;
+    private readonly Stream output;
+
+    public WindowDecoder(Stream input, Stream output)
     {
-        private Stream input;
-        private Stream output;
-        private CodeTable codeTable;
-
-        public WindowDecoder(Stream input, Stream output)
-        {
-            this.input  = input;
-            this.output = output;
-            this.codeTable = CodeTable.Default;
-        }
-
-        public void Decode(Window window)
-        {
-            // Clear cache
-            codeTable.Cache.Initialize();
-
-            // Set the target window offset
-            window.TargetWindowOffset = (uint)output.Position;
-
-            // For each instruction
-            Instruction firstInstruction, secondInstruction;
-            while (!window.Instructions.Eof) {
-                byte codeIndex = window.Instructions.ReadByte();
-                codeTable.GetInstructions(codeIndex, out firstInstruction, out secondInstruction);
-
-                firstInstruction.Decode(window, input, output);
-                secondInstruction.Decode(window, input, output);
-            }
-
-            // Check all data has been decoded
-            if (output.Position - window.TargetWindowOffset != window.TargetWindowLength)
-                throw new Exception("Target window not fully decoded");
-
-            // Check checksum
-			if (window.Source.Contains(WindowFields.Adler32)) {
-				output.Position = window.TargetWindowOffset;
-				uint newAdler = Adler32.Run(1, output, window.TargetWindowLength);
-				if (newAdler != window.Checksum)
-					throw new Exception("Invalid checksum");
-			}
-        }
+      this.input = input;
+      this.output = output;
+      codeTable = CodeTable.Default;
     }
-}
 
+    public void Decode(Window window)
+    {
+      // Clear cache
+      codeTable.Cache.Initialize();
+
+      // Set the target window offset
+      window.TargetWindowOffset = (uint) output.Position;
+
+      // For each instruction
+      Instruction firstInstruction, secondInstruction;
+      while (!window.Instructions.Eof)
+      {
+        var codeIndex = window.Instructions.ReadByte();
+        codeTable.GetInstructions(codeIndex, out firstInstruction, out secondInstruction);
+
+        firstInstruction.Decode(window, input, output);
+        secondInstruction.Decode(window, input, output);
+      }
+
+      // Check all data has been decoded
+      if (output.Position - window.TargetWindowOffset != window.TargetWindowLength)
+        throw new Exception("Target window not fully decoded");
+
+      // Check checksum
+      if (window.Source.Contains(WindowFields.Adler32))
+      {
+        output.Position = window.TargetWindowOffset;
+        var newAdler = Adler32.Run(1, output, window.TargetWindowLength);
+        if (newAdler != window.Checksum)
+          throw new Exception("Invalid checksum");
+      }
+    }
+  }
+}

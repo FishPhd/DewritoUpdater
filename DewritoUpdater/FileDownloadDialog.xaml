@@ -1,16 +1,16 @@
-﻿<Controls:MetroWindow x:Class="Dewritwo.FileDownloadDialog"
+﻿<controls:MetroWindow x:Class="Dewritwo.FileDownloadDialog"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Updating..." Height="120" Width="400" WindowStyle="None"
                       ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
                       AllowsTransparency="True"
                       FontFamily="/Resources/#Aero Matics Light" TextOptions.TextFormattingMode="Display" FontSize="14"
                       BorderThickness="1">
   <Grid>
-    <Controls:MetroProgressBar x:Name="DownloadProgress" Width="350" VerticalAlignment="Bottom" Margin="0,0,0,20"
+    <controls:MetroProgressBar x:Name="DownloadProgress" Width="350" VerticalAlignment="Bottom" Margin="0,0,0,20"
                                Height="30" />
-    <Label x:Name="lblStatus" Content="Updating..." Margin="0,5,0,0" HorizontalContentAlignment="Center"
+    <Label x:Name="LblStatus" Content="Updating..." Margin="0,5,0,0" HorizontalContentAlignment="Center"
            VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI" />
   </Grid>
-</Controls:MetroWindow>
+</controls:MetroWindow>

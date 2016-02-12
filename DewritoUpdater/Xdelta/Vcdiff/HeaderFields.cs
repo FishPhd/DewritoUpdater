@@ -18,17 +18,18 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace Xdelta
 {
-	[FlagsAttribute]
-	internal enum HeaderFields : byte {
-		NotSupported = 0xF8,
+  [Flags]
+  internal enum HeaderFields : byte
+  {
+    NotSupported = 0xF8,
 
-		SecondaryCompression = 1 << 0, 	// Uses secondary compressor
-		CodeTable            = 1 << 1, 	// Contains code table data
-		ApplicationData      = 1 << 2,	// Contains application data
-	}
+    SecondaryCompression = 1 << 0, // Uses secondary compressor
+    CodeTable = 1 << 1, // Contains code table data
+    ApplicationData = 1 << 2 // Contains application data
+  }
 }
-

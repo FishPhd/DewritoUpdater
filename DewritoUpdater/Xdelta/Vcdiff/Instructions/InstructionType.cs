@@ -18,15 +18,14 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 namespace Xdelta.Instructions
 {
-    public enum InstructionType : byte {
-        Noop = 0,
-        Add  = 1,
-        Run  = 2,
-        Copy = 3
-    }
+  public enum InstructionType : byte
+  {
+    Noop = 0,
+    Add = 1,
+    Run = 2,
+    Copy = 3
+  }
 }
-

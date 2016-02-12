@@ -18,29 +18,26 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.IO;
 
 namespace Xdelta
 {
-    public class Window
+  public class Window
+  {
+    internal Window()
     {
-        internal Window()
-        {
-        }
-
-        public WindowFields Source      { get; set; }
-        public uint TargetWindowOffset { get; set; }
-        public uint SourceSegmentOffset { get; set; }
-        public uint TargetWindowLength  { get; set; }
-        public uint SourceSegmentLength { get; set; }
-
-        public uint Checksum { get; set; }
-
-        public WindowCompressedFields CompressedFields { get; set; }
-        public VcdReader Data { get; set; }
-        public VcdReader Instructions { get; set; }
-        public VcdReader Addresses { get; set; }
     }
-}
 
+    public WindowFields Source { get; set; }
+    public uint TargetWindowOffset { get; set; }
+    public uint SourceSegmentOffset { get; set; }
+    public uint TargetWindowLength { get; set; }
+    public uint SourceSegmentLength { get; set; }
+
+    public uint Checksum { get; set; }
+
+    public WindowCompressedFields CompressedFields { get; set; }
+    public VcdReader Data { get; set; }
+    public VcdReader Instructions { get; set; }
+    public VcdReader Addresses { get; set; }
+  }
+}

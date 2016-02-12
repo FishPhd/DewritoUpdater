@@ -114,6 +114,7 @@
     </ApplicationDefinition>
     <Compile Include="BinaryPatchUtility.cs" />
     <Compile Include="Cfg.cs" />
+    <Compile Include="Rcon.cs" />
     <Compile Include="Xdelta\AddressMode.cs" />
     <Compile Include="Xdelta\Adler32.cs" />
     <Compile Include="Xdelta\Cache.cs" />

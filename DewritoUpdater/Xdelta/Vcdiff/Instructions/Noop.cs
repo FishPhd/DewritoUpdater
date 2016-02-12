@@ -18,26 +18,25 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.IO;
 
 namespace Xdelta.Instructions
 {
-    public class Noop : Instruction
+  public class Noop : Instruction
+  {
+    public Noop()
+      : base(0, InstructionType.Noop)
     {
-        public Noop()
-            : base(0, InstructionType.Noop)
-        {
-        }
-
-        public override void DecodeInstruction(Window window, Stream input, Stream output)
-        {
-        }
-
-        public override string ToString()
-        {
-            return string.Format("NOOP");
-        }
     }
-}
 
+    public override void DecodeInstruction(Window window, Stream input, Stream output)
+    {
+    }
+
+    public override string ToString()
+    {
+      return "NOOP";
+    }
+  }
+}
