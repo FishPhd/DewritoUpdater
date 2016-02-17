@@ -206,7 +206,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
               <Label FontSize="14">Field of View:</Label>
               <Slider x:Name="Fov" Width="150" Margin="20,5,0,0" Value="90"
-                      ValueChanged="Fov_OnValueChanged" Maximum="150" Minimum="30"
+                      ValueChanged="Fov_OnValueChanged" Maximum="155" Minimum="55"
                       IsSnapToTickEnabled="True" TickFrequency="5"
                       Style="{DynamicResource FlatSlider}" />
               <TextBox Margin="25,0,0,0" Height="20"
