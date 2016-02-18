@@ -83,10 +83,6 @@ namespace Dewritwo
       catch
       {
         AppendDebugLine("Cfg Load Error: Resetting Launcher Specific Settings", Color.FromRgb(255, 0, 0), DebugLogger);
-        if (File.Exists("~/dewrito_prefs.cfg"))
-          File.Delete("~/dewrito_prefs.cfg");
-        if (File.Exists("~/launcher_prefs.cfg"))
-          File.Delete("~/launcher_prefs.cfg");
         Cfg.Initial("cfg");
         Load();
         AppendDebugLine("Cfg Reload Complete", Color.FromRgb(0, 255, 0), DebugLogger);
@@ -819,8 +815,7 @@ namespace Dewritwo
           _tempVars[_tempCount] = ConsoleInput.Text;
           _tempCount++;
         }
-
-        AppendDebugLine(Environment.NewLine + Environment.NewLine + ConsoleInput.Text, Color.FromRgb(51, 153, 255), RconConsole, true);
+        AppendDebugLine(Environment.NewLine + Environment.NewLine + ConsoleInput.Text, Color.FromRgb(255, 255, 255), RconConsole, true);
 
         if (!ConsoleInput.Text.Contains("start"))
           AppendDebugLine(Rcon.DewCon(ConsoleInput.Text), Color.FromRgb(150, 150, 150), RconConsole, true);
@@ -1648,18 +1643,12 @@ namespace Dewritwo
       StartTimer.Value = Convert.ToDouble(Cfg.ConfigFile["Server.Countdown"]);
       ChkSprint.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Server.SprintEnabled"]));
       //Launcher Settings
-      try
-      {
-        Colors.SelectedValue = Cfg.LauncherConfigFile["Launcher.Color"];
-        Themes.SelectedValue = Cfg.LauncherConfigFile["Launcher.Theme"];
-        Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Close"]));
-        RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
-        AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
-      }
-      catch
-      {
-        Console.WriteLine(@"Could not load launcher settings");
-      }
+      Colors.SelectedValue = Cfg.LauncherConfigFile["Launcher.Color"];
+      Themes.SelectedValue = Cfg.LauncherConfigFile["Launcher.Theme"];
+      Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Close"]));
+      RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
+      AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
+
 
       //VoIP Settings
       ChkVoIpEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.Enabled"]));
@@ -1679,6 +1668,12 @@ namespace Dewritwo
         Directory.CreateDirectory("mods/variants");
       if (Directory.Exists("bink_disabled"))
         ChkIntro.IsChecked = true;
+
+      if(Cfg.CheckIfProcessIsRunning("eldorado"))
+        AppendDebugLine(Environment.NewLine + "ElDorito is running!" + Environment.NewLine, Color.FromRgb(0, 255, 0), RconConsole, true);
+      else
+        AppendDebugLine(Environment.NewLine + "ElDorito is not running. You can start eldorito by typing 'start' or by starting ElDorito normally." + Environment.NewLine,
+              Color.FromRgb(255, 255, 0), RconConsole, true);
 
       _doritoKey = new Dictionary<int, string>
       {

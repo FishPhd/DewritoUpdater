@@ -26,7 +26,7 @@ namespace Dewritwo
         AsyncRcon(varName, varValue);
     }
 
-    private static bool CheckIfProcessIsRunning(string nameSubstring)
+    public static bool CheckIfProcessIsRunning(string nameSubstring)
     {
       return Process.GetProcesses().Any(p => p.ProcessName.Contains(nameSubstring));
     }
@@ -52,6 +52,7 @@ namespace Dewritwo
         {
           File.WriteAllLines(cfgFileName, lines.ToArray());
         }
+
         return true;
       }
       catch
@@ -101,6 +102,7 @@ namespace Dewritwo
     private static bool LoadConfigFile(string cfgFileName, ref Dictionary<string, string> returnDict)
     {
       if (returnDict == null) throw new ArgumentNullException(nameof(returnDict));
+
       if (!File.Exists(cfgFileName))
         return false;
 
@@ -177,9 +179,17 @@ namespace Dewritwo
         SetVariable("VoIP.Enabled", "1", ref ConfigFile, false);
         SetVariable("Graphics.Saturation", "1.000000", ref ConfigFile, false);
         SetVariable("Graphics.Bloom", "0.000000", ref ConfigFile, false);
+        //Launcher settings (moved to avoid the try catch in initial)
+        SetVariable("Launcher.Color", "blue", ref LauncherConfigFile, false);
+        SetVariable("Launcher.Theme", "BaseDark", ref LauncherConfigFile, false);
+        SetVariable("Launcher.Close", "0", ref LauncherConfigFile, false);
+        SetVariable("Launcher.Random", "0", ref LauncherConfigFile, false);
+        SetVariable("Launcher.IntroSkip", "1", ref LauncherConfigFile, false);
+        SetVariable("Launcher.AutoDebug", "0", ref LauncherConfigFile, false);
+        SetVariable("Launcher.PlayerMessage", "0", ref LauncherConfigFile, false);
       }
 
-      if (!launcherCfgFileExists || error == "launcher")
+      if (!launcherCfgFileExists)
       {
         SetVariable("Launcher.Color", "blue", ref LauncherConfigFile, false);
         SetVariable("Launcher.Theme", "BaseDark", ref LauncherConfigFile, false);
