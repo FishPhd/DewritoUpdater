@@ -259,6 +259,10 @@
               <Label FontSize="14">Sprint Enabled:</Label>
               <CheckBox x:Name="ChkSprint" Unchecked="chkSprint_Changed" Checked="chkSprint_Changed" Margin="5,0,0,0" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+              <Label FontSize="14">Assassinations Enabled:</Label>
+              <CheckBox x:Name="ChkAss" Unchecked="chkAss_Changed" Checked="chkAss_Changed" Margin="5,0,0,0" />
+            </StackPanel>
             <Label FontSize="14" FontWeight="Bold" Margin="0,5,0,0">Game Settings</Label>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
               <Label FontSize="14">Disable Intro Videos:</Label>

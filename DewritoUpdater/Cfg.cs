@@ -162,8 +162,16 @@ namespace Dewritwo
         SetVariable("Server.Port", "11775", ref ConfigFile, false);
         SetVariable("Server.ShouldAnnounce", "1", ref ConfigFile, false);
         SetVariable("Server.SprintEnabled", "0", ref ConfigFile, false);
-        SetVariable("Server.AssassinationEnabled", "0", ref ConfigFile, false);
         SetVariable("Server.UnlimitedSprint", "0", ref ConfigFile, false);
+        SetVariable("Server.FloodFilterEnabled", "1", ref ConfigFile, false);
+        SetVariable("Server.FloodMessageScoreShort", "2", ref ConfigFile, false);
+        SetVariable("Server.FloodMessageScoreLong", "5", ref ConfigFile, false);
+        SetVariable("Server.FloodTimeoutScore", "10", ref ConfigFile, false);
+        SetVariable("Server.FloodTimeoutSeconds", "120", ref ConfigFile, false);
+        SetVariable("Server.FloodTimeoutResetSeconds", "1800", ref ConfigFile, false);
+        SetVariable("Server.ChatLogEnabled", "1", ref ConfigFile, false);
+        SetVariable("Server.ChatLogFile", "chat.log", ref ConfigFile, false);
+        SetVariable("Server.AssassinationEnabled", "1", ref ConfigFile, false);
         SetVariable("Camera.Crosshair", "0", ref ConfigFile, false);
         SetVariable("Camera.FOV", "90.000000", ref ConfigFile, false);
         SetVariable("Camera.HideHUD", "0", ref ConfigFile, false);
@@ -179,6 +187,7 @@ namespace Dewritwo
         SetVariable("VoIP.Enabled", "1", ref ConfigFile, false);
         SetVariable("Graphics.Saturation", "1.000000", ref ConfigFile, false);
         SetVariable("Graphics.Bloom", "0.000000", ref ConfigFile, false);
+
         //Launcher settings (moved to avoid the try catch in initial)
         SetVariable("Launcher.Color", "blue", ref LauncherConfigFile, false);
         SetVariable("Launcher.Theme", "BaseDark", ref LauncherConfigFile, false);

@@ -1317,6 +1317,14 @@ namespace Dewritwo
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.ConfigFile);
     }
 
+    private void chkAss_Changed(object sender, RoutedEventArgs e)
+    {
+      if (!IsLoaded)
+        return;
+      Cfg.SetVariable("Server.AssassinationEnabled", Convert.ToString(Convert.ToInt32(ChkAss.IsChecked)), ref Cfg.ConfigFile);
+      Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.ConfigFile);
+    }
+
     private void StartTimer_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
       if (!IsLoaded)
@@ -1649,14 +1657,15 @@ namespace Dewritwo
       RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
       AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
 
-
       //VoIP Settings
       ChkVoIpEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.Enabled"]));
+      ChkAss.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Server.AssassinationEnabled"]));
       Agc.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.AGC"]));
       Echo.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.EchoCancellation"]));
       VolumeModifier.Value = Convert.ToDouble(Cfg.ConfigFile["VoIP.VolumeModifier"]);
       Ptt.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.PushToTalk"]));
       Val.Value = Convert.ToDouble(Cfg.ConfigFile["VoIP.VoiceActivationLevel"]);
+
       //Auto Exec
       if (!File.Exists("autoexec.cfg"))
         File.Create("autoexec.cfg");
