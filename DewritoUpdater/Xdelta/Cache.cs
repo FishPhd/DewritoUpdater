@@ -26,8 +26,8 @@ namespace Xdelta
   public class Cache
   {
     private readonly uint[] near;
-    private int nextSlot;
     private readonly uint[] same;
+    private int nextSlot;
 
     public Cache(byte nearSlots, byte sameSlots)
     {

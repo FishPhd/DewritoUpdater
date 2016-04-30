@@ -28,6 +28,7 @@ namespace Dewritwo
 
     private Dictionary<int, string> _doritoKey;
     private bool _updateText = true;
+    private bool skipUpdate;
     private string _keyValue;
     private string _eldoritoLatestVersion;
     private FileVersionInfo _eldoritoVersion;
@@ -107,7 +108,8 @@ namespace Dewritwo
 
           if (_settingsJson["gameFiles"] == null || _settingsJson["updateServiceUrl"] == null)
           {
-            AppendDebugLine("Error reading json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0), DebugLogger);
+            AppendDebugLine("Error reading json: gameFiles or updateServiceUrl is missing.", Color.FromRgb(255, 0, 0),
+              DebugLogger);
             Dispatcher.Invoke(() =>
             {
               BtnAction.Content = "Error";
@@ -245,7 +247,8 @@ namespace Dewritwo
 
       if (_filesToDownload.Count <= 0)
       {
-        AppendDebugLine("You have the latest version! (" + _latestUpdateVersion + ")", Color.FromRgb(0, 255, 0), DebugLogger);
+        AppendDebugLine("You have the latest version! (" + _latestUpdateVersion + ")", Color.FromRgb(0, 255, 0),
+          DebugLogger);
 
         BtnAction.Dispatcher.Invoke(
           () =>
@@ -259,12 +262,15 @@ namespace Dewritwo
 
       AppendDebugLine("An update is available. (" + _latestUpdateVersion + ")", Color.FromRgb(255, 255, 0), DebugLogger);
 
-      BtnAction.Dispatcher.Invoke(
-        () =>
-        {
-          BtnAction.Content = "Update";
-          fade.Stop(); // Start animation
-        });
+      if (!skipUpdate)
+      {
+        BtnAction.Dispatcher.Invoke(
+          () =>
+          {
+            BtnAction.Content = "Update";
+            fade.Stop(); // Start animation
+          });
+      }
     }
 
     private bool ProcessUpdateData()
@@ -500,7 +506,8 @@ namespace Dewritwo
 
           AppendDebugLine("Game file \"" + keyName + "\" data is invalid.", Color.FromRgb(255, 0, 0), DebugLogger);
           AppendDebugLine("Your hash: " + _fileHashes[keyName], Color.FromRgb(255, 0, 0), DebugLogger);
-          AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0), DebugLogger);
+          AppendDebugLine("Expected hash: " + x.Value.ToString().Replace("\"", ""), Color.FromRgb(255, 0, 0),
+            DebugLogger);
           AppendDebugLine("Please redo your ElDorito installation", Color.FromRgb(255, 0, 0), DebugLogger);
           Dispatcher.Invoke(() =>
           {
@@ -557,16 +564,19 @@ namespace Dewritwo
         catch
         {
           AppendDebugLine("Game file validation Error", Color.FromRgb(255, 0, 0), DebugLogger);
-          Dispatcher.Invoke(() =>
+          if (!skipUpdate)
           {
-            BtnAction.Content = "Error";
-            BtnSkip.Content = "Ignore";
-            if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
-                Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
+            Dispatcher.Invoke(() =>
             {
-              FlyoutHandler(FlyoutDebug);
-            }
-          });
+              BtnAction.Content = "Error";
+              BtnSkip.Content = "Ignore";
+              if (Cfg.LauncherConfigFile.ContainsKey("Launcher.AutoDebug") &&
+                  Cfg.LauncherConfigFile["Launcher.AutoDebug"] == "0")
+              {
+                FlyoutHandler(FlyoutDebug);
+              }
+            });
+          }
         }
       }
     }
@@ -772,8 +782,13 @@ namespace Dewritwo
 
     private void BTNSkip_OnClick(object sender, RoutedEventArgs e)
     {
+      skipUpdate = true;
       if (BtnSkip.Content.Equals("Ignore"))
+      {
         AppendDebugLine("Error ignored. You may now play (with possibility of problems)", Color.FromRgb(255, 255, 255), DebugLogger);
+        BtnAction.Content = "Play Game";
+        BtnSkip.Visibility = Visibility.Hidden;
+      }
       else if (BtnSkip.Content.Equals("Skip"))
         AppendDebugLine("Validating skipped. You may now play (with possibility of problems)",
           Color.FromRgb(255, 255, 255), DebugLogger);
@@ -806,7 +821,8 @@ namespace Dewritwo
     {
       if (e.Key == Key.Return)
       {
-        if (_tempCount < Entrycollectionsize && ConsoleInput.Text != string.Empty && _tempVars[_tempCount] != string.Empty)
+        if (_tempCount < Entrycollectionsize && ConsoleInput.Text != string.Empty &&
+            _tempVars[_tempCount] != string.Empty)
         {
           //Console.WriteLine(_tempVars[_tempCount] + @" " + _tempCount);
           while (_tempVars[_tempCount] != null)
@@ -815,7 +831,8 @@ namespace Dewritwo
           _tempVars[_tempCount] = ConsoleInput.Text;
           _tempCount++;
         }
-        AppendDebugLine(Environment.NewLine + Environment.NewLine + ConsoleInput.Text, Color.FromRgb(255, 255, 255), RconConsole, true);
+        AppendDebugLine(Environment.NewLine + Environment.NewLine + ConsoleInput.Text, Color.FromRgb(255, 255, 255),
+          RconConsole, true);
 
         if (!ConsoleInput.Text.Contains("start"))
           AppendDebugLine(Rcon.DewCon(ConsoleInput.Text), Color.FromRgb(150, 150, 150), RconConsole, true);
@@ -831,11 +848,14 @@ namespace Dewritwo
           try
           {
             Process.Start(startInfo);
-            AppendDebugLine(Environment.NewLine + "Starting ElDorito..." + Environment.NewLine, Color.FromRgb(0, 255, 0), RconConsole, true);
+            AppendDebugLine(Environment.NewLine + "Starting ElDorito..." + Environment.NewLine, Color.FromRgb(0, 255, 0),
+              RconConsole, true);
           }
           catch
           {
-            AppendDebugLine(Environment.NewLine + "Could not find eldorado.exe. Make sure the launcher is in your install location." + Environment.NewLine,
+            AppendDebugLine(
+              Environment.NewLine + "Could not find eldorado.exe. Make sure the launcher is in your install location." +
+              Environment.NewLine,
               Color.FromRgb(255, 255, 0), RconConsole, true);
           }
         }
@@ -1321,7 +1341,8 @@ namespace Dewritwo
     {
       if (!IsLoaded)
         return;
-      Cfg.SetVariable("Server.AssassinationEnabled", Convert.ToString(Convert.ToInt32(ChkAss.IsChecked)), ref Cfg.ConfigFile);
+      Cfg.SetVariable("Server.AssassinationEnabled", Convert.ToString(Convert.ToInt32(ChkAss.IsChecked)),
+        ref Cfg.ConfigFile);
       Cfg.SaveConfigFile("dewrito_prefs.cfg", Cfg.ConfigFile);
     }
 
@@ -1615,57 +1636,59 @@ namespace Dewritwo
     private void Load()
     {
       //Customization
-      if (Cfg.ConfigFile["Player.Name"] == "Forgot")
-        Cfg.SetVariable("Player.Name", "", ref Cfg.ConfigFile);
-      NameBox.Text = Cfg.ConfigFile["Player.Name"];
-      Weapon.SelectedValue = Cfg.ConfigFile.ContainsKey("Player.RenderWeapon")
-        ? Cfg.ConfigFile["Player.RenderWeapon"]
-        : Cfg.ConfigFile["Player.RenderWeapon"] = "assault_rifle";
-      Helmet.SelectedValue = Cfg.ConfigFile["Player.Armor.Helmet"];
-      Chest.SelectedValue = Cfg.ConfigFile["Player.Armor.Chest"];
-      Shoulders.SelectedValue = Cfg.ConfigFile["Player.Armor.Shoulders"];
-      Arms.SelectedValue = Cfg.ConfigFile["Player.Armor.Arms"];
-      Legs.SelectedValue = Cfg.ConfigFile["Player.Armor.Legs"];
-      var convertFromString1 = ColorConverter.ConvertFromString(Cfg.ConfigFile["Player.Colors.Primary"]);
+      NameBox.Text = Cfg.GetConfigVariable("Player.Name", "");
+      Weapon.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.RenderWeapon", "assault_rifle"));
+      Helmet.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.Armor.Helmet", "air_assault"));
+      Chest.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.Armor.Chest", "air_assault"));
+      Shoulders.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.Armor.Shoulders", "air_assault"));
+      Arms.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.Armor.Arms", "air_assault"));
+      Legs.SelectedValue = Dictionaries.GetWeapons().Values.ToList().IndexOf(Cfg.GetConfigVariable("Player.Armor.Legs", "air_assault"));
+      var convertFromString1 =
+        ColorConverter.ConvertFromString(Cfg.GetConfigVariable("Player.Colors.Primary", "#000000"));
       if (convertFromString1 != null)
         ClrPrimary.SelectedColor = (Color) convertFromString1;
-      var o = ColorConverter.ConvertFromString(Cfg.ConfigFile["Player.Colors.Secondary"]);
+      var o = ColorConverter.ConvertFromString(Cfg.GetConfigVariable("Player.Colors.Secondary", "#000000"));
       if (o != null)
         ClrSecondary.SelectedColor = (Color) o;
-      var s = ColorConverter.ConvertFromString(Cfg.ConfigFile["Player.Colors.Visor"]);
+      var s = ColorConverter.ConvertFromString(Cfg.GetConfigVariable("Player.Colors.Visor", "#000000"));
       if (s != null)
         ClrVisor.SelectedColor = (Color) s;
-      var fromString = ColorConverter.ConvertFromString(Cfg.ConfigFile["Player.Colors.Lights"]);
+      var fromString = ColorConverter.ConvertFromString(Cfg.GetConfigVariable("Player.Colors.Lights", "#000000"));
       if (fromString != null)
         ClrLights.SelectedColor = (Color) fromString;
-      var convertFromString = ColorConverter.ConvertFromString(Cfg.ConfigFile["Player.Colors.Holo"]);
+      var convertFromString = ColorConverter.ConvertFromString(Cfg.GetConfigVariable("Player.Colors.Holo", "#000000"));
       if (convertFromString != null)
         ClrHolo.SelectedColor = (Color) convertFromString;
       //Settings
-      Fov.Value = Convert.ToDouble(Cfg.ConfigFile["Camera.FOV"]);
-      CrosshairCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Camera.Crosshair"]));
-      RawInput.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Input.RawInput"]));
-      ServerName.Text = Cfg.ConfigFile["Server.Name"];
-      ServerPassword.Password = Cfg.ConfigFile["Server.Password"];
-      MaxPlayer.Value = Convert.ToDouble(Cfg.ConfigFile["Server.MaxPlayers"]);
-      StartTimer.Value = Convert.ToDouble(Cfg.ConfigFile["Server.Countdown"]);
-      ChkSprint.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Server.SprintEnabled"]));
+      Fov.Value = Convert.ToDouble(Cfg.GetConfigVariable("Camera.FOV", "90.000000"));
+      CrosshairCenter.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("Camera.Crosshair", "0")));
+      RawInput.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("Input.RawInput", "1")));
+      ServerName.Text = Cfg.GetConfigVariable("Server.Name", "Halo Online Server");
+      ServerPassword.Password = Cfg.GetConfigVariable("Server.Password", "");
+      MaxPlayer.Value = Convert.ToDouble(Cfg.GetConfigVariable("Server.MaxPlayers", "16"));
+      StartTimer.Value = Convert.ToDouble(Cfg.GetConfigVariable("Server.Countdown", "5"));
+      ChkSprint.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("Server.SprintEnabled", "1")));
       //Launcher Settings
-      Colors.SelectedValue = Cfg.LauncherConfigFile["Launcher.Color"];
-      Themes.SelectedValue = Cfg.LauncherConfigFile["Launcher.Theme"];
-      Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Close"]));
-      RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
-      AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
+      try
+      {
+        Colors.SelectedValue = Dictionaries.GetColor().Values.ToList().IndexOf(Cfg.LauncherConfigFile["Launcher.Color"]);
+        Themes.SelectedValue = Dictionaries.GetTheme().Values.ToList().IndexOf(Cfg.LauncherConfigFile["Launcher.Theme"]);
+        Launch.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Close"]));
+        RandomCheck.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.Random"]));
+        AutoDebug.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.LauncherConfigFile["Launcher.AutoDebug"]));
+      }
+      catch
+      {
+        Console.WriteLine(@"Could not load launcher settings");
+      }
 
       //VoIP Settings
-      ChkVoIpEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.Enabled"]));
-      ChkAss.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["Server.AssassinationEnabled"]));
-      Agc.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.AGC"]));
-      Echo.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.EchoCancellation"]));
-      VolumeModifier.Value = Convert.ToDouble(Cfg.ConfigFile["VoIP.VolumeModifier"]);
-      Ptt.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.ConfigFile["VoIP.PushToTalk"]));
-      Val.Value = Convert.ToDouble(Cfg.ConfigFile["VoIP.VoiceActivationLevel"]);
-
+      ChkVoIpEnabled.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("VoIP.Enabled", "1")));
+      Agc.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("VoIP.AGC", "1")));
+      Echo.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("VoIP.EchoCancellation", "1")));
+      VolumeModifier.Value = Convert.ToDouble(Cfg.GetConfigVariable("VoIP.VolumeModifier", "6"));
+      Ptt.IsChecked = Convert.ToBoolean(Convert.ToInt32(Cfg.GetConfigVariable("VoIP.PushToTalk", "1")));
+      Val.Value = Convert.ToDouble(Cfg.GetConfigVariable("VoIP.VoiceActivationLevel", "-45.000000"));
       //Auto Exec
       if (!File.Exists("autoexec.cfg"))
         File.Create("autoexec.cfg");
@@ -1677,12 +1700,6 @@ namespace Dewritwo
         Directory.CreateDirectory("mods/variants");
       if (Directory.Exists("bink_disabled"))
         ChkIntro.IsChecked = true;
-
-      if(Cfg.CheckIfProcessIsRunning("eldorado"))
-        AppendDebugLine(Environment.NewLine + "ElDorito is running!" + Environment.NewLine, Color.FromRgb(0, 255, 0), RconConsole, true);
-      else
-        AppendDebugLine(Environment.NewLine + "ElDorito is not running. You can start eldorito by typing 'start' or by starting ElDorito normally." + Environment.NewLine,
-              Color.FromRgb(255, 255, 0), RconConsole, true);
 
       _doritoKey = new Dictionary<int, string>
       {
@@ -1800,7 +1817,6 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(dark);
         VoipIcon.Fill = new SolidColorBrush(dark);
         AutoExecIcon.Fill = new SolidColorBrush(dark);
-        ConsoleIcon.Fill = new SolidColorBrush(dark);
         TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(dark);
         E.Fill = new SolidColorBrush(dark);
@@ -1817,11 +1833,10 @@ namespace Dewritwo
         SettingsIcon.Fill = new SolidColorBrush(light);
         VoipIcon.Fill = new SolidColorBrush(light);
         AutoExecIcon.Fill = new SolidColorBrush(light);
-        ConsoleIcon.Fill = new SolidColorBrush(light);
         TitleLabel.SetResourceReference(ForegroundProperty, "AccentColorBrush");
         L.Fill = new SolidColorBrush(light);
         E.Fill = new SolidColorBrush(light);
-        TitleLabel.Content = "Where is your god now";
+        TitleLabel.Content = "ELDEWRITO";
       }
     }
 

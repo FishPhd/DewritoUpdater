@@ -29,9 +29,9 @@ namespace Xdelta
     private const uint HardMaxWindowSize = 1u << 24;
 
     private readonly Header header;
+    private readonly VcdReader vcdReader;
     private uint lastWindowLength;
     private uint lastWindowOffset;
-    private readonly VcdReader vcdReader;
 
     public WindowReader(Stream patch, Header header)
     {

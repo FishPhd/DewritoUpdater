@@ -61,6 +61,16 @@ namespace Dewritwo
       }
     }
 
+    public static string GetConfigVariable(string key, string defaultValue)
+    {
+      if (ConfigFile.ContainsKey(key))
+      {
+        return ConfigFile[key];
+      }
+      ConfigFile[key] = defaultValue;
+      return defaultValue;
+    }
+
     private static string DewCmd(string cmd)
     {
       var data = new byte[1024];

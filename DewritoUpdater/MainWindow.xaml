@@ -425,7 +425,8 @@
         <Grid Margin="10,0,10,10">
           <RichTextBox x:Name="RconConsole" VerticalScrollBarVisibility="Auto" IsReadOnly="True"
                        VerticalAlignment="Bottom"
-                       BorderThickness="0" Margin="10,0,10,50" Height="auto" FontFamily="Consolas" Background="{x:Null}">
+                       BorderThickness="0" Margin="10,0,10,50" Height="auto" FontFamily="Consolas"
+                       Background="{x:Null}">
             <RichTextBox.Resources>
               <Style TargetType="{x:Type Paragraph}">
                 <Setter Property="Margin" Value="0" />
@@ -434,7 +435,8 @@
             <FlowDocument />
           </RichTextBox>
 
-          <TextBox x:Name="ConsoleInput" Foreground="{DynamicResource AccentColorBrush}" PreviewKeyDown="UserBox_KeyDown"
+          <TextBox x:Name="ConsoleInput" Foreground="{DynamicResource AccentColorBrush}"
+                   PreviewKeyDown="UserBox_KeyDown"
                    MaxHeight="25"
                    Height="25" VerticalAlignment="Bottom" Margin="10,0,10,10" FontFamily="Consolas"
                    BorderBrush="#FF969696" />
