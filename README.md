@@ -1,3 +1,5 @@
+## This is simply here for archival purposes. TheElDorito launcher can be found here https://github.com/ElDewrito/DewritoUpdater
+
 # Dewrito Launcher 2.0
 
 #### Like the Launcher and want to support me? [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6LJCPCQ3KLQ28&lc=US&item_name=FishPhd%20Github&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
